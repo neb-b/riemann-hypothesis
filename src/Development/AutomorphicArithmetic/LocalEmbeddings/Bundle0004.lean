@@ -1,0 +1,304 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1769
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.MatchedFiniteMapsRestriction
+public import Development.AutomorphicArithmetic.LocalEmbeddings.ReBaseReal
+public import Development.AutomorphicArithmetic.LocalEmbeddings.ReBaseArch
+public import Development.AutomorphicArithmetic.LocalEmbeddings.ReBaseZeta
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2200
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1305
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1403
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0008
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0055
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0059
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0053
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0041
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0042
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0043
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0891
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsHeightIffOfDegreeEq
+public import Development.AbelianVarietyTheory.Definitions.Divisors.WedgeNrmLeOfWedgeNormLe
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0048
+public import Development.AbelianVarietyTheory.Definitions.Divisors.MemLevEigenIffTransl
+public import Formalism.LocalToGlobal.IndefiniteForms.IndefiniteTree.RealCubicMeans.LogMeanShares.LogMeanStatements.HSClaim
+public import Development.AbelianVarietyTheory.Definitions.Divisors.GenRatios
+public import Development.AbelianVarietyTheory.Definitions.Divisors.BadElt
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0045
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1877
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.CardLeOfDetEqZero
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1498
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0204
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1535
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1645
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SectionPullbackExistsUnique
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1327
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.MulVecMemOfFrame
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1468
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1819
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.Bundle0007
+public import Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.Bundle0050
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2193
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1523
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0027
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksChar
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1490
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1712
+
+@[expose] public section
+
+-- bundled from Development.AutomorphicArithmetic.LocalEmbeddings.ReBaseMain
+section
+open scoped TensorProduct Matrix
+open NumberField IsDedekindDomain MeasureTheory Filter Topology Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.ThK
+
+noncomputable section
+
+namespace GlobalTheory.ReBase
+
+variable {F E : Type} [Field F] [NumberField F] [Field E] [NumberField E] [Algebra F E] {σ : E →ₐ[F] E}
+  {B : Base F E} {a a' : ℕ} {G : Geo σ a a'} {X : Chars F E} {V : Spc F E a} {V' : Spc F E a'} {Z : Spc F E (a + a')}
+
+theorem polMatch_iso {R R₃ : RealMaps F a a'} {Rf Rf₃ : FinMaps F a a'} {ψ₀ : R.Pi ≃ₗ[ℂ] R₃.Pi} {l₀ : ℂ}
+    {ψ : ∀ v, Rf.Pi v ≃ₗ[ℂ] Rf₃.Pi v} {l : Pl (F := F) → ℂ} (hl1 : ∀ v ∉ X.T, l v = 1)
+    (hR : ∀ f ∈ G.M.Pol B.ψ B.emb, R₃.p f = ψ₀ (R.p f)) (hR' : ∀ f ∈ G.M'.Pol B.ψ B.emb, R₃.p' f = l₀ • ψ₀ (R.p' f))
+    (hRf : ∀ v, ∀ φ ∈ SB (Fin a × Fin (a + a') → Fv F v), Rf₃.p v φ = ψ v (Rf.p v φ))
+    (hRf' : ∀ v, ∀ φ ∈ SB (Fin a' × Fin (a + a') → Fv F v), Rf₃.p' v φ = l v • ψ v (Rf.p' v φ))
+    {Φ Φ'} (hM : PolMatch B G X R Rf Φ Φ') : PolMatch B G X R₃ Rf₃ ((l₀ * ∏ v ∈ X.T, l v) • Φ) Φ' := by
+  set Λ : ℂ := l₀ * ∏ v ∈ X.T, l v with hΛdef
+  obtain ⟨T, hT, m, m', f, φ, f', φ', hf, hf', hΦ, hΦ', heq⟩ := hM
+  have hΛT : l₀ * ∏ v ∈ T, l v = Λ := by
+    rw [hΛdef, Finset.prod_subset hT (fun v _ hv => hl1 v hv)]
+  refine ⟨T, hT, m, m', fun i => Λ • f i, φ, f', φ', fun i => ⟨Submodule.smul_mem _ _ (hf i).1, (hf i).2⟩, hf', ?_, hΦ', ?_⟩
+  · rw [hΦ, Finset.smul_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    funext x
+    simp [GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.pure, mul_assoc]
+  · let L := TensorProduct.map ψ₀.toLinearMap (PiTensorProduct.map fun v : T => (ψ v).toLinearMap)
+    have h1 := congrArg L heq
+    set_option synthInstance.maxHeartbeats 100000 in
+      simp only [map_sum, L, TensorProduct.map_tmul, PiTensorProduct.map_tprod, LinearEquiv.coe_coe] at h1
+    have lhs : ∀ i, R₃.p (Λ • f i) ⊗ₜ[ℂ] (PiTensorProduct.tprod ℂ fun v : T => Rf₃.p v (φ i v)) =
+        Λ • (ψ₀ (R.p (f i)) ⊗ₜ[ℂ] PiTensorProduct.tprod ℂ fun v : T => ψ v (Rf.p v (φ i v))) := by
+      intro i
+      have e : (fun v : T => Rf₃.p v (φ i v)) = fun v : T => ψ v (Rf.p v (φ i v)) :=
+        funext fun v => hRf v _ ((hf i).2.1 v)
+      rw [e, map_smul, hR _ (hf i).1, ← TensorProduct.smul_tmul']
+    have rhs : ∀ j, R₃.p' (f' j) ⊗ₜ[ℂ] (PiTensorProduct.tprod ℂ fun v : T => Rf₃.p' v (φ' j v)) =
+        Λ • (ψ₀ (R.p' (f' j)) ⊗ₜ[ℂ] PiTensorProduct.tprod ℂ fun v : T => ψ v (Rf.p' v (φ' j v))) := by
+      intro j
+      have e : (fun v : T => Rf₃.p' v (φ' j v)) = fun v : T => l v • ψ v (Rf.p' v (φ' j v)) :=
+        funext fun v => hRf' v _ ((hf' j).2.1 v)
+      rw [e, MultilinearMap.map_smul_univ, hR' _ (hf' j).1, ← TensorProduct.smul_tmul', TensorProduct.tmul_smul, smul_smul]
+      simp only [RingHom.id_apply]
+      rw [Finset.prod_coe_sort, hΛT]
+    simp only [lhs, rhs, ← Finset.smul_sum, h1]
+
+
+variable (B G V V' Z) in
+def kapId : (_root_.GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.AE (F := F) (E := E))ˣ :=
+  ∏ v : B.P, locIdele F (splitPrime (B.τ v))
+    (Units.map (complMap (splitPrime_under (B.τ v))).toMonoidHom (kap G V V' Z v.1))
+
+theorem chr_kapId (χ : Chr F E) :
+    (χ (kapId B G V V' Z) : ℂ) = ∏ v : B.P, (chrW χ (B.τ v) (kap G V V' Z v.1) : ℂ) := by
+  rw [kapId, map_prod]
+  exact map_prod Circle.coeHom _ _
+
+variable {om : Rep σ G.V G.W} {om' : Rep σ G.V' G.W}
+
+
+theorem acts_pureA {κ : Type} [Fintype κ] {T : ((κ → AF F) → ℂ) → (κ → AF F) → ℂ} {f f₁ : SInf F κ}
+    (h : Acts (evI F) T f f₁) {g : (κ → Af F) → ℂ} (hg : g ∈ SB (κ → Af F)) : T (pureA F f g) = pureA F f₁ g := by
+  refine h (fun x => g fun i => (x i).2) ⟨fun x z hz => ?_, Submodule.subset_span ⟨f, g, hg, rfl⟩⟩
+  show g (fun i => (x i + z i).2) = g (fun i => (x i).2)
+  congr 1
+  funext i
+  show (x i).2 + (z i).2 = (x i).2
+  rw [GlobalTheory.RealLift.fin_eq_zero_of_at hz i, add_zero]
+
+theorem pureA_smul {κ : Type} [Fintype κ] (c : ℂ) (f : SInf F κ) (g : (κ → Af F) → ℂ) :
+    pureA F (⇑(c • f)) g = c • pureA F f g := by
+  funext x
+  simp only [pureA, SchwartzMap.smul_apply, smul_eq_mul, Pi.smul_apply, mul_assoc]
+
+theorem acts_congr {κ : Type} [Fintype κ] {T T₁ : ((κ → AF F) → ℂ) → (κ → AF F) → ℂ} (e : ∀ Φ ∈ schA F κ, T Φ = T₁ Φ)
+    {f f₁ : (κ → mixedEmbedding.mixedSpace F) → ℂ} (h : Acts (evI F) T f f₁) : Acts (evI F) T₁ f f₁ :=
+  fun r hr => (e _ hr.2).symm.trans (h r hr)
+
+end GlobalTheory.ReBase
+
+end
+end
+
+-- bundled from Development.AutomorphicArithmetic.LocalEmbeddings.RootInCore
+section
+set_option synthInstance.maxHeartbeats 400000
+
+noncomputable section
+
+namespace GlobalTheory.CovTop.BadRep
+
+section Forms
+
+open NumberField Formalism.BasicNotions Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G.FD GlobalTheory.AllWt GlobalTheory.CovTop
+open GlobalTheory.IndefiniteRowSideFullHecke.LevelStructureAutomorphisms (LevelAut)
+open GlobalTheory.LevPull (CongMod)
+open GlobalTheory.LevDesc (transl)
+open ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.FieldBC
+
+
+set_option maxHeartbeats 1000000 in
+theorem pull_data : ∀ (D : D7) (T : CoreJ D) (j : ℕ) (Y : Deep T.toCore j) (e : ℕ) (o : ℝ), LawsJ T → InR D j → Y.Good e o →
+    ∀ (a : (D.host.E →+* ℂ) × ℕ → ℕ) (n : ℕ), Dom a n → ∀ (G : Type) [Group G]
+    (lev : G → (T.Q.Dw j).La →ₗ[𝓞 D.host.E] (T.Q.Dw j).La),
+    ActLev (Xo := T.Q.Xo j) T.Q.c (fun g => (lev g, (LinearMap.id : (T.Q.Dw j).La →ₗ[𝓞 D.host.E] (T.Q.Dw j).La))) →
+    (∀ g, ∀ f ∈ T.cuspA j a n, actLev (Xo := T.Q.Xo j) T.Q.c (fun g => (lev g, (LinearMap.id : (T.Q.Dw j).La →ₗ[𝓞 D.host.E] (T.Q.Dw j).La))) g f ∈ T.cuspA j a n) →
+    ∀ (θ : LevelAut (T.Q.Dw j) Y.d.l₂ →* G), (∀ γ, CongMod T.Q.l.Mb (liftLa γ) (lev (θ γ))) →
+    ∃ π : cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n) →ₛₗ[((Y.d.eF : Y.c'.F →+* Y.d.c₂.F).comp (incF T.Q.c Y.c' Y.hle))] Y.V (wtZ a n),
+      (∀ (m : ℕ) (b : Fin m → cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n)), LinearIndependent T.Q.c.F b →
+        LinearIndependent Y.d.c₂.F fun k => π (b k)) ∧
+      (∀ γ (v : cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n)), ∃ hv : actLev (Xo := T.Q.Xo j) T.Q.c (fun g => (lev g, (LinearMap.id : (T.Q.Dw j).La →ₗ[𝓞 D.host.E] (T.Q.Dw j).La))) (θ γ) v ∈ cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n),
+        transl Y.d.Xo₂ Y.d.c₂ γ (π v) = π ⟨_, hv⟩) ∧
+      (∀ g : Y.V (wtZ a n), (∀ γ, CongMod T.Q.l.Mb (liftLa γ) LinearMap.id → transl Y.d.Xo₂ Y.d.c₂ γ g = g) →
+        g ∈ Submodule.span Y.d.c₂.F (Set.range π)) := by
+  intro D T j Y e o hT hj hG a n hD G _ lev hact hkeep θ hθ
+  obtain ⟨hL₂, hgal, hP⟩ := GlobalTheory.DeepLaws.laws_galois_pull D T j Y e o hT hj hG hG.unit hG.modelW
+  have hL := (GlobalTheory.LevGeo.laws_of_coreJ D T j hT hj).1
+  have hpq : (T.Q.Dw j).p ≠ (T.Q.Dw j).q ∧ 1 ≤ (T.Q.Dw j).p + (T.Q.Dw j).q := by
+    obtain ⟨hp, hq, -⟩ := hL.dat
+    obtain ⟨h1, h2⟩ := hj
+    have hk := D.R.m_add_three_le_k
+    rw [hp, hq]
+    simp only [Ranks.sigW]
+    omega
+  obtain ⟨π, p1, p2, -, -, p5, -⟩ := GlobalTheory.T.levelCover_cuspForm_pullback_injective_descent D j _ _ _ _ _ Y.c' Y.hle _ _ Y.d _ _ hL hL₂ hG.lev.1 hgal a n hD hD.2
+  have hC : ∀ {f}, f ∈ cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n) ↔ f ∈ T.cuspA j a n := fun {f} => by rw [cuspW_wtZ]
+  have s₁ : ∀ {f}, f ∈ cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n) → f ∈ sec (T.Q.Xo j) T.Q.c a n :=
+    fun h => cusp_le_sec _ _ _ a n (hC.1 h)
+  have s₂ : ∀ {f}, f ∈ Y.V (wtZ a n) → f ∈ sec Y.d.Xo₂ Y.d.c₂ a n := fun h => by
+    rw [Deep.V, cuspW_wtZ] at h
+    exact cusp_le_sec _ _ _ a n h
+  have hact₂ : ActLev (Xo := Y.d.Xo₂) Y.d.c₂ (GlobalTheory.FormTies.levFull (T.Q.Dw j) Y.d.l₂) :=
+    GlobalTheory.FullLevelAction.actLaws_levFull Y.d.Xo₂ Y.d.c₂ hpq.2 (hG.lev.2 ▸ Nat.coprime_one_left _)
+  obtain ⟨hact', hbc⟩ := GlobalTheory.FieldBC.actLev_and_actBC D _ _ _ _ _ Y.c' Y.hle G _ hact
+  have hO : GlobalTheory.CoverSec.AllOver Y.d := GlobalTheory.CoverSec.allOver_of_overBase Y.d hG.lev.1.1.2.2
+    (GlobalTheory.ClsVal.Cmp.overBase_of_ne hpq.1 hL.levA Y.d)
+  have geo : ∀ {f f' : Rul (T.Q.Xo j) Y.c'} {u u' : Rul Y.d.Xo₂ Y.d.c₂}, GlobalTheory.LevPull.Pull Y.d f u → GlobalTheory.LevPull.Pull Y.d f' u' →
+      f = f' → ∀ (k : Type) [Field k] [IsAlgClosed k] [Algebra Y.d.c₂.F k] (y : FrPt Y.d.Xo₂ Y.d.c₂ k),
+        evR Y.d.Xo₂ Y.d.c₂ u y = evR Y.d.Xo₂ Y.d.c₂ u' y := by
+    rintro f _ u u' h h' rfl k _ _ _ y₂
+    letI := GlobalTheory.CoverSec.algBelow Y.d k
+    obtain ⟨y, hy⟩ := GlobalTheory.CoverSec.exists_frOver_below Y.d (fun _ => rfl) y₂ (hO k (fun _ => rfl) y₂)
+    rw [h k (fun _ => rfl) y₂ y hy, h' k (fun _ => rfl) y₂ y hy]
+  let act := actLev (Xo := T.Q.Xo j) T.Q.c (fun g => (lev g, (LinearMap.id : (T.Q.Dw j).La →ₗ[𝓞 D.host.E] (T.Q.Dw j).La)))
+  let π' := (Y.V (wtZ a n)).subtype.comp π
+  have hc : ∀ γ (v : cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n)) (hv : act (θ γ) v ∈ cuspW (T.Q.Xo j) T.Q.c (T.U j) (wtZ a n)),
+      (transl Y.d.Xo₂ Y.d.c₂ γ).toLinearMap (π' v) = π' ⟨_, hv⟩ := by
+    intro γ v hv'
+    have hv := ((_root_.GlobalTheory.FieldBC.rulBC_sec_val_linear _ _ _ _ _ _ _ Y.hle).1 a n _ (s₁ v.2)).1
+    have h1 := GlobalTheory.LevPullEquiv.pull_actLev D j _ _ _ _ _ Y.d hpq.2 hG.lev.1 hG.lev.2
+      (GlobalTheory.ClsVal.Cmp.overBase_of_ne hpq.1 hL.levA Y.d) G _ lev liftLa hact' hact₂ (θ γ) γ (hθ γ) a n _ hv _
+      (s₂ (π v).2) (p1 v)
+    refine GlobalTheory.CoverSec.eq_of_geometric (GlobalTheory.LevelEquivCompare.actLev_mem_sec hact₂ γ (s₂ (π v).2)).1 (s₂ (π _).2).1 (geo h1 (p1 ⟨_, hv'⟩) ?_)
+    refine GlobalTheory.CoverSec.eq_of_geometric (GlobalTheory.LevelEquivCompare.actLev_mem_sec hact' _ hv).1
+      ((_root_.GlobalTheory.FieldBC.rulBC_sec_val_linear _ _ _ _ _ _ _ Y.hle).1 a n _ (s₁ hv')).1.1 fun k _ _ _ y => ?_
+    letI := resAlg Y.hle k
+    exact (hbc a n (θ γ) 1 _ _ _ hv (fun _ => s₁ v.2) (GlobalTheory.LevelEquivCompare.isBC_rulBC Y.hle (s₁ v.2)) k (fun _ => rfl) y).trans
+      (GlobalTheory.LevelEquivCompare.isBC_rulBC Y.hle (s₁ hv') k (fun _ => rfl) y).symm
+  refine ⟨π, fun m b hb => p2 m b hb, fun γ v => ⟨hC.2 (hkeep _ _ (hC.1 v.2)), hc γ v _⟩, fun g hg => ?_⟩
+  have h1 : GlobalTheory.LevPull.FibConst Y.d g := by
+    refine (_root_.GlobalTheory.LevInv.fibConst_iff_invariant D j _ _ _ _ _ Y.d hpq.2 hG.lev.1 hG.lev.2 (Or.inl ⟨hpq.1, hL.levA⟩) liftLa (fun γ => LinearMap.ext (liftLa_spec γ)) a n g
+      (s₂ g.2)).2 fun γ hγ => hg γ hγ
+  exact (p5 g).2 h1
+
+end Forms
+
+section Point
+
+open NumberField Formalism.BasicNotions Formalism.MainNotions Formalism.L2.Pj Formalism.L2.DIV Formalism.IndefR.Links Formalism.IndefR.FWT
+open ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.FD GlobalTheory.BigTop GlobalTheory.AllWt GlobalTheory.CovTop GlobalTheory.BadCount
+open GlobalTheory.LevDesc (TypeFrame IsTypeLevel typeRed typeEmb grpHR grpGHR transl)
+open GlobalTheory.IndefiniteRowSideFullHecke.LevelStructureAutomorphisms (LevelAut)
+open GlobalTheory.IndefiniteRowSideFullHecke.LevelCuspCharacters (Sq LevelGroup levelU psiU unitri superDiag)
+open GlobalTheory.LevPull (CongMod)
+open Formalism.MainNotions.ArithmeticCylinders
+open scoped TensorProduct
+
+theorem isUniUp_iff {k : Type} [Field k] {r : ℕ} (g : GL (Fin r) k) :
+    IsUniUp (g : Matrix (Fin r) (Fin r) k) ↔ g ∈ unitri r k :=
+  ⟨fun h => ⟨fun a b hab => (h a b).1 hab, fun a => (h a a).2 rfl⟩,
+    fun h a b => ⟨fun hab => h.1 hab, fun e => e ▸ h.2 a⟩⟩
+
+theorem sum_entN {k : Type} [Field k] {r : ℕ} (M : Matrix (Fin r) (Fin r) k) :
+    ∑ i ∈ Finset.range (r - 1), entN M i (i + 1) = superDiag M := by
+  have h1 : ∀ i : Fin r, (∑ j : Fin r, if j.val = i.val + 1 then M i j else 0) = entN M i (i + 1) := by
+    intro i
+    unfold entN
+    split_ifs with h
+    · rw [Finset.sum_eq_single ⟨i.val + 1, h.2⟩ (fun b _ hb => if_neg fun e => hb (Fin.ext e)) (by simp)]
+      simp
+    · refine Finset.sum_eq_zero fun j _ => if_neg fun e => h ⟨i.2, by have := j.2; omega⟩
+  rw [superDiag, Finset.sum_congr rfl fun i _ => h1 i, Fin.sum_univ_eq_sum_range (fun i => entN M i (i + 1)) r]
+  refine Finset.sum_subset (Finset.range_subset_range.2 (Nat.sub_le r 1)) fun x hx hx' => ?_
+  simp only [Finset.mem_range] at hx hx'
+  unfold entN
+  rw [dite_eq_right]
+  omega
+
+theorem root_in_core {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D}
+    {Kc : Formalism.MainNotions.G.Consts} {Y0 : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y0 cX} {Csz : ℝ} (p : PtAt ex Csz) (k : Fin 2) :
+    ∃ ζ : p.T.Q.c.F, IsPrimitiveRoot ζ (D.host.g k) := by
+  have hN0 : p.T.Q.l.M' ≠ 0 := Nat.lcm_ne_zero (by have := p.T.Q.l.three_le; omega) p.T.Q.l.A_pos.ne'
+  have hM : p.T.Q.l.M = D.host.g 0 * D.host.g 1 := p.fw.laws.pins.2.1.1
+  have hz : IsPrimitiveRoot (⟨ReciprocityTheory.ChartRestriction.G.Geo.Tor.zeta p.T.Q.l.M', p.T.Q.c.zeta_mem⟩ : p.T.Q.c.F) p.T.Q.l.M' :=
+    IsPrimitiveRoot.of_map_of_injective (f := p.T.Q.c.F.val) (Complex.isPrimitiveRoot_exp _ hN0) Subtype.val_injective
+  obtain ⟨c, hc⟩ : D.host.g k ∣ p.T.Q.l.M' :=
+    dvd_trans (hM ▸ GlobalTheory.LevDesc.g_dvd k) (Nat.dvd_lcm_left p.T.Q.l.M p.T.Q.l.A)
+  exact ⟨_, hz.pow (Nat.pos_of_ne_zero hN0) (hc.trans (mul_comm _ _))⟩
+
+theorem idx_eq {D : D7} {k k' : Fin 2} {X X' : Type} [Semiring X] [Semiring X'] (e : ZMod (D.host.g k) ≃+* X)
+    (e' : ZMod (D.host.g k') ≃+* X') (hX : Nat.card X = Nat.card X') : k = k' := by
+  haveI : NeZero (D.host.g k) := ⟨(D.host.g_prime k).ne_zero⟩
+  haveI : NeZero (D.host.g k') := ⟨(D.host.g_prime k').ne_zero⟩
+  have h : D.host.g k = D.host.g k' := by
+    rw [← Nat.card_zmod (D.host.g k), ← Nat.card_zmod (D.host.g k'), Nat.card_congr e.toEquiv, Nat.card_congr e'.toEquiv, hX]
+  fin_cases k <;> fin_cases k'
+  · rfl
+  · exact absurd h D.host.g_ne
+  · exact absurd h.symm D.host.g_ne
+  · rfl
+
+variable {D : D7} {L : SizeData₂ D} {hT : GatTies D} {Gi : Formalism.MainNotions.G.Inst D L} {Gl : Formalism.MainNotions.G.LatInst D} {Kc : Formalism.MainNotions.G.Consts}
+  {Y0 : DivX D} {cX : ExtraC} {ex : Extra D L hT Gi Gl Kc Y0 cX} {Csz : ℝ}
+
+
+set_option maxHeartbeats 1000000 in
+theorem frame_data (p : PtAt ex Csz) (i : Fin D.R.m) (Y : Cov p i) {e : ℕ} {o : ℝ} (hY : Y.Good e o) :
+    ∃ (fr : TypeFrame (dat p i) Y.d.l₂) (ε : Sq D.host ≃ p.R.toRealDat.Pg) (iso' : ∀ v : Sq D.host, ZMod (D.host.g v.1) ≃+* kP (ε v).1)
+      (t : LevelGroup D.host ≃* p.P.Gp), IsTypeLevel Y.d.l₂ ∧
+      (∀ γ, CongMod p.T.Q.l.Mb (liftLa γ) ((p.O i).lev (t (typeRed fr γ)))) ∧
+      (∀ γ, CongMod p.T.Q.l.Mb (liftLa γ) LinearMap.id → typeRed fr γ = 1) ∧
+      (∀ u v, p.R.toRealDat.eG (t u) (ε v) = Formalism.UG.bc (iso' v : ZMod (D.host.g v.1) →+* kP (ε v).1) (u v)) ∧
+      (∀ u, t u ∈ (p.F.lv2.lvl false).P ↔ u ∈ levelU D.host) := by
+  have hJ := p.fw.laws
+  have hj : InR D ((i : ℕ) + 1) := ⟨Nat.succ_pos _, i.2⟩
+  have hM : p.T.Q.l.M = D.host.g 0 * D.host.g 1 := hJ.pins.2.1.1
+  have hA : p.T.Q.l.A = 1 := hJ.pins.2.1.2
+  have hl₂ : IsTypeLevel Y.d.l₂ :=
+    (GlobalTheory.LevDesc.isTypeLevel_of_eq hY.lev.2 (hY.lev.1.2.1.trans (by rw [hM])) (hM ▸ hY.lev.1.2.2.1.symm)).1
+  have hMb := ((p.pins i).2.tuple ()).half.1
+  have hr : (dat p i).p + (dat p i).q = D.R.r := (GlobalTheory.Member.exists_iotaOK D p.T.Q hJ.pins _ hj).2.1
+  have hle : Y.d.l₂.Mb ≤ p.T.Q.l.Mb := hY.lev.1.2.2.2.1.le.trans Ideal.mul_le_left
+  obtain ⟨fr, ε, iso, h1, h2⟩ := _root_.GlobalTheory.TypeFrameCover.typeFrame_cover D _ _ _ _ _ p.R.toRealDat i (p.charW.base.lev.βW i) _ (dat p i) _ Y.d.l₂ _
+    (GlobalTheory.LevelAction.latEmb_iotaW p.T hJ i) hr hA hM hl₂ hle hMb _ (p.pins i).2.lift.lev
+  obtain ⟨t, ψ, t1, t2, t3, t4⟩ := GlobalTheory.TypeBase.base_level_unip_char D _ _ _ _ _ p.R.toRealDat p.F.lv2 p.charW.base.grp.levels p.charW.base.grp.chiW
+    (root_in_core p) ε iso
+  exact ⟨fr, ε, iso, t, hl₂, fun γ => h1 γ _ (t1 _), h2, t1, t3⟩
+
+end Point
+
+end GlobalTheory.CovTop.BadRep
+end
+end
+

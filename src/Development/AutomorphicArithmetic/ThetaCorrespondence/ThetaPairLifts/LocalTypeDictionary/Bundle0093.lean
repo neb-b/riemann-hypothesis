@@ -1,0 +1,212 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.DiscreteSpectrumResidualClassification
+public import Mathlib
+public import Development.AbelianVarietyTheory.Statements.CuspFrameWeights.DiscreteSpectrumKFiniteDecomposition
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0002
+public import Formalism.UnipotentAdelicQuotients.Bundle0003
+public import Formalism.PeriodIntegrals.Bundle0016
+public import Formalism.SharpRestriction.GlobalSchurBounds.ThickPlacesCorollaryOfAnyTranslate
+public import Development.AbelianVarietyTheory.Definitions.Foundations.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0043
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.UpLReStage
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.ExistsSplittingCharacterSelf
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0016
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.WeilRepresentationUnitaryPair
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.HasDRepIffHasDerivAt
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HarishChandraModulesOn
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0031
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0032
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0041
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.NotIsCompactUnivFv
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.CmHostRootComplexEqPmSqrt
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.NonzeroPlacesOverPrimesLifts
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.DsExistsOfDiscreteSeriesExists
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksStage
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.IsPrincipalMapOfAlgHom
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.NonemptyAlgHomOfIsRayOfDvd
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.ExistsUniqueHcharOfFiniteOrder
+public import Development.AbelianVarietyTheory.PublishedTheorems.WeberRayClassFields.WeberRayFieldSt
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0044
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.UnivChar
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0029
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0007
+public import Formalism.SharpRestriction.LevelLetterCocycles.BlochKatoPhases
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0014
+public import Development.AbelianVarietyTheory.BlockTheory.NonGaloisCusps.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0014
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.RankOneCuspidalUnitaryCharEquivApplySymm
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0376
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0650
+public import Development.AbelianVarietyTheory.BlockTheory.NonGaloisCusps.Bundle0009
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.Bundle0001
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.Bundle0023
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0740
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0033
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0646
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0045
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.IsRhoPtOfSplitting
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0831
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.ColumnCompatibleSelection
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.STiesR
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.DivisionPairOfAdelicFormsFaceColumnsData
+public import Formalism.LocalToGlobal.Bundle0002
+public import Formalism.LocalToGlobal.Bundle0001
+public import Formalism.LocalToGlobal.IndefiniteReal.DoubleCosetOperators.TwistedCharacterValue
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.TwArgs
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0008
+public import Formalism.LocalToGlobal.Divisibility.Bundle0007
+public import Development.AutomorphicArithmetic.CharacterBoxes.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0007
+public import Formalism.SharpRestriction.GlobalSchurBounds.LinkTied
+public import Formalism.SharpRestriction.GlobalSchurBounds.MainSup
+public import Formalism.LocalToGlobal.GroupLattices.AdmissibleAtGeneratorPlaces
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.WuDecayAll
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.Bundle0005
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.DiscreteSeriesOfFormalDegree
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.SettingsFormsExistList
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0052
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.SiegelWeilUnitaryConvergent
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0016
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.WeilSiegelFormulaUnitary
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0532
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0011
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.FieldValuesMemFixedField
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.IsWeilDatumOOneOfRankZero
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0034
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.AdmissibleDiscreteSeriesOfHasParam
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0004
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0671
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0717
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0035
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsReadsAtOfCover
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0508
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ConstructionStartingChoicesOfFineAdelicData
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0657
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0705
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0707
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0710
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0001
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0054
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0087
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0070
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.FormulaAt
+public import Development.AbelianVarietyTheory.Definitions.Divisors.TieTest
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.Bundle0002
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.ToricSymbols
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0041
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.InfClassAt
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.Bundle0003
+public import Development.AbelianVarietyTheory.Definitions.Foundations.NormSumPairRankZeroOfCurveCoordNorm
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.Bundle0002
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.ThetaIntegralsAgree
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.Bundle0015
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0033
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0002
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0005
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0019
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2930
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle3058
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2936
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0587
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.Bundle0012
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1516
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SumOKEx
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.GridKernelPairingIndependentOfExpansion
+public import Development.AbelianVarietyTheory.Definitions.Divisors.InvVolConjLevelOne
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1579
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1686
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0468
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0438
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.FlipOfWeilConvergenceAndTheta
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0691
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0423
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.Bundle0354
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0424
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0431
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0588
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0485
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0135
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0518
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0432
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.ExistsMatchOver
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0680
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.IsRealFam
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.IterationAndLinearityCuspidal
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsCombAt
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0689
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0654
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.LastRowRealIteratedIntegralEqConstMulFinite
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0668
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0646
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0684
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.RepresentationAtEveryPlace
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.SingleCosetOffTwistPlacesLargeDepth
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.DefinitePeriodDependsOnProductFunction
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.RowTestDefinitePeriodChangeOfMeasures
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0686
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0676
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0648
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0089
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0011
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0049
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0060
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0041
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0092
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.Bundle0090
+
+@[expose] public section
+
+-- bundled from Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.CompatibleSystemWeightOneSaturated
+section
+section
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.Inhab Formalism.L2.Host GlobalTheory.EX GlobalTheory.EX.OB GlobalTheory.Mem GlobalTheory.Mem.Col2 GlobalTheory.Mem.Top GlobalTheory.Mem.Top.GroupRetwisting GlobalTheory.Mem.Top.Bl NumberField IsDedekindDomain
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.HeightCounting.Up GlobalTheory.Mem.SRe GlobalTheory.Mem.R3.Rw
+noncomputable section
+namespace GlobalTheory.HeightCounting.Up
+theorem weightOne_saturated_of_hypotheses : _root_.GlobalTheory.Mem.Top.Bl.HypAAlt → _root_.GlobalTheory.Mem.Top.Bl.MultiplicityCoverHypotheses → ExistsUnlocalizedSaturatedState := fun hA hH =>
+  _root_.GlobalTheory.T.exists_bare_form_of_saturation hA hH (_root_.GlobalTheory.Mem.R3.Rw.datExt0_of_hypotheses hH.cover hA.a5 hA.a6 hA.a7 hA.a8 hA.a9 hA.a10)
+end GlobalTheory.HeightCounting.Up
+end
+end
+
+section
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.Inhab Formalism.L2.Host GlobalTheory.EX GlobalTheory.EX.OB GlobalTheory.Mem GlobalTheory.Mem.Col2 GlobalTheory.Mem.Top GlobalTheory.Mem.Top.GroupRetwisting GlobalTheory.Mem.Top.Bl NumberField IsDedekindDomain
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+open GlobalTheory.HeightCounting.Up GlobalTheory.Mem.SRe GlobalTheory.Mem.R3.Rw
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.compatibleSystem_weightOne_saturated : _root_.GlobalTheory.Mem.Top.Bl.HypAAlt → _root_.GlobalTheory.Mem.Top.Bl.MultiplicityCoverHypotheses → ExistsUnlocalizedSaturatedState := by
+  first | exact @_root_.GlobalTheory.HeightCounting.Up.weightOne_saturated_of_hypotheses | exact _root_.GlobalTheory.HeightCounting.Up.weightOne_saturated_of_hypotheses | (intros; apply _root_.GlobalTheory.HeightCounting.Up.weightOne_saturated_of_hypotheses <;> assumption)
+end
+end
+
+-- bundled from Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.LocalTypeDictionary.ThetaLiftRowPropertiesConj
+section
+section
+namespace GlobalTheory.RowClaim.Join
+theorem thetaLift_row_properties_conj : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → GlobalTheory.SquareSt.WeilConvergence → GlobalTheory.SquareSt.LocalMatching → GlobalTheory.SquareSt.ThetaIntegralsAgree → GlobalTheory.RowClaim.SumOKK ∧ GlobalTheory.RowClaim.ConstK ∧ GlobalTheory.RowClaim.LinK ∧ GlobalTheory.RowClaim.Formula2K ∧ GlobalTheory.RowClaim.SumRatK := by
+  intro P K L s1 s2 s3
+  have c := _root_.GlobalTheory.ConstNZ.constK_alt P K L s1 s2 s3
+  have cusp := _root_.GlobalTheory.T.twisted_thetaLift_cuspidal P
+  have sum := _root_.GlobalTheory.T.sumOKK_of_theta_local_inputs P
+  exact ⟨sum, c, _root_.GlobalTheory.T.twisted_characters_linearly_independent P cusp,
+    GlobalTheory.T.rowTestLiftFormula_principalLevel (_root_.GlobalTheory.T.twisted_period_identity P) (_root_.GlobalTheory.T.twisted_lift_flip_invariant P cusp s1 K c) (_root_.GlobalTheory.T.twisted_theta_integral_unfolds P cusp sum)
+      (_root_.GlobalTheory.T.twisted_jets_assemble P sum) c sum,
+    _root_.GlobalTheory.RowTest.sumRatK_of_sumOKK sum⟩
+end GlobalTheory.RowClaim.Join
+end
+
+section
+set_option maxHeartbeats 1000000 in
+theorem _root_.GlobalTheory.T.thetaLift_row_properties : _root_.GlobalTheory.FunPr.ThetaLocalInputs → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.ThetaIntegralsAgree → GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.LocalMatching → GlobalTheory.SquareSt.WeilConvergence → GlobalTheory.SquareSt.LocalMatching → GlobalTheory.SquareSt.ThetaIntegralsAgree → GlobalTheory.RowClaim.SumOKK ∧ GlobalTheory.RowClaim.ConstK ∧ GlobalTheory.RowClaim.LinK ∧ GlobalTheory.RowClaim.Formula2K ∧ GlobalTheory.RowClaim.SumRatK := by
+  first | exact @_root_.GlobalTheory.RowClaim.Join.thetaLift_row_properties_conj | exact _root_.GlobalTheory.RowClaim.Join.thetaLift_row_properties_conj | (intros; apply _root_.GlobalTheory.RowClaim.Join.thetaLift_row_properties_conj <;> assumption)
+end
+end
+

@@ -1,0 +1,31 @@
+module
+
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.BaseChangeUnits.SolCOfSolDescent
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.TemperedLocalComponents.Bundle0007
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.BaseChangeUnits.CentralResidueGroups.Bundle0001
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.BaseChangeUnits.CentralResidueGroups.Bundle0002
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.WeakShimuraTheory.AutomorphicCharacters.Bundle0001
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.Bundle0005
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.BuildingsResidueChars.Bundle0033
+
+@[expose] public section
+
+open NumberField IsDedekindDomain Neutral.B1 Formalism.L2.Host Formalism.ConjugateSelfDual ReciprocityTheory.Gal Formalism.MainNotions.N GlobalTheory.CuspRep GlobalTheory.HeckeGal GlobalTheory.GalOfCusp UpperTheory.V UpperTheory.V.Af UpperTheory.V.Af.Bc UpperTheory.V.Z.Bc
+
+private theorem cc_ex (Ω : Type) [Field Ω] [CharZero Ω] [IsAlgClosure ℚ Ω] : ∃ c : G ℚ Ω, IsConjEl c := by
+  haveI : Algebra.IsAlgebraic ℚ Ω := IsAlgClosure.isAlgebraic
+  let j : Ω →ₐ[ℚ] ℂ := (by
+    refine @_root_.IsAlgClosed.lift _ _ _ _ _ _ _ _ _ _ _ ?_ ?_ ?_
+    solve_by_elim* (maxDepth := 2) only [*,
+      @_root_.DivisionSemiring.to_moduleIsTorsionFree,
+      @_root_.Algebra.IsIntegral.isAlgebraic, @_root_.inferInstance])
+  let E : IntermediateField ℚ ℂ := j.fieldRange
+  let e : Ω ≃ₐ[ℚ] E := AlgEquiv.ofInjectiveField j
+  haveI : Normal ℚ E := Normal.of_algEquiv e
+  let f : E →ₐ[ℚ] ℂ := ((starRingEnd ℂ).toRatAlgHom).comp E.val
+  let g : E ≃ₐ[ℚ] E := f.restrictNormal' E
+  have hg : ∀ y : E, ((g y : E) : ℂ) = starRingEnd ℂ (y : ℂ) := fun y => f.restrictNormal_commutes E y
+  have he : ∀ x : Ω, ((e x : E) : ℂ) = j x := fun x => rfl
+  refine ⟨e.trans (g.trans e.symm), j.toRingHom, fun x => ?_⟩
+  show j (e.symm (g (e x))) = starRingEnd ℂ (j x)
+  rw [← he, AlgEquiv.apply_symm_apply, hg, he]

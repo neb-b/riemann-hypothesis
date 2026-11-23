@@ -1,0 +1,25 @@
+module
+
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0189
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.CubeTheorem.SchemeModels
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0067
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IsProperSpreadsOut
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LbSpreads
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.CubeTheorem.LBSpreads
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0571
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0010
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0743
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0734
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0738
+
+@[expose] public section
+
+set_option autoImplicit false
+
+namespace GlobalTheory.SpreadingModels
+
+theorem cubeTheorem_holds : GlobalTheory.Published.CubeTheorem :=
+  _root_.GlobalTheory.CompanionTheory.CubePerf.cubeTheorem_of_perfAll (GlobalTheory.T.perfect_of_models (_root_.GlobalTheory.CompanionTheory.CubeModels.hasModel_of_spreads _root_.GlobalTheory.CompanionTheory.NoethApprox.schemeModels GlobalTheory.T.smooth_spreads_out _root_.GlobalTheory.CompanionTheory.SpreadingModels.properSpreads _root_.GlobalTheory.CompanionTheory.LBLimit.lbSpreads))
+
+end GlobalTheory.SpreadingModels

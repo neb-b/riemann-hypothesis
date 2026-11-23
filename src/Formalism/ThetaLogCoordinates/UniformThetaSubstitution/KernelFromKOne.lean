@@ -1,0 +1,23 @@
+module
+
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.KOneConsequence
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.OmegaOfTraceDuality
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.FrobeniusPartialCoboundaryBound
+public import Mathlib
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FirstDeriv
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.Bundle0001
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.EDecomp
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.MPlaces
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.EGauss
+public import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.Bundle0001
+
+@[expose] public section
+
+namespace Formalism.InvariantFactorPaths.G7.Top
+
+open Formalism.InvariantFactorPaths.G7
+
+theorem gcIsBeta : GcIsBeta := g_c_is_beta
+theorem gcUnique : GcUnique := g_c_unique
+
+end Formalism.InvariantFactorPaths.G7.Top

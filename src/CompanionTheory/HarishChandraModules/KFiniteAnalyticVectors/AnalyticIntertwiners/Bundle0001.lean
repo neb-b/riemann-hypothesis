@@ -1,0 +1,301 @@
+module
+
+public import CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AnalyticIntertwiners.Clause1
+public import CompanionTheory.AutomorphicTheory.HarishChandraMultiplicity.HCMult
+public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.DiscreteSeriesExistence.Bundle0007
+public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.AnalyticVectors.Bundle0002
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BridgeCPX
+public import CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AdmissibleSmoothVectors.FinalAll
+
+@[expose] public section
+
+-- bundled from CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AnalyticIntertwiners.GrowthOfBasic
+section
+open Matrix
+open scoped InnerProductSpace
+
+noncomputable section
+
+namespace CompanionTheory.D.gk.HC
+
+open ReciprocityTheory.ChartRestriction.DS
+
+section
+
+variable {n : ℕ} {ε : Fin n → Bool} {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+  {σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ] H)}
+
+theorem mem_of_forall_orthogonalComplement_inner_eq_zero (T : Submodule ℂ H) [FiniteDimensional ℂ T] {x : H} (h : ∀ y ∈ Tᗮ, ⟪y, x⟫_ℂ = 0) : x ∈ T := by
+  rw [← Submodule.orthogonal_orthogonal T]
+  exact (Submodule.mem_orthogonal' _ _).2 fun y hy => by rw [← inner_conj_symm, h y hy, map_zero]
+
+theorem exists_sub_B (hK : KFSm) (hσ : Formalism.MainNotions.S.IsURepOn (Formalism.MainNotions.S.UJset ε) σ)
+    (hirr : Formalism.MainNotions.S.IsIrredOn (Formalism.MainNotions.S.UJset ε) σ) {v : smD ε σ} (hv : v ∈ KF ε σ) :
+    ∃ S : Submodule ℂ (smD ε σ), FiniteDimensional ℂ S ∧ v ∈ S ∧ (S : Set (smD ε σ)) ⊆ KF ε σ ∧
+      IsKStableSub ε (smE ε σ) S ∧ ∀ k ∈ Kset ε, ∀ w ∈ S, ∃ w' ∈ S, (w' : H) = σ k w := by
+  obtain ⟨S, hSf, hvS, hSK⟩ := hv
+  let S' : Submodule ℂ (smD ε σ) := S.comap (smD ε σ).subtype
+  have hmap : S'.map (smD ε σ).subtype ≤ S := Submodule.map_comap_le _ _
+  have hS'f : FiniteDimensional ℂ S' := by
+    have e := Submodule.equivMapOfInjective (smD ε σ).subtype Subtype.val_injective S'
+    have : FiniteDimensional ℂ (S'.map (smD ε σ).subtype) := Submodule.finiteDimensional_of_le hmap
+    exact LinearEquiv.finiteDimensional e.symm
+  have hKF : (S' : Set (smD ε σ)) ⊆ KF ε σ := fun w hw => ⟨S, hSf, hw, hSK⟩
+  have hS'K : ∀ k ∈ Kset ε, ∀ w ∈ S', ∃ w' ∈ S', (w' : H) = σ k w := by
+    intro k hk w hw
+    have h1 : σ k w ∈ S := hSK k hk w hw
+    have h2 : σ k w ∈ smD ε σ := (hK _ ε H σ hσ hirr).1 _ ⟨S, hSf, h1, hSK⟩
+    exact ⟨⟨_, h2⟩, h1, rfl⟩
+  exact ⟨S', hS'f, hvS, hKF, isKStableSub_of_kStable hσ (isDerivedOn_smE hσ) S' hS'f hS'K, hS'K⟩
+
+theorem kavg_mem_B (hσ : Formalism.MainNotions.S.IsURepOn (Formalism.MainNotions.S.UJset ε) σ) {e : Formalism.REAL.KG ε → ℂ} (he : Continuous e)
+    (T : Submodule ℂ H) [FiniteDimensional ℂ T] {x : H} (hx : ∀ k : Formalism.REAL.KG ε, σ (Formalism.REAL.toMK k) x ∈ T) :
+    Formalism.MainNotions.BridgeCPX.kavg hσ he x ∈ T := by
+  refine mem_of_forall_orthogonalComplement_inner_eq_zero T fun y hy => ?_
+  rw [show Formalism.MainNotions.BridgeCPX.kavg hσ he x = _ from Formalism.MainNotions.BridgeCPX.kavg_apply hσ he x, ← integral_inner (Formalism.MainNotions.BridgeCPX.kavg_integrable hσ he x)]
+  refine MeasureTheory.integral_eq_zero_of_ae (Filter.Eventually.of_forall fun k => ?_)
+  simp only [inner_smul_right, Pi.zero_apply]
+  rw [Submodule.inner_left_of_mem_orthogonal (hx k) hy, mul_zero]
+
+end
+
+theorem uIrr_of (hK : KFSm) (hC : CasScal) : UIrr := by
+  intro n ε H _ _ _ σ hσ hirr N hNK hNst
+  have hD := isDerivedOn_smE hσ
+  obtain ⟨c, hc⟩ := hC n ε H σ hσ hirr
+  by_cases hN : N = ⊥
+  · exact Or.inl hN
+  right
+  obtain ⟨v, hvN, hv0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hN
+  obtain ⟨S, hSf, hvS, -, hSst, -⟩ := exists_sub_B hK hσ hirr (hNK hvN)
+  let V := N ⊓ S
+  have hVf : FiniteDimensional ℂ V := Submodule.finiteDimensional_of_le inf_le_right
+  have hVK : IsKStableSub ε (smE ε σ) V := fun a b hab w hw => ⟨hNst a b w hw.1, hSst a b hab w hw.2⟩
+  have hgen : genSub (smE ε σ) V ≤ N := sInf_le ⟨inf_le_left, fun a b w hw => hNst a b w hw⟩
+  set C := ((genSub (smE ε σ) V).map (smD ε σ).subtype).topologicalClosure with hCdef
+  have hvC : (v : H) ∈ C := Submodule.le_topologicalClosure _
+    (Submodule.mem_map_of_mem (Submodule.mem_sInf.2 fun T hT => hT.1 ⟨hvN, hvS⟩))
+  have hCtop : C = ⊤ := by
+    rcases hirr C (Submodule.isClosed_topologicalClosure _)
+      (closure_genSub_stable hσ hD hVf hVK fun w _ => hc w) with h | h
+    · exfalso
+      rw [h, Submodule.mem_bot] at hvC
+      exact hv0 (Subtype.ext hvC)
+    · exact h
+  refine Set.Subset.antisymm hNK fun u hu => ?_
+  obtain ⟨e, T, he, hTf, hrange, hfix⟩ :=
+    Formalism.MainNotions.BridgeCPX.HCAdm_of_mult CompanionTheory.HCMult.harish_chandra_multiplicity n ε H σ hσ hirr (u : H) hu
+  set P := Formalism.MainNotions.BridgeCPX.kavg hσ he
+  let NT : Submodule ℂ H := N.map (smD ε σ).subtype ⊓ T
+  have : FiniteDimensional ℂ NT := Submodule.finiteDimensional_of_le inf_le_right
+  have hPN : ∀ w ∈ N, P w ∈ NT := by
+    intro w hw
+    obtain ⟨S₁, hS₁f, hwS₁, -, hS₁st, -⟩ := exists_sub_B hK hσ hirr (hNK hw)
+    let V₁ := N ⊓ S₁
+    have hV₁f : FiniteDimensional ℂ V₁ := Submodule.finiteDimensional_of_le inf_le_right
+    have hV₁K : IsKStableSub ε (smE ε σ) V₁ := fun a b hab x hx => ⟨hNst a b x hx.1, hS₁st a b hab x hx.2⟩
+    have hKst := kStable_of_isKStableSub hσ hD V₁ hV₁f hV₁K
+    let W₁ : Submodule ℂ H := V₁.map (smD ε σ).subtype
+    have : FiniteDimensional ℂ W₁ := Module.Finite.map V₁ _
+    have h1 : P w ∈ W₁ := kavg_mem_B hσ he W₁ fun k => by
+      obtain ⟨x, hx, hxe⟩ := hKst _ k.2 w ⟨hw, hwS₁⟩
+      exact ⟨x, hx, hxe⟩
+    obtain ⟨x, hx, hxe⟩ := Submodule.mem_map.1 h1
+    refine ⟨Submodule.mem_map.2 ⟨x, hx.1, hxe⟩, ?_⟩
+    exact hrange w
+  have hclosed : IsClosed (NT : Set H) := Submodule.closed_of_finiteDimensional NT
+  have hsub : (P '' ((genSub (smE ε σ) V).map (smD ε σ).subtype : Set H)) ⊆ NT := by
+    rintro _ ⟨_, ⟨w, hw, rfl⟩, rfl⟩
+    exact hPN w (hgen hw)
+  have huC : (u : H) ∈ closure ((genSub (smE ε σ) V).map (smD ε σ).subtype : Set H) := by
+    rw [← Submodule.topologicalClosure_coe, ← hCdef, hCtop]; trivial
+  have h1 : P u ∈ NT := (hclosed.closure_subset_iff.2 hsub) (image_closure_subset_closure_image P.continuous
+    ⟨_, huC, rfl⟩)
+  have hPu : P u = u := hfix
+  rw [hPu] at h1
+  obtain ⟨x, hx, hxe⟩ := Submodule.mem_map.1 h1.1
+  have : x = u := Subtype.ext hxe
+  exact this ▸ hx
+
+end CompanionTheory.D.gk.HC
+end
+end
+
+-- bundled from CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AnalyticIntertwiners.SubquotientNontrivial
+section
+open Matrix
+
+noncomputable section
+
+namespace CompanionTheory.D.gk.HC
+
+open ReciprocityTheory.ChartRestriction.DS
+
+variable {n : ℕ} {ε : Fin n → Bool} {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+  {σ : Matrix (Fin n) (Fin n) ℂ → (H →L[ℂ] H)}
+
+theorem mem_smD_of_isKFin [CompleteSpace H] (hσ : Formalism.MainNotions.S.IsURepOn (Formalism.MainNotions.S.UJset ε) σ)
+    (hirr : Formalism.MainNotions.S.IsIrredOn (Formalism.MainNotions.S.UJset ε) σ) {v : H} (hv : Formalism.MainNotions.S.IsKFin ε σ v) : v ∈ smD ε σ := by
+  exact (mem_smD_iff ε σ v).mpr (CompanionTheory.D.gk.admitted.kFin_smooth n ε H σ hσ hirr v hv)
+
+theorem Jm_conjTranspose_self : (Jm ε)ᴴ = Jm ε := by
+  rw [Jm, Matrix.diagonal_conjTranspose]
+  congr 1
+  funext a
+  by_cases h : ε a = true <;> simp [h]
+
+theorem UJset_mul_mem {a b : Matrix (Fin n) (Fin n) ℂ} (ha : a ∈ Formalism.MainNotions.S.UJset ε) (hb : b ∈ Formalism.MainNotions.S.UJset ε) :
+    a * b ∈ Formalism.MainNotions.S.UJset ε := by
+  have ha' : aᴴ * Formalism.REAL.Jm ε * a = Formalism.REAL.Jm ε := ha
+  have hb' : bᴴ * Formalism.REAL.Jm ε * b = Formalism.REAL.Jm ε := hb
+  show (a * b)ᴴ * Formalism.REAL.Jm ε * (a * b) = Formalism.REAL.Jm ε
+  rw [Matrix.conjTranspose_mul]
+  calc bᴴ * aᴴ * Formalism.REAL.Jm ε * (a * b) = bᴴ * (aᴴ * Formalism.REAL.Jm ε * a) * b := by
+        simp only [Matrix.mul_assoc]
+    _ = Formalism.REAL.Jm ε := by rw [ha', hb']
+
+theorem conjTranspose_mem_kset_and_inv_eq {k : Matrix (Fin n) (Fin n) ℂ} (hk : k ∈ Formalism.REAL.Kset ε) :
+    kᴴ ∈ Formalism.REAL.Kset ε ∧ k⁻¹ = kᴴ := by
+  have hk' : k ∈ Matrix.unitaryGroup (Fin n) ℂ ∧ k * Formalism.REAL.Jm ε = Formalism.REAL.Jm ε * k := hk
+  obtain ⟨hu, hc⟩ := hk'
+  have hJ : (Formalism.REAL.Jm ε)ᴴ = Formalism.REAL.Jm ε := Jm_conjTranspose_self
+  have h1 : kᴴ * k = 1 := by
+    have := Matrix.mem_unitaryGroup_iff'.mp hu
+    rwa [Matrix.star_eq_conjTranspose] at this
+  refine ⟨?_, Matrix.inv_eq_left_inv h1⟩
+  show kᴴ ∈ Matrix.unitaryGroup (Fin n) ℂ ∧ kᴴ * Formalism.REAL.Jm ε = Formalism.REAL.Jm ε * kᴴ
+  refine ⟨?_, ?_⟩
+  · rw [Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose, Matrix.conjTranspose_conjTranspose]
+    exact h1
+  · have := congrArg Matrix.conjTranspose hc
+    rw [Matrix.conjTranspose_mul, Matrix.conjTranspose_mul, hJ] at this
+    exact this.symm
+
+theorem inG_conj_of_mem_kset {k X : Matrix (Fin n) (Fin n) ℂ} (hk : k ∈ Formalism.REAL.Kset ε) (hX : inG ε X) :
+    inG ε (k * X * k⁻¹) := by
+  obtain ⟨hks, hinv⟩ := conjTranspose_mem_kset_and_inv_eq hk
+  have hk' : k ∈ Matrix.unitaryGroup (Fin n) ℂ ∧ k * Formalism.REAL.Jm ε = Formalism.REAL.Jm ε * k := hk
+  have hks' : kᴴ ∈ Matrix.unitaryGroup (Fin n) ℂ ∧ kᴴ * Formalism.REAL.Jm ε = Formalism.REAL.Jm ε * kᴴ := hks
+  have hc : k * Jm ε = Jm ε * k := hk'.2
+  have hcs : kᴴ * Jm ε = Jm ε * kᴴ := hks'.2
+  have hX' : Xᴴ * Jm ε + Jm ε * X = 0 := hX
+  show (k * X * k⁻¹)ᴴ * Jm ε + Jm ε * (k * X * k⁻¹) = 0
+  rw [hinv, Matrix.conjTranspose_mul, Matrix.conjTranspose_mul, Matrix.conjTranspose_conjTranspose]
+  have e1 : k * (Xᴴ * kᴴ) * Jm ε = k * (Xᴴ * Jm ε) * kᴴ := by
+    simp only [Matrix.mul_assoc]
+    rw [hcs]
+  have e2 : Jm ε * (k * X * kᴴ) = k * (Jm ε * X) * kᴴ := by
+    simp only [← Matrix.mul_assoc]
+    rw [← hc]
+  rw [e1, e2, ← add_mul, ← mul_add, hX', mul_zero, zero_mul]
+
+theorem mem_UJset_of_mem_kset {k : Matrix (Fin n) (Fin n) ℂ} (hk : k ∈ Formalism.REAL.Kset ε) : k ∈ Formalism.MainNotions.S.UJset ε := by
+  have hk' : k ∈ Matrix.unitaryGroup (Fin n) ℂ ∧ k * Formalism.REAL.Jm ε = Formalism.REAL.Jm ε * k := hk
+  obtain ⟨hu, hc⟩ := hk'
+  have h1 : kᴴ * k = 1 := by
+    have := Matrix.mem_unitaryGroup_iff'.mp hu
+    rwa [Matrix.star_eq_conjTranspose] at this
+  show kᴴ * Formalism.REAL.Jm ε * k = Formalism.REAL.Jm ε
+  rw [Matrix.mul_assoc, ← hc, ← Matrix.mul_assoc, h1, Matrix.one_mul]
+
+theorem sigma_dS_conj (hσ : Formalism.MainNotions.S.IsURepOn (Formalism.MainNotions.S.UJset ε) σ) {k : Matrix (Fin n) (Fin n) ℂ}
+    (hk : k ∈ Formalism.REAL.Kset ε) {X : Matrix (Fin n) (Fin n) ℂ} (hX : inG ε X) (v : smD ε σ) :
+    σ k (dS σ X v) = dS σ (k * X * k⁻¹) (σ k v) := by
+  have hσ' : ReciprocityTheory.ChartRestriction.DS.IsURepOn (ReciprocityTheory.ChartRestriction.DS.UJset ε) σ := hσ
+  obtain ⟨⟨_, hmul⟩, -, -⟩ := hσ
+  have hkU : k ∈ Formalism.MainNotions.S.UJset ε := mem_UJset_of_mem_kset hk
+  have hk' : k ∈ Matrix.unitaryGroup (Fin n) ℂ ∧ k * Formalism.REAL.Jm ε = Formalism.REAL.Jm ε * k := hk
+  have h1 : kᴴ * k = 1 := by
+    have := Matrix.mem_unitaryGroup_iff'.mp hk'.1
+    rwa [Matrix.star_eq_conjTranspose] at this
+  have hku : IsUnit k := (Matrix.isUnit_iff_isUnit_det k).mpr (Matrix.isUnit_det_of_left_inverse h1)
+  have hXc : inG ε (k * X * k⁻¹) := inG_conj_of_mem_kset hk hX
+  have hfun : (fun t : ℝ => σ k (σ (NormedSpace.exp ((t : ℂ) • X)) (v : H))) =
+      fun t : ℝ => σ (NormedSpace.exp ((t : ℂ) • (k * X * k⁻¹))) (σ k v) := by
+    funext t
+    have e : NormedSpace.exp ((t : ℂ) • (k * X * k⁻¹)) * k = k * NormedSpace.exp ((t : ℂ) • X) := by
+      rw [show (t : ℂ) • (k * X * k⁻¹) = k * ((t : ℂ) • X) * k⁻¹ by rw [Matrix.mul_smul, Matrix.smul_mul]]
+      rw [Matrix.exp_conj _ _ hku, Matrix.mul_assoc,
+        Matrix.nonsing_inv_mul _ ((Matrix.isUnit_iff_isUnit_det k).mp hku), Matrix.mul_one]
+    have hE : NormedSpace.exp ((t : ℂ) • X) ∈ Formalism.MainNotions.S.UJset ε := exp_smul_mem_UJset hX t
+    have hE' : NormedSpace.exp ((t : ℂ) • (k * X * k⁻¹)) ∈ Formalism.MainNotions.S.UJset ε := exp_smul_mem_UJset hXc t
+    calc σ k (σ (NormedSpace.exp ((t : ℂ) • X)) (v : H))
+        = (σ (k * NormedSpace.exp ((t : ℂ) • X))) (v : H) := by rw [hmul k hkU _ hE, ContinuousLinearMap.comp_apply]
+      _ = (σ (NormedSpace.exp ((t : ℂ) • (k * X * k⁻¹)) * k)) (v : H) := by rw [e]
+      _ = σ (NormedSpace.exp ((t : ℂ) • (k * X * k⁻¹))) (σ k v) := by rw [hmul _ hE' k hkU, ContinuousLinearMap.comp_apply]
+  have hd : HasDerivAt (fun t : ℝ => σ (NormedSpace.exp ((t : ℂ) • X)) (v : H))
+      (((actM (smE ε σ) X) v : smD ε σ) : H) 0 := (isDerivedOn_smE hσ').deriv X hX v
+  show σ k (deriv (fun t : ℝ => σ (NormedSpace.exp ((t : ℂ) • X)) (v : H)) 0) =
+    deriv (fun t : ℝ => σ (NormedSpace.exp ((t : ℂ) • (k * X * k⁻¹))) (σ k v)) 0
+  rw [← hfun, hd.deriv]
+  exact (((σ k).restrictScalars ℝ).hasFDerivAt.comp_hasDerivAt (0 : ℝ) hd).deriv.symm
+
+def derivedActionSpan (S : Submodule ℂ H) (hS : ∀ x ∈ S, x ∈ smD ε σ) : Submodule ℂ H :=
+  ⨆ c, ⨆ d, LinearMap.range ((smD ε σ).subtype ∘ₗ smE ε σ c d ∘ₗ
+    LinearMap.codRestrict (smD ε σ) S.subtype fun x => hS x x.2)
+
+theorem derivedActionSpan_finiteDimensional (S : Submodule ℂ H) [FiniteDimensional ℂ S] (hS : ∀ x ∈ S, x ∈ smD ε σ) :
+    FiniteDimensional ℂ (derivedActionSpan S hS) := by
+  unfold derivedActionSpan
+  infer_instance
+
+theorem smE_mem_derivedActionSpan (S : Submodule ℂ H) (hS : ∀ x ∈ S, x ∈ smD ε σ) (c d : Fin n) {x : H} (hx : x ∈ S) :
+    ((smE ε σ c d ⟨x, hS x hx⟩ : smD ε σ) : H) ∈ derivedActionSpan S hS := by
+  unfold derivedActionSpan
+  exact Submodule.mem_iSup_of_mem c (Submodule.mem_iSup_of_mem d (LinearMap.mem_range.mpr ⟨⟨x, hx⟩, rfl⟩))
+
+theorem actM_mem_derivedActionSpan (S : Submodule ℂ H) (hS : ∀ x ∈ S, x ∈ smD ε σ) (Y : Matrix (Fin n) (Fin n) ℂ) {x : H}
+    (hx : x ∈ S) : ((actM (smE ε σ) Y ⟨x, hS x hx⟩ : smD ε σ) : H) ∈ derivedActionSpan S hS := by
+  have he : ((actM (smE ε σ) Y ⟨x, hS x hx⟩ : smD ε σ) : H) =
+      ∑ a, ∑ b, Y a b • ((smE ε σ a b ⟨x, hS x hx⟩ : smD ε σ) : H) := by
+    simp [actM]
+  rw [he]
+  exact Submodule.sum_mem _ fun a _ => Submodule.sum_mem _ fun b _ =>
+    Submodule.smul_mem _ _ (smE_mem_derivedActionSpan S hS a b hx)
+
+theorem derivedActionSpan_isKStableOn (hσ : Formalism.MainNotions.S.IsURepOn (Formalism.MainNotions.S.UJset ε) σ) (S : Submodule ℂ H)
+    (hS : ∀ x ∈ S, x ∈ smD ε σ) (hK : Formalism.MainNotions.S.IsKStableOn ε σ S) :
+    Formalism.MainNotions.S.IsKStableOn ε σ (derivedActionSpan S hS) := by
+  have hσ' : ReciprocityTheory.ChartRestriction.DS.IsURepOn (ReciprocityTheory.ChartRestriction.DS.UJset ε) σ := hσ
+  have hKS : ∀ g ∈ Formalism.REAL.Kset ε, ∀ v ∈ S, σ g v ∈ S := hK
+  have hD := isDerivedOn_smE hσ'
+  intro g hg y hy
+  have part : ∀ (Y : Matrix (Fin n) (Fin n) ℂ), inG ε Y → ∀ (w : H) (hw : w ∈ S),
+      σ g (dS σ Y w) ∈ derivedActionSpan S hS := by
+    intro Y hY w hw
+    have hgw : σ g w ∈ S := hKS g hg w hw
+    have e1 : σ g (dS σ Y w) = dS σ (g * Y * g⁻¹) (σ g w) := sigma_dS_conj hσ hg hY ⟨w, hS w hw⟩
+    have e2 : dS σ (g * Y * g⁻¹) (σ g w) =
+        ((actM (smE ε σ) (g * Y * g⁻¹) ⟨σ g w, hS _ hgw⟩ : smD ε σ) : H) :=
+      dS_eq_actM hD (inG_conj_of_mem_kset hg hY) ⟨σ g w, hS _ hgw⟩
+    rw [e1, e2]
+    exact actM_mem_derivedActionSpan S hS _ hgw
+  have key : ∀ (c d : Fin n) (w : H) (hw : w ∈ S),
+      σ g ((smE ε σ c d ⟨w, hS w hw⟩ : smD ε σ) : H) ∈ derivedActionSpan S hS := by
+    intro c d w hw
+    have e : ((smE ε σ c d ⟨w, hS w hw⟩ : smD ε σ) : H) =
+        dS σ (ReciprocityTheory.ChartRestriction.DS.S7.cpart1 ε (Matrix.single c d 1)) w +
+          Complex.I • dS σ (ReciprocityTheory.ChartRestriction.DS.S7.cpart2 ε (Matrix.single c d 1)) w :=
+      smE_apply hσ' ⟨w, hS w hw⟩ c d
+    rw [e, map_add (f := _), map_smul]
+    exact add_mem (part _ (SmDerA.inG_cpart1 ε _) w hw)
+      (Submodule.smul_mem _ _ (part _ (SmDerA.inG_cpart2 ε _) w hw))
+  have hle : derivedActionSpan S hS ≤ (derivedActionSpan S hS).comap ((σ g : H →L[ℂ] H) : H →ₗ[ℂ] H) := by
+    refine iSup_le fun c => iSup_le fun d => ?_
+    rintro _ ⟨⟨w, hw⟩, rfl⟩
+    exact key c d w hw
+  exact hle hy
+
+theorem K_finite_smooth_vectors : KFSm := by
+  intro n ε H _ _ _ σ hσ hirr
+  refine ⟨fun v hv => mem_smD_of_isKFin hσ hirr hv, ?_⟩
+  intro a b v hv
+  obtain ⟨S, hfd, hvS, hK⟩ := hv
+  have hS : ∀ x ∈ S, x ∈ smD ε σ := fun x hx => mem_smD_of_isKFin hσ hirr (Exists.intro S ⟨hfd, hx, hK⟩)
+  exact Exists.intro (derivedActionSpan S hS)
+    ⟨derivedActionSpan_finiteDimensional S hS, smE_mem_derivedActionSpan S hS a b hvS, derivedActionSpan_isKStableOn hσ S hS hK⟩
+
+end CompanionTheory.D.gk.HC
+end
+end
+

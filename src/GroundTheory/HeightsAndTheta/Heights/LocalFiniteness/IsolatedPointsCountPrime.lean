@@ -1,0 +1,31 @@
+module
+
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.CentredDiscCoverCurveHolds
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0107
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0111
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0116
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0110
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0081
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0046
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Statements
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0054
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.PCutOffBoundaryBound
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0075
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0062
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0065
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0013
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0100
+public import ReciprocityTheory.AnalyticForms.PlurisubharmonicFunctions.PartsPiola
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0059
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.AssemblyBase
+
+@[expose] public section
+
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.IsolatedPointsCountPrime : GroundTheory.Heights₂.Heights.IsolatedPointsCountPrime.Statement :=
+  @GroundTheory.Heights₂.Heights.IsolatedPointsCountPrime.proof GroundTheory.Heights₂.Heights.IsolatedFibreOpenPoly.full GroundTheory.Heights₂.Heights.AutoClose.DominantFibreBound GroundTheory.Heights₂.Heights.ImageDimLe.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.SameOrdersLiftCentre : GroundTheory.Heights₂.Heights.SameOrdersLiftCentre.Statement :=
+  @GroundTheory.Heights₂.Heights.SameOrdersLiftCentre.proof GroundTheory.Heights₂.Heights.AutoClose.branchOffHypersurface_holds

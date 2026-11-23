@@ -1,0 +1,21 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Statements.DiscreteSeriesShifts.ThmBpDS
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.PointwiseBoundDiscreteSeriesCoefficients
+public import Development.AbelianVarietyTheory.Definitions.Jets.Bundle0002
+public import Development.AbelianVarietyTheory.PublishedTheorems.BesselIntegrals.BesselXiIntegrable
+public import Formalism.HermitianCurvature.Bundle0007
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0091
+public import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ActualClassesCompactSupport
+
+@[expose] public section
+
+open BpJoin
+
+namespace GlobalTheory
+
+theorem discreteSeriesCoef_pointwiseBound : ThmBpDS :=
+  _root_.GlobalTheory.BpDiscreteSeriesTwoInputs.pointwise_bound_discreteSeries GlobalTheory.besselXiIntegrable_holds GlobalTheory.actualClasses_compactSupport
+
+end GlobalTheory

@@ -1,0 +1,22 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0015
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.IsGloballyGeneratedIffGeneratingSections
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.EventuallySubsingletonCohTwistZOfIsProjOver
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.IsFiniteLengthOfIsArtinianRingAnnihilator
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.EventuallyExistsFiniteSubsetNonzeroLocus
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.ExistsLinearMapMultilinearMapBaseChange
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0197
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0200
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0261
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsPowLeGlobalSectionsDimLineBundlePow
+public import Development.WeilBound.CoreStatements.PublishedTheorems.NefNumerics.NefRiemannRoch.NefRiemannRoch
+
+@[expose] public section
+
+open CategoryTheory Limits AlgebraicGeometry TopologicalSpace Filter Asymptotics
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor
+open GlobalTheory GlobalTheory.QCoh GlobalTheory.CechPic GlobalTheory.Twist
+theorem _root_.GlobalTheory.T.nef_riemann_roch : GlobalTheory.Published.NefRiemannRoch := by
+  first | exact @_root_.GlobalTheory.nefRiemannRoch | exact _root_.GlobalTheory.nefRiemannRoch | (intros; apply _root_.GlobalTheory.nefRiemannRoch <;> assumption)

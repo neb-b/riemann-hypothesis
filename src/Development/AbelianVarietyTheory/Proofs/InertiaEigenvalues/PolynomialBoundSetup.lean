@@ -1,0 +1,104 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.BoundAtTwoAndThreeForFamily
+public import Development.AutomorphicArithmetic.CyclotomicBounds.CyclotomicOrders.NuHost
+public import Formalism.SharpRestriction.Bundle0002
+public import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.Bundle0005
+public import Formalism.SharpRestriction.LevelLetterCocycles.WachCoordinates
+public import Formalism.SharpRestriction.LevelLetterCocycles.RamifiedCoefficientChains
+public import Formalism.SharpRestriction.LevelLetterCocycles.ArcLiftingSetup
+public import Development.AbelianVarietyTheory.BlockTheory.NonGaloisCusps.Bundle0007
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0018
+public import Formalism.SharpRestriction.LevelLetterCocycles.Bundle0014
+public import Formalism.SharpRestriction.LevelLetterCocycles.Bundle0008
+public import Formalism.SharpRestriction.LevelLetterCocycles.SumRepresentations
+public import Formalism.SharpRestriction.LevelLetterCocycles.Bundle0005
+public import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.Bundle0004
+public import Formalism.GaloisCohomology.LocalTateDualityK
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0007
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0012
+public import Development.AbelianVarietyTheory.BlockTheory.TorsionBlocks.Bundle0006
+public import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.CommutingEndomorphismCondition
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.IsRhoPtOfSplitting
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0017
+public import Formalism.SharpRestriction.LevelLetterCocycles.Bundle0010
+public import Formalism.SharpRestriction.LevelLetterCocycles.EmbeddingTypes
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.FinrankMaxUnramifiedSubfieldPadicFinExtPos
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0009
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0079
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0174
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0052
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.CrystallineSummandAndDualFromInverseCharacterTwi
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0325
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0090
+public import Formalism.SharpRestriction.LevelLetterCocycles.DecompositionData
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0717
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0598
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0491
+public import Formalism.SharpRestriction.LevelLetterCocycles.ExistsInertiaCharpolyFactorOfTameType
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0097
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0727
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0533
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0496
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.JumpSetDistinctOfRealPlaceFacts
+public import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.Bundle0006
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0244
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0462
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0495
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0696
+public import Formalism.SharpRestriction.LevelLetterCocycles.PairedCharacterCondition
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0327
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0606
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0600
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0501
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0318
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0685
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0522
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0676
+public import Development.AutomorphicArithmetic.ResidueCharacters.TwistedPlaces
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0276
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0045
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0702
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0609
+public import Development.AutomorphicArithmetic.CyclotomicBounds.Bundle0002
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0316
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0592
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0684
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0524
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0526
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0556
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0611
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.AdmJumpSetup
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0882
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0720
+public import Formalism.AdmissibleDesigns.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.ExistsUniqueHcharOfFiniteOrder
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.RationalDualityOfAllCoefficients
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0317
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0916
+public import Formalism.SharpRestriction.LevelLetterCocycles.Bundle0006
+
+@[expose] public section
+
+open NumberField IsDedekindDomain Formalism Formalism.ConjugateSelfDual ReciprocityTheory.Gal Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.MainNotions Formalism.MainNotions.N Formalism.WeaklyAdmissibleFiltrations GlobalTheory.NLink
+
+noncomputable section
+
+namespace GlobalTheory.TheoremBQD
+
+open MvPolynomial
+
+def polyB : MvPolynomial (Fin 3) ℕ := 260 * X 0 ^ 2 * X 2 ^ 2 * (X 1 + X 2)
+
+theorem polyB_val (f r t : ℕ) : 260 * f ^ 2 * t ^ 2 * (r + t) ≤ EmbeddingTypeJumps.polyVal polyB f r t := by
+  simp [EmbeddingTypeJumps.polyVal, polyB]
+
+theorem exists_good {D : D7} {i : D.nd.Loc} (hi : EmbeddingTypeJumps.AtQD i) : ∃ π, π ∈ D.nd.Zgood i := by
+  obtain ⟨π, hπ⟩ := hi.2
+  exact ⟨π, (D.Zgood_tie i π).2 hπ⟩
+
+end GlobalTheory.TheoremBQD
+
+end

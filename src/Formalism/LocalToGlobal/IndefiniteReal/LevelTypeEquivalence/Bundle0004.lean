@@ -1,0 +1,298 @@
+module
+
+public import Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.AtTauExUniqueHolds
+public import Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.Bundle0003
+
+@[expose] public section
+
+-- bundled from Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.ContinuousSplitInv
+section
+noncomputable section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta NumberField Matrix
+open scoped TensorProduct
+
+namespace Formalism.IndefR.Eqv
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+set_option synthInstance.maxHeartbeats 200000
+
+open Classical
+
+variable (D : D7)
+
+theorem glueA_eq_homeo (y : Ainf D.host.F ⊗[D.host.F] D.host.E) (z : Af D.host.F ⊗[D.host.F] D.host.E) :
+    glueA D y z = (G5.tensCoordH (basE D) (AF D.host.F)).symm
+      (fun k => pairA D.host.F ((basA D).repr y k) ((basAf D).repr z k)) := by
+  apply (G5.tensCoordH (basE D) (AF D.host.F)).injective
+  rw [Homeomorph.apply_symm_apply]
+  funext k
+  rw [G5.tensCoordH_apply]
+  exact repr_glueA D y z k
+
+theorem continuous_glueA (z : Af D.host.F ⊗[D.host.F] D.host.E) : Continuous fun y => glueA D y z := by
+  have e : (fun y => glueA D y z) = fun y => (G5.tensCoordH (basE D) (AF D.host.F)).symm
+      (fun k => pairA D.host.F ((basA D).repr y k) ((basAf D).repr z k)) := funext fun y => glueA_eq_homeo D y z
+  rw [e]
+  have hp : Continuous fun p : Ainf D.host.F × Af D.host.F => pairA D.host.F p.1 p.2 := continuous_id
+  exact (G5.tensCoordH (basE D) (AF D.host.F)).symm.continuous.comp
+    (continuous_pi fun k => hp.comp ((continuous_repr D k).prodMk continuous_const))
+
+theorem continuous_splitInv : Continuous (splitInv D) := by
+  rw [← splitEquiv_symm]; exact continuous_splitEquiv_symm D
+
+variable (V : HSp D)
+
+theorem atTau_eq (τ : D.what₂.Tau) (g : Matrix (Fin V.rank) (Fin V.rank) ℂ) (hg : gᴴ * gramAt D V τ * g = gramAt D V τ) :
+    atTau (thetaC D) V τ g = atH D V τ g hg := by
+  have hex : ∃ x, IsAtTau (thetaC D) V τ g x := ⟨_, isAtTau_atH D V τ g hg⟩
+  unfold atTau
+  rw [dite_eq_left hex]
+  exact matA_inj D V ((matA_of_isAtTau D V hex.choose_spec).trans (matA_atH D V τ g hg).symm)
+
+section Line
+
+variable {m n : ℕ}
+
+def lineF (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) (t : ℝ) : Datum.Mx D m n :=
+  Matrix.of fun i j => glueA D (splitInv D fun τ' => if τ' = τ then (t : ℂ) * z i j else 0) 0
+
+theorem psi_lineF (τ τ' : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) (t : ℝ) :
+    (lineF D τ z t).map (psiT D τ') = if τ' = τ then (t : ℂ) • z else 0 := by
+  ext i j
+  simp only [lineF, Matrix.map_apply, Matrix.of_apply, psiT_glueA]
+  split_ifs <;> simp
+
+theorem fin_lineF (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) (t : ℝ) : (lineF D τ z t).map (finPart D) = 0 := by
+  ext i j
+  simp [lineF, finPart_glueA]
+
+def lineL (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) : ℝ →+ Datum.Mx D m n where
+  toFun := lineF D τ z
+  map_zero' := by
+    apply mat_ext D
+    · intro τ'
+      rw [psi_lineF, Matrix.map_zero _ (map_zero _)]
+      split_ifs <;> simp
+    · rw [fin_lineF, Matrix.map_zero _ (map_zero _)]
+  map_add' s t := by
+    apply mat_ext D
+    · intro τ'
+      rw [Matrix.map_add _ (map_add _), psi_lineF, psi_lineF, psi_lineF]
+      split_ifs
+      · push_cast; rw [add_smul]
+      · simp
+    · rw [Matrix.map_add _ (map_add _), fin_lineF, fin_lineF, fin_lineF, add_zero]
+
+theorem continuous_lineF (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) : Continuous (lineF D τ z) := by
+  refine continuous_pi fun i => continuous_pi fun j => ?_
+  refine (continuous_glueA D _).comp ((continuous_splitInv D).comp (continuous_pi fun τ' => ?_))
+  by_cases h : τ' = τ
+  · simp only [h, if_true]; exact Complex.continuous_ofReal.mul continuous_const
+  · simp only [h, if_false]; exact continuous_const
+
+theorem compAt_thetaC (τ : D.what₂.Tau) (w : Datum.Mx D m n) : Datum.compAt (thetaC D) τ w = w.map (psiT D τ) := rfl
+
+theorem isLineAt_lineL (τ : D.what₂.Tau) (z : Matrix (Fin m) (Fin n) ℂ) :
+    Datum.IsLineAt (thetaC D) τ z (lineL D τ z) :=
+  ⟨continuous_lineF D τ z, fun t => fin_lineF D τ z t, fun t τ' => by
+    rw [compAt_thetaC]; exact psi_lineF D τ τ' z t⟩
+
+end Line
+
+theorem lineAtExists_holds : Datum.LineAtExists D := by
+  intro θ hθ m n τ z
+  rw [eq_thetaC D hθ]
+  exact ⟨lineL D τ z, isLineAt_lineL D τ z⟩
+
+section Fam
+
+variable (V : HSp D)
+
+def famM (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) : Matrix (Fin V.rank) (Fin V.rank) (AE D) :=
+  Matrix.of fun i j => glueA D (splitInv D fun τ => gs τ i j)
+    ((1 : Matrix (Fin V.rank) (Fin V.rank) (Af D.host.F ⊗[D.host.F] D.host.E)) i j)
+
+theorem psi_famM (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (τ : D.what₂.Tau) :
+    (famM D V gs).map (psiT D τ) = gs τ := by
+  ext i j
+  simp [famM, psiT_glueA]
+
+theorem fin_famM (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) : (famM D V gs).map (finPart D) = 1 := by
+  ext i j
+  simp [famM, finPart_glueA]
+
+theorem famM_mul (gs gs' : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) :
+    famM D V (gs * gs') = famM D V gs * famM D V gs' := by
+  apply mat_ext D
+  · intro τ
+    rw [Matrix.map_mul, psi_famM, psi_famM, psi_famM]
+    rfl
+  · rw [Matrix.map_mul, fin_famM, fin_famM, fin_famM, mul_one]
+
+theorem famM_one : famM D V 1 = 1 := by
+  apply mat_ext D
+  · intro τ
+    rw [psi_famM, Matrix.map_one _ (map_zero _) (map_one _)]
+    rfl
+  · rw [fin_famM, Matrix.map_one _ (map_zero _) (map_one _)]
+
+def IsUnitFam (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) : Prop :=
+  ∀ τ, (gs τ)ᴴ * gramAt D V τ * gs τ = gramAt D V τ
+
+theorem famM_unitary (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (hgs : IsUnitFam D V gs) :
+    Formalism.UG.cT (sigR (AF D.host.F) D.sp.cm.sig) (famM D V gs) * JR (AF D.host.F) V.gram * famM D V gs =
+      JR (AF D.host.F) V.gram := by
+  apply mat_ext D
+  · intro τ
+    rw [Matrix.map_mul, Matrix.map_mul, cT_map_psiT, JR_map_psiT, psi_famM]
+    exact hgs τ
+  · rw [Matrix.map_mul, Matrix.map_mul, cT_map_fin, JR_map_fin, fin_famM, Formalism.UG.cT_one, Matrix.one_mul, Matrix.mul_one]
+
+def famH (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (hgs : IsUnitFam D V gs) : GA D V :=
+  (⟨⟨famM D V gs, famM D V (fun τ => ginv D V τ (gs τ)),
+      by rw [← famM_mul]; convert famM_one D V; funext τ; exact mul_ginv D V τ (gs τ) (hgs τ),
+      by rw [← famM_mul]; convert famM_one D V; funext τ; exact ginv_mul D V τ (gs τ) (hgs τ)⟩,
+    famM_unitary D V gs hgs⟩ : HR (AF D.host.F) D.sp.cm.sig V.gram)
+
+theorem matA_famH (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (hgs : IsUnitFam D V gs) :
+    matA D V (famH D V gs hgs) = famM D V gs := rfl
+
+theorem infMat_famH (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (hgs : IsUnitFam D V gs) (τ : D.what₂.Tau) :
+    infMat D.sp.cm.sig V.gram (thetaC D τ) (famH D V gs hgs) = gs τ := by
+  rw [infMat_thetaC, matA_famH, psi_famM]
+
+theorem famH_mem_GinfC (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (hgs : IsUnitFam D V gs) :
+    famH D V gs hgs ∈ GinfC V :=
+  (mem_GinfC D V _).mpr (fin_famM D V gs)
+
+theorem famH_unique (gs : D.what₂.Tau → Matrix (Fin V.rank) (Fin V.rank) ℂ) (hgs : IsUnitFam D V gs) (h : GA D V)
+    (h1 : h ∈ GinfC V) (h2 : ∀ τ, infMat D.sp.cm.sig V.gram (thetaC D τ) h = gs τ) : h = famH D V gs hgs := by
+  apply matA_inj D V
+  rw [matA_famH]
+  apply mat_ext D
+  · intro τ; rw [← infMat_thetaC, h2, psi_famM]
+  · rw [fin_famM]; exact (mem_GinfC D V h).mp h1
+
+theorem infMat_unitary' (h : GA D V) : IsUnitFam D V fun τ => infMat D.sp.cm.sig V.gram (thetaC D τ) h := by
+  intro τ
+  have hu := congrArg (fun M => M.map (psiT D τ)) (matA_unitary D V h)
+  simp only [Matrix.map_mul, cT_map_psiT, JR_map_psiT] at hu
+  show (infMat D.sp.cm.sig V.gram (thetaC D τ) h)ᴴ * gramAt D V τ * infMat D.sp.cm.sig V.gram (thetaC D τ) h = _
+  rw [infMat_thetaC]
+  exact hu
+
+def infOnly (h : GA D V) : GA D V := famH D V _ (infMat_unitary' D V h)
+
+theorem infMat_infOnly (h : GA D V) (τ : D.what₂.Tau) :
+    infMat D.sp.cm.sig V.gram (thetaC D τ) (infOnly D V h) = infMat D.sp.cm.sig V.gram (thetaC D τ) h :=
+  infMat_famH D V _ _ τ
+
+theorem infOnly_mem_GinfC (h : GA D V) : infOnly D V h ∈ GinfC V := famH_mem_GinfC D V _ _
+
+end Fam
+
+end Formalism.IndefR.Eqv
+
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.GEqBase
+section
+noncomputable section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice MeasureTheory IsDedekindDomain NumberField Matrix Formalism.L2.Theta
+open scoped TensorProduct
+
+namespace Formalism.IndefR.Eqv.Act
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+section Comm
+
+variable {D : D7} {V : HSp D}
+
+theorem mem_GfC' (h : GA D V) : h ∈ GfC V ↔ (matA D V h).map (infPart D) = 1 := by
+  rw [GfC, MonoidHom.mem_ker, Units.ext_iff]
+  rfl
+
+theorem comm_inf_fin {a b : GA D V} (ha : a ∈ GinfC V) (hb : b ∈ GfC V) : a * b = b * a := by
+  have ha' := (mem_GinfC (D := D) (V := V) (h := a)).1 ha
+  have hb' := (mem_GfC' b).1 hb
+  have hinf : (matA D V a * matA D V b).map (infPart D) = (matA D V b * matA D V a).map (infPart D) := by
+    rw [Matrix.map_mul, Matrix.map_mul, hb', mul_one, one_mul]
+  have hfin : (matA D V a * matA D V b).map (finPart D) = (matA D V b * matA D V a).map (finPart D) := by
+    rw [Matrix.map_mul, Matrix.map_mul, ha', mul_one, one_mul]
+  have key : matA D V (a * b) = matA D V (b * a) := by
+    rw [matA_mul, matA_mul]
+    ext i j
+    exact ae_ext (D := D) (congrFun (congrFun hinf i) j) (congrFun (congrFun hfin i) j)
+  first
+  | exact Subtype.ext (Units.ext key)
+  | (apply Subtype.ext; apply Units.ext; exact key)
+  | (apply Subtype.ext; apply Subtype.ext; apply Units.ext; exact key)
+
+variable (θ : D.what₂.Tau → (Ainf D.host.F ⊗[D.host.F] D.host.E →+* ℂ))
+
+theorem atTau_mem (τ : D.what₂.Tau) (g : Matrix (Fin V.rank) (Fin V.rank) ℂ) : atTau θ V τ g ∈ GinfC V := by
+  unfold atTau
+  split_ifs with h
+  · exact h.choose_spec.1
+  · exact one_mem _
+
+theorem oneP_mem (τ : D.what₂.Tau) (X : Matrix (Fin V.rank) (Fin V.rank) ℂ) (t : ℝ) : oneP θ V τ X t ∈ GinfC V := by
+  unfold oneP
+  exact atTau_mem θ τ _
+
+end Comm
+
+section RTr
+
+variable {D : D7} {V : HSp D} (θ : D.what₂.Tau → (Ainf D.host.F ⊗[D.host.F] D.host.E →+* ℂ)) {κ : GA D V}
+
+end RTr
+
+end Formalism.IndefR.Eqv.Act
+
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.IndefiniteReal.LevelTypeEquivalence.SobSympl
+section
+noncomputable section
+
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum MeasureTheory
+  IsDedekindDomain NumberField
+open scoped TensorProduct
+
+namespace Formalism.IndefR.Eqv
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+variable {D : D7} {S T : HSp D}
+
+def cAlin (D : D7) : AE D →ₗ[AF D.host.F] AE D where
+  toFun := cA D
+  map_add' := fun x y => RingHom.map_add _ x y
+  map_smul' := fun c z => cA_smul c z
+
+theorem continuous_cA : Continuous (cA D) :=
+  IsModuleTopology.continuous_of_linearMap (cAlin D)
+
+theorem continuous_trace : Continuous (Algebra.trace (AF D.host.F) (AE D)) :=
+  IsModuleTopology.continuous_of_linearMap (Algebra.trace (AF D.host.F) (AE D))
+
+set_option maxHeartbeats 1000000 in
+theorem continuous_hO : Continuous fun p : WO S T × WO S T => hO S T p.1 p.2 := by
+  have hc := continuous_cA (D := D)
+  unfold hO
+  fun_prop
+
+
+
+end Formalism.IndefR.Eqv
+
+end
+end
+

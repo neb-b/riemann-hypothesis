@@ -1,0 +1,16 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.ChainOfFinal
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LengthFunctionFactsHold
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.WaveSt
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0299
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0324
+
+@[expose] public section
+
+namespace PositivityTheory.RgBcC.LfSt
+
+theorem chainOf'_holds : PositivityTheory.RgBcC.ChainOf' := ChainPf.chain_identity_multiplier_kernels _root_.GlobalTheory.CompanionTheory.GLUnimod.unimod _root_.GlobalTheory.CompanionTheory.RCalc.rcalc _root_.GlobalTheory.CompanionTheory.LengthGL.lgFacts
+
+end PositivityTheory.RgBcC.LfSt

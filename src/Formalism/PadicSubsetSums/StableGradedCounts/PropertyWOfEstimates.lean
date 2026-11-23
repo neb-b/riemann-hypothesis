@@ -1,0 +1,13 @@
+module
+
+public import Formalism.PadicSubsetSums.StableGradedCounts.LocalEstimateIVOfTypeSetWeight
+public import Formalism.PadicSubsetSums.StableGradedCounts.SquareSetMemExceptionalUnion
+public import Formalism.PadicSubsetSums.StableGradedCounts.LocalEstimateThird
+
+@[expose] public section
+
+namespace Formalism.IrreducibleCountingLemmas.GaloisIrreducibility
+
+theorem property_W_of_estimates : PropW := propW_of_localEstimates local_estimate_second local_estimate_third
+
+end Formalism.IrreducibleCountingLemmas.GaloisIrreducibility

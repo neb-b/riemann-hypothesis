@@ -1,0 +1,14 @@
+module
+
+public import CompanionTheory.AutomorphicTheory.BesselWaveGrids.WeightedBoundRotatedUniformOfHypsG
+public import CompanionTheory.AutomorphicTheory.PieriRules.InfinitesimalCharacterDiscreteSeries
+public import CompanionTheory.AutomorphicTheory.ZuckermanCommutation.ZuckermanFunctors.ZuckermanGapSmall
+
+@[expose] public section
+
+namespace CompanionTheory.WaveGrid
+
+theorem weighted_bound_rotated_uniform : Formalism.MainNotions.RotatedPoints.WeightedBoundRotatedUniform :=
+  weighted_bound_rotated_uniform_of_hypsG (CompanionTheory.PieriExpansion.hypsG_of_zuck CompanionTheory.Zuck.zuckerman_gap)
+
+end CompanionTheory.WaveGrid

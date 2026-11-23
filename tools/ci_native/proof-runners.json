@@ -1,0 +1,11 @@
+[
+  {
+    "id": "james-192",
+    "runner_name": "rh-zulip-1241585-rh-james-x64-192",
+    "runs_on": ["self-hosted", "Linux", "X64", "rh-proof-james-192"],
+    "cpus": 192,
+    "memory_mib": 1048576,
+    "jobs": 64,
+    "timeout_seconds": 10800
+  }
+]

@@ -1,0 +1,481 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.Columns.RowFormsLemmas
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.DoubleCosetDecompositionAll
+public import Formalism.LocalToGlobal.Columns.RhoEqOfSmulEq
+public import Formalism.LocalToGlobal.Columns.GSetLemmas
+public import Formalism.LocalToGlobal.Columns.ColForms
+public import Formalism.LocalToGlobal.Columns.Bundle0004
+public import Formalism.LocalToGlobal.Columns.RowForms
+public import Formalism.LocalToGlobal.Divisibility.Bundle0001
+public import Formalism.LocalToGlobal.Divisibility.GoodPartHermitianSpec
+public import Formalism.LocalToGlobal.GlobalTheory.HLatOps
+public import Formalism.LocalToGlobal.Columns.UnipotentRightActionFunctionsW
+public import Formalism.LocalToGlobal.Columns.HeckeSpCount
+public import Formalism.LocalToGlobal.Columns.HeckeSp
+
+@[expose] public section
+
+-- bundled from Formalism.LocalToGlobal.Columns.RowFormsSum
+section
+open NumberField IsDedekindDomain Module
+
+noncomputable section
+
+namespace Formalism.L2.Col
+
+open Formalism.BasicNotions Formalism.HermitianLatticesTheory Formalism.L2.DIV Formalism.DivisionValues
+
+section Abstract
+
+variable {Γ D M : Type} [Group Γ] [MulAction Γ D] [AddCommGroup M] [Module ℚ M]
+
+theorem rf_smul_one_coset (N : Subgroup Γ) (γ : Γ) : γ • ((1 : Γ) : Γ ⧸ N) = ((1 : Γ) : Γ ⧸ N) ↔ γ ∈ N := by
+  rw [MulAction.Quotient.smul_coe, smul_eq_mul, mul_one, QuotientGroup.eq, mul_one, inv_mem_iff]
+
+def rf_stabEquiv (N : Subgroup Γ) (r : D) :
+    MulAction.stabilizer N r ≃ MulAction.stabilizer Γ ((r, ((1 : Γ) : Γ ⧸ N)) : D × Γ ⧸ N) where
+  toFun n := ⟨(n.1 : Γ), Prod.ext n.2 ((rf_smul_one_coset N _).mpr n.1.2)⟩
+  invFun γ := ⟨⟨γ.1, (rf_smul_one_coset N _).mp (congrArg Prod.snd γ.2)⟩, congrArg Prod.fst γ.2⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+theorem rf_cs_subgroup (N : Subgroup Γ) [Finite (Γ ⧸ N)] (F : D → M) (hF : ∀ (γ : Γ) (d : D), F (γ • d) = F d)
+    (hfin : ∀ d : D, Finite (MulAction.stabilizer Γ d)) (RΓ RN : Finset D)
+    (hΓ : ∀ d : D, ∃! r, r ∈ RΓ ∧ r ∈ MulAction.orbit Γ d)
+    (hN : ∀ d : D, ∃! r, r ∈ RN ∧ r ∈ MulAction.orbit N d) :
+    ∑ r ∈ RN, ((Nat.card (MulAction.stabilizer N r) : ℚ))⁻¹ • F r =
+      (Nat.card (Γ ⧸ N) : ℚ) • ∑ r ∈ RΓ, ((Nat.card (MulAction.stabilizer Γ r) : ℚ))⁻¹ • F r := by
+  classical
+  have := Fintype.ofFinite (Γ ⧸ N)
+  have hinj : Function.Injective fun r : D => ((r, ((1 : Γ) : Γ ⧸ N)) : D × Γ ⧸ N) := fun a b h => congrArg Prod.fst h
+  have key := Formalism.HermitianLattices.RamifiedLatticeOperators.fubini_over_orbits Γ (D × Γ ⧸ N) D M Prod.fst
+    (fun y => Finset.univ.image fun a : Γ ⧸ N => (y, a)) (fun p => F p.1)
+    (RN.image fun r : D => ((r, ((1 : Γ) : Γ ⧸ N)) : D × Γ ⧸ N)) RΓ (fun _ _ => rfl)
+    (by
+      intro p y
+      rw [Finset.mem_image]
+      constructor
+      · rintro ⟨a, -, rfl⟩
+        rfl
+      · rintro rfl
+        exact ⟨p.2, Finset.mem_univ _, rfl⟩)
+    (fun γ p => hF γ p.1) hfin
+    (by
+      rintro ⟨d, a⟩
+      induction a using QuotientGroup.induction_on with
+      | H g =>
+      obtain ⟨r0, ⟨hr0, n, hn⟩, huniq⟩ := hN (g⁻¹ • d)
+      have hn' : (n : Γ) • g⁻¹ • d = r0 := hn
+      refine ⟨(r0, ((1 : Γ) : Γ ⧸ N)), ⟨Finset.mem_image_of_mem _ hr0, (n : Γ) * g⁻¹, ?_⟩, ?_⟩
+      · refine Prod.ext ?_ ?_
+        · show ((n : Γ) * g⁻¹) • d = r0
+          rw [mul_smul, hn']
+        · show ((n : Γ) * g⁻¹) • ((g : Γ) : Γ ⧸ N) = ((1 : Γ) : Γ ⧸ N)
+          rw [MulAction.Quotient.smul_coe, smul_eq_mul, inv_mul_cancel_right, eq_comm, QuotientGroup.eq, inv_one, one_mul]
+          exact n.2
+      · rintro p ⟨hp, γ, hγ⟩
+        obtain ⟨r, hr, rfl⟩ := Finset.mem_image.mp hp
+        have h1 : γ • d = r := congrArg Prod.fst hγ
+        have h2 : γ • ((g : Γ) : Γ ⧸ N) = ((1 : Γ) : Γ ⧸ N) := congrArg Prod.snd hγ
+        have h3 : γ * g ∈ N := by
+          rw [MulAction.Quotient.smul_coe, smul_eq_mul, eq_comm, QuotientGroup.eq, inv_one, one_mul] at h2
+          exact h2
+        have h4 : r = r0 := huniq r ⟨hr, ⟨γ * g, h3⟩, by
+          show (γ * g) • g⁻¹ • d = r
+          rw [smul_smul, mul_inv_cancel_right, h1]⟩
+        rw [h4])
+    hΓ
+  rw [Finset.sum_image (fun a _ b _ h => hinj h)] at key
+  rw [Finset.smul_sum]
+  refine Eq.trans (Finset.sum_congr rfl fun r _ => ?_) (key.trans (Finset.sum_congr rfl fun y _ => ?_))
+  · rw [Nat.card_congr (rf_stabEquiv N r)]
+  · rw [Finset.sum_image (fun a _ b _ h => congrArg Prod.snd h)]
+    show _ • ∑ _a : Γ ⧸ N, F y = _
+    rw [Finset.sum_const, Finset.card_univ, ← Nat.card_eq_fintype_card, Nat.cast_smul_eq_nsmul, smul_comm]
+
+end Abstract
+
+section TwoLevels
+
+variable {X : Fields} {n r : ℕ} {ST SG SG0 : Finset (HeightOneSpectrum (𝓞 X.E))}
+  (C : CoefPk X n (DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG))) {ι : GLG (E := X.E) (n := r) (SG := SG0) →* GLG (E := X.E) (n := n) (SG := SG)} {ΛP ΛK : LevFam X.E X.K n SG}
+  {Λ0 : LevFam X.E X.K r SG0}
+
+def rf_subN (ΛP ΛK : LevFam X.E X.K n SG) : Subgroup (FormG ΛP) where
+  carrier := {g | (g.2.1 : GLG (E := X.E) (n := n) (SG := SG)) ∈ ΛK.grp}
+  one_mem' := ΛK.grp.one_mem
+  mul_mem' := fun ha hb => ΛK.grp.mul_mem ha hb
+  inv_mem' := fun ha => ΛK.grp.inv_mem ha
+
+def rf_cosetEquiv (H : LevFam.Split ι ΛP ΛK Λ0) (hinj : ∀ a : ↥Λ0.grp, ι a.1 ∈ ΛK.grp → a = 1) :
+    ↥Λ0.grp ≃ FormG ΛP ⧸ rf_subN ΛP ΛK :=
+  Equiv.ofBijective (fun a => ((((1 : UF X.E n), (⟨ι a.1, (H.emb a).1⟩ : ↥ΛP.grp)) : FormG ΛP) : FormG ΛP ⧸ rf_subN ΛP ΛK)) (by
+    constructor
+    · intro a b hab
+      have h1 := QuotientGroup.eq.mp hab
+      have h2 : (ι a.1)⁻¹ * ι b.1 ∈ ΛK.grp := h1
+      have h3 : ι ((a⁻¹ * b : ↥Λ0.grp) : GLG (E := X.E) (n := r) (SG := SG0)) ∈ ΛK.grp := by
+        rw [Subgroup.coe_mul, Subgroup.coe_inv, map_mul, map_inv]
+        exact h2
+      exact (inv_mul_eq_one.mp (hinj _ h3))
+    · intro q
+      induction q using QuotientGroup.induction_on with
+      | H g =>
+      obtain ⟨a, k, e1, -⟩ := H.fac g.2
+      refine ⟨a, QuotientGroup.eq.mpr ?_⟩
+      show (ι a.1)⁻¹ * g.2.1 ∈ ΛK.grp
+      rw [e1, inv_mul_cancel_left]
+      exact k.2)
+
+theorem rf_cs_split (H : LevFam.Split ι ΛP ΛK Λ0) (hinj : ∀ a : ↥Λ0.grp, ι a.1 ∈ ΛK.grp → a = 1)
+    (hP : (formGSD C ΛP).Ok) (hK : (formGSD C ΛK).Ok) (sP : (formGSD C ΛP).Sec) (sK : (formGSD C ΛK).Sec)
+    (F : DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG) → X.K)
+    (hF : ∀ (γ : UF X.E n) (h : ↥ΛP.grp) (d : DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG)), F ((γ, (h.1 : GLG (E := X.E) (n := n) (SG := SG))) • d) = F d) :
+    (formGSD C ΛK).csOf hK sK F = (Nat.card ↥Λ0.grp : X.K) * (formGSD C ΛP).csOf hP sP F := by
+  classical
+  let _ := hP.fintypeCl
+  let _ := hK.fintypeCl
+  have : Finite ↥Λ0.grp := inferInstance
+  have : Finite (FormG ΛP ⧸ rf_subN ΛP ΛK) := Finite.of_equiv _ (rf_cosetEquiv H hinj)
+  have hinjP : Function.Injective sP.rep := fun c c' hc => by rw [← sP.spec c, hc, sP.spec]
+  have hinjK : Function.Injective sK.rep := fun c c' hc => by rw [← sK.spec c, hc, sK.spec]
+
+  let up : FormG ΛK → ↥(rf_subN ΛP ΛK) := fun g => ⟨(g.1, ⟨g.2.1, (H.sub g.2).1⟩), g.2.2⟩
+  let dn : ↥(rf_subN ΛP ΛK) → FormG ΛK := fun g => (g.1.1, ⟨g.1.2.1, g.2⟩)
+  have hstab : ∀ d : DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG),
+      MulAction.stabilizer (FormG ΛK) d ≃ MulAction.stabilizer ↥(rf_subN ΛP ΛK) d := fun d =>
+    { toFun := fun g => ⟨up g.1, g.2⟩
+      invFun := fun g => ⟨dn g.1, g.2⟩
+      left_inv := fun _ => rfl
+      right_inv := fun _ => rfl }
+  have key := rf_cs_subgroup (Γ := FormG ΛP) (D := DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG)) (M := X.K) (rf_subN ΛP ΛK) F
+    (fun g d => hF g.1 g.2 d) hP.fin_stab (Finset.univ.image sP.rep) (Finset.univ.image sK.rep)
+    (by
+      intro a
+      refine ⟨sP.rep ((formGSD C ΛP).cls a), ⟨Finset.mem_image_of_mem _ (Finset.mem_univ _), ?_⟩, ?_⟩
+      · exact ((formGSD C ΛP).cls_eq_iff _ _).mp (sP.spec _)
+      · rintro r ⟨hr, hr2⟩
+        obtain ⟨c, -, rfl⟩ := Finset.mem_image.mp hr
+        have h1 : (formGSD C ΛP).cls (sP.rep c) = (formGSD C ΛP).cls a := ((formGSD C ΛP).cls_eq_iff _ _).mpr hr2
+        rw [← h1, sP.spec])
+    (by
+      intro a
+      refine ⟨sK.rep ((formGSD C ΛK).cls a), ⟨Finset.mem_image_of_mem _ (Finset.mem_univ _), ?_⟩, ?_⟩
+      · obtain ⟨g, hg⟩ := ((formGSD C ΛK).cls_eq_iff _ _).mp (sK.spec ((formGSD C ΛK).cls a))
+        exact ⟨up g, hg⟩
+      · rintro r ⟨hr, g, hg⟩
+        obtain ⟨c, -, rfl⟩ := Finset.mem_image.mp hr
+        have h1 : (formGSD C ΛK).cls (sK.rep c) = (formGSD C ΛK).cls a :=
+          ((formGSD C ΛK).cls_eq_iff _ _).mpr ⟨dn g, hg⟩
+        rw [← h1, sK.spec])
+  rw [Finset.sum_image (fun c _ c' _ hc => hinjK hc), Finset.sum_image (fun c _ c' _ hc => hinjP hc)] at key
+  unfold GSD.csOf
+  rw [← Nat.card_congr (rf_cosetEquiv H hinj)] at key
+  rw [Rat.smul_def, Rat.cast_natCast] at key
+  refine Eq.trans (Finset.sum_congr rfl fun c _ => ?_) (key.trans (congrArg _ (Finset.sum_congr rfl fun c _ => ?_)))
+  · rw [(formGSD C ΛK).wt_eq, Rat.smul_def, Rat.cast_inv, Rat.cast_natCast, ← Nat.card_congr (hstab (sK.rep c)), smul_eq_mul]
+  · rw [(formGSD C ΛP).wt_eq, Rat.smul_def, Rat.cast_inv, Rat.cast_natCast, smul_eq_mul]
+
+theorem rf_ip_split (H : LevFam.Split ι ΛP ΛK Λ0) (hinj : ∀ a : ↥Λ0.grp, ι a.1 ∈ ΛK.grp → a = 1)
+    (hP : (formGSD C ΛP).Ok) (hK : (formGSD C ΛK).Ok) (φ ψ : DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG) → C.V)
+    (hφ : φ ∈ (formGSD C ΛP).EqFun) (hψ : ψ ∈ (formGSD C ΛP).EqFun) :
+    (formGSD C ΛP).ip hP φ ψ = ((Nat.card ↥Λ0.grp : X.K))⁻¹ * (formGSD C ΛK).ip hK φ ψ := by
+  have h0 : (Nat.card ↥Λ0.grp : X.K) ≠ 0 := Nat.cast_ne_zero.mpr Nat.card_pos.ne'
+  have h1 := rf_cs_split C H hinj hP hK (formGSD C ΛP).outSec (formGSD C ΛK).outSec (fun d => C.pair (φ d) (ψ d))
+    (fun γ h d => by
+      have e1 := hφ ((γ, h) : FormG ΛP) d
+      have e2 := hψ ((γ, h) : FormG ΛP) d
+      show C.pair (φ ((γ, (h.1 : GLG (E := X.E) (n := n) (SG := SG))) • d)) (ψ ((γ, (h.1 : GLG (E := X.E) (n := n) (SG := SG))) • d)) = _
+      have e1' : φ ((γ, (h.1 : GLG (E := X.E) (n := n) (SG := SG))) • d) = (formGSD C ΛP).ρ ((γ, h) : FormG ΛP) (φ d) := e1
+      have e2' : ψ ((γ, (h.1 : GLG (E := X.E) (n := n) (SG := SG))) • d) = (formGSD C ΛP).ρ ((γ, h) : FormG ΛP) (ψ d) := e2
+      rw [e1', e2']
+      exact hP.inv _ _ _)
+  show (formGSD C ΛP).csOf hP (formGSD C ΛP).outSec (fun d => C.pair (φ d) (ψ d)) =
+    _ * (formGSD C ΛK).csOf hK (formGSD C ΛK).outSec (fun d => C.pair (φ d) (ψ d))
+  rw [h1, inv_mul_cancel_left₀ h0]
+
+end TwoLevels
+
+section Rows
+
+theorem rf_diagEmb_mem_HK {κ : Type} [CommRing κ] {n r : ℕ} (h : r ≤ n) (bl : List ℕ) (g : GL (Fin r) κ)
+    (hg : diagEmb κ h g ∈ HK n κ r bl) : g = 1 := by
+  rw [HK_eq_HPar h bl, mem_HPar] at hg
+  obtain ⟨hB, h0⟩ := hg
+  have := Subgroup.mem_bot.mp h0
+  rwa [firstBlock_diagEmb_eq] at this
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m)
+  (sel : HeightOneSpectrum (𝓞 X.F) → HeightOneSpectrum (𝓞 X.E)) {S : Set ℕ} (mu : Tup X.F X.E X.K S)
+  (P : LevFam X.E X.K R.r Pr.vGs)
+
+theorem rf_g0Hat_injX (a : G0 X.E Pr.vGs R.r) (ha : unipotentGroupBlockEmbedding Pr sel mu (r_le_X' R) a ∈ (rowTyKK Ch sel mu).grp) : a = 1 := by
+  funext w
+  have h1 : unipotentGroupBlockEmbedding Pr sel mu (r_le_X' R) a (inlSG w) ∈ (((rowTyK Ch).glue
+      (rowTyQ R (mu : Chr X.F X.E X.K) (QE sel (mu : Chr X.F X.E X.K)))) (inlSG w)).H :=
+    (rowTyKK Ch sel mu).mem_at ⟨_, ha⟩ (inlSG w)
+  rw [LevFam.glue_of_mem _ _ (inlSG w) w.2] at h1
+  have h2 : unipotentGroupBlockEmbedding Pr sel mu (r_le_X' R) a (inlSG w) = diagEmb _ (r_le_X' R) (a w) := extGLG_of_mem _ (inlSG w) w.2
+  have h3 : diagEmb _ (r_le_X' R) (a w) ∈ HK (R.N R.m - 1) (𝓞 X.E ⧸ w.1.asIdeal) R.r (List.replicate R.m R.t) := by
+    rw [← h2]
+    exact h1
+  exact rf_diagEmb_mem_HK _ _ _ h3
+
+theorem levelSumX (h : (mtildeGSD W Ch sel mu P).Ok) (h' : (mtildeKGSD W Ch sel mu).Ok)
+    (φ ψ : DecoSet (E := X.E) (n := R.N R.m - 1) (ST := ∅) (SG := rowSG Pr sel mu) → VV X.K W.sgTrue)
+    (hφ : φ ∈ (mtildeGSD W Ch sel mu P).EqFun) (hψ : ψ ∈ (mtildeGSD W Ch sel mu P).EqFun) :
+    (mtildeGSD W Ch sel mu P).ip h φ ψ = ((Nat.card P.grp : X.K))⁻¹ * (mtildeKGSD W Ch sel mu).ip h' φ ψ := by
+  let ΛP := rowTy Ch sel mu P
+  let ΛK := rowTyKK Ch sel mu
+  let ι := unipotentGroupBlockEmbedding Pr sel mu (r_le_X' R)
+  have H : LevFam.Split ι ΛP ΛK P := rowTy_split Ch sel mu P
+  have Hinv : LevFam.Split ι ΛP.inv ΛK.inv P.inv :=
+    { fac := by
+        intro g
+        obtain ⟨a, k, hfac, hchr⟩ := H.fac ⟨g.1, g.2⟩
+        refine ⟨⟨a.1, a.2⟩, ⟨k.1, k.2⟩, hfac, ?_⟩
+        rw [ΛP.inv_chr ⟨g.1, g.2⟩, P.inv_chr a, ΛK.inv_chr k, hchr, mul_inv]
+      emb := by
+        intro a
+        obtain ⟨hm, hchr⟩ := H.emb ⟨a.1, a.2⟩
+        exact ⟨hm, by rw [ΛP.inv_chr ⟨_, hm⟩, P.inv_chr ⟨a.1, a.2⟩, hchr]⟩
+      sub := by
+        intro k
+        obtain ⟨hm, hchr⟩ := H.sub ⟨k.1, k.2⟩
+        exact ⟨hm, by rw [ΛP.inv_chr ⟨_, hm⟩, ΛK.inv_chr ⟨k.1, k.2⟩, hchr]⟩ }
+  have hinj : ∀ a : ↥P.inv.grp, ι a.1 ∈ ΛK.inv.grp → a = 1 := fun a ha =>
+    Subtype.ext (rf_g0Hat_injX Ch sel mu a.1 ha)
+  exact rf_ip_split (rowVal W (rowSG Pr sel mu)) Hinv hinj h h' φ ψ hφ hψ
+
+end Rows
+
+end Formalism.L2.Col
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.Columns.ToHLat
+section
+open NumberField IsDedekindDomain Module
+open scoped Matrix ComplexOrder
+
+noncomputable section
+
+namespace Formalism.L2.Col
+
+open Formalism.BasicNotions Formalism.DivisionValues Formalism.L2.DIV Formalism.L2.GlobalTheoryTheory.HLatOps
+
+namespace GSD
+
+variable {K : Type} [Field K] [NumberField K] [StarRing K] (S : GSD K)
+
+def pairAt (v : InfinitePlace K) (x y : S.V) : ℂ :=
+  ∑ i, ∑ j, starRingEnd ℂ (v.embedding (S.bV.repr x i)) * v.embedding (S.gramV i j) * v.embedding (S.bV.repr y j)
+
+def ipAt (h : S.Ok) (v : InfinitePlace K) (φ ψ : S.D → S.V) : ℂ :=
+  letI : Fintype S.Cl := h.fintypeCl
+  ∑ c : S.Cl, (((S.toCSD h).wt c : ℕ) : ℂ)⁻¹ * S.pairAt v (φ (S.outSec.rep c)) (ψ (S.outSec.rep c))
+
+abbrev hDim (h : S.Ok) : ℕ := (S.toCSD h).dim
+
+def hB (h : S.Ok) : Basis (Fin (S.hDim h)) K S.EqFun := (S.toCSD h).basis.map (S.res h).symm
+
+abbrev hGram (h : S.Ok) : Matrix (Fin (S.hDim h)) (Fin (S.hDim h)) K := (S.toCSD h).H
+
+def PosH (h : S.Ok) : Prop := ∀ v : InfinitePlace K, ((S.hGram h).map v.embedding).PosDef
+
+@[reducible] def toH (h : S.Ok) (L : Submodule (𝓞 K) S.EqFun) : HLat K where
+  V := S.EqFun
+  ι := Fin (S.hDim h)
+  b := S.hB h
+  X := stdFrame (S.hGram h)
+  L := L
+
+abbrev hCoord (h : S.Ok) : S.EqFun ≃ₗ[K] (Fin (S.hDim h) → K) := S.coordOf h S.outSec
+
+def toHc (h : S.Ok) (L : Submodule (𝓞 K) S.EqFun) : HLat K :=
+  toHLat (stdFrame (S.hGram h)) (L.map ((S.hCoord h).toLinearMap.restrictScalars (𝓞 K)))
+
+def subZ (h : S.Ok) (U : Submodule K S.EqFun) : Submodule K (Fin (S.hDim h) → K) :=
+  U.map (S.hCoord h).toLinearMap
+
+def subEq (h : S.Ok) (U : Submodule K S.EqFun) : U ≃ₗ[K] S.subZ h U := (S.hCoord h).submoduleMap U
+
+abbrev subD (h : S.Ok) (U : Submodule K S.EqFun) : ℕ := subDim (S.subZ h U)
+
+def subB (h : S.Ok) (U : Submodule K S.EqFun) : Basis (Fin (S.subD h U)) K U :=
+  (subBasis (S.subZ h U)).map (S.subEq h U).symm
+
+def subMat (h : S.Ok) (U : Submodule K S.EqFun) : Matrix (Fin (S.hDim h)) (Fin (S.subD h U)) K :=
+  subE (S.subZ h U)
+
+@[reducible] def subH (h : S.Ok) (U : Submodule K S.EqFun) (L : Submodule (𝓞 K) U) : HLat K where
+  V := U
+  ι := Fin (S.subD h U)
+  b := S.subB h U
+  X := restrFrame (S.subMat h U) (S.hGram h)
+  L := L
+
+end GSD
+
+section Cols
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m) (hX : X.Ok)
+
+@[reducible] def latH (u : Pr.Word) (j : ℕ) : HLat X.K :=
+  (colGSD W Ch u j).toH (colOk W Ch hX u j) (ColL W Ch u j)
+
+@[reducible] def Mu0H (u : Pr.Word) : HLat X.K :=
+  (colGSD W Ch u 0).toH (colOk W Ch hX u 0) (MfL W Ch u)
+
+@[reducible] def MramH (u : Pr.Word) : HLat X.K :=
+  (colGSD W Ch u 0).subH (colOk W Ch hX u 0) (MramV W Ch u) (MramL W Ch u)
+
+def ramInclH (u : Pr.Word) : (MramH W Ch hX u).V →ₗ[X.K] (Mu0H W Ch hX u).V := ramIncl W Ch u
+
+end Cols
+
+section Rows
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m) (hX : X.Ok)
+  (sel : HeightOneSpectrum (𝓞 X.F) → HeightOneSpectrum (𝓞 X.E)) {S : Set ℕ} (mu : Tup X.F X.E X.K S)
+
+@[reducible] def MtildeH (P : LevFam X.E X.K R.r Pr.vGs) : HLat X.K :=
+  (mtildeGSD W Ch sel mu P).toH (mtildeOk W Ch sel mu hX P) (MtildeL W Ch sel mu P)
+
+end Rows
+
+end Formalism.L2.Col
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.Columns.WmLemmas
+section
+open NumberField IsDedekindDomain Module Polynomial
+
+noncomputable section
+
+namespace Formalism.L2.Col
+
+open Formalism.BasicNotions Formalism.HermitianLatticesTheory Formalism.L2.DIV
+
+section Nb
+
+variable {X : Fields} {n : ℕ} {ST SG : Finset (HeightOneSpectrum (𝓞 X.E))} (V : Type) [AddCommGroup V] [Module X.K V]
+
+theorem trF_nbFun (a : GLG (E := X.E) (n := n) (SG := SG)) (P : Ideal (𝓞 X.E)) (i : ℕ) (ψ : DecoSet (E := X.E) (n := n) (ST := ST) (SG := SG) → V) :
+    trF X n ST SG V a (nbFun X.K V P i ψ) = nbFun X.K V P i (trF X n ST SG V a ψ) := by
+  funext d
+  rw [trF_apply]
+  show ∑ d₁ ∈ ((((1 : UF X.E n), a⁻¹) : UF X.E n × GLG (E := X.E) (n := n) (SG := SG)) • d).heckeNb P i, ψ d₁ =
+    ∑ d₁ ∈ d.heckeNb P i, ψ ((((1 : UF X.E n), a⁻¹) : UF X.E n × GLG (E := X.E) (n := n) (SG := SG)) • d₁)
+  set g : UF X.E n × GLG (E := X.E) (n := n) (SG := SG) := ((1 : UF X.E n), a⁻¹)
+  refine Finset.sum_nbij' (fun e => g⁻¹ • e) (fun e => g • e) ?_ ?_ ?_ ?_ ?_
+  · intro e he
+    have : g • (g⁻¹ • e) ∈ (g • d).heckeNb P i := by rwa [smul_inv_smul]
+    exact (DecoSet.smul_mem_heckeNb_iff g).1 this
+  · intro e he
+    exact (DecoSet.smul_mem_heckeNb_iff g).2 he
+  · intro e _
+    exact smul_inv_smul g e
+  · intro e _
+    exact inv_smul_smul g e
+  · intro e _
+    rw [smul_inv_smul]
+
+end Nb
+
+section Poly
+
+variable {L : Type} [Field L]
+
+end Poly
+
+section HV
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m)
+  (sel : HeightOneSpectrum (𝓞 X.F) → HeightOneSpectrum (𝓞 X.E)) {S : Set ℕ} (mu : Tup X.F X.E X.K S)
+
+end HV
+
+section FromRel
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m)
+  (sel : HeightOneSpectrum (𝓞 X.F) → HeightOneSpectrum (𝓞 X.E)) {S : Set ℕ} (mu : Tup X.F X.E X.K S)
+
+end FromRel
+
+section Inh
+
+variable {E K : Type} [Field E] [NumberField E] [StarRing E] [Field K] {a b : ℕ} {SG : Finset (HeightOneSpectrum (𝓞 E))}
+  {V V' : Type} [AddCommGroup V] [Module K V] [AddCommGroup V'] [Module K V']
+
+end Inh
+
+section Fub
+
+variable {K : Type} [Field K] [NumberField K] [StarRing K]
+
+end Fub
+
+section Rev
+
+open Pointwise
+
+variable {E : Type} [Field E] [NumberField E] [StarRing E] {n : ℕ} {ST SG : Finset (HeightOneSpectrum (𝓞 E))}
+
+
+end Rev
+
+section PhiLem
+
+open Pointwise
+
+variable {E : Type} [Field E] [NumberField E] [StarRing E] {SG : Finset (HeightOneSpectrum (𝓞 E))}
+
+variable {K : Type} [Field K] {a b : ℕ}
+
+
+end PhiLem
+
+section Gauss
+
+variable {L : Type} [Field L]
+
+end Gauss
+
+section Count
+
+variable (E : Type) [Field E] [NumberField E] [StarRing E]
+
+
+end Count
+
+section ClassRel
+
+open Classical
+
+variable {E K : Type} [Field E] [NumberField E] [StarRing E] [Field K] {a b : ℕ} {SG : Finset (HeightOneSpectrum (𝓞 E))}
+  {V V' : Type} [AddCommGroup V] [Module K V] [AddCommGroup V'] [Module K V']
+
+end ClassRel
+
+section RelOf
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m)
+  (sel : HeightOneSpectrum (𝓞 X.F) → HeightOneSpectrum (𝓞 X.E)) {S : Set ℕ} (mu : Tup X.F X.E X.K S)
+
+end RelOf
+
+section Main
+
+variable {X : Fields} {Pr : Primes X} {R : Ranks} (W : Wts X Pr.Word R) (Ch : Chars X Pr R.m)
+  (sel : HeightOneSpectrum (𝓞 X.F) → HeightOneSpectrum (𝓞 X.E)) {S : Set ℕ} (mu : Tup X.F X.E X.K S)
+
+end Main
+
+end Formalism.L2.Col
+end
+end
+

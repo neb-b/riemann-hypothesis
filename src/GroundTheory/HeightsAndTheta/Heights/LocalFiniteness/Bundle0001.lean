@@ -1,0 +1,233 @@
+module
+
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.HilbertSamuelGrowthOffHypersurfacePolynomial
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.IsolatedPointsCount
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0009
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0005
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0012
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0007
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.POrbitChartMax
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0010
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0002
+public import GroundTheory.GlobalFields.ComplexMultiplication.ClassGroupAction
+public import GroundTheory.GlobalFields.ComplexMultiplication.JInvariant
+public import GroundTheory.GlobalFields.ComplexMultiplication.DifferentialConstantField
+public import GroundTheory.GlobalFields.AnalyticClassNumber.DirichletHeckeCorrespondence
+public import GroundTheory.GlobalFields.Artin.OneDim
+public import GroundTheory.GlobalFields.Artin.Series
+public import GroundTheory.GlobalFields.ExistenceTheorem.ExistsIsAbelianGaloisRangeIdeleClassNormEqOfFini
+public import GroundTheory.GlobalFields.NormResidueSymbol.RestrictNormalInfiniteLocalSymbol
+public import GroundTheory.GlobalFields.Artin.Places
+public import GroundTheory.GlobalFields.Artin.InflationTower
+public import GroundTheory.GlobalFields.AnalyticClassNumber.HeckeContinued
+public import GroundTheory.LocalFields.Bundle0001
+public import GroundTheory.GlobalFields.TateThesis.Bundle0006
+public import GroundTheory.GlobalFields.TateThesis.DedekindZetaContinuation
+public import GroundTheory.LocalFields.Bundle0013
+public import GroundTheory.GlobalFields.TateThesis.PrimeZetaPole
+public import GroundTheory.GlobalFields.ComplexMultiplication.Bundle0012
+public import GroundTheory.GlobalFields.ComplexMultiplication.Bundle0016
+public import GroundTheory.GlobalFields.ComplexMultiplication.AlgebraicityDescent
+public import GroundTheory.GlobalFields.ComplexMultiplication.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.PTubeDeepAreaCount
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0019
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0020
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0016
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0021
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.AssemblyBase
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0045
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Bundle0005
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Bundle0028
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0010
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Stokes
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0009
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Bundle0005
+public import ReciprocityTheory.AnalyticForms.RegularLocalRings.Bundle0007
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Bundle0003
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0001
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0014
+public import ReciprocityTheory.AnalyticForms.AnalyticCharts.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Bundle0032
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterBridgeA
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Bundle0006
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0065
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0077
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0076
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Assembly
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Bundle0050
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Bundle0037
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0011
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.PFlagRatioTrdeg
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0008
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0010
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.IntegralModels.Statements
+public import GroundTheory.ArithmeticGeometry.SchemeCohomology.ProjectiveCohomology.ImmersionPullback
+public import GroundTheory.ArithmeticGeometry.SchemeCohomology.ProperCohomology.HasFiniteBiproductsModules
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0034
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0043
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0061
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0028
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0066
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0052
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.PHomLocRingDimLe
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0058
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0037
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0033
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0059
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0023
+public import GroundTheory.HeightsAndTheta.Heights.Regularisation.Assembly
+public import GroundTheory.HeightsAndTheta.Heights.Regularisation.Bundle0006
+public import GroundTheory.HeightsAndTheta.Heights.Regularisation.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.Regularisation.Bundle0007
+public import GroundTheory.HeightsAndTheta.Heights.Regularisation.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0011
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.InjectiveHolomorphicJacobianNeZeroHolds
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.PAuslanderBuchsbaumDepthLower
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0047
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0098
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0106
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0059
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0086
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0013
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.PGenericFibreRadicalPrime
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.PHypersurfacePresentation
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0050
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.PInvarianceOfDomain
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0107
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0099
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0113
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.POrdDeterminesPlace
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0042
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0018
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0054
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0114
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0043
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0053
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.PChartSecGen
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0045
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0018
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0011
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.AlgebraMapMemChartRingLine
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0010
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0016
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0019
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0020
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0027
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0033
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0068
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.PStepTwoPiece
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0029
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.IsGraphGenTwistBundleZero
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Objects
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.ZpowMemSubringOfInvMem
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0069
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.ChartRingOverOneBlockBase
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0065
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.ProdNotMemPrimeOfForall
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Fintype
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0064
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.Bundle0012
+public import GroundTheory.HeightsAndTheta.Heights.ElementarySymmetric.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.ElementarySymmetric.Bundle0004
+
+@[expose] public section
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.NumbersDVRC3ResidualContractionComponent
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.Inter_R1Indep : GroundTheory.Heights₂.Heights.Inter.RegularityIndependence.Statement :=
+  @GroundTheory.Heights₂.Heights.Inter.RegularityIndependence.of_remaining GroundTheory.Heights₂.Heights.AutoClose.Inter_R1RegMaxSurj
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.chart_norm_count : GroundTheory.Heights₂.Heights.Inter.ChartNormCount.Statement :=
+  @GroundTheory.Heights₂.Heights.Inter.ChartNormCount.proof GroundTheory.Heights₂.Heights.AutoClose.Inter_ChartSpecCount GroundTheory.Heights₂.Heights.Inter.ChartNormPts.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_ConeVarInj.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.ConeVarInj.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.ConeVarInj.proof.{u} GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_ConeVarNumerator
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_ConeVarUnit.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.ConeVarUnit.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.ConeVarUnit.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocQuot.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_ConeVarNumerator
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_FunctionFieldFinite.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.FunctionFieldFinite.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.FunctionFieldFinite.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.MChartDehomog.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_MChartTrdeg
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_DegZeroLocDim.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocDim.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocDim.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.MChartHomog.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_MChartTrdeg GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_MChartLocDim
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_SegreFlagClosureModel : GroundTheory.Heights₂.Heights.NumbersDVR.SegreFlagClosureModel.Statement :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.SegreFlagClosureModel.proof GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_SegreFlagClosureTrdeg
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_FlagProjTrdegLe : GroundTheory.Heights₂.Heights.NumbersDVR.FlagProjTrdegLe.Statement :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.FlagProjTrdegLe.proof GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_SegreFlagClosureTrdeg
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3ExceptionalContraction.{u} : GroundTheory.Heights₂.Heights.NumbersDVR.ExceptionalContraction.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.ExceptionalContraction.proof.{u} GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3BlowUpPieces
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_BlowUpHorizontalCorresp.{u} : GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpHorizontalCorresp.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpHorizontalCorresp.proof.{u} GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpHorizontalSat.full GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_BlowUpHorizontalMult GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpHorizontalLift.full GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpHorizontalStrict.full
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3ResidualContractionComponent.{u} : GroundTheory.Heights₂.Heights.NumbersDVR.ResidualContractionComponent.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.ResidualContractionComponent.proof.{u} GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3BlowUpPieces
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_LocalCoeffRing.{u} : GroundTheory.Heights₂.Heights.NumbersDVR.LocalCoeffRing.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.LocalCoeffRing.proof.{u} GroundTheory.Heights₂.Heights.NumbersDVR.LocalQuotRing.proof GroundTheory.Heights₂.Heights.NumbersDVR.LocalQuotPrimes.proof GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_LocCycleLocalQuot GroundTheory.Heights₂.Heights.NumbersDVR.LocalQuotColon.proof GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_LocalQuotFinsum GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_LocalCoeffLocal
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_HomLocRingDimLe.{u} : GroundTheory.Heights₂.Heights.NumbersDVR.HomLocRingDimLe.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.HomLocRingDimLe.proof.{u} GroundTheory.Heights₂.Heights.NumbersDVR.HomLocRingMem.proof GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_HomLocRingIsLocal
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.TubeDeepAreaCount : GroundTheory.Heights₂.Heights.TubeDeepAreaCount.Statement :=
+  @GroundTheory.Heights₂.Heights.TubeDeepAreaCount.proof GroundTheory.Heights₂.Heights.AutoClose.IsolatedPointsCount
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.ParametrisationSheetsConnectedHolds
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FrameGraphGeneric : GroundTheory.Heights₂.Heights.FrameGraphGeneric.Statement :=
+  @GroundTheory.Heights₂.Heights.FrameGraphGeneric.proof GroundTheory.Heights₂.Heights.AutoClose.FrameJacobianGeneric GroundTheory.Heights₂.Heights.FrameImplicitGraph.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.OrdDeterminesPlace : GroundTheory.Heights₂.Heights.OrdDeterminesPlace.Statement :=
+  @GroundTheory.Heights₂.Heights.OrdDeterminesPlace.proof GroundTheory.Heights₂.Heights.AutoClose.CurveNormalisationFinite
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.parametrisation_sheets_connected_holds : GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.ParametrisationSheetsConnected.Statement :=
+  @GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.ParametrisationSheetsConnected.proof GroundTheory.Heights₂.Heights.AutoClose.sheet_product_analytic_holds GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.SheetPieceReachesCentre.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.LengthLocalizedQuotient.{u} : GroundTheory.Heights₂.Heights.LengthLocalizedQuotient.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.LengthLocalizedQuotient.proof.{u} GroundTheory.Heights₂.Heights.AutoClose.LengthCutLocalizedModule
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.CMProjDimCriterion : GroundTheory.Heights₂.Heights.CMProjDimCriterion.Statement :=
+  @GroundTheory.Heights₂.Heights.CMProjDimCriterion.proof GroundTheory.Heights₂.Heights.AuslanderBuchsbaumDepthLower.proof GroundTheory.Heights₂.Heights.AuslanderBuchsbaumProjDimUpper.proof GroundTheory.Heights₂.Heights.RegularSequenceLengthLeDim.proof GroundTheory.Heights₂.Heights.AutoClose.CMHeightAddDim
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.GenericFibreRadicalPrime : GroundTheory.Heights₂.Heights.GenericFibreRadicalPrime.Statement :=
+  @GroundTheory.Heights₂.Heights.GenericFibreRadicalPrime.proof GroundTheory.Heights₂.Heights.AutoClose.GenericFibreTor GroundTheory.Heights₂.Heights.HypersurfacePresentation.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.CurveNormalisationQuotientLength : GroundTheory.Heights₂.Heights.CurveNormalisationQuotientLength.Statement :=
+  @GroundTheory.Heights₂.Heights.CurveNormalisationQuotientLength.proof GroundTheory.Heights₂.Heights.AutoClose.CurveNormalisationFinite
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.invariance_of_domain_holds : GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.InvarianceOfDomain.Statement :=
+  @GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.InvarianceOfDomain.proof GroundTheory.Heights₂.Heights.AutoClose.brouwer_fixed_point_holds
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.injective_holomorphic_inverse_holds : GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.InjectiveHolomorphicInverse.Statement :=
+  @GroundTheory.Heights₂.Heights.IndefiniteRowSideFullHecke.ComplexSets.InjectiveHolomorphicInverse.proof GroundTheory.Heights₂.Heights.AutoClose.injective_holomorphic_jacobian_ne_zero_holds
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.ChartIntSumOffHyperplane : GroundTheory.Heights₂.Heights.ChartIntSumOffHyperplane.Statement :=
+  @GroundTheory.Heights₂.Heights.ChartIntSumOffHyperplane.proof GroundTheory.Heights₂.Heights.ComplexSets.FibreBound.proof GroundTheory.Heights₂.Heights.AutoClose.ChartChangeSheetNull
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.CMQuotientUnmixed : GroundTheory.Heights₂.Heights.CMQuotientUnmixed.Statement :=
+  @GroundTheory.Heights₂.Heights.CMQuotientUnmixed.proof GroundTheory.Heights₂.Heights.AutoClose.CMParameterQuotient GroundTheory.Heights₂.Heights.CMRingUnmixed.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NormalCurveRegularPoint : GroundTheory.Heights₂.Heights.NormalCurveRegularPoint.Statement :=
+  @GroundTheory.Heights₂.Heights.NormalCurveRegularPoint.proof GroundTheory.Heights₂.Heights.AutoClose.NormalCurveJacobian
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.UniformiserGradientIndependent : GroundTheory.Heights₂.Heights.UniformiserGradientIndependent.Statement :=
+  @GroundTheory.Heights₂.Heights.UniformiserGradientIndependent.proof GroundTheory.Heights₂.Heights.AutoClose.NormalCurveJacobian GroundTheory.Heights₂.Heights.NormalCurvePointDVR.proof
+end
+

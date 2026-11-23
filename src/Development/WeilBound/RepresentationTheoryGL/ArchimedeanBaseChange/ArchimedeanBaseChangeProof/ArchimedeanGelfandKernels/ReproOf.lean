@@ -1,0 +1,14 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.HeckeFubiniCompatibility.Bundle0006
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.WaveFinal
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.InfinitesimalCharacterGL.HasInfCharGLIff
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.CG
+
+theorem reproEx_holds : ReproEx :=
+  reproEx PositivityTheory.RgBcC.wave_existence_speed_multiplicity.2.2.1 PositivityTheory.RgBcC.wave_existence_speed_multiplicity.2.2.2 PositivityTheory.RgBcC.Bridge.bridge
+
+end PositivityTheory.Rg.BcB.CG

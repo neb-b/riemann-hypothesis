@@ -1,0 +1,22 @@
+module
+
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.FrameMatching.GelfandReading.Bundle0002
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.FrameMatching.GelfandReading.Bundle0001
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.BlockCandidates.BlockCandidatesOfInputs
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.BlockCandidates.Bundle0001
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.Bundle0012
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.Bundle0003
+import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.Bundle0011
+
+@[expose] public section
+
+namespace UpperTheory.BaseChangeIdentities.GelfandReading
+
+open PositivityTheory.Rg.BcB.F
+
+theorem ident : BC.Ident := ident_of pDerVal (pInfMatch gamma_zeta_nabla_cancel.gelfInj)
+
+theorem frameRead : FrameRead :=
+  frameRead_of (BC.block_candidates_of_inputs chiTr BC.limAt_holds ident) CandPlug.candTOut
+
+end UpperTheory.BaseChangeIdentities.GelfandReading

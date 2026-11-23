@@ -1,0 +1,29 @@
+module
+
+public import Formalism.HermitianCurvature.HeisenbergConjugationMeasurePreserving
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0151
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0152
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0150
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.LevelFormSesquilinearFiniteClass
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.PositiveDensityModerateGrowth
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.SlicesFiniteRegularityBuilt
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.SliceCompactSupportCoefficient
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0174
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0168
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0194
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0201
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0205
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0189
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0238
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0227
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0239
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0267
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0271
+
+@[expose] public section
+
+namespace Formalism.FourierDecayAlt.Final
+
+theorem pb_builtBounds2Cpt : Formalism.FourierDecayAlt.KB.BuiltBounds2Cpt := Formalism.FourierDecayAlt.P.built_bounds_compact
+
+end Formalism.FourierDecayAlt.Final

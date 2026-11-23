@@ -1,0 +1,31 @@
+module
+
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.HilbertSchmidtDecay.BackOf
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.HilbertSchmidtDecay.DecayAssembly.HasCharPath
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.HilbertSchmidtDecay.HilbertSchmidtNorms.AbsoluteL2Bound
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.HilbertSchmidtDecay.AbsoluteL2Bound
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.GeometricStatement
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0042
+public import Mathlib
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.NilpotentRightRule
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.LineFormulas.RightRule
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.HilbertSchmidtDecay.RightKTypes.KrDom
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0043
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.HilbertSchmidtDecay.HaarExists
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.ToL2CongrOnUnitaryBis
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.PolynomialNilpotentPath
+public import CompanionTheory.RealGroups.DiscreteSeries.DiscreteSeriesClassification.DiscreteSeriesExhaustion.MatrixCoefficientDecay.LineFormulas.LineFinal
+
+@[expose] public section
+
+namespace CompanionTheory.RgExh.Dec.L
+
+theorem back_of_inputs (hLF : LineFormula) (hPN : PolyNilPath) : Back :=
+  back_of CompanionTheory.RgExh.Dec.L.SA.assembly_of CompanionTheory.RgExh.Dec.L.AB.absolute_l2_bound _root_.GlobalTheory.CompanionTheory.UGeo.geo hLF GlobalTheory.T.HaarExistence hPN _root_.GlobalTheory.CompanionTheory.RightRule.rightRule _root_.GlobalTheory.CompanionTheory.PathCoef.leftRule
+    CompanionTheory.RgExh.Dec.L.WyKR.kRight _root_.GlobalTheory.CompanionTheory.PathGrowth.growth _root_.GlobalTheory.CompanionTheory.PackEmb.pack
+
+theorem back_of_lineFormula (hLF : LineFormula) : Back := back_of_inputs hLF _root_.GlobalTheory.CompanionTheory.PolyNilGrad.polyNilPath
+
+theorem backward_of_line_formula : Back := back_of_lineFormula CompanionTheory.RgExh.Dec.N.S.line_formula
+
+end CompanionTheory.RgExh.Dec.L

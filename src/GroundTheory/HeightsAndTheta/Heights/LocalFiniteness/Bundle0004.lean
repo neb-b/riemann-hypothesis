@@ -1,0 +1,79 @@
+module
+
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.HilbertSamuelGrowthOffHypersurfacePolynomial
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0005
+public import GroundTheory.HeightsAndTheta.Heights.HeightComparison.Bundle0008
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Assembly
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0086
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0014
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0016
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0017
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.AssemblyBase
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.IrreducibleConnected.BasicOpenSteps
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0117
+public import GroundTheory.HeightsAndTheta.Heights.IntegralModels.Statements
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0056
+public import GroundTheory.HeightsAndTheta.Heights.DiscreteValuationNumbers.Bundle0032
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0025
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0024
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Statements
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0021
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0023
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0010
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0005
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0013
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0019
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.UniformIntegrabilityProportionalityHolds
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0034
+public import GroundTheory.HeightsAndTheta.Heights.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.RemainderTerms.Statements
+public import GroundTheory.HeightsAndTheta.Heights.RemainderTerms.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0008
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0032
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.PVertPointNagata
+public import GroundTheory.HeightsAndTheta.Heights.RemainderTerms.Imports
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.Bundle0042
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.Bundle0043
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterDivPushA
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.ContDiffFubiniStudyRatioCompChart0
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Bundle0006
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.IsPotentialOfFun
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0011
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.Bundle0024
+
+@[expose] public section
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.HilbertSamuelIrreducibleBasicOpenConnected
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_ConeLocalLength.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.ConeLocalLength.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.ConeLocalLength.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.LocalizedQuotientLength.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_ConeLocalFlat
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalFiniteRank.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalFiniteRank.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalFiniteRank.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.FibreFinite.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalFinite GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocFrac.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3BlowUpExcessDrop.{u} : GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpExcessDecreases.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.NumbersDVR.BlowUpExcessDecreases.proof.{u} GroundTheory.Heights₂.Heights.NumbersDVR.ExcessPositive.full GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3ResidualCompare GroundTheory.Heights₂.Heights.AutoClose.NumbersDVR_C3ExceptionalCompare
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.CutOffLimit : GroundTheory.Heights₂.Heights.CutOffLimit.Statement :=
+  @GroundTheory.Heights₂.Heights.CutOffLimit.of_open GroundTheory.Heights₂.Heights.HilbertSamuel.Closed.SheetImageAreaSet GroundTheory.Heights₂.Heights.AutoClose.TubeEuclMass
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.StokesOnVariety : GroundTheory.Heights₂.Heights.StokesOnVariety.Statement :=
+  @GroundTheory.Heights₂.Heights.StokesOnVariety.of_open GroundTheory.Heights₂.Heights.HilbertSamuel.Closed.SheetImageAreaSet GroundTheory.Heights₂.Heights.AutoClose.TubeEuclMass
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.TargetsCurveVertPointLength
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.CycleAverage : GroundTheory.Heights₂.Heights.CycleAverage.Statement :=
+  @GroundTheory.Heights₂.Heights.CycleAverage.proof GroundTheory.Heights₂.Heights.AutoClose.ConeAverage
+end
+

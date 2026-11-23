@@ -1,0 +1,26 @@
+module
+
+public import Mathlib
+public import CompanionTheory.ThickeningEstimates.LieGroupReduction.SiegelCore
+public import Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.IsSmoothModerateOfIsAutFunSm
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0298
+public import Formalism.UnipotentAdelicQuotients.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.HaarProductClosedCompactHolds
+public import Formalism.SatakeDualWeyl.Statement
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0130
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0115
+public import Development.AbelianVarietyTheory.Definitions.Foundations.T2SpaceTensorProductFiniteExtension
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0220
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0036
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.BlockTriangularMemMinimalParabolic
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.SiegelSetUnitary
+
+@[expose] public section
+
+namespace CompanionTheory.Prw
+
+theorem siegelCore_holds : CompanionTheory.ThKR.SiegelCore :=
+  GlobalTheory.CompanionTheory.SiegelRed.siegelCore
+
+end CompanionTheory.Prw

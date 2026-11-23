@@ -1,0 +1,8 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.GlobalTheory.ParabolicInductionFiniteLength
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.Bundle0030
+
+@[expose] public section

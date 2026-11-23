@@ -1,0 +1,304 @@
+module
+
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.TamagawaNumberSpecialUnitary
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0071
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0055
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0059
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0041
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0064
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0008
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ToroidalCompactificationBis
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0019
+public import Development.AutomorphicSpectrum.Definitions.GlobalGeometry.ModelSmall
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1864
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1932
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1755
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0028
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0772
+public import Development.AbelianVarietyTheory.Definitions.Foundations.IsProbabilityMeasureMuPart
+public import Formalism.QuotientMetricDivisors.Statement
+public import Formalism.MeanHeightDescent.DivisionInequalityWithCovolume
+public import Development.AbelianVarietyTheory.Counterexamples.RotationExamples.MeasureFailsForLargeConstant
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1654
+public import Formalism.LocalToGlobal.IndefiniteReal.ZeroPartEigenvalueConvention
+public import Formalism.LocalToGlobal.IndefiniteReal.CxLemmas
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0056
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1877
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0225
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0176
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0126
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1748
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0527
+public import Development.AbelianVarietyTheory.Counterexamples.TwistSurvey.ActsUnitarilyOfClauses
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1774
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0012
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0053
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0042
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0043
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0891
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsHeightIffOfDegreeEq
+public import Development.AbelianVarietyTheory.Definitions.Divisors.WedgeNrmLeOfWedgeNormLe
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0048
+public import Development.AbelianVarietyTheory.Definitions.Divisors.MemLevEigenIffTransl
+public import Formalism.LocalToGlobal.IndefiniteForms.IndefiniteTree.RealCubicMeans.LogMeanShares.LogMeanStatements.HSClaim
+public import Development.AbelianVarietyTheory.Definitions.Divisors.GenRatios
+public import Development.AbelianVarietyTheory.Definitions.Divisors.BadElt
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0514
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0512
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1367
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LocalShareSumBound
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2176
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle3024
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2195
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SizeBoundStatement
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1884
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1903
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LevelIndexBoundOfPublished
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1930
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1919
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1929
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0899
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.InstMeasurableSpaceRealSU
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0489
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1294
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0798
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0226
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0189
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0122
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0035
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0142
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0119
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0149
+public import Formalism.FrobeniusOrbits.FrobeniusOrbitsProofs.MuCardLeTwo
+public import Formalism.LocalToGlobal.LatticeGeometry.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0060
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1952
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2123
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1955
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1951
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1978
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1514
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0112
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.FamilyMassVolumeIdentityOfClassDecomp
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1965
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1534
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0486
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1524
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SignatureUnitaryLatticeFamily
+public import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsIsFundamentalDomainAndQuotMeasureEq
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2200
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2102
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LogRatioLowerBound
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1886
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1898
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2045
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0045
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2754
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1892
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.WeightDimensionLogBound
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2042
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1899
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2976
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2239
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2924
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2997
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2382
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2724
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2723
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1796
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1944
+public import Development.AbelianVarietyTheory.Definitions.Divisors.NormNegCmConstantEqAtAllEmbeddings
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0058
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.IsLogCanonicalMultipleCanonical
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0004
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1847
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.WeightPositivityPrincipalisation
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2950
+public import Formalism.LocalRingCardinality.Bundle0003
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsEffCartierCompl
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1842
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.FirstIndexEqOfUnfolded
+public import Formalism.LocalToGlobal.ProjectiveLattices.UnFree
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0699
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2124
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2313
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ValuationMultiplicityWeight
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2999
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle3008
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1856
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1861
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1866
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0061
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1967
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2692
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.DenseInterior
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0006
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0048
+public import Development.AbelianVarietyTheory.Definitions.CMLattices.IntegralOf
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1687
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1873
+public import Formalism.LocalToGlobal.ProjectiveLattices.RulInst
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2769
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsSmulMemOfMemSpan
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1450
+public import Development.AbelianVarietyTheory.Proofs.CubicalLineBundles.Bundle0061
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0084
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0086
+public import Formalism.LocalToGlobal.ProjectiveLattices.RosatiLatticeNorms.LinkFD
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0005
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.Bundle0038
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1875
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1916
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1913
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2347
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2767
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2037
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1893
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1883
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsCarryingSectionOrders
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2233
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ShortOfInputs
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2964
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.BudgetOfSizeAndWeight
+public import Development.WeilBound.CoreStatements.NefModelVolumes.TwoLtHalfFinrank
+public import Development.AbelianVarietyTheory.Definitions.Divisors.MulSmulIdemMem
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2389
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0057
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0017
+public import Development.AbelianVarietyTheory.Definitions.PlaceAdaptation.AdaptStd
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2118
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1791
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2125
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2202
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2110
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2756
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0049
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0044
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0008
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0001
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0024
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0022
+public import Development.WeilBound.RepresentationTheoryGL.TubeMeasures.DisjointTubes.ConstantSupremum.SupremumConstantLogBound
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0030
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0021
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0018
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0023
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2762
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1885
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2714
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2193
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2293
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1890
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1891
+public import Development.AbelianVarietyTheory.Proofs.FormalGroupCharts.Bundle0038
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0074
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1954
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1907
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2058
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2667
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1293
+public import Development.AbelianVarietyTheory.Definitions.Divisors.BarCompSubsetClosure
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2741
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.HarmonicValueTranslateAny
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0158
+public import Development.AbelianVarietyTheory.Definitions.Jets.JetsOnCopiesCompatibleFrames
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.UnifUniqSt
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.DiscreteValuationRings.TwistBCPf
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0151
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IntegralFramePointStalk
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0019
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2187
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0005
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0011
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0028
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0025
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0029
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0031
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0014
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0017
+public import Development.AbelianVarietyTheory.Definitions.Divisors.ExistsIsTauZeroNonzeroAll
+public import Development.AbelianVarietyTheory.Definitions.TorusSections.IsTorusOf
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1804
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.Bundle0004
+public import Development.AutomorphicArithmetic.LocalEmbeddings.ThinCover
+public import Development.AutomorphicArithmetic.LocalEmbeddings.ThinCore
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2337
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0121
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0015
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2532
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.TwistedBundleDegreeLowerBound
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0016
+public import Development.AbelianVarietyTheory.Proofs.HeightProofs.Bundle0070
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0027
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LatticeLevelCharacterBound
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0516
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ComplexificationBaseChangeLinearOneTmul
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1894
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FreePointHalfLevelLift
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HalfLevelSubmodulePermutation
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1939
+public import Development.AutomorphicArithmetic.LocalEmbeddings.BadRepAt
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle3006
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.Bundle0026
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.FockModels.TamagawaPeterssonLambdaSqNonneg
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.CohomologicalCsdTempered
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0061
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0093
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0119
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0203
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0118
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0238
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0177
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0221
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0248
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0242
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0260
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0088
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0115
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0083
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0136
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0213
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0252
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0164
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0173
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0079
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0086
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0092
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0263
+
+@[expose] public section
+
+set_option synthInstance.maxHeartbeats 200000
+
+section
+section
+open GlobalTheory.CovTop GlobalTheory.BigTop
+namespace SelfIntersectionVolumeEstimates
+set_option maxHeartbeats 1000000 in
+theorem topCovolG_alt_alt : _root_.SelfIntersectionVolumeEstimates.VolumeEstimateHypotheses → GlobalTheory.CovTop.HypothesesX → _root_.GlobalTheory.CovTop.PublishedHodgeBundleTheorems → GlobalTheory.CovHt.HypothesesH → GlobalTheory.Published.GrothendieckDeformation → GlobalTheory.HSCore.Quoted → GlobalTheory.CompanionTheory.Ar.Plug.DeepStR → _root_.GlobalTheory.CovTop.CovolumeBoundOfX :=
+  by
+  intro hSB hX hP hH hGD hQ hD
+  have hS := hH.sieg
+  have hK := hX.ks
+  have hN := hX.lie
+  have gram := _root_.GlobalTheory.T.covering_gram_of_prints hP
+  have size := _root_.GlobalTheory.T.cov_size_bound
+  have meas := _root_.GlobalTheory.T.covering_meas_of_prints hP
+  have anc := _root_.GlobalTheory.T.anchor_bound
+  have dex := _root_.GlobalTheory.T.covering_deepEx_of_prints hP
+  have dg := _root_.GlobalTheory.T.deepGood_of_toroidal_and_semiabelian hP hGD hQ hS hK hN
+  have fd := _root_.GlobalTheory.T.flatDeg_of_scholzeWeinstein_of_prints hP
+  have deg := _root_.GlobalTheory.T.coverDegree_of_grothendieck_deformation hX hP hS hK hGD hQ hN dg size fd
+  have sh := _root_.GlobalTheory.T.share_of_deep_good_size_flat_deg_cover_degree hX hP hS hK hGD hQ hN dg size fd deg
+  have ht := _root_.SelfIntersectionVolumeEstimates.height_lower_bound_general_alt hSB hX hGD hQ hP hH hD dg size deg fd
+  have hs := _root_.GlobalTheory.T.coverHeightSum_of_flatDeg_coverDegree_share hX hP hGD hQ hS hK hN dg size fd deg sh
+  have ul := _root_.GlobalTheory.T.uniform_lower_bound_of_sums' dg size deg sh ht hs (_root_.GlobalTheory.T.sum_c_of_deep_good dg)
+  have low := _root_.GlobalTheory.T.liftLowBound_of_cover_estimates size (_root_.GlobalTheory.T.lowDef_of_gram_of_anchor hP gram anc) dex dg (_root_.GlobalTheory.T.covering_ring_of_prints_gram_deepGood hP gram dg) (_root_.GlobalTheory.T.covering_maps_of_gram_deep_size_flatDeg hP hGD hQ hS hK hN gram dg size fd) (_root_.GlobalTheory.T.coverRank_of_coverDegree_and_share hX hP hGD hQ hS hK hN dg size fd deg sh) (_root_.GlobalTheory.T.covering_gmin_of_prints_gram_deep_size hP gram dg size) (_root_.GlobalTheory.T.flat_of_prints_deepGood_flatDeg_anchor hP dg fd anc) ul
+  exact _root_.GlobalTheory.T.covolX_of_truncation_badSet_lambda_lowBound gram (_root_.GlobalTheory.T.lift_recursion_of_gram_bound gram) (_root_.GlobalTheory.T.liftTruncation_of_prints hP) (_root_.GlobalTheory.T.liftBadSet_of_deep_size_flatDeg_share hX hP hGD hQ hS hK hN hX.green gram dex dg size fd deg sh) (_root_.GlobalTheory.T.liftLambdaBound_of_gram_meas hP gram meas) size (_root_.GlobalTheory.T.coreLe_of_gram_meas_liftRational gram meas (_root_.GlobalTheory.T.liftRational_of_prints hP)) low
+end SelfIntersectionVolumeEstimates
+end
+end

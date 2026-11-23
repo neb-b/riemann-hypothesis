@@ -1,0 +1,56 @@
+module
+
+public import Mathlib
+public import Formalism.FrobeniusContraction.HighestWeightResidueAvoids
+public import Formalism.FrobeniusContraction.FrobeniusContractionProofs.ContractBij
+public import Formalism.FrobeniusContraction.Bundle0001
+public import Formalism.GaussValuationBounds.GaussValueContraction.TruncationExponentBounds
+public import Formalism.GaussValuationBounds.GaussValueContraction.Bundle0001
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0004
+public import Formalism.TruncatedSeriesCounting.Bundle0001
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0005
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.AprimeArith
+public import Formalism.TruncatedSeriesCounting.LemmaDetPoly
+public import Formalism.CharacterColumnKernels.IdempotentNormalForms.LengthQuotSmulRangeFree
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0007
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.LemmaDetPoly
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0002
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0003
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0006
+public import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.Bundle0001
+
+@[expose] public section
+
+namespace Formalism.TruncatedSeriesCounting.WachCoordinates
+
+end Formalism.TruncatedSeriesCounting.WachCoordinates
+
+namespace Formalism.TruncatedSeriesCounting.RamifiedCoefficientChains
+
+theorem ramified_coefficient_chain_bounds : HCoef ∧ ExpBound ∧ MaxZeroExponentInequality ∧ TwoIntervalValuationSumBound ∧ LemmaGVal ∧ LemmaGIdeal ∧ RamifiedValuationInequality ∧ LenPi0 ∧ ColChain ∧ SubGen ∧ ColAssembly :=
+  ⟨h_coefficient_bound, expBound_statement, second_exponent_bound, first_sigma_valuation_bound, g_coeff_valuation_statement, g_ideal_valuation_statement, ramified_valuation_inequality, length_pi_zero_bound, column_chain_bound, submodule_generator_count, column_assembly_bound⟩
+
+end Formalism.TruncatedSeriesCounting.RamifiedCoefficientChains
+
+namespace Formalism.TruncatedSeriesCounting.TruncatedSeriesCountingIdentities
+
+end Formalism.TruncatedSeriesCounting.TruncatedSeriesCountingIdentities
+
+namespace Formalism.TruncatedSeriesCounting.tableLineDegreeTwo
+
+end Formalism.TruncatedSeriesCounting.tableLineDegreeTwo
+
+namespace Formalism.TruncatedSeriesCounting.TruncatedSeriesCountingBounds
+
+end Formalism.TruncatedSeriesCounting.TruncatedSeriesCountingBounds
+
+namespace Formalism.TruncatedSeriesCounting.R9
+
+end Formalism.TruncatedSeriesCounting.R9
+
+namespace Formalism.TruncatedSeriesCounting.X
+
+theorem pX_conditions : QaNum ∧ TruncSig ∧ TruncRem1 ∧ ArcExp ∧ SatA ∧ UnitCoefficientPowerMod :=
+  ⟨q_numerical_identity, truncation_signature_bound, truncation_remainder_bound, arc_exponential_identity, saturation_criterion, unit_coefficient_power_mod⟩
+
+end Formalism.TruncatedSeriesCounting.X

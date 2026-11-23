@@ -1,0 +1,22 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.TwMemGLs
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.Bundle0003
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.Bundle0011
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.UnitaryMemGLs
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0352
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.PositiveConeStructure
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.SymZeroCommFrame
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.PositiveConeHomotopy
+
+@[expose] public section
+
+namespace PositivityTheory.RgBcC.LfSt
+
+theorem lOf_of_kChain (h : KChain) : LOf :=
+  lAsm _root_.GlobalTheory.CompanionTheory.HbBasis.hbFacts (GelfandReading.frameDer_of _root_.GlobalTheory.CompanionTheory.HbBasis.hbFacts) h (KSuppPf.ksupp_of _root_.GlobalTheory.CompanionTheory.HbBasis.hbFacts _root_.GlobalTheory.CompanionTheory.ConeHaar.coneSt) UnitaryConjTransposeTrace.end1 GLSubgroupConjTransposeClosure.end0
+    _root_.GlobalTheory.CompanionTheory.SuperHomot.homot _root_.GlobalTheory.CompanionTheory.ConeHaar.coneSt
+
+end PositivityTheory.RgBcC.LfSt

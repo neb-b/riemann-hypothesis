@@ -1,0 +1,14 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TensorOperatorTrees.TrStable
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TensorOperatorTrees.TwShift
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TensorOperatorTrees.TensOpMaps
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TensorOperatorTrees.InfTree
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.SpectralAccumulation.Trees
+
+theorem treeLemmas : TrStable ∧ TwShift ∧ Graft ∧ InfTree := ⟨trStable, twShift, graft, infTree⟩
+
+end PositivityTheory.Rg.BcB.SpectralAccumulation.Trees

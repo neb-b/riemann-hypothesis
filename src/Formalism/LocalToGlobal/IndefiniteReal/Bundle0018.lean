@@ -1,0 +1,299 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0016
+public import Formalism.LocalToGlobal.GlobalTheory.DivPassage
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0005
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0017
+public import Formalism.LocalToGlobal.IndefiniteReal.LiftGoodPartComplexEqRangeFamily
+public import Formalism.LocalToGlobal.IndefiniteReal.RationalAdjoints.Bundle0001
+public import Formalism.LocalToGlobal.IndefiniteReal.RationalAdjoints.RatThOfLiftTest
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0007
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0006
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0009
+
+@[expose] public section
+
+-- bundled from Formalism.LocalToGlobal.IndefiniteReal.InBlock
+section
+open Module NumberField IsDedekindDomain
+open scoped Matrix ComplexOrder InnerProductSpace
+
+noncomputable section
+
+namespace Formalism.IndefR.CxPass
+
+open Formalism.DivisionValues Formalism.L2.Indef Formalism.L2.DIV Formalism.IndefR.Cx Formalism.L2.GlobalTheoryTheory.DivPassage
+
+structure In3 (K : Type) [Field K] [NumberField K] [StarRing K] (G : Type) [Group G] [Fintype G] (Pl0 I0 Ty T : Type)
+    (m : ℕ) where
+  A3 : FamIn3 K G Pl0 I0 Ty T m
+  P0 : Subgroup G
+  ψ0 : P0 →* Kˣ
+  P1 : Subgroup G
+  ψ1 : P1 →* Kˣ
+  Dc : ∀ Zs : DefSub A3.fam3.amb3, DefCols (A3.side3 P1 ψ1 Zs)
+  Sp : ∀ Zs : DefSub A3.fam3.amb3, SPer (Dc Zs)
+  Zsc : DefSub A3.fam3.amb3 → IndefScale A3.fam3.base3
+  X : CxData A3.fam3.amb3
+  gE : Representation ℂ G X.EE
+
+namespace In3
+
+variable {K : Type} [Field K] [NumberField K] [StarRing K] {G : Type} [Group G] [Fintype G] {Pl0 I0 Ty T : Type} {m : ℕ}
+  (I : In3 K G Pl0 I0 Ty T m)
+
+abbrev A : FamIn K G Pl0 T m := I.A3.A
+
+abbrev cr : Crd I.A3.fam3.amb3 (faceOf3 I.A3 I.P0 I.ψ0 I.P1 I.ψ1 I.Dc I.Sp I.Zsc) := crdOf3 I.A3 I.P0 I.ψ0 I.P1 I.ψ1 I.Dc I.Sp I.Zsc
+
+abbrev cg : Crd I.A3.fam3.amb3 (faceOf3 I.A3 ⊥ 1 I.P1 I.ψ1 I.Dc I.Sp I.Zsc) := crdOf3 I.A3 ⊥ 1 I.P1 I.ψ1 I.Dc I.Sp I.Zsc
+
+def lvP : Bool → Subgroup G := fun b => cond b I.P1 I.P0
+
+def lvψ : ∀ b, I.lvP b →* Kˣ
+  | false => I.ψ0
+  | true => I.ψ1
+
+abbrev Sb (b : Bool) := I.X.data I.cr b
+
+abbrev Sg := (prin I.X).data I.cg false
+
+abbrev iCg := I.X.iC I.cg false I.A3.fam3.base3.μ0
+
+def Jm (b : Bool) : Matrix (Fin I.Sg.D) (Fin (I.Sb b).D) K :=
+  kMat I.A3.fam3.base3.v0.embedding (relMat I.iCg (I.X.iC I.cr b I.A3.fam3.base3.μ0))
+
+def ρf (g : G) : Matrix (Fin I.Sg.D) (Fin I.Sg.D) K :=
+  kMat I.A3.fam3.base3.v0.embedding (relMat I.iCg ((I.gE g).comp I.iCg))
+
+def Jt (b : Bool) (t : I.A3.fam3.base3.Tup) :
+    Matrix (Fin ((lv (faceOf3 I.A3 ⊥ 1 I.P1 I.ψ1 I.Dc I.Sp I.Zsc I.X.zs) false).dQ t))
+      (Fin ((lv (faceOf3 I.A3 I.P0 I.ψ0 I.P1 I.ψ1 I.Dc I.Sp I.Zsc I.X.zs) b).dQ t)) K :=
+  kMat I.A3.fam3.base3.v0.embedding (relMat (I.X.iC I.cg false t) (I.X.iC I.cr b t))
+
+
+open Classical in
+def epM (P : Subgroup G) (ψ : P →* Kˣ) : Matrix (Fin I.Sg.D) (Fin I.Sg.D) K :=
+  haveI : Fintype P := Fintype.ofFinite P
+  ((Nat.card P : K)⁻¹) • ∑ h : P, (((ψ h)⁻¹ : Kˣ) : K) • I.ρf (h : G)
+
+def eMat {W : Type} [AddCommGroup W] [Module K W] (τ : Representation K G W) : Matrix (Fin I.Sg.D) (Fin I.Sg.D) K :=
+  (Formalism.IndefR.TransferLatticeStatement.charOf τ 1 / (Fintype.card G : K)) • ∑ x : G, Formalism.IndefR.TransferLatticeStatement.charOf τ x⁻¹ • I.ρf x
+
+abbrev LA {S : Type} [Fintype S] {Ws : S → Type} [∀ s, AddCommGroup (Ws s)] [∀ s, Module K (Ws s)]
+    (τ : ∀ s, Representation K G (Ws s)) (nbar : ℝ) : LevelAmb K (I.Sb false).D (I.Sb true).D where
+  Dg := I.Sg.D
+  Xg := I.Sg.XE
+  Rg := I.Sg.RR
+  ep0 := I.epM I.P0 I.ψ0
+  ep1 := I.epM I.P1 I.ψ1
+  S := S
+  fS := inferInstance
+  es s := I.eMat (τ s)
+  nS s := Formalism.IndefR.IndefiniteEpsilonOperator.nOf (τ s) ⟨I.P1, I.ψ1⟩
+  nbar := nbar
+  G := Fintype.card G
+  h0 := Nat.card I.P0
+  h1 := Nat.card I.P1
+  ι0 := I.Jm false
+  ι1 := I.Jm true
+
+structure Hyp (s : ℕ) : Prop where
+  ok : I.A3.fam3.Ok3 s
+  sep : I.A3.fam3.TypesSep3
+  stable : I.X.zs.Stable
+  inBlock : I.X.zs.InBlock
+  h4pos : I.X.H4pos
+  pos0 : (I.A3.side3 I.P0 I.ψ0 I.X.zs).Pos
+  pos1 : (I.A3.side3 I.P1 I.ψ1 I.X.zs).Pos
+  h2 : ∀ b, I.X.H2 I.cr b
+  ratMu : ∀ b, I.X.RATmu I.cr b
+  h2g : PrincipalLevelBijectivity I.A3 I.X (P1 := I.P1) (ψ1 := I.ψ1) (Dc := I.Dc) (Sp := I.Sp) (Zsc := I.Zsc)
+  ratMug : I.X.RATmu I.cg false
+  gunit : ∀ (g : G) (x y : I.X.EE), ⟪I.gE g x, I.gE g y⟫_ℂ = ⟪x, y⟫_ℂ
+  gequiv : GEquiv3 I.A3 I.X I.gE
+  np0 : I.X.nP false = (Nat.card I.P0 : ℝ)
+  np1 : I.X.nP true = (Nat.card I.P1 : ℝ)
+
+def PRho : Prop :=
+  ∀ s, I.Hyp s → I.ρf 1 = 1 ∧ (∀ g h, I.ρf (g * h) = I.ρf g * I.ρf h) ∧
+    ∀ g (x : Fin I.Sg.D → K), I.iCg (cpt I.A3.fam3.base3.v0.embedding (I.ρf g *ᵥ x)) =
+      I.gE g (I.iCg (cpt I.A3.fam3.base3.v0.embedding x))
+
+def PJ : Prop :=
+  ∀ s, I.Hyp s → ∀ b, (∀ x : Fin (I.Sb b).D → K, I.iCg (cpt I.A3.fam3.base3.v0.embedding (I.Jm b *ᵥ x)) =
+      I.X.iC I.cr b I.A3.fam3.base3.μ0 (cpt I.A3.fam3.base3.v0.embedding x)) ∧ Function.Injective (I.Jm b).mulVec
+
+def PJt : Prop :=
+  ∀ s, I.Hyp s → ∀ b t,
+    (∀ x, I.X.iC I.cg false t (cpt I.A3.fam3.base3.v0.embedding (I.Jt b t *ᵥ x)) =
+      I.X.iC I.cr b t (cpt I.A3.fam3.base3.v0.embedding x)) ∧
+    (∀ x, I.cg.toR I.X.zs false t (I.Jt b t *ᵥ x) = I.cr.toR I.X.zs b t x) ∧
+    ∀ x, I.Jm b *ᵥ (I.X.rowMat I.cr b t *ᵥ x) = I.X.rowMat I.cg false t *ᵥ (I.Jt b t *ᵥ x)
+
+def PRange : Prop :=
+  ∀ s, I.Hyp s → ∀ b, LinearMap.range (I.Jm b).mulVecLin = LinearMap.range (I.epM (I.lvP b) (I.lvψ b)).mulVecLin
+
+def PMet : Prop :=
+  ∀ s, I.Hyp s → ∀ b v (x y : Fin (I.Sb b).D → K),
+    Formalism.HermitianLatticesTheory.majAt (Pi.basisFun K (Fin (I.Sb b).D)) (I.Sb b).XE v x y =
+      Formalism.HermitianLatticesTheory.majAt (Pi.basisFun K (Fin I.Sg.D)) (Formalism.BranchingDeterminantCap.scaleFrame (Real.sqrt (Nat.card (I.lvP b))) I.Sg.XE) v
+        (I.Jm b *ᵥ x) (I.Jm b *ᵥ y)
+
+def PFrames : Prop := ∀ s, I.Hyp s → ∀ v, IsUnit (I.Sg.XE v).det
+
+def PUni : Prop :=
+  ∀ s, I.Hyp s → ∀ v (g : G) (x y : Fin I.Sg.D → K),
+    Formalism.HermitianLatticesTheory.majAt (Pi.basisFun K (Fin I.Sg.D)) I.Sg.XE v (I.ρf g *ᵥ x) (I.ρf g *ᵥ y) =
+      Formalism.HermitianLatticesTheory.majAt (Pi.basisFun K (Fin I.Sg.D)) I.Sg.XE v x y
+
+def PLat : Prop := ∀ s, I.Hyp s → Submodule.IsLattice K I.Sg.RR
+
+def PGLat : Prop := ∀ s, I.Hyp s → ∀ (g : G), ∀ x ∈ I.Sg.RR, I.ρf g *ᵥ x ∈ I.Sg.RR
+
+def PSand : Prop :=
+  ∀ s, I.Hyp s → ∀ b,
+    (∀ x ∈ (I.Sb b).RR, I.Jm b *ᵥ x ∈ I.Sg.RR) ∧
+    ∀ y ∈ I.Sg.RR, y ∈ LinearMap.range (I.epM (I.lvP b) (I.lvψ b)).mulVecLin →
+      ∃ x ∈ (I.Sb b).RR, I.Jm b *ᵥ x = ((Nat.card (I.lvP b) : ℕ) : 𝓞 K) • y
+
+def PGood {S : Type} [Fintype S] {Ws : S → Type} [∀ s, AddCommGroup (Ws s)] [∀ s, Module K (Ws s)]
+    (τ : ∀ s, Representation K G (Ws s)) : Prop :=
+  ∀ s, I.Hyp s → Formalism.IndefR.TransferLatticeStatement.IsGood τ → CharsX τ I.A.fam.X → ∑ t, I.eMat (τ t) = 1
+
+end In3
+
+end Formalism.IndefR.CxPass
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.IndefiniteReal.PackageFromPrimitiveStatements
+section
+open Module NumberField IsDedekindDomain
+open scoped Matrix ComplexOrder InnerProductSpace
+
+noncomputable section
+
+namespace Formalism.IndefR.Cx
+
+open Formalism.DivisionValues Formalism.L2.Indef Formalism.L2.DIV
+
+variable {K : Type} [Field K] [NumberField K] [StarRing K]
+variable {G : Type} [Group G] [Fintype G] {Pl0 I0 Ty T : Type} {m : ℕ}
+
+section CoreR3
+
+variable {A3 : FamIn3 K G Pl0 I0 Ty T m} {P0 : Subgroup G} {ψ0 : P0 →* Kˣ} {P1 : Subgroup G} {ψ1 : P1 →* Kˣ}
+  {Dc : ∀ Zs : DefSub A3.fam3.amb3, DefCols (A3.side3 P1 ψ1 Zs)} {Sp : ∀ Zs : DefSub A3.fam3.amb3, SPer (Dc Zs)}
+  {Zsc : DefSub A3.fam3.amb3 → IndefScale A3.fam3.base3} {X : CxData A3.fam3.amb3} {s : ℕ}
+  {C0 : ∀ j : Fin m, ((A3.liftI j A3.A.fam.μ0).OpIx → K) → Prop}
+  {eV : ∀ t, (Fin ((faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs).Df1.nV t) → K) →ₗ[K] A3.fam3.amb3.FR t}
+  {sEE : X.EE →ₗ⋆[ℂ] (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs).Sp.HH} {C CH : ℝ}
+  {hE : ∀ t, (A3.rowI t).OpIx → Module.End ℂ X.EE} {hW : ∀ j t, (A3.liftI j t).OpIx → Module.End ℂ (X.W j)}
+  {gE : Representation ℂ G X.EE} {gW : ∀ j, Representation ℂ G (X.W j)} {cf : ConvFace A3.fam3.base3}
+
+theorem ComplexDataConditionsBaseLevel.stable (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) : X.zs.Stable :=
+  CxData.cutStable X hC.kFormR hC.kFormL
+    (Formalism.IndefR.CxPass.definite_kernel_stable hC.kFormR hC.gEquiv hC.thetaR)
+    (Formalism.IndefR.CxPass.lift_kernel_stable hC.kFormL hC.gEquivL hC.thetaL)
+    (definite_adjoint_closed hC.ok hC.heckeR hC.kFormR hC.jIsoR) (lift_adjoint_closed hC.ok hC.heckeL hC.kFormL hC.jIsoL)
+
+theorem ComplexDataConditionsBaseLevel.wf (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) :
+    ∀ b, (lv (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs) b).WF := fun b => match b with
+  | false => A3.side_well_formed hC.ok P0 ψ0 X.zs hC.stable hC.inBlock hC.sep
+  | true => A3.side_well_formed hC.ok P1 ψ1 X.zs hC.stable hC.inBlock hC.sep
+
+theorem ComplexDataConditionsBaseLevel.ratZ (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) : X.RatZ :=
+  Formalism.IndefR.Rat.ratZOfTests X (cvOf3 A3 P0 ψ0 P1 ψ1) hC.kFormR hC.kFormL hC.jIsoR hC.jIsoL hC.rowTest hC.liftTest
+
+theorem ComplexDataConditionsBaseLevel.levs (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) (b : Bool) :
+    X.RatLev (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) (cvOf3 A3 P0 ψ0 P1 ψ1) b ∧ X.DnLev (cvOf3 A3 P0 ψ0 P1 ψ1) b ∧
+      X.UpLev (cvOf3 A3 P0 ψ0 P1 ψ1) b :=
+  ⟨Formalism.IndefR.CxPass.rationality_at_level_of_equivariance hC.ok hC.kFormR hC.jIsoR hC.ratZ hC.gUnit hC.gEquiv b,
+    Formalism.IndefR.CxPass.descent_of_types hC.ok hC.kFormR hC.jIsoR hC.ratZ hC.gUnit hC.gEquiv hC.h2P hC.lev0 hC.lev1 b,
+    Formalism.IndefR.CxPass.upper_level_of_types hC.ok hC.kFormR hC.jIsoR hC.gUnit hC.gEquiv hC.lev0 hC.lev1 b⟩
+
+theorem ComplexDataConditionsBaseLevel.what₂ (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) (b : Bool) :
+    X.H2 (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) b ∧ X.H4 (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) b :=
+  cutRows (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) (cvOf3 A3 P0 ψ0 P1 ψ1) b (hC.wf b) hC.h4pos
+    (definite_isometry_of_norms hC.ok hC.jIsoR hC.npTie b) (definite_coordinates_in_subspaces X b) (definite_coordinates_in_good_part X b) (hC.levs b).1 (hC.levs b).2.1 (hC.levs b).2.2
+    (hC.thmBop b) (hC.partsE b)
+
+theorem ComplexDataConditionsBaseLevel.ratMu (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) (b : Bool) :
+    X.RATmu (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) b :=
+  Formalism.IndefR.Rat.ratMuOfRowTest X (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) b hC.rowTest (hC.what₂ b).1
+
+theorem ComplexDataConditionsBaseLevel.partsOrth (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) (b : Bool) :
+    X.PartsOrth b (fc := faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) := by
+  cases b
+  · exact fun v _ p q hpq x hx y hy =>
+      majAt_eq_zero_of_mem_Qp_of_ne A3 X hC.ok (hC.heckeR A3.A.fam.μ0) hC.stable P0 ψ0 v p q hpq x hx y hy
+  · exact fun v _ p q hpq x hx y hy =>
+      majAt_eq_zero_of_mem_Qp_of_ne A3 X hC.ok (hC.heckeR A3.A.fam.μ0) hC.stable P1 ψ1 v p q hpq x hx y hy
+
+theorem ComplexDataConditionsBaseLevel.rowHyp (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) (b : Bool) :
+    X.RowHyp (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) b :=
+  ⟨hC.wf b, hC.h4pos, (hC.what₂ b).1, hC.ratMu b,
+    definite_equivariance_of_primitive P0 ψ0 P1 ψ1 Dc Sp Zsc hC.kFormR hC.stable hC.ok hC.thetaR b, (hC.what₂ b).2, hC.partsOrth b⟩
+
+theorem ComplexDataConditionsBaseLevel.lifts0 (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) :
+    X.H5 (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) false ∧ X.ThmA (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) false :=
+  CxData.cutLifts X (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) (cvOf3 A3 P0 ψ0 P1 ψ1) false (hC.wf false) hC.h4pos hC.kForm
+    (lift_isometry_of_norms hC.ok hC.jIsoL hC.npTie false) (lift_coordinates_in_subspaces X false) (lift_coordinates_in_good_part_family X false)
+    (Formalism.IndefR.CxPass.lift_rationality_of_equivariance hC.ok hC.kFormL hC.jIsoL hC.ratZ hC.gUnitL hC.gEquivL false)
+    (Formalism.IndefR.CxPass.lift_descent_at_lower_type hC.ok hC.kFormL hC.jIsoL hC.ratZ hC.gUnitL hC.gEquivL hC.lower_level_lift_type)
+    (Formalism.IndefR.CxPass.upper_level_lift_at_lower_type hC.ok hC.kFormL hC.jIsoL hC.gUnitL hC.gEquivL hC.lower_level_lift_type)
+    hC.thmAop hC.partsW
+
+theorem ComplexDataConditionsBaseLevel.ratTh (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) :
+    X.RATth (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) false :=
+  Formalism.IndefR.Rat.ratThOfLiftTest X (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) false hC.base_lift_test hC.lifts0.1 hC.kForm hC.ewNorm
+    (hC.h4pos.2.2 false)
+
+theorem ComplexDataConditionsBaseLevel.liftHyp0 (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) :
+    X.LiftHyp (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) false :=
+  ⟨hC.lifts0.1, hC.ratTh, hC.kForm, hC.ewNorm, hC.lifts0.2, hC.galD,
+    lift_equivariance_of_primitive P0 ψ0 P1 ψ1 Dc Sp Zsc hC.kFormL hC.stable hC.ok hC.thetaL false, hC.mLat⟩
+
+theorem ComplexDataConditionsBaseLevel.types0 (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) :
+    (lv (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs) false).Types :=
+  types_of_lift_eigenvalues A3 X hC.ok hC.sep hC.stable P0 ψ0 hC.eig0 hC.typ0
+
+theorem ComplexDataConditionsBaseLevel.proviso0 (hC : ComplexDataConditionsBaseLevel A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 hE hW gE gW) :
+    (lv (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs) false).Proviso :=
+  proviso_of_lift_eigenvalues A3 X hC.ok (fun j => hC.heckeL j A3.A.fam.μ0) P0 ψ0 hC.eig0
+
+theorem PrimitiveStatementsBaseLiftsOnly.cols (hC : PrimitiveStatementsBaseLiftsOnly A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 eV sEE C CH hE hW gE gW cf) :
+    ∃ ζ : (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs).Dc.Mem → A3.fam3.base3.Tup → K,
+      (X.colOf (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) (X.colDef (fun u t => (ζ u t)⁻¹) sEE)).PairingFactorsThroughPeriods ∧
+      (X.colOf (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) (X.colDef (fun u t => (ζ u t)⁻¹) sEE)).L1e :=
+  X.exists_zeta_pairing_factors_through_periods (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) (cvOf3 A3 P0 ψ0 P1 ψ1) eV sEE (hC.wf true) hC.h4pos (hC.what₂ true).1
+    (hC.ratMu true) hC.jIsoR (hC.levs true).1 (hC.levs true).2.1 (hC.levs true).2.2 (definite_coordinates_in_good_part X true) hC.evTie hC.seeIso
+    hC.miStar
+
+def zetaEps (X : CxData A3.fam3.amb3) (cr : Crd A3.fam3.amb3 (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc))
+    (sEE : X.EE →ₗ⋆[ℂ] (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs).Sp.HH) :
+    (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X.zs).Dc.Mem → A3.fam3.base3.Tup → K :=
+  Classical.epsilon fun ζ => (X.colOf cr (X.colDef (fun u t => (ζ u t)⁻¹) sEE)).PairingFactorsThroughPeriods ∧
+    (X.colOf cr (X.colDef (fun u t => (ζ u t)⁻¹) sEE)).L1e
+
+def basePackageFullHecke (hC : PrimitiveStatementsWithPassage A3 P0 ψ0 P1 ψ1 Dc Sp Zsc X s C0 eV sEE C CH hE hW gE gW cf) :
+    IndefPkgR A3.fam3.amb3 (faceOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) cf C CH :=
+  X.cxPkgR (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) cf (X.colDef (fun u t => (zetaEps X (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) sEE u t)⁻¹) sEE) C CH
+    hC.stable hC.inBlock (hC.rowHyp false) hC.liftHyp0 hC.pos hC.proviso0 hC.types0 hC.h0
+    (CxData.cutDims X (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) false (hC.wf false) hC.h4pos hC.kForm hC.ewNorm hC.types0
+      (hC.what₂ false).1 (hC.ratMu false) (hC.rowHyp false).h3 hC.lifts0.1 hC.ratTh hC.liftHyp0.h3W (hC.partsE false)
+      hC.partsW hC.dimParts)
+    hC.l3 hC.on (hC.rowHyp true) hC.l6 (Classical.epsilon_spec hC.cols).1 (Classical.epsilon_spec hC.cols).2
+    (CxData.cutTuples2 X (crdOf3 A3 P0 ψ0 P1 ψ1 Dc Sp Zsc) C CH hC.h0 hC.w1) hC.passage hC.fun0 hC.conv
+    (X.heckeB_of (hC.what₂ false).1 hC.kForm hC.ewNorm hC.h4pos hC.heckeRB.some
+      hC.heckeWB.some).some
+    (X.heckeC_of (hC.what₂ true).1 hC.heckeRC.some).some
+
+end CoreR3
+
+end Formalism.IndefR.Cx
+end
+end
+

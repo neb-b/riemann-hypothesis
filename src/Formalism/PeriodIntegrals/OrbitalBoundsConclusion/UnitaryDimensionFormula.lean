@@ -1,0 +1,10 @@
+module
+
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.RankTwoDimensionFormula.Bundle0002
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.RankTwoDimensionFormula.StabBoundHolds
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.RankTwoDimensionFormula.IndexGeFull
+
+@[expose] public section
+
+theorem kappa_off_diagonal_dim_form_C : Formalism.L2.SG.KappaOffDiagonal.DimFormC :=
+  PI.UnitaryDimensionFormula.dimFormC_of_three PI.UnitaryDimensionFormula.transport_holds PI.UnitaryDimensionFormula.stabBound_holds PI.UnitaryDimensionFormula.indexGe

@@ -1,0 +1,18 @@
+module
+
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.ChartPullbacks.WeightedChartPullback.WeightIndep
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.SemiabelianSchemes.PrecompleteBases.IsPrecompleteOfBasis
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.GlobalSectionsRankAlgClosed
+public import Mathlib.FieldTheory.PrimitiveElement
+public import Mathlib.RingTheory.Unramified.LocalRing
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.ChartPullbacks.CubePullbacks.CubePull
+
+@[expose] public section
+
+namespace ReciprocityTheory.ChartRestriction.G.Out
+
+open Semi
+
+theorem proved_CubePullSt : CubePullSt := ReciprocityTheory.ChartRestriction.G.Out.CubePf.cubePull
+
+end ReciprocityTheory.ChartRestriction.G.Out

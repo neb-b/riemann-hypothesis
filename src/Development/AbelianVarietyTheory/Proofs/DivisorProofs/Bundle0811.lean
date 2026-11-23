@@ -1,0 +1,493 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0026
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IsThickId
+public import Development.AbelianVarietyTheory.Definitions.Divisors.OneMemH0WeightZero
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.NotIsCompactUnivFv
+public import GroundTheory.GlobalFields.IdeleGroups.IdeleNorms
+public import GroundTheory.AutomorphicForms.ReductionFinite
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.AdelicMinkowskiExistsShortRationalVector
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0024
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0119
+
+@[expose] public section
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.DivisorProofs.FinsumEqFinsumConjugacyClassesCentraliserCosets
+section
+open GlobalTheory.BCT
+
+namespace GlobalTheory.ConjRegroup
+
+theorem finsum_fibres {H C : Type} (p : H → C) (a : H → ℂ) (ha : (Function.support a).Finite) :
+    ∑ᶠ γ, a γ = ∑ᶠ c : C, ∑ᶠ x, Set.indicator {x | p x = c} a x := by
+  classical
+  have h1 : ∀ c : C, ∑ᶠ x, Set.indicator {x | p x = c} a x
+      = ∑ x ∈ ha.toFinset, if c = p x then a x else 0 := by
+    intro c
+    rw [finsum_eq_sum_of_support_subset (s := ha.toFinset)]
+    · refine Finset.sum_congr rfl fun x _ => ?_
+      simp [Set.indicator_apply, eq_comm]
+    · intro x hx
+      have : a x ≠ 0 := fun h => hx (by simp [Set.indicator_apply, h])
+      simpa using this
+  simp_rw [h1]
+  rw [finsum_sum_comm]
+  · rw [finsum_eq_sum a ha]
+    refine Finset.sum_congr rfl fun x _ => ?_
+    rw [finsum_eq_single _ (p x)]
+    · simp
+    · intro c hc
+      simp [hc]
+  · intro x _
+    refine (Set.finite_singleton (p x)).subset ?_
+    intro c hc
+    by_contra h
+    exact hc (if_neg h)
+
+theorem mk_eq_iff {H : Type} [Group H] (x y : H) :
+    (Quot.mk _ x : TwCl (MonoidHom.id H)) = Quot.mk _ y ↔ ∃ g, y = g⁻¹ * x * g := by
+  have he : Equivalence fun x y : H => ∃ g, y = g⁻¹ * x * (MonoidHom.id H) g := by
+    refine ⟨fun x => ⟨1, by simp⟩, ?_, ?_⟩
+    · rintro x y ⟨g, rfl⟩
+      exact ⟨g⁻¹, by simp [mul_assoc]⟩
+    · rintro x y z ⟨g, rfl⟩ ⟨h, rfl⟩
+      exact ⟨g * h, by simp [mul_assoc]⟩
+  exact Quot.eq.trans he.eqvGen_iff
+
+theorem conj_injective {H : Type} [Group H] (r : H) :
+    Function.Injective fun δ : H ⧸ twCent (MonoidHom.id H) r =>
+      Quotient.out δ * r * (Quotient.out δ)⁻¹ := by
+  intro δ ε h
+  rw [← QuotientGroup.out_eq' δ, ← QuotientGroup.out_eq' ε, QuotientGroup.eq]
+  change (Quotient.out δ)⁻¹ * Quotient.out ε * r = r * ((Quotient.out δ)⁻¹ * Quotient.out ε)
+  simp only at h
+  calc (Quotient.out δ)⁻¹ * Quotient.out ε * r
+      = (Quotient.out δ)⁻¹ * (Quotient.out ε * r * (Quotient.out ε)⁻¹) * Quotient.out ε := by group
+    _ = r * ((Quotient.out δ)⁻¹ * Quotient.out ε) := by rw [← h]; group
+
+theorem range_conj {H : Type} [Group H] (c : TwCl (MonoidHom.id H)) :
+    Set.range (fun δ : H ⧸ twCent (MonoidHom.id H) c.rep =>
+      Quotient.out δ * c.rep * (Quotient.out δ)⁻¹)
+      = {x | (Quot.mk _ x : TwCl (MonoidHom.id H)) = c} := by
+  have hc : (Quot.mk _ c.rep : TwCl (MonoidHom.id H)) = c := Quot.out_eq c
+  ext x
+  simp only [Set.mem_range, Set.mem_setOf_eq]
+  constructor
+  · rintro ⟨δ, rfl⟩
+    refine Eq.trans ?_ hc
+    rw [mk_eq_iff]
+    exact ⟨Quotient.out δ, by group⟩
+  · intro h
+    obtain ⟨g, hg⟩ := (mk_eq_iff x c.rep).1 (h.trans hc.symm)
+    refine ⟨QuotientGroup.mk g, ?_⟩
+    obtain ⟨k, hk⟩ := QuotientGroup.mk_out_eq_mul (twCent (MonoidHom.id H) c.rep) g
+    have hk2 : (k : H) * c.rep = c.rep * k := k.2
+    rw [hk]
+    calc g * k * c.rep * (g * k)⁻¹ = g * (k * c.rep) * (g * k)⁻¹ := by group
+      _ = g * c.rep * g⁻¹ := by rw [hk2]; group
+      _ = x := by rw [hg]; group
+
+theorem finsum_eq_finsum_classes {H : Type} [Group H] (a : H → ℂ) (ha : (Function.support a).Finite) :
+    ∑ᶠ γ, a γ = ∑ᶠ c : TwCl (MonoidHom.id H), ∑ᶠ δ : H ⧸ twCent (MonoidHom.id H) c.rep,
+      a (Quotient.out δ * c.rep * (Quotient.out δ)⁻¹) := by
+  rw [finsum_fibres (fun x => (Quot.mk _ x : TwCl (MonoidHom.id H))) a ha]
+  refine finsum_congr fun c => ?_
+  rw [← finsum_mem_def, ← range_conj c, finsum_mem_range (conj_injective (TwCl.rep c))]
+
+end GlobalTheory.ConjRegroup
+end
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.DivisorProofs.FlatCoefficientExtensionH2Class
+section
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped TensorProduct
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.CatCoh GlobalTheory.Cris GlobalTheory.CechDR GlobalTheory.CechPic GlobalTheory.AbDual GlobalTheory.Obs GlobalTheory.LBLift
+attribute [local instance] Over.cartesianMonoidalCategory
+
+set_option autoImplicit false
+noncomputable section
+
+namespace GlobalTheory.PrimIdeal
+
+variable {R : Type} [CommRing R] (I : Ideal R)
+
+section Lin
+
+variable (B : Type) [CommRing B] [Algebra R B]
+
+def iota : I ⊗[R] B →ₗ[R] TrivSqZeroExt R I ⊗[R] B := (TrivSqZeroExt.inrHom R I).rTensor B
+
+def tau : I ⊗[R] B →ₗ[R] B := TensorProduct.lid R B ∘ₗ I.subtype.rTensor B
+
+def sig : TrivSqZeroExt R I ⊗[R] B →ₗ[R] B := tau I B ∘ₗ (TrivSqZeroExt.sndHom R I).rTensor B
+
+theorem tau_tmul (i : I) (b : B) : tau I B (i ⊗ₜ b) = (i : R) • b := by
+  simp [tau]
+
+theorem sig_iota (y : I ⊗[R] B) : sig I B (iota I B y) = tau I B y := by
+  induction y using TensorProduct.induction_on with
+  | zero => simp
+  | tmul i b => simp [sig, iota]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+
+theorem tau_mem (y : I ⊗[R] B) : tau I B y ∈ I.map (algebraMap R B) := by
+  induction y using TensorProduct.induction_on with
+  | zero => simp
+  | tmul i b =>
+    rw [tau_tmul, Algebra.smul_def]
+    exact Ideal.mul_mem_right _ _ (Ideal.mem_map_of_mem _ i.2)
+  | add x y hx hy => rw [map_add (f := _)]; exact Ideal.add_mem _ hx hy
+
+theorem sig_mem (x : TrivSqZeroExt R I ⊗[R] B) : sig I B x ∈ I.map (algebraMap R B) := tau_mem I B _
+
+theorem tau_mulLeft (b : B) (y : I ⊗[R] B) : tau I B ((LinearMap.mulLeft R b).lTensor I y) = b • tau I B y := by
+  induction y using TensorProduct.induction_on with
+  | zero => simp
+  | tmul i c => simp [tau_tmul, Algebra.smul_def]; ring
+  | add u v hu hv => simp only [map_add (f := _), hu, hv, smul_add]
+
+theorem exists_tau {x : B} (hx : x ∈ I.map (algebraMap R B)) : ∃ y, tau I B y = x := by
+  rw [Ideal.map, Ideal.span] at hx
+  induction hx using Submodule.span_induction with
+  | mem x h =>
+    obtain ⟨i, hi, rfl⟩ := h
+    exact ⟨⟨i, hi⟩ ⊗ₜ 1, by simp [tau_tmul, Algebra.smul_def]⟩
+  | zero => exact ⟨0, map_zero _⟩
+  | add x x' _ _ hx hx' =>
+    obtain ⟨y, rfl⟩ := hx; obtain ⟨y', rfl⟩ := hx'
+    exact ⟨y + y', map_add _ _ _⟩
+  | smul b x _ hx =>
+    obtain ⟨y, rfl⟩ := hx
+    exact ⟨(LinearMap.mulLeft R b).lTensor I y, tau_mulLeft I B b y⟩
+
+theorem tau_injective (hB : Module.Flat R B) : Function.Injective (tau I B) :=
+  (TensorProduct.lid R B).injective.comp
+    (Module.Flat.rTensor_preserves_injective_linearMap (M := B) I.subtype Subtype.val_injective)
+
+variable {B} {B' : Type} [CommRing B'] [Algebra R B'] (φ : B →ₐ[R] B')
+
+theorem iota_nat (y : I ⊗[R] B) :
+    extHom (TrivSqZeroExt R I) φ (iota I B y) = iota I B' (φ.toLinearMap.lTensor I y) := by
+  induction y using TensorProduct.induction_on with
+  | zero => simp
+  | tmul i b => simp [iota]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+
+theorem tau_nat (y : I ⊗[R] B) : tau I B' (φ.toLinearMap.lTensor I y) = φ (tau I B y) := by
+  induction y using TensorProduct.induction_on with
+  | zero => simp
+  | tmul i b => simp [tau_tmul]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+
+theorem sig_nat (x : TrivSqZeroExt R I ⊗[R] B) :
+    sig I B' (extHom (TrivSqZeroExt R I) φ x) = φ (sig I B x) := by
+  induction x using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a b => simp [sig, tau_tmul]
+  | add x y hx hy => simp only [map_add (f := _), hx, hy]
+
+end Lin
+
+end GlobalTheory.PrimIdeal
+
+namespace GlobalTheory.PrimIdeal
+
+theorem primI_of_ext : ∀ (R : Type) [CommRing R] (I : Ideal R), ∃ (R₁ : Type) (_ : CommRing R₁) (_ : Algebra R R₁)
+    (q : R₁ →ₐ[R] R), (∀ y y', q y = 0 → q y' = 0 → y * y' = 0) ∧
+    ∀ (D T : Type) [Category.{0} D] [Category.{0} T] (F : D ⥤ CommAlgCat.{0} R) (F' : T ⥤ CommAlgCat.{0} R)
+      (n₀ n₁ n₂ : CoefMap (RingHom.id R) F F'), (∀ t, Module.Flat R (F.obj t)) → (∀ t, Module.Flat R (F'.obj t)) →
+      (∀ c : GlobalTheory.CatCoh.H2 (GlobalTheory.Obs.ext R₁ F),
+        (extMap R₁ n₀).pull2 c = (extMap R₁ n₁).pull2 c + (extMap R₁ n₂).pull2 c → c = 0) →
+      PrimI I n₀ n₁ n₂ := by
+  intro R _ I
+  refine ⟨TrivSqZeroExt R I, inferInstance, inferInstance, TrivSqZeroExt.fstHom R R I, ?_, ?_⟩
+  · intro y y' hy hy'
+    have h1 : y.fst = 0 := hy
+    have h2 : y'.fst = 0 := hy'
+    ext
+    · simp [h1, h2]
+    · simp [h1, h2]
+  intro D T _ _ F F' n₀ n₁ n₂ hF hF' hc z f hz hf hrel
+  choose y hy using fun (t t' t'' : D) (a : t ⟶ t') (b : t' ⟶ t'') ↦ exists_tau I (F.obj t'') (hz t t' t'' a b)
+  choose y' hy' using fun (t t' : T) (a : t ⟶ t') ↦ exists_tau I (F'.obj t') (hf t t' a)
+  let zh : C2 (ext (TrivSqZeroExt R I) F) := fun t t' t'' a b ↦ iota I (F.obj t'') (y t t' t'' a b)
+  have hzc : zh ∈ Z2 (ext (TrivSqZeroExt R I) F) := by
+    intro t t' t'' t''' φ ψ χ
+    have key : (mp F χ).toLinearMap.lTensor I (y _ _ _ φ ψ) + y _ _ _ (φ ≫ ψ) χ =
+        y _ _ _ φ (ψ ≫ χ) + y _ _ _ ψ χ := by
+      apply tau_injective I (F.obj t''') (hF t''')
+      simp only [map_add (f := _), AlgHom.toLinearMap_apply, tau_nat, hy]
+      exact z.2 φ ψ χ
+    have := congrArg (iota I _) key
+    simp only [map_add (f := _), ← iota_nat] at this
+    exact this
+  obtain ⟨g, hg⟩ := H2.mk_eq_zero.1 (hc (H2.mk _ ⟨zh, hzc⟩) (by
+    show H2.mk _ ((extMap _ n₀).pullbackTwoCocycle ⟨zh, hzc⟩) =
+      H2.mk _ ((extMap _ n₁).pullbackTwoCocycle ⟨zh, hzc⟩) + H2.mk _ ((extMap _ n₂).pullbackTwoCocycle ⟨zh, hzc⟩)
+    rw [← LinearMap.map_add (H2.mk _), H2.mk_eq_mk]
+    refine ⟨fun t t' a ↦ iota I (F'.obj t') (y' t t' a), ?_⟩
+    funext t t' t'' a b
+    simp only [d1_apply, Submodule.coe_sub, Submodule.coe_add, Pi.sub_apply, Pi.add_apply, CoefMap.pullCocycleTwo_apply]
+    have e := congrFun (congrFun (congrFun (congrFun (congrFun hrel t) t') t'') a) b
+    simp only [d1_apply, Pi.sub_apply, CoefMap.pullCocycleTwo_apply] at e
+    have key : (mp F' b).toLinearMap.lTensor I (y' _ _ a) - y' _ _ (a ≫ b) + y' _ _ b =
+        (coefHom n₀ t'').toLinearMap.lTensor I (y _ _ _ (n₀.G.map a) (n₀.G.map b)) -
+          ((coefHom n₁ t'').toLinearMap.lTensor I (y _ _ _ (n₁.G.map a) (n₁.G.map b)) +
+            (coefHom n₂ t'').toLinearMap.lTensor I (y _ _ _ (n₂.G.map a) (n₂.G.map b))) := by
+      apply tau_injective I (F'.obj t'') (hF' t'')
+      simp only [map_add (f := _), map_sub, AlgHom.toLinearMap_apply, tau_nat, hy, hy']
+      rw [e]
+      rw [sub_sub]; rfl
+    have := congrArg (iota I _) key
+    simp only [map_add (f := _), map_sub, ← iota_nat] at this
+    exact this))
+  refine ⟨fun t t' a ↦ sig I (F.obj t') (g t t' a), fun t t' a ↦ sig_mem I _ _, ?_⟩
+  funext t t' t'' a b
+  have e := congrFun (congrFun (congrFun (congrFun (congrFun hg t) t') t'') a) b
+  simp only [d1_apply] at e ⊢
+  rw [← sig_nat, ← map_sub, ← map_add (f := _)]
+  change sig I (F.obj t'') (mp (ext (TrivSqZeroExt R I) F) b (g t t' a) - g t t'' (a ≫ b) + g t' t'' b) = _
+  rw [e]
+  exact (sig_iota I _ _).trans (hy t t' t'' a b)
+
+end GlobalTheory.PrimIdeal
+end
+end
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.DivisorProofs.FujisakiDivisionQuaternionAlgebraModCentre
+section
+open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.QSA GlobalTheory.Published
+open Matrix
+open scoped Quaternion Topology TensorProduct
+
+noncomputable section
+
+namespace GlobalTheory.QSA.FujisakiQ
+
+variable {R : Type*} [CommRing R] {a b : R}
+
+def ofCoords (v : Fin 4 → R) : ℍ[R, a, b] := ⟨v 0, v 1, v 2, v 3⟩
+
+theorem coords_ofCoords (v : Fin 4 → R) : coords (ofCoords v : ℍ[R, a, b]) = v := by
+  ext i; fin_cases i <;> rfl
+
+theorem ofCoords_coords (x : ℍ[R, a, b]) : ofCoords (coords x) = x := by
+  ext <;> rfl
+
+def lmat (w : ℍ[R, a, b]) : Matrix (Fin 4) (Fin 4) R :=
+  !![w.re, a * w.imI, b * w.imJ, -(a * b) * w.imK;
+     w.imI, w.re, b * w.imK, -(b * w.imJ);
+     w.imJ, -(a * w.imK), w.re, a * w.imI;
+     w.imK, -w.imJ, w.imI, w.re]
+
+theorem lmat_mulVec (w v : ℍ[R, a, b]) : lmat w *ᵥ coords v = coords (w * v) := by
+  ext i; fin_cases i <;>
+    simp [lmat, coords, Matrix.mulVec, dotProduct, Fin.sum_univ_four] <;> ring
+
+theorem det_lmat (w : ℍ[R, a, b]) : (lmat w).det = nrm w ^ 2 := by
+  rw [Matrix.det_succ_row_zero]
+  simp [lmat, Fin.sum_univ_succ, Matrix.det_fin_three, nrm]
+  have h1 : (Fin.succAbove 1 2 : Fin 4) = 3 := by decide
+  have h2 : (Fin.succAbove 2 2 : Fin 4) = 3 := by decide
+  have h3 : (Fin.succAbove 3 2 : Fin 4) = 2 := by decide
+  simp [h1, h2, h3]
+  ring
+
+theorem nrm_smul (t : R) (x : ℍ[R, a, b]) : nrm (t • x) = t ^ 2 * nrm x := by
+  simp [nrm]; ring
+
+theorem nrm_star (x : ℍ[R, a, b]) : nrm (star x) = nrm x := by
+  simp [nrm]
+
+theorem star_mul_eq (x : ℍ[R, a, b]) : star x * x = algebraMap R ℍ[R, a, b] (nrm x) := by
+  ext <;> simp [nrm, QuaternionAlgebra.algebraMap_eq] <;> ring
+
+theorem mul_inv_of_unit (x : ℍ[R, a, b]) (u : Rˣ) (hu : (u : R) = nrm x) :
+    x * (((u⁻¹ : Rˣ) : R) • star x) = 1 ∧ (((u⁻¹ : Rˣ) : R) • star x) * x = 1 := by
+  constructor
+  · rw [mul_smul_comm, mul_star_eq, ← hu, Algebra.algebraMap_eq_smul_one, smul_smul,
+      Units.inv_mul, one_smul]
+  · rw [smul_mul_assoc, star_mul_eq, ← hu, Algebra.algebraMap_eq_smul_one, smul_smul,
+      Units.inv_mul, one_smul]
+
+variable [TopologicalSpace R] [IsTopologicalRing R]
+
+theorem continuous_coord (i : Fin 4) : Continuous fun x : ℍ[R, a, b] => coords x i :=
+  (continuous_apply i).comp continuous_induced_dom
+
+@[fun_prop] theorem continuous_re : Continuous fun x : ℍ[R, a, b] => x.re := continuous_coord 0
+@[fun_prop] theorem continuous_imI : Continuous fun x : ℍ[R, a, b] => x.imI := continuous_coord 1
+@[fun_prop] theorem continuous_imJ : Continuous fun x : ℍ[R, a, b] => x.imJ := continuous_coord 2
+@[fun_prop] theorem continuous_imK : Continuous fun x : ℍ[R, a, b] => x.imK := continuous_coord 3
+
+theorem continuous_ofCoords : Continuous (ofCoords : (Fin 4 → R) → ℍ[R, a, b]) :=
+  continuous_induced_rng.2 (by
+    have : (coords ∘ (ofCoords : (Fin 4 → R) → ℍ[R, a, b])) = id := funext coords_ofCoords
+    rw [this]; exact continuous_id)
+
+theorem continuous_star' : Continuous (star : ℍ[R, a, b] → ℍ[R, a, b]) := by
+  refine continuous_induced_rng.2 (continuous_pi fun i => ?_)
+  fin_cases i <;> simp [coords, Function.comp_def] <;> fun_prop
+
+theorem continuous_star_mul : Continuous fun p : ℍ[R, a, b] × ℍ[R, a, b] => star p.1 * p.2 := by
+  refine continuous_induced_rng.2 (continuous_pi fun i => ?_)
+  fin_cases i <;> simp [coords, Function.comp_def] <;> fun_prop
+
+theorem continuous_const_mul' (c : ℍ[R, a, b]) : Continuous fun u : ℍ[R, a, b] => c * u := by
+  refine continuous_induced_rng.2 (continuous_pi fun i => ?_)
+  fin_cases i <;> simp [coords, Function.comp_def] <;> fun_prop
+
+end GlobalTheory.QSA.FujisakiQ
+
+namespace GlobalTheory.QSA.FujisakiQ
+
+variable {F : Type} [Field F] [NumberField F] {a b : F}
+
+theorem rat_mul (x y : ℍ[F, a, b]) : rat (x * y) = rat x * rat y := by
+  ext <;> simp [rat]
+
+theorem rat_star (x : ℍ[F, a, b]) : rat (star x) = star (rat x) := by
+  ext <;> simp [rat]
+
+theorem rat_one : rat (1 : ℍ[F, a, b]) = 1 := by
+  ext <;> simp [rat]
+
+theorem coords_rat (x : ℍ[F, a, b]) :
+    coords (rat x) = fun i => algebraMap F (AF F) (coords x i) := by
+  ext i; fin_cases i <;> rfl
+
+theorem rat_inv (x : ℍ[F, a, b]) (hx : nrm x ≠ 0) :
+    x * ((nrm x)⁻¹ • star x) = 1 ∧ ((nrm x)⁻¹ • star x) * x = 1 :=
+  mul_inv_of_unit x (Units.mk0 (nrm x) hx) rfl
+
+theorem exists_rat_mem (B : Set (Fin 4 → AF F))
+    (hB : ∀ g : Matrix (Fin 4) (Fin 4) (AF F), IsUnit g.det → (∃ u : (AF F)ˣ, (u : AF F) = g.det ∧
+      (GroundTheory.Global.IdeleGroup.ideleModule F u : ℝ) ≤ 1) →
+      ∃ ξ : Fin 4 → F, ξ ≠ 0 ∧ g *ᵥ (fun i => algebraMap F (AF F) (ξ i)) ∈ B)
+    (hdiv : ∀ x : ℍ[F, a, b], nrm x = 0 → x = 0)
+    (w : DA F a b) (u : (AF F)ˣ) (hu : (u : AF F) = nrm w)
+    (hmod : GroundTheory.Global.IdeleGroup.ideleModule F u = 1) :
+    ∃ δ : ℍ[F, a, b], nrm δ ≠ 0 ∧ w * rat δ ∈ ofCoords '' B := by
+  have hdet : (lmat w).det = ((u ^ 2 : (AF F)ˣ) : AF F) := by rw [det_lmat, Units.val_pow_eq_pow_val, hu]
+  obtain ⟨ξ, hξ0, hξ⟩ := hB (lmat w) (by rw [hdet]; exact Units.isUnit _)
+    ⟨u ^ 2, hdet.symm, by rw [map_pow, hmod, one_pow]; simp⟩
+  let δ : ℍ[F, a, b] := ofCoords ξ
+  refine ⟨δ, fun h => hξ0 ?_, ⟨lmat w *ᵥ coords (rat δ), ?_, ?_⟩⟩
+  · have h0 := hdiv _ h
+    ext i
+    have := congrArg (fun x => coords x i) h0
+    simp only [δ, coords_ofCoords] at this
+    rw [this]; fin_cases i <;> rfl
+  · rw [coords_rat, coords_ofCoords]; exact hξ
+  · rw [lmat_mulVec, ofCoords_coords]
+
+end GlobalTheory.QSA.FujisakiQ
+
+namespace GlobalTheory.QSA.FujisakiQ
+
+
+open GroundTheory.Global.IdeleGroup in
+theorem fujisaki_mod_centre : ∀ (F : Type) [Field F] [NumberField F] (a b : F), a ≠ 0 → b ≠ 0 → (∀ x : ℍ[F, a, b], nrm x = 0 → x = 0) → ∃ C : Set (DA F a b), IsCompact C ∧ ∀ y : DA F a b, IsUnit (nrm y) → ∃ (δ : ℍ[F, a, b]) (l : AF F) (c c' : DA F a b), nrm δ ≠ 0 ∧ IsUnit l ∧ c ∈ C ∧ c' ∈ C ∧ c * c' = 1 ∧ c' * c = 1 ∧ y = l • (rat δ * c) := by
+  intro F _ _ a b _ _ hdiv
+  obtain ⟨B, hBc, hB⟩ := _root_.GlobalTheory.AdelicMinkowski.exists_compact_mulVec_rat_mem F 4 (by norm_num)
+  obtain ⟨B', hB'⟩ : ∃ B' : Set (DA F a b), B' = ofCoords '' B := ⟨_, rfl⟩
+  have hB'c : IsCompact B' := hB' ▸ hBc.image continuous_ofCoords
+  obtain ⟨S, hS⟩ : ∃ S : Set (DA F a b), S = (fun p : DA F a b × DA F a b => star p.1 * p.2) '' (B' ×ˢ B') := ⟨_, rfl⟩
+  have hSc : IsCompact S := hS ▸ (hB'c.prod hB'c).image continuous_star_mul
+  obtain ⟨Z, hZ⟩ : ∃ Z : Set ℍ[F, a, b], Z = {γ | rat γ ∈ S} := ⟨_, rfl⟩
+  have hZf : Z.Finite := by
+    have hT : (Set.pi Set.univ (fun i : Fin 4 =>
+        {k : F | algebraMap F (AF F) k ∈ (fun y : DA F a b => coords y i) '' S})).Finite :=
+      Set.Finite.pi fun i => GroundTheory.Automorphic.Reduction.finite_setOf_algebraMap_mem
+        (hSc.image (continuous_coord i))
+    refine (hT.image (ofCoords : (Fin 4 → F) → ℍ[F, a, b])).subset fun γ hγ => ?_
+    rw [hZ] at hγ
+    refine ⟨coords γ, fun i _ => ⟨rat γ, hγ, ?_⟩, ofCoords_coords γ⟩
+    show coords (rat γ) i = _
+    rw [coords_rat]
+  obtain ⟨C, hC⟩ : ∃ C : Set (DA F a b), C =
+    B' ∪ ⋃ γ ∈ Z, (fun u => rat ((nrm γ)⁻¹ • star γ) * u) '' (star '' B') := ⟨_, rfl⟩
+  have hCc : IsCompact C := hC ▸ hB'c.union (hZf.isCompact_biUnion fun γ _ =>
+    (hB'c.image continuous_star').image (continuous_const_mul' _))
+  refine ⟨C, hCc, fun y hy => ?_⟩
+  obtain ⟨uy, huy⟩ := hy
+  obtain ⟨l, hl⟩ := ideleModule_surjective (K := F)
+    ⟨Real.sqrt (ideleModule F uy : ℝ), Real.sqrt_pos.2 (ideleModule F uy).2⟩
+  obtain ⟨uz, huz⟩ : ∃ uz : (AF F)ˣ, uz = l⁻¹ ^ 2 * uy := ⟨_, rfl⟩
+  obtain ⟨z, hz⟩ : ∃ z : DA F a b, z = ((l⁻¹ : (AF F)ˣ) : AF F) • y := ⟨_, rfl⟩
+  have hnz : (uz : AF F) = nrm z := by
+    rw [hz, nrm_smul, ← huy, huz, Units.val_mul, Units.val_pow_eq_pow_val]
+  have hmod : ideleModule F uz = 1 := by
+    have h : ideleModule F uz * ideleModule F l ^ 2 = ideleModule F uy := by
+      rw [← map_pow, ← map_mul]
+      congr 1
+      rw [huz, mul_comm, ← mul_assoc, ← mul_pow, mul_inv_cancel, one_pow, one_mul]
+    have h' := congrArg Subtype.val h
+    rw [hl] at h'
+    have hp := (ideleModule F uy).2
+    have h'' : (ideleModule F uz : ℝ) * (ideleModule F uy : ℝ) = (ideleModule F uy : ℝ) := by
+      have e : ((⟨Real.sqrt (ideleModule F uy : ℝ), Real.sqrt_pos.2 hp⟩ : {r : ℝ // 0 < r}) ^ 2 : {r : ℝ // 0 < r}).1
+          = (ideleModule F uy : ℝ) := by
+        show Real.sqrt (ideleModule F uy : ℝ) ^ 2 = _
+        exact Real.sq_sqrt hp.le
+      rw [Positive.val_mul, e] at h'; exact h'
+    exact Subtype.ext (mul_right_cancel₀ hp.ne' (h''.trans (one_mul _).symm))
+  obtain ⟨zi, hzi_def⟩ : ∃ zi : DA F a b, zi = ((uz⁻¹ : (AF F)ˣ) : AF F) • star z := ⟨_, rfl⟩
+  have hzi := mul_inv_of_unit z uz hnz
+  rw [← hzi_def] at hzi
+  have hu1 : ((uz⁻¹ : (AF F)ˣ) : AF F) = nrm zi := by
+    rw [hzi_def, nrm_smul, nrm_star, ← hnz, sq, mul_assoc, Units.inv_mul, mul_one]
+  obtain ⟨δ, hδ, hc'⟩ := exists_rat_mem B hB hdiv zi uz⁻¹ hu1 (by rw [map_inv, hmod, inv_one])
+  obtain ⟨δ', hδ', hc2⟩ := exists_rat_mem B hB hdiv (star z) uz ((nrm_star z).trans hnz.symm).symm hmod
+  obtain ⟨γ, hγdef⟩ : ∃ γ : ℍ[F, a, b], γ = star δ' * δ := ⟨_, rfl⟩
+  have hγ : rat γ = star (star z * rat δ') * (zi * rat δ) := by
+    rw [hγdef, rat_mul, rat_star, star_mul, star_star]
+    simp only [mul_assoc]
+    rw [← mul_assoc z zi, hzi.1, one_mul]
+  have hγZ : γ ∈ Z := by
+    rw [hZ]; show rat γ ∈ S; rw [hS]; exact ⟨(star z * rat δ', zi * rat δ), ⟨hB' ▸ hc2, hB' ▸ hc'⟩, hγ.symm⟩
+  have hγ0 : nrm γ ≠ 0 := by
+    rw [hγdef, nrm_mul, nrm_star]; exact mul_ne_zero hδ' hδ
+  have hγi := rat_inv γ hγ0
+  have hd := rat_inv δ hδ
+  have e1 : (nrm γ)⁻¹ • star γ * star δ' = (nrm δ)⁻¹ • star δ := by
+    calc (nrm γ)⁻¹ • star γ * star δ' = (nrm γ)⁻¹ • star γ * star δ' * (δ * ((nrm δ)⁻¹ • star δ)) := by
+          rw [hd.1, mul_one]
+      _ = ((nrm γ)⁻¹ • star γ * γ) * ((nrm δ)⁻¹ • star δ) := by rw [hγdef]; simp only [mul_assoc]
+      _ = (nrm δ)⁻¹ • star δ := by rw [hγi.2, one_mul]
+  have hc : rat ((nrm γ)⁻¹ • star γ) * star (star z * rat δ') = rat ((nrm δ)⁻¹ • star δ) * z := by
+    rw [star_mul, star_star, ← rat_star, ← mul_assoc, ← rat_mul, e1]
+  refine ⟨δ, (l : AF F), rat ((nrm γ)⁻¹ • star γ) * star (star z * rat δ'), zi * rat δ, hδ, l.isUnit,
+    hC ▸ Or.inr (Set.mem_biUnion hγZ ⟨_, ⟨_, hB' ▸ hc2, rfl⟩, rfl⟩), hC ▸ Or.inl (hB' ▸ hc'), ?_, ?_, ?_⟩
+  · rw [mul_assoc, ← hγ, ← rat_mul, hγi.2, rat_one]
+  · rw [hc, ← mul_assoc, mul_assoc zi, ← rat_mul, hd.1, rat_one, mul_one, hzi.2]
+  · rw [hc, ← mul_assoc, ← rat_mul, hd.1, rat_one, one_mul, hz, smul_smul, Units.mul_inv, one_smul]
+
+end GlobalTheory.QSA.FujisakiQ
+end
+end
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.DivisorProofs.HeisOApplyZero
+section
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR.Datum GlobalTheory.WeilParts MeasureTheory IsDedekindDomain NumberField Matrix
+open scoped TensorProduct ComplexOrder
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+namespace GlobalTheory.WeilRat
+
+theorem heisO_apply_zero {D : D7} {S T : HSp D} (ψ : AddChar (AF D.host.F) ℂ) (w : WO S T) (f : WO S T → ℂ) :
+    heisO ψ S T w f 0 = f w := by
+  have h : hO S T 0 w = 0 := by simp [hO]
+  simp [heisO, symplOH, symplO, h]
+
+theorem om_rat_actO : ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ), IsStdChar D ψ (-1) → ∀ (S T : HSp D) (χS χT : (AE D)ˣ →* Circle) (om : (GA D S × GA D T →* Module.End ℂ (WO S T → ℂ))), IsWeilDatumO ψ S T χS χT om → ∀ γ ∈ GQ S, ∀ γ' ∈ GQ T, ∀ f, IsThetaFunO ψ S T f → ∀ w, om (γ, γ') f (actO S T γ γ' w) = f w := by
+  intro D ψ hψ S T χS χT om H γ hγ γ' hγ' f hf w
+  have h1 := H.om_heis γ γ' w f hf
+  have h2 := H.om_aut γ hγ γ' hγ' _ (GlobalTheory.ThetaClosed.isThetaFunO_heisO_all hψ hf w)
+  rw [← heisO_apply_zero ψ (actO S T γ γ' w) (om (γ, γ') f), ← h1]
+  exact h2.trans (heisO_apply_zero _ _ _)
+
+end GlobalTheory.WeilRat
+end
+

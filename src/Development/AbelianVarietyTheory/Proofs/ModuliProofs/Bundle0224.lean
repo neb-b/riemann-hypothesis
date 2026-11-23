@@ -1,0 +1,48 @@
+module
+
+public import Mathlib
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.UniformisationConclusion
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0003
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0218
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.IsHolPeriods
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.UnifUniqSt
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.PartOneOfSemistableReductionPadicPolarized
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.Bundle0193
+public import Development.AbelianVarietyTheory.PublishedTheorems.SemistableReduction₂.SemistableReductionSt
+public import Development.AbelianVarietyTheory.Definitions.AbelianSchemeLaws.FirstCohomologyVanishesSpecOfIsLocalRing
+public import Development.AbelianVarietyTheory.Definitions.Degenerations.OfDerivationFnOn
+public import Development.AbelianVarietyTheory.Definitions.Degenerations.PlOrdSomeOfAssociated
+public import Development.AbelianVarietyTheory.Statements.SemistableTorsion.SemistableFin
+
+@[expose] public section
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.ModuliProofs.CompactifiedModuliExistenceAndModuliScheme
+section
+open ReciprocityTheory.ChartRestriction.G.Geo.Tor
+
+namespace GlobalTheory.Moduli
+
+theorem _root_.GlobalTheory.Moduli.jointExistence_and_moduliScheme : _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.PartI ∧ _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.N1ab :=
+  ⟨_root_.GlobalTheory.partI_of_semistableReduction _root_.GlobalTheory.SS.semistableReductionSt,
+    _root_.GlobalTheory.Moduli.moduli_scheme_exists⟩
+
+end GlobalTheory.Moduli
+end
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.ModuliProofs.CompactifiedModuliPartOne
+section
+open CategoryTheory CategoryTheory.Limits MonoidalCategory CartesianMonoidalCategory MonObj AlgebraicGeometry NumberField
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Out ReciprocityTheory.ChartRestriction.G.Geo.Tor
+open scoped CategoryTheory.Obj
+
+namespace GlobalTheory
+
+
+open CategoryTheory CategoryTheory.Limits MonoidalCategory CartesianMonoidalCategory MonObj AlgebraicGeometry NumberField in
+open scoped CategoryTheory.Obj in
+theorem _root_.GlobalTheory.partI_closed : _root_.ReciprocityTheory.ChartRestriction.G.Geo.Tor.PartI :=
+  _root_.GlobalTheory.partI_of_semistableReduction _root_.GlobalTheory.SS.semistableReductionSt
+
+end GlobalTheory
+end
+

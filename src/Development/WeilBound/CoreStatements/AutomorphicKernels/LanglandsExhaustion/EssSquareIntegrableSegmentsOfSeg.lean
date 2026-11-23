@@ -1,0 +1,60 @@
+module
+
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.LanglandsExhaustion.LanglandsMultisegmentsOfSeg
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.LanglandsExhaustion.ProbeL
+public import Mathlib
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SquareIntegrableSegments.EssSquareIntegrableSegmentsMain2
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.ZelevinskyJacquet.FineJacquetModules.SegDefs
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0002
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0004
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0539
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0618
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.PrincipalSeriesSupport.PrinSeriesWord
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.HasSupportOfIsSubquotientProdIrr
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0191
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0349
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0338
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0645
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0337
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0634
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0589
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0050
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.JhMultSubAddQuot
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0642
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0621
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IrrParIffCuspidalProduct
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.InstAddCommGroupTwo
+public import CompanionTheory.AutomorphicTheory.HeckeStandardModules.EqZeroOfCompAt
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0350
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SquareIntegrableSegments.SegmentSubquotients.ExistsSegmentRepresentation
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0617
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0021
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0548
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.Bundle0044
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SupercuspidalSupportUniqueGL
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0105
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.Bundle0045
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0336
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.JacquetModuleFiniteLength
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SquareIntegrableSegments.SegmentSubquotients.ExistsSocleSegmentProduct
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0581
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LeviIrreducibleTensorDecomposition
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0594
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.BernsteinZelevinskyGL.TopStd
+
+@[expose] public section
+
+namespace PositivityTheory.Exh
+
+theorem essSquareIntegrableSegments_of_seg (hZ : GlobalTheory.Published.SegmentRepresentation) : GlobalTheory.Published.EssSquareIntegrableSegments := by
+  have hI : GlobalTheory.Published.IrreducibleAdmissibleGL := PositivityTheory.Tls2.BZGL.irreducibleAdmissibleGL_top
+  have hU := PositivityTheory.Exh.lUnlinkedIrr_of_seg hZ
+  exact PositivityTheory.PfEss.essSquareIntegrableSegments_main2
+    (PositivityTheory.Exh.langlandsExhaustionGL_of_seg hZ)
+    PositivityTheory.Tls2.BZGL.standardFunctorsFiniteLength_top
+    (fun k _ _ _ _ _ => PositivityTheory.Exh.lOrderFree_of hU k)
+    (fun k _ _ _ _ _ => PositivityTheory.Exh.lSegExists k)
+    (fun k _ _ _ _ _ => GlobalTheory.CompanionTheory.SegCoarse.lSegJacquet hI hZ)
+
+end PositivityTheory.Exh

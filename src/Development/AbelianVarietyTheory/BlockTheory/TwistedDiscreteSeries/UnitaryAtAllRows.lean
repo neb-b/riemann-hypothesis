@@ -1,0 +1,67 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0023
+
+@[expose] public section
+
+noncomputable section
+
+open Formalism.BasicNotions Formalism.L2.DIV Formalism.IndefR.Links NumberField
+
+namespace GlobalTheory.IndefiniteRowSideFullHecke.UnitaryAtAllPlaces
+
+def IsUnitaryRep {G H : Type} [Group G] [NormedAddCommGroup H] [InnerProductSpace ℂ H] (ρ : Representation ℂ G H) : Prop :=
+  ∀ (g : G) (x y : H), inner ℂ (ρ g x) (ρ g y) = inner ℂ x y
+
+section ClassSum
+
+variable {K : Type} [Field K] [NumberField K] [StarRing K] (S : CSD K) (σ : K →+* ℂ)
+
+def pairAt (x y : S.V) : ℂ :=
+  ∑ i, ∑ j, starRingEnd ℂ (σ (S.bV.repr x i)) * σ (S.gramV i j) * σ (S.bV.repr y j)
+
+def csumAt (f f' : S.Cl → S.V) : ℂ := ∑ c, ((S.wt c : ℂ))⁻¹ * pairAt S σ (f c) (f' c)
+
+def IsUnitaryAtAll {G : Type} [Group G] (r : Representation K G S.Forms) : Prop :=
+  ∀ (σ : K →+* ℂ) (g : G) (f f' : S.Forms),
+    csumAt S σ (r g f : S.Cl → S.V) (r g f' : S.Cl → S.V) = csumAt S σ (f : S.Cl → S.V) (f' : S.Cl → S.V)
+
+theorem pairAt_smul (a b : K) (x y : S.V) :
+    pairAt S σ (a • x) (b • y) = starRingEnd ℂ (σ a) * σ b * pairAt S σ x y := by
+  simp only [pairAt, map_smul, Finsupp.smul_apply, smul_eq_mul, map_mul, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => by ring
+
+theorem csumAt_smul (a b : K) (f f' : S.Cl → S.V) :
+    csumAt S σ (a • f) (b • f') = starRingEnd ℂ (σ a) * σ b * csumAt S σ f f' := by
+  simp only [csumAt, Pi.smul_apply, pairAt_smul, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun c _ => by ring
+
+theorem pairAt_eq (h : ∀ a, σ (star a) = starRingEnd ℂ (σ a)) (x y : S.V) : pairAt S σ x y = σ (S.pair x y) := by
+  conv_rhs => rw [← S.bV.sum_repr x, ← S.bV.sum_repr y]
+  set_option synthInstance.maxHeartbeats 100000 in
+    simp only [pairAt, map_sum, LinearMap.sum_apply, LinearMap.map_smulₛₗ, LinearMap.smul_apply, smul_eq_mul, map_mul,
+    CSD.gramV, Matrix.of_apply, RingHom.id_apply, starRingEnd_apply, Finset.mul_sum]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+  rw [h, starRingEnd_apply]
+  ring
+
+end ClassSum
+
+section Statement
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+variable {D : D7} {G : Type} [Group G] [Fintype G] {Pl0 T : Type} {A : FamIn D.what₂.LL G Pl0 T D.R.m}
+  {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL]
+
+
+variable (A) in
+def DefiniteUnitary : Prop :=
+  (∀ t : T, IsUnitaryAtAll (A.MtildeCSD t) (A.leftGroupActionRight t)) ∧
+    ∀ (i : Fin D.R.m) (t : T), IsUnitaryAtAll (A.MtCSD i t) (A.leftGroupActionLift i t)
+
+end Statement
+
+end GlobalTheory.IndefiniteRowSideFullHecke.UnitaryAtAllPlaces

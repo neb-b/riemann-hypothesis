@@ -1,0 +1,29 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.FrobeniusWeights.Bundle0002
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.FrobeniusWeights.Bundle0001
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.LocalActionPowers.FactorActionAlgebra
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FrameReading.Bundle0003
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.LocalSeparation.ReadingModuleHolds
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.AdelicHeckeBlocks.Imports
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.FixedSpaceRankOne.SplitDict
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TensorOperatorTrees.InfTree
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.F.FG
+
+theorem frame_matrix_one_holds : Tail.FmOne := FA.fmOne_of intHint slots BlockFiniteConvolution.finConv'
+
+theorem good_level_holds : GoodL :=
+  goodLOf_holds RS.reading_split_holds frame_matrix_one_holds Tail.actHecke_holds BlockFiniteConvolution.locOk₀ conjFix_holds
+    (uSatOf_holds Eig.CSD.splitDict) ctHecke_holds
+
+theorem weight_limit_holds : WeightL :=
+  weightLOf_holds SpectralAccumulation.Trees.infTree gamma_zeta_nabla_cancel.regDom RS.joinInf_holds RS.treeInf_holds RS.weightJoin_holds
+
+theorem frGood_of (h : LevRead) : FRGood := frGoodOf_holds good_level_holds h
+
+theorem frame_weight_holds : FRWeight := frWeightOf_holds weight_limit_holds
+
+end PositivityTheory.Rg.BcB.F.FG

@@ -1,0 +1,228 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.Bundle0001
+public import Formalism.FormalGroupLog.FormalGroupLogProofs.ChainRule
+
+@[expose] public section
+
+-- bundled from Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.RestrictSecondZeroInVarOne
+section
+noncomputable section
+
+namespace Formalism.L2.Th1.B.Add1
+
+open Formalism.InvariantFactorPaths.G7 (at1)
+
+section SlopeTestRemainingChoices
+
+variable {K : Type} [Field K] [CharZero K]
+
+def at1H {ι : Type} (x : ι) : PowerSeries K →ₐ[K] MvPowerSeries ι K :=
+  PowerSeries.substAlgHom (PowerSeries.HasSubst.X x)
+
+theorem triple_lintegral_eq {ι : Type} (x : ι) (f : PowerSeries K) : at1 x f = at1H x f := by
+  simp only [Formalism.InvariantFactorPaths.G7.at1, at1H, PowerSeries.coe_substAlgHom]
+
+theorem inVarAlgHom_C {ι : Type} (x : ι) (c : K) :
+    at1H x (PowerSeries.C c) = (MvPowerSeries.C c : MvPowerSeries ι K) := by
+  rw [← triple_lintegral_eq]
+  exact PowerSeries.subst_C c
+
+theorem cc_psubst {ι : Type} {a : MvPowerSeries ι K} (ha : MvPowerSeries.constantCoeff a = 0)
+    {f : PowerSeries K} (hf : PowerSeries.constantCoeff f = 0) :
+    MvPowerSeries.constantCoeff (PowerSeries.subst a f) = 0 :=
+  PowerSeries.constantCoeff_subst_eq_zero ha f hf
+
+theorem constantCoeff_inVar_eq_zero {ι : Type} (x : ι) {f : PowerSeries K} (hf : PowerSeries.constantCoeff f = 0) :
+    MvPowerSeries.constantCoeff (at1 x f) = 0 :=
+  cc_psubst (MvPowerSeries.constantCoeff_X x) hf
+
+theorem pd_mul {ι : Type} (i : ι) (x y : MvPowerSeries ι K) :
+    pd i (x * y) = x * pd i y + y * pd i x := by
+  simp only [Formalism.L2.Th1.B.pd, Derivation.leibniz, smul_eq_mul]
+
+theorem pd_sub {ι : Type} (i : ι) (x y : MvPowerSeries ι K) : pd i (x - y) = pd i x - pd i y :=
+  map_sub (MvPowerSeries.pderiv (R := K) i) x y
+
+theorem fLog_one (h1 : ExpLogRules) {ι : Type} : fLog (1 : MvPowerSeries ι K) = 0 := by
+  obtain ⟨hA, hB, -⟩ := h1 K ι
+  have h0 : MvPowerSeries.constantCoeff (0 : MvPowerSeries ι K) = 0 := map_zero _
+  have hsq : Formalism.L2.Th1.B.fExp (0 : MvPowerSeries ι K) * Formalism.L2.Th1.B.fExp 0 = Formalism.L2.Th1.B.fExp 0 * 1 := by
+    rw [← hA 0 0 h0 h0, add_zero, mul_one]
+  have hu : IsUnit (Formalism.L2.Th1.B.fExp (0 : MvPowerSeries ι K)) :=
+    MvPowerSeries.isUnit_iff_constantCoeff.mpr (by rw [(hB 0 h0).1]; exact isUnit_one)
+  have he : Formalism.L2.Th1.B.fExp (0 : MvPowerSeries ι K) = 1 := hu.mul_left_cancel hsq
+  have hl := (hB 0 h0).2
+  rw [he] at hl
+  exact hl
+
+end SlopeTestRemainingChoices
+
+
+end Formalism.L2.Th1.B.Add1
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.WeierstrassReducedEquations
+section
+noncomputable section
+
+namespace Formalism.L2.Th1.B
+
+open PowerSeries
+
+section Rules
+
+variable {K : Type} [Field K] [CharZero K]
+
+theorem dz_ofNat (n : ℕ) [n.AtLeastTwo] : dz (OfNat.ofNat n : PowerSeries K) = 0 := by
+  rw [show (OfNat.ofNat n : PowerSeries K) = C (OfNat.ofNat n : K) from (map_ofNat C n).symm]
+  exact PowerSeries.derivative_C
+
+theorem dz_one : dz (1 : PowerSeries K) = 0 := by
+  exact Derivation.map_one_eq_zero _
+
+theorem dz_C (a : K) : dz (C a : PowerSeries K) = 0 := PowerSeries.derivative_C
+
+theorem dz_X : dz (X : PowerSeries K) = 1 := PowerSeries.derivative_X
+
+theorem dz_add (f g : PowerSeries K) : dz (f + g) = dz f + dz g := map_add _ f g
+
+theorem dz_sub (f g : PowerSeries K) : dz (f - g) = dz f - dz g := map_sub _ f g
+
+theorem dz_neg (f : PowerSeries K) : dz (-f) = -dz f := map_neg _ f
+
+theorem dz_mul (f g : PowerSeries K) : dz (f * g) = f * dz g + g * dz f := by
+  simp only [dz, Derivation.leibniz, smul_eq_mul]
+
+theorem dz_two : dz (2 : PowerSeries K) = 0 := dz_ofNat 2
+
+theorem dz_four : dz (4 : PowerSeries K) = 0 := dz_ofNat 4
+
+theorem two_ne : (2 : PowerSeries K) ≠ 0 := by
+  intro h
+  have h2 := congrArg (constantCoeff (R := K)) h
+  rw [map_ofNat, map_zero] at h2
+  exact two_ne_zero h2
+
+theorem dz_sq (f : PowerSeries K) : dz (f ^ 2) = 2 * f * dz f := by
+  rw [pow_two, dz_mul]
+  ring
+
+theorem dz_cube (f : PowerSeries K) : dz (f ^ 3) = 3 * f ^ 2 * dz f := by
+  rw [pow_succ, dz_mul, dz_sq]
+  ring
+
+theorem dz_X_pow (n : ℕ) : dz ((X : PowerSeries K) ^ (n + 1)) = ((n : PowerSeries K) + 1) * X ^ n := by
+  induction n with
+  | zero => simp [dz_X]
+  | succ n ih =>
+    rw [pow_succ, dz_mul, ih, dz_X]
+    push_cast
+    ring
+
+theorem X_ne : (X : PowerSeries K) ≠ 0 := PowerSeries.X_ne_zero
+
+theorem ne_zero_of_constantCoeff {f : PowerSeries K} (h : constantCoeff f ≠ 0) : f ≠ 0 := by
+  rintro rfl
+  exact h (map_zero _)
+
+end Rules
+
+theorem weierstrassReducedEquations : WpReduced := by
+  intro K _ _ g2 g3 P hP
+  obtain ⟨_, _, hE⟩ := hP
+  have E1 : X ^ 4 * dz P ^ 2 - 4 * X * dz P =
+      12 * P + 12 * X ^ 2 * P ^ 2 + 4 * X ^ 4 * P ^ 3 - C g2 * X ^ 2 * (1 + X ^ 2 * P) -
+        C g3 * X ^ 4 := by
+    apply mul_left_cancel₀ (pow_ne_zero 2 (X_ne (K := K)))
+    linear_combination hE
+  refine ⟨E1, ?_⟩
+  have hg : (C g2 : PowerSeries K) = 2 * C (g2 / 2) := by
+    rw [← map_ofNat C 2, ← map_mul]
+    congr 1
+    field_simp
+  rw [hg] at E1
+  have d4 : dz ((X : PowerSeries K) ^ 4) = 4 * X ^ 3 := by
+    rw [show (X : PowerSeries K) ^ 4 = (X ^ 2) ^ 2 by ring, dz_sq, dz_sq, dz_X]
+    ring
+  have hdiff : 4 * X ^ 3 * dz P ^ 2 + 2 * X ^ 4 * dz P * dz (dz P) - 4 * dz P - 4 * X * dz (dz P) =
+      12 * dz P + 24 * X * P ^ 2 + 24 * X ^ 2 * P * dz P + 16 * X ^ 3 * P ^ 3 +
+        12 * X ^ 4 * P ^ 2 * dz P - 2 * C (g2 / 2) * (2 * X + 4 * X ^ 3 * P + X ^ 4 * dz P) -
+        4 * C g3 * X ^ 3 := by
+    have h := congrArg dz E1
+    have c12 : dz (12 : PowerSeries K) = 0 := dz_ofNat 12
+    simp only [dz_add, dz_sub, dz_mul, dz_sq, dz_cube, dz_C, dz_X, dz_two, dz_four, c12, dz_one, d4] at h
+    linear_combination h
+  refine mul_left_cancel₀ (?_ : (2 * X * (X ^ 3 * dz P - 2) : PowerSeries K) ≠ 0) ?_
+  · refine mul_ne_zero (mul_ne_zero two_ne X_ne) (ne_zero_of_constantCoeff ?_)
+    rw [map_sub, map_mul, map_pow, PowerSeries.constantCoeff_X, map_ofNat]
+    norm_num
+  · linear_combination X ^ 2 * hdiff - 4 * X * E1
+
+theorem invertedSecondDeriv : WSecond := by
+  intro K _ _ A kap w hw
+  obtain ⟨h0, h2, hE⟩ := hw
+  have e1 : constantCoeff (dz w) = PowerSeries.coeff 1 w := by
+    rw [← PowerSeries.coeff_zero_eq_constantCoeff_apply, PowerSeries.coeff_derivative]
+    simp
+  have h1 : PowerSeries.coeff 1 w = 0 := by
+    have hc := congrArg (constantCoeff (R := K)) hE
+    simpa [e1, h0] using hc
+  refine ⟨h1, ?_⟩
+  have hd : dz w ≠ 0 := by
+    intro h
+    have hc := congrArg (PowerSeries.coeff 1) h
+    rw [PowerSeries.coeff_derivative, h2] at hc
+    norm_num at hc
+  have hdiff := congrArg dz hE
+  simp only [dz_sq, dz_add, dz_mul, dz_cube, dz_C, dz_four] at hdiff
+  refine mul_left_cancel₀ (mul_ne_zero two_ne hd) ?_
+  linear_combination hdiff
+
+theorem shiftedReciprocalInverted : WOfWp := by
+  intro K _ _ g2 g3 e1 P hP he
+  obtain ⟨_, _, hE⟩ := hP
+  have hu : constantCoeff (1 + X ^ 2 * P - C e1 * X ^ 2) ≠ 0 := by simp
+  have hw : (1 + X ^ 2 * P - C e1 * X ^ 2) * wOf e1 P = X ^ 2 := by
+    rw [wOf, mul_left_comm, PowerSeries.mul_inv_cancel _ hu, mul_one]
+  refine ⟨?_, ?_, ?_⟩
+  · rw [wOf]
+    simp
+  · rw [wOf, PowerSeries.coeff_X_pow_mul']
+    simp [PowerSeries.constantCoeff_inv]
+  · have hdu : dz (1 + X ^ 2 * P - C e1 * X ^ 2) = 2 * X * P + X ^ 2 * dz P - 2 * C e1 * X := by
+      simp only [dz_add, dz_sub, dz_mul, dz_one, dz_C, dz_X, dz_sq]
+      ring
+    have hd := congrArg dz hw
+    rw [dz_mul, hdu, dz_sq, dz_X] at hd
+
+    have hA : (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 2 * dz (wOf e1 P) = -X * (X ^ 3 * dz P - 2) := by
+      linear_combination (1 + X ^ 2 * P - C e1 * X ^ 2) * hd - (2 * X * P + X ^ 2 * dz P - 2 * C e1 * X) * hw
+    have h1 : (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 4 * wOf e1 P = X ^ 2 * (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 3 := by
+      linear_combination (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 3 * hw
+    have h2 : (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 4 * wOf e1 P ^ 2 = X ^ 4 * (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 2 := by
+      linear_combination ((1 + X ^ 2 * P - C e1 * X ^ 2) ^ 3 * wOf e1 P + X ^ 2 * (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 2) * hw
+    have h3 : (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 4 * wOf e1 P ^ 3 = X ^ 6 * (1 + X ^ 2 * P - C e1 * X ^ 2) := by
+      linear_combination ((1 + X ^ 2 * P - C e1 * X ^ 2) ^ 3 * wOf e1 P ^ 2 + X ^ 2 * (1 + X ^ 2 * P - C e1 * X ^ 2) ^ 2 * wOf e1 P + X ^ 4 * (1 + X ^ 2 * P - C e1 * X ^ 2)) * hw
+    have hg4 : (C g2 : PowerSeries K) = 4 * C (g2 / 4) := by
+      rw [← map_ofNat C 4, ← map_mul]
+      congr 1
+      field_simp
+    rw [hg4] at hE
+    have he' : 4 * C e1 ^ 3 - 4 * C (g2 / 4) * C e1 - C g3 = (0 : PowerSeries K) := by
+      have hc := congrArg (C (R := K)) he
+      rw [map_sub, map_sub, map_mul, map_mul, map_pow, map_ofNat, map_zero, hg4] at hc
+      linear_combination hc
+    rw [show (C (3 * e1) : PowerSeries K) = 3 * C e1 by rw [map_mul, map_ofNat],
+      show (C (3 * e1 ^ 2 - g2 / 4) : PowerSeries K) = 3 * C e1 ^ 2 - C (g2 / 4) by
+        rw [map_sub, map_mul, map_pow, map_ofNat]]
+    refine mul_left_cancel₀ (pow_ne_zero 4 (ne_zero_of_constantCoeff hu)) ?_
+    linear_combination ((1 + X ^ 2 * P - C e1 * X ^ 2) ^ 2 * dz (wOf e1 P) - X * (X ^ 3 * dz P - 2)) * hA - 4 * h1 -
+      12 * C e1 * h2 - 4 * (3 * C e1 ^ 2 - C (g2 / 4)) * h3 + X ^ 2 * hE + X ^ 8 * he'
+
+end Formalism.L2.Th1.B
+end
+end
+

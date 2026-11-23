@@ -1,0 +1,114 @@
+module
+
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ThetaCoefficientOfConvergence
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0726
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0639
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.WhitNDgOfLocalOfSteps
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.WhittakerNondegenerateOfIwasawa
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0637
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0722
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.WhittakerAdditivity
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.UnitarySchrodingerLemmas.SphericalBigCell.IfrBAddOfWeilThetaConvergence
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.DictKAOfParts
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.CoefDataExists
+public import Development.WeilBound.CoreStatements.PublishedTheorems.SiegelWeilSchrodinger.SiegelWeilUnitarySchrodingerLit
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0261
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0262
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.Foundations.Bundle0018
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ExistsSelfDualSiegelWeilMeasures
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.WeilThetaConvergence
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1150
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0679
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0633
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0673
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.SummableOfTsumEnormLtTop
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0504
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0547
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.GaussianIsSchwartzFunction
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0201
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0229
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.Bundle0339
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0700
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.SiegelSetUnitary
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0710
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.Bundle0003
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0497
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.UnipotentMapContinuousAdditive
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0625
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0461
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.Bundle0044
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0012
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0714
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.Bundle0002
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.SummableCell
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0495
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0464
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0713
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.NondegenerateCharacterCellFactorization
+public import GroundTheory.GlobalFields.IdeleGroups.InfiniteProjInfiniteEmbeddingOfNe
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsCompactAdele
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0202
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.UnitarySchrodingerLemmas.MatrixInfinitySpan.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsCompactIsOpenUnitsAt
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.Bundle0311
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0704
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0143
+public import GroundTheory.GlobalFields.LocalAtPlace
+public import GroundTheory.AutomorphicForms.QuotientMeasure
+public import GroundTheory.AutomorphicForms.Bundle0019
+public import GroundTheory.AutomorphicForms.CompactFormulaCountable
+public import GroundTheory.AutomorphicForms.AnisotropicUnitaryCompact
+public import GroundTheory.AutomorphicForms.Bundle0001
+public import GroundTheory.AutomorphicForms.Bundle0023
+public import GroundTheory.AutomorphicForms.Bundle0018
+public import GroundTheory.AutomorphicForms.AdelicUnitaryGroups.Bundle0001
+public import GroundTheory.GlobalFields.TateThesis.AdelicCharLocal
+public import GroundTheory.HeightsAndTheta.Theta.GaussianExample
+public import GroundTheory.AutomorphicForms.AdelicUnitaryGroups.Topology
+public import GroundTheory.AutomorphicForms.Bundle0006
+public import GroundTheory.HeightsAndTheta.Theta.AdelicFourier
+public import GroundTheory.GlobalFields.TateThesis.Bundle0002
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.StabilizerVolume.TensTop
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0335
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0228
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.AdelicAnalysis.CompletionIsLocalRing
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0656
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0658
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.WhitKAOfGenLt
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0662
+public import Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.GlobalGaussLaws.VanishTop2
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ThetaAutomorphicOfConvergence
+public import Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.GlobalGaussLaws.Top7
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.WhitGenLt
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.UnitarySchrodingerLemmas.SchrodingerMatching.MatchMono
+public import Development.WeilBound.CoreStatements.PublishedTheorems.SiegelWeilSchrodinger.Bridge
+public import Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.HolomorphicContinuation.GlobalGaussLaws.WlocTop
+public import Development.WeilBound.RepresentationTheoryGL.EisensteinSeries.SiegelEisensteinHalfPlane.IntegralUnitCoefficients.GenAHf
+
+@[expose] public section
+
+noncomputable section
+
+namespace PositivityTheory.SiegelWeilCoefficients
+
+open PositivityTheory.Rg.Sw.Glob PositivityTheory.PfSWUS
+
+theorem coefND : CoefND :=
+  _root_.GlobalTheory.CompanionTheory.SWGlue.ndOfWhit _root_.GlobalTheory.CompanionTheory.SwUnf.unfold (_root_.GlobalTheory.CompanionTheory.ThetaCoefND.thetaCoef wtc)
+    (_root_.GlobalTheory.CompanionTheory.IwaAd.iwaRedA (_root_.GlobalTheory.CompanionTheory.IwaAd.whitKAOfGenLt whitGenLt (_root_.GlobalTheory.CompanionTheory.SWDict.dictKA_of_parts _root_.GlobalTheory.CompanionTheory.PfSWUS.fockSplitK _root_.GlobalTheory.CompanionTheory.WhitAdd.whitTAdd
+      (PositivityTheory.PfSWUS.HandIAdd.ifrBAdd_of_weilThetaConvergence wtc) PositivityTheory.PfSWUS.SwMatch.matchMono)
+      _root_.GlobalTheory.CompanionTheory.AnisoRange.anisoOfRange))
+
+theorem lit : GlobalTheory.Published.SiegelWeilUnitarySchrodingerLit := by
+  intro D n V a1 a2 a3 ψ hψ χ hχ hη θ hθ μ 𝓕 hμ ω hω H hH l hl s hs ν hν Φ hΦ g
+  exact top7 genA_hf (gIdil_gen wtc genA_hf) coefND D n V ψ χ θ μ ω H l s ν Φ
+    ⟨hψ, hχ, hη, hθ, ⟨𝓕, hμ⟩, hω, hH, hl, hs, hν, hΦ⟩ ⟨a1, a2, a3⟩ (by omega) g
+
+theorem field : GlobalTheory.Published.SiegelWeilUnitarySchrodinger :=
+  PositivityTheory.Lit1.SWUS.siegelWeilUnitarySchrodinger_of_lit lit wtc
+
+end PositivityTheory.SiegelWeilCoefficients
+
+end

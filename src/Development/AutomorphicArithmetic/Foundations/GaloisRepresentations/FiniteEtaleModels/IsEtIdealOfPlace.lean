@@ -1,0 +1,63 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0017
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0061
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0620
+
+@[expose] public section
+
+noncomputable section
+
+open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.UPel.HT GlobalTheory.UPel.HT.Hecke GlobalTheory.UPel.HT.EtLev GlobalTheory.UPel.HT.ES
+
+namespace UpperTheory.Gal.FiniteEtaleModels
+
+def IsEtIdeal {p : ℕ} [Fact p.Prime] {D : Datum p} {R : Type} [CommRing R] (b : Base D R) (𝔞 : Ideal (𝓞 D.F)) : Prop :=
+  𝔞 ≠ ⊥ ∧ ∀ w : Ideal (𝓞 D.F), w.IsMaximal → 𝔞 ≤ w → IsEtPlace b w
+
+def RepLev {p : ℕ} [Fact p.Prime] {D : Datum p} {R : Type} [CommRing R] {b : Base D R} {N : ℕ} {S : Scheme.{0}} {s : S ⟶ Sp R}
+    (o : Obj b N s) (𝔞 : Ideal (𝓞 D.F)) (r : ℕ) : Prop :=
+  ∃ (Y : Scheme.{0}) (π : Y ⟶ S) (lu : D.La → (Over.mk π ⟶ o.A)), IsFinite π ∧ Etale π ∧ IsEtLevOver o 𝔞 r lu ∧
+    ∀ (T : Over S) (l : D.La → (T ⟶ o.A)), IsEtLevOver o 𝔞 r l → ∃! f : T ⟶ Over.mk π, ∀ y, f ≫ lu y = l y
+
+def FinCover : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] (b : Base D R) (N : ℕ) (𝔞 : Ideal (𝓞 D.F)) (r : ℕ), 3 ≤ N → N.Coprime p → IsEtIdeal b 𝔞 → ∀ (S : Scheme.{0}) [IsLocallyNoetherian S] (s : S ⟶ Sp R) (o : Obj b N s), ∃ (Y : Scheme.{0}) (π : Y ⟶ S) (o' : Obj b N (π ≫ s)) (m : ObjMap o' o π) (lv : D.La → (𝟙_ (Over Y) ⟶ o'.A)) (ρ : LevGrp D 𝔞 r → (Y ⟶ Y)), IsEtLev o' 𝔞 r lv ∧ GlobalTheory.ZM.IsGaloisCover (LevGrp D 𝔞 r) ρ π ∧ ∀ (T : Scheme.{0}) (t : T ⟶ S) (o₁ : Obj b N (t ≫ s)) (m₁ : ObjMap o₁ o t) (l : D.La → (𝟙_ (Over T) ⟶ o₁.A)), IsEtLev o₁ 𝔞 r l → ∃! f : T ⟶ Y, f ≫ π = t ∧ ∃ m₂ : ObjMap o₁ o' f, ∀ y, (l y).left ≫ m₂.φ = f ≫ (lv y).left
+
+def FinModel : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] [IsNoetherianRing R] (b : Base D R) (N : ℕ), 3 ≤ N → N.Coprime p → ∀ (𝔞 : Ideal (𝓞 D.F)) (r : ℕ), IsEtIdeal b 𝔞 → ∀ M : Model b N, ∃ (E : EtModel b N 𝔞 r) (π : E.X ⟶ M.X) (ρ : LevGrp D 𝔞 r → (E.X ⟶ E.X)), π ≫ M.s = E.s ∧ Nonempty (ObjMap E.univ M.univ π) ∧ GlobalTheory.ZM.IsGaloisCover (LevGrp D 𝔞 r) ρ π
+
+def CrtMul : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] (b : Base D R) (N : ℕ) (S : Scheme.{0}) (s : S ⟶ Sp R) (o : Obj b N s) (𝔞 𝔟 : Ideal (𝓞 D.F)), 𝔞 ⊔ 𝔟 = ⊤ → ∀ (T : Over S) (l₁ l₂ : D.La → (T ⟶ o.A)),
+    IsEtLevOver o 𝔞 1 l₁ → IsEtLevOver o 𝔟 1 l₂ → IsEtLevOver o (𝔞 * 𝔟) 1 fun y => l₁ y * l₂ y
+
+def CrtProj : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] (b : Base D R) (N : ℕ) (S : Scheme.{0}) (s : S ⟶ Sp R) (o : Obj b N s) (𝔞 𝔟 : Ideal (𝓞 D.F)) (e : 𝓞 D.F), e ∈ 𝔟 → 1 - e ∈ 𝔞 → ∀ (T : Over S) (l : D.La → (T ⟶ o.A)),
+    IsEtLevOver o (𝔞 * 𝔟) 1 l → IsEtLevOver o 𝔞 1 fun y => l (algebraMap (𝓞 D.F) D.O e • y)
+
+def RepMul : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] (b : Base D R) (N : ℕ) (S : Scheme.{0}) (s : S ⟶ Sp R) (o : Obj b N s) (𝔞 𝔟 : Ideal (𝓞 D.F)), 𝔞 ⊔ 𝔟 = ⊤ → RepLev o 𝔞 1 → RepLev o 𝔟 1 → RepLev o (𝔞 * 𝔟) 1
+
+def IdealInd : Prop :=
+  ∀ (A : Type) [CommRing A] [IsDedekindDomain A] (Q P : Ideal A → Prop), P ⊤ → (∀ (w : Ideal A) (r : ℕ), w.IsMaximal → Q w → P (w ^ r)) →
+    (∀ 𝔞 𝔟 : Ideal A, 𝔞 ⊔ 𝔟 = ⊤ → P 𝔞 → P 𝔟 → P (𝔞 * 𝔟)) →
+    ∀ 𝔞 : Ideal A, 𝔞 ≠ ⊥ → (∀ w : Ideal A, w.IsMaximal → 𝔞 ≤ w → Q w) → P 𝔞
+
+def RepAll : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] (b : Base D R) (N : ℕ) (𝔞 : Ideal (𝓞 D.F)) (r : ℕ), N.Coprime p → IsEtIdeal b 𝔞 → ∀ (S : Scheme.{0}) [IsLocallyNoetherian S] (s : S ⟶ Sp R) (o : Obj b N s), RepLev o 𝔞 r
+
+def PtAll : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (R : Type) [CommRing R] (b : Base D R) (N : ℕ) (𝔞 : Ideal (𝓞 D.F)) (r : ℕ), N.Coprime p → IsEtIdeal b 𝔞 → ∀ (S : Scheme.{0}) (s : S ⟶ Sp R) (o : Obj b N s) (k : Type) [Field k] [IsAlgClosed k] (x : Sp k ⟶ S), ∃ l : D.La → (Over.mk x ⟶ o.A), IsEtLevOver o 𝔞 r l
+
+def GrpFin : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (𝔞 : Ideal (𝓞 D.F)) (r : ℕ), 𝔞 ≠ ⊥ → Finite (D.La ⧸ wSub D 𝔞 r) ∧ Finite (LevGrp D 𝔞 r)
+
+def PlaceOf : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (D : Datum p) (O : Type) [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [CharZero O] (b : Base D O)
+    (r : ℤ) (w : Ideal (𝓞 D.F)), w.IsMaximal → (p : O) ∈ IsLocalRing.maximalIdeal O → D.a = 1 → uIdeal D r ≤ w →
+    (∀ i, ∀ x ∈ w, b.t i x ∈ IsLocalRing.maximalIdeal O) →
+    ∀ 𝔞 : Ideal (𝓞 D.F), 𝔞 ⊔ w = ⊤ → (IsEtIdeal b 𝔞 ↔ ∃ e : ℕ, uIdeal D r ^ e ≤ 𝔞)
+
+end UpperTheory.Gal.FiniteEtaleModels

@@ -1,0 +1,16 @@
+module
+
+public import Development.EtaleCohomology.DivisorCycles.Bundle0010
+public import Development.EtaleCohomology.DivisorCycles.Bundle0003
+public import Development.EtaleCohomology.DivisorCycles.Bundle0009
+public import Development.EtaleCohomology.DivisorCycles.FinStruct
+
+@[expose] public section
+
+open Matrix PositivityTheory.AutomorphicGaloisHodgeTate.Div
+namespace LateralTheory.DivDb
+
+theorem goal_holds : DivWCoreLac :=
+  goal_of LateralTheory.Fin.SpecLie.intersectionNumber_baseChange LateralTheory.Fin.DegAll.intersectionNumber_baseChange LateralTheory.Fin.Struct.intersectionNumber_baseChange LateralTheory.Fin.Key.intersectionNumber_baseChange LateralTheory.Fin.BigCorner.intersectionNumber_baseChange LateralTheory.Fin.Semis.intersectionNumber_baseChange LateralTheory.Fin.MatrixUnits₂.intersectionNumber_baseChange LateralTheory.Fin.Rep.intersectionNumber_baseChange LateralTheory.Fin.DenseAlg.intersectionNumber_baseChange LateralTheory.Fin.FinSub.intersectionNumber_baseChange LateralTheory.Fin.FinDense.intersectionNumber_baseChange LateralTheory.Fin.FinPoly.intersectionNumber_baseChange LateralTheory.Fin.FinEmbed.intersectionNumber_baseChange
+
+end LateralTheory.DivDb

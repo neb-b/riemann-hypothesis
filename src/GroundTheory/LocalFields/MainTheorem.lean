@@ -1,0 +1,57 @@
+module
+
+public import Mathlib
+public import GroundTheory.LocalFields.Bundle0016
+public import GroundTheory.LocalFields.Bundle0017
+public import GroundTheory.LocalFields.Bundle0018
+public import GroundTheory.LocalFields.LocalArtinTransport
+
+@[expose] public section
+
+noncomputable section
+
+namespace GroundTheory.LocalField
+
+open ValuativeRel
+
+section Main
+
+variable (K : Type*) [Field K] [ValuativeRel K] [TopologicalSpace K] [IsNonarchimedeanLocalField K]
+  (Ω : Type*) [Field Ω] [Algebra K Ω] [IsSepClosure K Ω]
+
+end Main
+
+section Functoriality
+
+variable {K : Type*} [Field K] [ValuativeRel K] [TopologicalSpace K] [IsNonarchimedeanLocalField K]
+  {K' : Type*} [Field K'] [ValuativeRel K'] [TopologicalSpace K'] [IsNonarchimedeanLocalField K']
+
+theorem isSepClosure_of_isSeparable (K K' Ω : Type*) [Field K] [Field K'] [Field Ω] [Algebra K K']
+    [Algebra K Ω] [Algebra K' Ω] [IsScalarTower K K' Ω] [Algebra.IsSeparable K K'] [IsSepClosure K' Ω] :
+    IsSepClosure K Ω :=
+  ⟨IsSepClosure.sep_closed K', Algebra.IsSeparable.trans K K' Ω⟩
+
+theorem localArtinMap_norm [Algebra K K'] [ValuativeExtension K K'] [FiniteDimensional K K']
+    [Algebra.IsSeparable K K'] {Ω : Type*} [Field Ω] [Algebra K Ω] [Algebra K' Ω]
+    [IsScalarTower K K' Ω] [IsSepClosure K' Ω] (x : K'ˣ) {y : Ω} :
+    have := isSepClosure_of_isSeparable K K' Ω
+    ∀ hy : y ∈ maximalAbelianExtension K Ω,
+      ((localArtinMap K' Ω x ⟨y, maximalAbelianExtension_le_of_algebra hy⟩ :
+        maximalAbelianExtension K' Ω) : Ω) =
+        ((localArtinMap K Ω (normUnits K K' x) ⟨y, hy⟩ : maximalAbelianExtension K Ω) : Ω) := by
+  intro _ hy
+  exact localArtinMap_apply_of_algebra x hy
+
+theorem localArtinMap_transport {Ω Ω' : Type*} [Field Ω] [Field Ω'] [Algebra K Ω] [Algebra K' Ω']
+    [IsSepClosure K Ω] [IsSepClosure K' Ω'] (e : K ≃+* K') (he : ∀ x y : K, e x ≤ᵥ e y ↔ x ≤ᵥ y)
+    (ε : Ω ≃+* Ω') (hε : ∀ x : K, ε (algebraMap K Ω x) = algebraMap K' Ω' (e x)) (x : Kˣ) {y : Ω}
+    (hy : y ∈ maximalAbelianExtension K Ω) :
+    ε ((localArtinMap K Ω x ⟨y, hy⟩ : maximalAbelianExtension K Ω) : Ω) =
+      ((localArtinMap K' Ω' (Units.map e.toRingHom.toMonoidHom x)
+        ⟨ε y, (mem_maximalAbelianExtension_transport_iff e ε hε).2 hy⟩ :
+          maximalAbelianExtension K' Ω') : Ω') :=
+  transport_localArtinMap_apply e he ε hε x hy
+
+end Functoriality
+
+end GroundTheory.LocalField

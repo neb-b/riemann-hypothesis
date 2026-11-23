@@ -1,0 +1,29 @@
+module
+
+public import Mathlib
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.LiftFactorization.RamLiftOf
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0175
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1585
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0336
+public import Formalism.PrimeAboveExistence.LenEqPlaces
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.LiftFactorization.StrongOf
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.InertiaQuadraticRamification.InfinitelyManyRealQuadraticSteps
+public import Development.AutomorphicArithmetic.Foundations.Convolution.SphericalIdeles.QuadLift
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1389
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1553
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1678
+public import Development.WeilBound.CoreStatements.PublishedTheorems.JacquetShalikaRigidity.JacquetShalikaRigidity
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0556
+
+@[expose] public section
+
+namespace UpperTheory.Gal.AbelianGaloisNormality
+
+open UpperTheory.Gal.UnramifiedFromSplittingCriterion UpperTheory.ConvolutionTheory.Sph
+
+theorem gk_holds : GlobalTheory.Published.GelfandKazhdanDual :=
+  GlobalTheory.GelfandKazhdanTop.gelfandKazhdanDual_of_rapidDecay PositivityTheory.AdelicQuotientData.jacquetShalika GlobalTheory.automorphicFormsFiniteGL
+    GlobalTheory.CompanionTheory.CuspFinGL.cuspRapidDecaySiegelGL
+theorem strongTC_holds : GlobalTheory.Published.ArthurClozelStrongTC := strongOf liftUnr ramSph
+
+end UpperTheory.Gal.AbelianGaloisNormality

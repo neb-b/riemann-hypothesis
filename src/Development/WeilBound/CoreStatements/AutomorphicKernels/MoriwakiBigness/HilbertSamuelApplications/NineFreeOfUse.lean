@@ -1,0 +1,83 @@
+module
+
+public import Mathlib
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.MoriwakiBigness.HilbertSamuelApplications.HsLinksOfUse
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.MoriwakiBigness.HilbertSamuelApplications.GrassmannianHeightBoundOfSystems
+public import Development.AutomorphicSpectrum.Statements.MetricStatements.AgreementIffGuarded
+public import Development.AutomorphicSpectrum.Definitions.MetricPeriods.Bundle0002
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0012
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.BlowupProjections.BlowupProjStatement
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0016
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArithmeticIntersection.MultihomogeneousIdeals.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0036
+public import Development.AutomorphicSpectrum.Definitions.MetricPeriods.HasMultiplier
+public import Development.AutomorphicSpectrum.Definitions.DivisibilityTowers.HeckeSectionsIsotropicCommutatorPairingPower
+public import Development.AutomorphicSpectrum.Definitions.DivisibilityTowers.GoodOrigin
+public import Development.AutomorphicSpectrum.Definitions.GlobalGeometry.Bundle0011
+public import Development.AutomorphicSpectrum.Statements.TowerExistence.GoodTowerExistsX
+public import Development.AutomorphicSpectrum.Statements.GeometryStatements.Bundle0003
+public import Development.AutomorphicSpectrum.PublishedTheorems.Algebra₂.Bundle0001
+public import Development.AutomorphicSpectrum.Statements.AlgebraStatements.Bundle0002
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.Bundle0001
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0006
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArithmeticIntersection.RationalSections.ThmISt
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.GlobalSectionsRankAlgClosed
+public import Development.AutomorphicSpectrum.Statements.GeometryStatements.ZhangDimensionPushDownGrassmannianHeightBounds
+public import GroundTheory.HeightsAndTheta.Heights.SemipositiveHeights.Imports
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0084
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0019
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0080
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0020
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0071
+public import GroundTheory.HeightsAndTheta.Heights.SemipositiveHeights.ImportsBis
+public import GroundTheory.HeightsAndTheta.Heights.SemipositiveHeights.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0014
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0008
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0120
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.HodgeLowerBound.Bundle0005
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0146
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.ConvergenceStatementHolds
+public import ReciprocityTheory.AnalyticForms.LeviForms.IsRegFamilyInhabitStatement
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0094
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0123
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0027
+public import Development.AutomorphicSpectrum.Proofs.AlgebraProofs.Bundle0052
+public import Development.AutomorphicSpectrum.Proofs.AlgebraProofs.Bundle0057
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovGeometry.KleimanNefness.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.GenericPointSectionHypotheses
+public import GroundTheory.HeightsAndTheta.Heights.KleimanAmpleness.IsFieldSubalgebraSelf
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.Bundle0022
+public import Development.AutomorphicSpectrum.Proofs.AlgebraProofs.Bundle0031
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0030
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0117
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0062
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0130
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0025
+public import ReciprocityTheory.AnalyticForms.LeviForms.Bundle0004
+public import ReciprocityTheory.AnalyticForms.LeviForms.RegChartC
+public import ReciprocityTheory.AnalyticForms.LeviForms.TailCut
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.ResolutionExistsOfResolutionStatement
+public import Development.AutomorphicSpectrum.Definitions.GlobalGeometry.Bundle0008
+public import Development.AutomorphicSpectrum.Definitions.DivisibilityTowers.Proportional
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterBridge
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterRed
+public import Development.AutomorphicSpectrum.Proofs.AlgebraProofs.Bundle0059
+public import Development.AutomorphicSpectrum.Proofs.MetricProofs.Bundle0115
+
+@[expose] public section
+
+open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Geo ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.Semi GlobalTheory.CompanionTheory.Ar
+
+namespace GlobalTheory.CompanionTheory.Ar.Link
+
+theorem nineFree_of_use :
+    ReciprocityTheory.ChartRestriction.G.Geo.ArithIntersectionSystemStatement → PositivityTheory.MbHsUse.HSUse → ReciprocityTheory.ChartRestriction.G.ArakelovGeometry.MoriwakiBigStatement → ReciprocityTheory.ChartRestriction.G.Geo.ResK.ResKStatement → Prov.ZhangDimensionPushDownGrassmannianHeightBounds := by
+  intro hI hU hBig hRes
+  obtain ⟨-, -, -, -, hZ, hD⟩ := GlobalTheory.CompanionTheory.Ar.Giv.hsLinks_of_use hU hBig
+  exact ⟨hZ, hD, trivial, _root_.GlobalTheory.CompanionTheory.Ar.Giv.pushDown hI, GlobalTheory.CompanionTheory.Ar.Giv.grassmannian_height_bound_of_systems hI hU hBig hRes⟩
+
+end GlobalTheory.CompanionTheory.Ar.Link

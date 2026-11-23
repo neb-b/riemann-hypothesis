@@ -1,0 +1,14 @@
+module
+
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.LiteratureResults.KTheoryStability.ReductionBoundsTorsion.AffineSplittingSpan.CoreMain
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.LiteratureResults.KTheoryStability.ReductionBoundsTorsion.AffineSplittingSpan.Bundle0005
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.LiteratureResults.KTheoryStability.ReductionBoundsTorsion.AffineSplittingSpan.Bundle0007
+
+@[expose] public section
+
+namespace PositivityTheory.KB.SplitAffineSpectral
+
+theorem core : Core :=
+  NormTraceLemmas.core_of NormTraceLemmas.splitA NormTraceLemmas.splitS NormTraceLemmas.splitB NormTraceLemmas.zInv NormTraceLemmas.e2z NormTraceLemmas.e2s
+
+end PositivityTheory.KB.SplitAffineSpectral

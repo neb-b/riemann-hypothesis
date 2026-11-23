@@ -1,0 +1,12 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.LefOfKChain
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ArchimedeanGelfandKernels.LeftEquivariantFunctions.GLMatrixDerivatives.KChainHolds
+
+@[expose] public section
+
+namespace PositivityTheory.RgBcC
+
+theorem lefschetz_holds : Lef := lef_of_kChain LfSt.kChain_holds
+
+end PositivityTheory.RgBcC

@@ -1,0 +1,32 @@
+module
+
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0220
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0211
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0206
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0218
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0198
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.CompactZeroHolds
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0204
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0201
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0199
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0208
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0213
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0210
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0209
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0205
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0202
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.ModelPlaceBuilt2OfChartEqs
+
+@[expose] public section
+
+namespace Formalism.FourierDecayAlt.P.CutMP.SmoothTransferRegularity
+
+theorem chartEqs_of_capJoints (hJ : CapWordsOfParts) (hJR : CapRWordsOfParts) (hJL : CapLWordsOfParts) :
+    ChartEqs := by
+  obtain ⟨h4, h5, h6⟩ := capWords_all_of hJ hJR hJL derivative_local_representative right_exponential_evaluation left_exponential_evaluation capelli_vector_as_generators
+    right_capelli_as_generators left_capelli_as_generators exponential_degree_holds exponential_symbol_holds determinant_shift_coefficient coefficient_interpolation_holds
+  exact chartEqs_of_J operator_capelli_vector operator_right_capelli operator_left_capelli nilpotent_of_char_poly conjugation_algebraic_holds left_covariance_chart_holds
+    chart_covariance_holds right_chart_holds nilpotent_lie_finite_holds h4 h5 h6 compact_zero_holds frame_existence vector_to_symbol_operator
+    symbol_operator_field_holds symbol_operator_lift_holds symbol_operator_linear_holds
+
+end Formalism.FourierDecayAlt.P.CutMP.SmoothTransferRegularity

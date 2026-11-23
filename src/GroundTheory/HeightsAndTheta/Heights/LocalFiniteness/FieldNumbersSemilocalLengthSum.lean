@@ -1,0 +1,15 @@
+module
+
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0006
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0017
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0022
+
+@[expose] public section
+
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalLengthSum.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalLengthSum.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalLengthSum.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.FibreFinite.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalFiniteRank GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_DegZeroLocalRing GroundTheory.Heights₂.Heights.FieldNumbers.FiniteAlgebraLengthSum.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalMaxIdeals

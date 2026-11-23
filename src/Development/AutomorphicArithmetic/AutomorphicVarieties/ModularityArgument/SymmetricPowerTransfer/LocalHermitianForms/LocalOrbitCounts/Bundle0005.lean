@@ -1,0 +1,488 @@
+module
+
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.ScalarComm
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.Bundle0004
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.NormOneIsCoboundaryUnramifiedQuadratic
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.Bundle0001
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.SplitUnitElements.SplitS
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.Bundle0002
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.FixedPointCriteria.IntDown
+
+@[expose] public section
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.GConj
+section
+open QuadraticAlgebra UpperTheory.V.Z.Sym UpperTheory.V.Z.Sym.Loc
+
+private theorem cyc {K : Type} [Field K] {τ : K} (hτ : τ ^ 2 - 4 ≠ 0) (j : Etau K τ →ₐ[K] Matrix (Fin 2) (Fin 2) K) (hj : (j ω).trace = τ) :
+    ∃ g : GL (Fin 2) K, j ω * g = g * !![0, -1; 1, τ] := by
+  have hd := j_det_omega j hj
+  rw [Matrix.det_fin_two] at hd
+  rw [Matrix.trace_fin_two] at hj
+  by_cases hc : j ω 1 0 ≠ 0
+  · refine ⟨Matrix.GeneralLinearGroup.mkOfDetNeZero !![1, j ω 0 0; 0, j ω 1 0]
+      (by simpa [Matrix.det_fin_two] using hc), ?_⟩
+    rw [Matrix.GeneralLinearGroup.val_mkOfDetNeZero]
+    ext i k
+    fin_cases i <;> fin_cases k <;> simp [Matrix.mul_apply, Fin.sum_univ_two] <;> first | ring1 | linear_combination (j ω 0 0) * hj - hd | linear_combination (j ω 1 0) * hj | linear_combination (j ω 0 1) * hj | linear_combination (j ω 1 1) * hj - hd
+  · push_neg at hc
+    by_cases hb : j ω 0 1 ≠ 0
+    · simp only [hc, mul_zero, sub_zero] at hd
+      refine ⟨Matrix.GeneralLinearGroup.mkOfDetNeZero !![0, j ω 0 1; 1, j ω 1 1]
+        (by simpa [Matrix.det_fin_two] using hb), ?_⟩
+      rw [Matrix.GeneralLinearGroup.val_mkOfDetNeZero]
+      ext i k
+      fin_cases i <;> fin_cases k <;> simp [Matrix.mul_apply, Fin.sum_univ_two, hc] <;> first | ring1 | linear_combination (j ω 0 0) * hj - hd | linear_combination (j ω 1 0) * hj | linear_combination (j ω 0 1) * hj | linear_combination (j ω 1 1) * hj - hd
+    · push_neg at hb
+      simp only [hb, hc, mul_zero, sub_zero] at hd
+      have hne : j ω 1 1 - j ω 0 0 ≠ 0 := by
+        intro h; apply hτ; rw [← hj]
+        linear_combination (j ω 1 1 - j ω 0 0) * h + 4 * hd
+      refine ⟨Matrix.GeneralLinearGroup.mkOfDetNeZero !![1, j ω 0 0; 1, j ω 1 1]
+        (by simpa [Matrix.det_fin_two] using hne), ?_⟩
+      rw [Matrix.GeneralLinearGroup.val_mkOfDetNeZero]
+      ext i k
+      fin_cases i <;> fin_cases k <;> simp [Matrix.mul_apply, Fin.sum_univ_two, hb, hc] <;> first | ring1 | linear_combination (j ω 0 0) * hj - hd | linear_combination (j ω 1 0) * hj | linear_combination (j ω 0 1) * hj | linear_combination (j ω 1 1) * hj - hd
+
+theorem UpperTheory.V.Z.Sym.Loc.gConj : UpperTheory.V.Z.Sym.Loc.GConj := by
+  intro O K _ _ _ _ _ Δ τ hL hτ j j' hj hj'
+  obtain ⟨g1, hg1⟩ := cyc hτ j hj
+  obtain ⟨g2, hg2⟩ := cyc hτ j' hj'
+  have e1 : ((g1⁻¹ : GL (Fin 2) K) : Matrix (Fin 2) (Fin 2) K) * j ω * g1 = !![0, -1; 1, τ] := by
+    rw [mul_assoc, hg1, ← mul_assoc, Units.inv_mul, one_mul]
+  have e2 : j' ω = (g2 : Matrix (Fin 2) (Fin 2) K) * !![0, -1; 1, τ] *
+      ((g2⁻¹ : GL (Fin 2) K) : Matrix (Fin 2) (Fin 2) K) := by
+    rw [← hg2, mul_assoc, Units.mul_inv, mul_one]
+  obtain ⟨g, hg⟩ : ∃ g : GL (Fin 2) K, g = g1 * g2⁻¹ := ⟨_, rfl⟩
+  have hM : ((g⁻¹ : GL (Fin 2) K) : Matrix (Fin 2) (Fin 2) K) * j ω * g = j' ω := by
+    rw [hg, e2, ← e1]; simp only [mul_inv_rev, inv_inv, Units.val_mul, mul_assoc]
+  have hconj : ∀ z : (Etau K τ)ˣ, jU j' z = g⁻¹ * jU j z * g := by
+    intro z; ext1
+    simp only [jU, Units.coe_map, Units.val_mul, MonoidHom.coe_coe]
+    rw [j_apply j', j_apply j, ← hM]
+    simp [mul_add, add_mul, smul_mul_assoc, mul_smul_comm, mul_assoc]
+  refine ⟨⟨g, hconj⟩, fun χ hχ z => ?_⟩
+  unfold gOrb
+  refine orb_congr _ _ _ _ _ _ _ _ _ _ _ (Equiv.mulLeft g⁻¹) ?_ ?_ ?_ ?_ ?_
+  · intro t y; simp only [Equiv.coe_mulLeft]; rw [hconj t]; simp [mul_assoc]
+  · intro y y'; simp [mul_assoc]
+  · intro y; simp only [Equiv.coe_mulLeft, MonoidHom.id_apply]; rw [hconj z]; simp [mul_assoc]
+  · intro y y' hyy
+    simp only [MonoidHom.id_apply]
+    rw [← fZK_conj hL hχ hyy]; congr 1; group
+  · intro t; simp only [MonoidHom.id_apply]
+    rw [← map_inv, ← map_mul, ← map_mul, mul_comm t⁻¹ z, mul_assoc, inv_mul_cancel, mul_one]
+end
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.LcountNorm
+section
+open QuadraticAlgebra UpperTheory.V.Z.Sym UpperTheory.V.Z.Sym.Loc
+
+private theorem ofE_mul_local_orbit_counts {K : Type} [Field K] (Δ τ : K) (z w : Etau K τ) :
+    ofE Δ (z * w) = ofE Δ z * ofE Δ w := by
+  ext <;> simp [ofE.eq_1] <;> ring
+
+private theorem ofE_one' {K : Type} [Field K] (Δ τ : K) : ofE Δ (1 : Etau K τ) = 1 := by
+  ext <;> simp [ofE.eq_1]
+
+private theorem sigL_ofE_local_orbit_counts {K : Type} [Field K] (Δ τ : K) (z : Etau K τ) : sigL (ofE Δ z) = ofE Δ z := by
+  ext <;> simp [ofE.eq_1, sigL.eq_1]
+
+private theorem mul_ofE_mul_star_sigL_eq_norm_smul {K : Type} [Field K] (Δ τ : K) (m : EL Δ τ) (z : Etau K τ) :
+    m * ofE Δ z * star (sigL (ofE Δ z)) = (QuadraticAlgebra.norm z : K) • m := by
+  ext <;> simp [ofE.eq_1, sigL.eq_1, QuadraticAlgebra.norm_def] <;> ring
+
+theorem UpperTheory.V.Z.Sym.Loc.lcountNorm : UpperTheory.V.Z.Sym.Loc.LcountNorm := by
+  unfold LcountNorm
+  intro O K _ _ _ _ _ Δ τ _ c d m _ t ht
+  rw [NE.eq_1] at ht
+  obtain ⟨u, rfl⟩ := ht
+  let y : (EL Δ τ)ˣ :=
+    ⟨ofE Δ (u : Etau K τ), ofE Δ (↑u⁻¹ : Etau K τ),
+      by rw [← ofE_mul_local_orbit_counts, u.mul_inv, ofE_one'],
+      by rw [← ofE_mul_local_orbit_counts, u.inv_mul, ofE_one']⟩
+  have hI : DatIso := datIso
+  unfold DatIso at hI
+  have h := (hI O K Δ τ c d m y).1
+  have hy : (y : EL Δ τ) = ofE Δ (u : Etau K τ) := rfl
+  have e1 : d * sigL (y : EL Δ τ) * ↑y⁻¹ = d := by
+    rw [show sigL (y : EL Δ τ) = (y : EL Δ τ) by rw [hy, sigL_ofE_local_orbit_counts]]
+    exact Units.mul_inv_cancel_right d y
+  have e2 : m * ↑y * star (sigL (y : EL Δ τ)) = ((Units.map QuadraticAlgebra.norm u : Kˣ) : K) • m := by
+    rw [hy, Units.coe_map, mul_ofE_mul_star_sigL_eq_norm_smul]
+  rw [e1, e2] at h
+  exact h.symm
+end
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.NonsqMul
+section
+open QuadraticAlgebra UpperTheory.V.Z.Sym UpperTheory.V.Z.Sym.Loc
+
+namespace UpperTheory.V.Z.Sym.Loc.admissible_trace_regular
+
+variable {K : Type} [Field K]
+
+private def Nm (D x : K) : Prop := ∃ a b : K, a ^ 2 - D * b ^ 2 = x
+
+private theorem Nm.mul {D x y : K} (hx : Nm D x) (hy : Nm D y) : Nm D (x * y) := by
+  obtain ⟨a, b, rfl⟩ := hx
+  obtain ⟨c, d, rfl⟩ := hy
+  exact ⟨a * c + D * b * d, a * d + b * c, by ring⟩
+
+private theorem Nm.sq (D s : K) : Nm D (s ^ 2) := ⟨s, 0, by ring⟩
+
+private theorem Nm.cancel {D x y : K} (h0 : x ≠ 0) (hx : Nm D x) (hxy : Nm D (x * y)) : Nm D y := by
+  have h := (hx.mul hxy).mul (Nm.sq D x⁻¹)
+  have e : x * (x * y) * x⁻¹ ^ 2 = y := by field_simp
+  rwa [e] at h
+
+variable {O : Type} [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [Algebra O K]
+
+private theorem even_im_hermitian_sub {Δ : K} (h : IsLoc O Δ) {p : O} (hp : Irreducible p) {x : K} (hx : x ≠ 0) :
+    EvenVal O x ∨ EvenVal O (x * algebraMap O K p) := by
+  haveI := h.frac
+  have hp0 : algebraMap O K p ≠ 0 := fun e =>
+    hp.ne_zero ((IsFractionRing.injective O K) (e.trans (map_zero _).symm))
+  obtain ⟨a, b, hb, rfl⟩ := IsFractionRing.div_surjective (A := O) x
+  have hb0 : b ≠ 0 := nonZeroDivisors.ne_zero hb
+  have hbK : algebraMap O K b ≠ 0 := fun e =>
+    hb0 ((IsFractionRing.injective O K) (e.trans (map_zero _).symm))
+  have ha0 : a ≠ 0 := by
+    rintro rfl
+    simp at hx
+  obtain ⟨n, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible (mul_ne_zero ha0 hb0) hp
+  have hu' : algebraMap O K a * algebraMap O K b = algebraMap O K u * algebraMap O K p ^ n := by
+    rw [← map_mul, hu, map_mul, map_pow]
+  have e : algebraMap O K a / algebraMap O K b
+      = algebraMap O K u * algebraMap O K p ^ n / algebraMap O K b ^ 2 := by
+    rw [← hu']; field_simp
+  rw [e]
+  obtain ⟨k, rfl | rfl⟩ := Nat.even_or_odd' n
+  · exact Or.inl ⟨u, algebraMap O K p ^ k / algebraMap O K b, div_ne_zero (pow_ne_zero _ hp0) hbK, by ring⟩
+  · exact Or.inr ⟨u, algebraMap O K p ^ (k + 1) / algebraMap O K b, div_ne_zero (pow_ne_zero _ hp0) hbK, by ring⟩
+
+private theorem sq_lift {Δ : K} (h : IsLoc O Δ) (u : Oˣ)
+    (hu : IsSquare (IsLocalRing.residue O (u : O))) : IsSquare (u : O) := by
+  obtain ⟨r, hr⟩ := hu
+  obtain ⟨r₀, rfl⟩ := IsLocalRing.residue_surjective r
+  have h0 : IsLocalRing.residue O r₀ ≠ 0 := by
+    intro e
+    rw [e, mul_zero] at hr
+    exact (u.isUnit.map (IsLocalRing.residue O)).ne_zero hr
+  obtain ⟨r, hr', -⟩ := sqrtO O K Δ h u r₀ ((IsLocalRing.residue_ne_zero_iff_isUnit _).1 h0) (by
+    rw [← IsLocalRing.residue_eq_zero_iff, map_sub, map_pow, hr, sq, sub_self])
+  exact ⟨r, by rw [← hr', sq]⟩
+
+private theorem nonsq_mul {Δ : K} (h : IsLoc O Δ) (u v : Oˣ) (hu : ¬ IsSquare (u : O))
+    (hv : ¬ IsSquare (v : O)) : IsSquare ((u * v : Oˣ) : O) := by
+  classical
+  haveI := h.fin
+  haveI := Fintype.ofFinite (IsLocalRing.ResidueField O)
+  apply sq_lift h
+  have a := quadraticChar_neg_one_iff_not_isSquare.2 (fun e => hu (sq_lift h u e))
+  have b := quadraticChar_neg_one_iff_not_isSquare.2 (fun e => hv (sq_lift h v e))
+  rw [← quadraticChar_one_iff_isSquare (((u * v).isUnit.map (IsLocalRing.residue O)).ne_zero),
+    Units.val_mul, map_mul, map_mul, a, b]
+  norm_num
+
+private theorem Nm.ofSq (D : K) {u : O} (hu : IsSquare u) : Nm D (algebraMap O K u) := by
+  obtain ⟨r, rfl⟩ := hu
+  exact ⟨algebraMap O K r, 0, by rw [map_mul]; ring⟩
+
+private theorem key {Δ : K} (h : IsLoc O Δ) {D x y : K} (hD : D ≠ 0) (hx : x ≠ 0) (hy : y ≠ 0)
+    (nx : ¬ Nm D x) (ny : ¬ Nm D y) : Nm D (x * y) := by
+  haveI := h.frac
+  obtain ⟨p, hp⟩ := IsDiscreteValuationRing.exists_irreducible O
+  have hp0 : algebraMap O K p ≠ 0 := fun e =>
+    hp.ne_zero ((IsFractionRing.injective O K) (e.trans (map_zero _).symm))
+  rcases even_im_hermitian_sub h hp hD with hD' | ⟨w, s, hs, hw⟩
+  · have ev : ∀ z : K, EvenVal O z → Nm D z := by
+      rintro z ⟨u, t, -, rfl⟩
+      obtain ⟨ν, -, hν⟩ := normEx O K D ⟨h.frac, h.compl, h.fin, h.two, hD'⟩ u
+      refine Nm.mul ⟨ν.re, ν.im, ?_⟩ (Nm.sq D t)
+      rw [← hν, QuadraticAlgebra.norm_def]; ring
+    obtain ⟨u, s, hs, e1⟩ := (even_im_hermitian_sub h hp hx).resolve_left (fun e => nx (ev _ e))
+    obtain ⟨v, t, ht, e2⟩ := (even_im_hermitian_sub h hp hy).resolve_left (fun e => ny (ev _ e))
+    refine ev _ ⟨u * v, s * t / algebraMap O K p, div_ne_zero (mul_ne_zero hs ht) hp0, ?_⟩
+    rw [Units.val_mul, map_mul]
+    field_simp
+    linear_combination (y * algebraMap O K p) * e1 + (algebraMap O K u * s ^ 2) * e2
+  · have dec : ∀ z : K, z ≠ 0 → ∃ (u : Oˣ) (n : K), Nm D n ∧ z = algebraMap O K u * n := by
+      intro z hz
+      rcases even_im_hermitian_sub h hp hz with ⟨u, t, -, e⟩ | ⟨u, t, ht, e⟩
+      · exact ⟨u, t ^ 2, Nm.sq D t, e⟩
+      · refine ⟨-(u * w⁻¹), (-D) * (t / s) ^ 2, Nm.mul ⟨0, 1, by ring⟩ (Nm.sq D _), ?_⟩
+        have e3 : algebraMap O K ((w⁻¹ : Oˣ) : O) * algebraMap O K w = 1 := by
+          rw [← map_mul, Units.inv_mul, map_one]
+        rw [Units.val_neg, Units.val_mul, map_neg, map_mul]
+        have hs2 : (t / s) ^ 2 * s ^ 2 = t ^ 2 := by field_simp
+        apply mul_right_cancel₀ (mul_ne_zero hp0 (pow_ne_zero 2 hs))
+        linear_combination s ^ 2 * e - (algebraMap O K u * algebraMap O K ((w⁻¹ : Oˣ) : O) * t ^ 2) * hw
+          - (algebraMap O K u * s ^ 2 * t ^ 2) * e3
+          - (algebraMap O K u * algebraMap O K ((w⁻¹ : Oˣ) : O) * D * algebraMap O K p) * hs2
+    obtain ⟨u, n, hn, rfl⟩ := dec x hx
+    obtain ⟨v, m, hm, rfl⟩ := dec y hy
+    have := Nm.ofSq D (nonsq_mul h u v (fun e => nx ((Nm.ofSq D e).mul hn)) (fun e => ny ((Nm.ofSq D e).mul hm)))
+    have h2 := (this.mul hn).mul hm
+    rw [Units.val_mul, map_mul] at h2
+    convert h2 using 1
+    ring
+
+private theorem hs_pos {D x : K} (h : Nm D x) : hs D x = 1 := if_pos h
+private theorem hs_neg {D x : K} (h : ¬ Nm D x) : hs D x = -1 := if_neg h
+
+end UpperTheory.V.Z.Sym.Loc.admissible_trace_regular
+
+open UpperTheory.V.Z.Sym.Loc.admissible_trace_regular in
+theorem UpperTheory.V.Z.Sym.Loc.hsMul :
+    UpperTheory.V.Z.Sym.Loc.HsMul := by
+  intro O K _ _ _ _ _ Δ h D x y hD hx hy
+  by_cases nx : Nm D x <;> by_cases ny : Nm D y
+  · rw [hs_pos nx, hs_pos ny, hs_pos (nx.mul ny), one_mul]
+  · rw [hs_pos nx, hs_neg ny, hs_neg (fun e => ny (nx.cancel hx e)), one_mul]
+  · rw [hs_neg nx, hs_pos ny, hs_neg (fun e => nx (ny.cancel hy (mul_comm x y ▸ e))), mul_one]
+  · rw [hs_neg nx, hs_neg ny, hs_pos (key h hD hx hy nx ny)]
+    norm_num
+end
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.SplitJ
+section
+open QuadraticAlgebra UpperTheory.V.Z.Sym UpperTheory.V.Z.Sym.Loc
+
+private theorem core {L : Type} [CommRing L] [StarRing L] (ν : L) (P Q : Matrix (Fin 2) (Fin 2) L) (J : Matrix (Fin 2) (Fin 2) L)
+    (h1 : P * Q = 1) (h2 : Q * P = 1) (hν : IsUnit ν) (h3 : P.map star = ν • (P * J)) (X : Matrix (Fin 2) (Fin 2) L) :
+    J * X.map star = X * J ↔ (P * X * Q).map star = P * X * Q := by
+  have hm : ∀ A B : Matrix (Fin 2) (Fin 2) L, (A * B).map star = A.map star * B.map star := by
+    intro A B
+    exact (Matrix.map_mul : (A * B).map (starRingEnd L) = A.map (starRingEnd L) * B.map (starRingEnd L))
+  have h1s : P.map star * Q.map star = 1 := by
+    rw [← hm, h1]
+    simp
+  have h2s : Q.map star * P.map star = 1 := by
+    rw [← hm, h2]
+    simp
+  have hJQ : ν • (J * Q.map star) = Q := by
+    calc ν • (J * Q.map star) = Q * (P.map star * Q.map star) := by
+          rw [h3]
+          simp only [Matrix.mul_assoc, smul_mul_assoc, Matrix.mul_smul]
+          rw [← Matrix.mul_assoc Q P, h2, Matrix.one_mul]
+      _ = Q := by rw [h1s, Matrix.mul_one]
+  have hQP : Q * P.map star = ν • J := by
+    rw [h3, Matrix.mul_smul, ← Matrix.mul_assoc, h2, Matrix.one_mul]
+  constructor
+  · intro h
+    rw [hm, hm, h3]
+    conv_rhs => rw [← hJQ]
+    simp only [Matrix.mul_assoc, smul_mul_assoc, Matrix.mul_smul]
+    rw [← Matrix.mul_assoc J, h, Matrix.mul_assoc]
+  · intro h
+    have e := congrArg (fun M => Q * M * P.map star) h
+    rw [hm, hm] at e
+    have hL : Q * (P.map star * X.map star * Q.map star) * P.map star = ν • (J * X.map star) := by
+      rw [show Q * (P.map star * X.map star * Q.map star) * P.map star
+          = (Q * P.map star) * X.map star * (Q.map star * P.map star) by simp only [Matrix.mul_assoc],
+        hQP, h2s, Matrix.mul_one, smul_mul_assoc]
+    have hR : Q * (P * X * Q) * P.map star = ν • (X * J) := by
+      rw [show Q * (P * X * Q) * P.map star = (Q * P) * X * (Q * P.map star) by simp only [Matrix.mul_assoc],
+        h2, hQP, Matrix.one_mul, Matrix.mul_smul]
+    rw [hL, hR] at e
+    exact hν.smul_left_cancel.1 e
+
+theorem UpperTheory.V.Z.Sym.Loc.splitJ : UpperTheory.V.Z.Sym.Loc.SplitJ := by
+  intro O K _ _ _ _ _ Δ hl
+  obtain ⟨u, t, ht0, hΔ⟩ := hl.even
+  have hs2 : Δ * t⁻¹ ^ 2 = algebraMap O K ↑u := by
+    rw [hΔ]
+    field_simp
+  have hdes := descent O K Δ hl t⁻¹ u hs2
+  obtain ⟨ν, hνi, hνn⟩ := normEx O K Δ hl (-1)
+  obtain ⟨v, hv⟩ := hl.two
+  obtain ⟨w, hwdef⟩ : ∃ w : Lsq K Δ, w = ⟨0, t⁻¹⟩ := ⟨_, rfl⟩
+  obtain ⟨U, hUdef⟩ : ∃ U : Lsq K Δ, U = algebraMap O (Lsq K Δ) ↑u := ⟨_, rfl⟩
+  obtain ⟨hh, hhdef⟩ : ∃ hh : Lsq K Δ, hh = algebraMap O (Lsq K Δ) ↑v⁻¹ := ⟨_, rfl⟩
+  obtain ⟨e, edef⟩ : ∃ e : Lsq K Δ, e = algebraMap O (Lsq K Δ) ↑u⁻¹ := ⟨_, rfl⟩
+  have hww : w * w = U := by
+    rw [hUdef, IsScalarTower.algebraMap_apply O K (Lsq K Δ), ← hs2]
+    have : algebraMap K (Lsq K Δ) (Δ * t⁻¹ ^ 2) = ⟨Δ * t⁻¹ ^ 2, 0⟩ := by
+      ext
+      · exact QuadraticAlgebra.algebraMap_re _
+      · exact QuadraticAlgebra.algebraMap_im _
+    rw [this, hwdef]
+    ext <;> simp <;> ring
+  have hsw : star w = -w := by
+    rw [hwdef]
+    ext <;> simp
+  have hνν : ν * star ν = -1 := by
+    have : ν * star ν = algebraMap K (Lsq K Δ) (QuadraticAlgebra.norm ν) := by
+      ext <;> simp [QuadraticAlgebra.norm] <;> ring
+    rw [this, hνn]
+    simp
+  have hh2 : hh * 2 = 1 := by
+    rw [hhdef, ← map_ofNat (algebraMap O (Lsq K Δ)) 2, ← hv, ← map_mul, Units.inv_mul, map_one]
+  have heu : e * U = 1 := by
+    rw [edef, hUdef, ← map_mul, Units.inv_mul, map_one]
+  have iw : IsIntegral O w := by
+    refine (hdes w).1.2 ⟨?_, 1, ?_⟩
+    · rw [hwdef]
+      exact ⟨0, map_zero _⟩
+    · rw [hwdef]
+      simp
+  have iν' : IsIntegral O (star ν) := (hdes ν).2 hνi
+  have ih : IsIntegral O hh := by
+    rw [hhdef]
+    exact isIntegral_algebraMap
+  have ie : IsIntegral O e := by
+    rw [edef]
+    exact isIntegral_algebraMap
+  have hνu : IsUnit ν :=
+    ⟨⟨ν, -star ν, by rw [mul_neg, hνν, neg_neg], by rw [neg_mul, mul_comm, hνν, neg_neg]⟩, rfl⟩
+  let Pm : Matrix (Fin 2) (Fin 2) (Lsq K Δ) := !![1, star ν; w, -(star ν * w)]
+  let Qm : Matrix (Fin 2) (Fin 2) (Lsq K Δ) := !![hh, hh * e * w; -(hh * ν), hh * e * ν * w]
+  have hPQ : Pm * Qm = 1 := by
+    refine Matrix.ext fun i j => ?_
+    fin_cases i <;> fin_cases j <;> simp [Pm, Qm, Matrix.mul_apply, Fin.sum_univ_two]
+    · linear_combination hh2 - hh * hνν
+    · linear_combination hh * e * w * hνν
+    · linear_combination hh * w * hνν
+    · linear_combination hh * e * (1 - ν * star ν) * hww - hh * e * U * hνν + 2 * hh * heu + hh2
+  have hQP : Qm * Pm = 1 := by
+    refine Matrix.ext fun i j => ?_
+    fin_cases i <;> fin_cases j <;> simp [Pm, Qm, Matrix.mul_apply, Fin.sum_univ_two]
+    · linear_combination hh * e * hww + hh * heu + hh2
+    · linear_combination -hh * star ν * heu - hh * e * star ν * hww
+    · linear_combination hh * ν * heu + hh * e * ν * hww
+    · linear_combination -hh * hνν - hh * e * w * w * hνν + hh * e * hww + hh * heu + hh2
+  have h3 : Pm.map star = ν • (Pm * !![0, 1; -1, 0]) := by
+    refine Matrix.ext fun i j => ?_
+    fin_cases i <;> fin_cases j <;> simp [Pm, Matrix.mul_apply, Fin.sum_univ_two, hsw]
+    · linear_combination hνν
+    · linear_combination -w * hνν
+  refine ⟨⟨Pm, Qm, hPQ, hQP⟩, ?_, ?_⟩
+  · intro i j
+    fin_cases i <;> fin_cases j <;> refine ⟨?_, ?_⟩ <;> simp [Pm, Qm] <;>
+      apply_rules [IsIntegral.mul, IsIntegral.neg, isIntegral_one]
+  · intro X
+    exact core ν Pm Qm !![0, 1; -1, 0] hPQ hQP hνu h3 X
+end
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.SplitM
+section
+open QuadraticAlgebra UpperTheory.V.Z.Sym UpperTheory.V.Z.Sym.Loc
+
+private theorem splitM_lemma {K : Type} [Field K] {Δ τ : K} (c k : K) (m : EL Δ τ) (x y : Sp Δ τ) :
+    herm c (k • m) x y = herm c m (x.1, 0) y + algebraMap K (Lsq K Δ) k * herm c m (0, x.2) y := by
+  rw [← algebraMap_smul (Lsq K Δ) k m]
+  simp only [herm, smul_mul_assoc, map_smul, smul_eq_mul, mul_zero, zero_mul, map_zero, add_zero, zero_add]
+
+private theorem splitM_lemma_3 {K : Type} [Field K] {Δ τ : K} (c : K) (m : EL Δ τ) (y : Sp Δ τ) :
+    herm c m (0, 0) y = 0 := by
+  simp [herm]
+
+private theorem splitM_lemma_2 (O K : Type) [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [Field K]
+    [Algebra O K] (Δ τ : K) (hl : IsLoc O Δ) (c : K) (d m : EL Δ τ) (hd : IsDat c d m)
+    (hτ : τ ∈ (algebraMap O K).range) (hu : ∃ u : Oˣ, algebraMap O K u = 2 - τ) (ε : Oˣ)
+    (S : Set (Sp Δ τ)) (hS : IsFix O c d m S) : IsFix O c d (algebraMap O K ε • m) S := by
+  obtain ⟨-, -, h1, h2⟩ := One.splitS O K Δ τ hl hτ hu c d m hd S hS
+  have h2' : ∀ x ∈ S, ((0 : Lsq K Δ), x.2) ∈ S := fun x hx => by
+    simpa [ofE_one] using h2 x hx 1 (by simp) (by simp)
+  have e : IsIntegral O (algebraMap K (Lsq K Δ) (algebraMap O K ε)) := by
+    rw [← IsScalarTower.algebraMap_apply]
+    exact isIntegral_algebraMap
+  have ei : IsIntegral O (algebraMap K (Lsq K Δ) (algebraMap O K ↑ε⁻¹)) := by
+    rw [← IsScalarTower.algebraMap_apply]
+    exact isIntegral_algebraMap
+  refine ⟨hS.fg, fun y => ?_, hS.stab⟩
+  rw [hS.dual y]
+  constructor
+  · intro hy x hx
+    rw [splitM_lemma]
+    exact (hy _ (h1 x hx)).add (e.mul (hy _ (h2' x hx)))
+  · intro hy x hx
+    have a := hy _ (h1 x hx)
+    have b := hy _ (h2' x hx)
+    rw [splitM_lemma] at a b
+    simp only [splitM_lemma_3, mul_zero, add_zero, zero_add] at a b
+    have hm' := splitM_lemma c 1 m x y
+    rw [one_smul, map_one, one_mul] at hm'
+    show IsIntegral O (herm c m x y)
+    rw [hm']
+    refine a.add ?_
+    have := ei.mul b
+    rwa [← mul_assoc, ← map_mul, ← map_mul, Units.inv_mul, map_one, map_one, one_mul] at this
+
+theorem UpperTheory.V.Z.Sym.Loc.splitM : UpperTheory.V.Z.Sym.Loc.SplitM := by
+  intro O K _ _ _ _ _ Δ τ hl c d m hd hτ hu ε
+  have hd' : IsDat c d (algebraMap O K ε • m) := by
+    simpa using datSmul K Δ τ c d m hd (Units.map (algebraMap O K).toMonoidHom ε)
+  have key : ∀ S, IsFix O c d (algebraMap O K ε • m) S ↔ IsFix O c d m S := by
+    intro S
+    constructor
+    · intro h
+      have := splitM_lemma_2 O K Δ τ hl c d _ hd' hτ hu ε⁻¹ S h
+      rwa [smul_smul, ← map_mul, Units.inv_mul, map_one, one_smul] at this
+    · exact splitM_lemma_2 O K Δ τ hl c d m hd hτ hu ε S
+  unfold lcount
+  congr 1
+  funext S
+  by_cases h : IsFix O c d m S
+  · rw [if_pos ((key S).2 h), if_pos h]
+  · rw [if_neg (fun h' => h ((key S).1 h')), if_neg h]
+end
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.SymmetricPowerTransfer.LocalHermitianForms.LocalOrbitCounts.Vcount
+section
+open QuadraticAlgebra UpperTheory.V.Z.Sym UpperTheory.V.Z.Sym.Loc
+
+theorem UpperTheory.V.Z.Sym.Loc.vMax : UpperTheory.V.Z.Sym.Loc.VMax := by
+  intro O K _ _ _ _ _ Δ τ hl hτ x htr hnm hdisc
+  have hg : PK.Gen1 O x := ⟨htr, hnm, hdisc⟩
+  letI := mulAct τ
+  have hsm : ∀ (t : (Etau K τ)ˣ) (S : Set (Etau K τ)), t • cls τ S = cls τ (PS.ml t S) := by
+    intro t S
+    exact PS.cls_ml t S
+  have hone : ∀ S : Set (Etau K τ), PS.ml 1 S = S := by
+    intro S
+    ext w
+    simp [PS.mem_ml]
+  let P : Set (Set (Set (Etau K τ))) :=
+    {X | ∃ S, IsLat O τ S ∧ (∀ y ∈ S, x * y ∈ S) ∧ X = cls τ S}
+  have hv : vcount O τ x = wcount (Cint O τ) (P.indicator fun _ => (1 : ℂ)) := by
+    unfold vcount
+    rfl
+  have h1 : ∀ (t : (Etau K τ)ˣ), ∀ X ∈ P, t • X ∈ P := by
+    rintro t _ ⟨S, hS, hx, rfl⟩
+    refine ⟨PS.ml t S, PS.lat_ml hS t, ?_, hsm t S⟩
+    intro y hy
+    rw [PS.mem_ml] at hy ⊢
+    rw [mul_left_comm]
+    exact hx _ hy
+  have h2 : ({cls τ (PK.Mx O τ)} : Set (Set (Set (Etau K τ)))) ⊆ P := by
+    intro X hX
+    rw [Set.mem_singleton_iff] at hX
+    subst hX
+    exact ⟨PK.Mx O τ, PK.Gen1.lat hl hg, fun y hy => (PK.Gen1.int hg).mul hy, rfl⟩
+  have h4 : ∀ c ∈ Cint O τ, ∀ X ∈ ({cls τ (PK.Mx O τ)} : Set (Set (Set (Etau K τ)))),
+      c • X ∈ ({cls τ (PK.Mx O τ)} : Set (Set (Set (Etau K τ)))) := by
+    intro c hc X hX
+    rw [Set.mem_singleton_iff] at hX ⊢
+    subst hX
+    obtain ⟨s, u, hu1, hu2, rfl⟩ := PK.Gen1.cint hl hg hc
+    rw [hsm, PS.ml_mul, PK.ml_Mx hu1 hu2, PS.cls_sc]
+  have h5 : ∀ X ∈ P, ∃ t : (Etau K τ)ˣ, t • X ∈ ({cls τ (PK.Mx O τ)} : Set (Set (Set (Etau K τ)))) := by
+    rintro _ ⟨S, hS, hx, rfl⟩
+    obtain ⟨u, hu⟩ := PK.Gen1.princ hl hτ hg hS hx
+    have hSu : S = PS.ml u (PK.Mx O τ) := by
+      ext w
+      rw [PS.mem_ml, hu]
+      rfl
+    refine ⟨u⁻¹, ?_⟩
+    rw [Set.mem_singleton_iff, hsm, hSu, ← PS.ml_mul, inv_mul_cancel, hone]
+  have h6 : ∀ (t : (Etau K τ)ˣ), ∀ X ∈ ({cls τ (PK.Mx O τ)} : Set (Set (Set (Etau K τ)))),
+      t • X ∈ ({cls τ (PK.Mx O τ)} : Set (Set (Set (Etau K τ)))) → ∃ c ∈ Cint O τ, c • X = t • X := by
+    intro t X hX htX
+    refine ⟨1, (Cint O τ).one_mem, ?_⟩
+    rw [Set.mem_singleton_iff] at hX htX
+    rw [one_smul, htX, hX]
+  rw [hv, wCard _ _ (Cint O τ) P _ h1 h2 (Set.finite_singleton _) h4 h5 h6, Set.ncard_singleton, Nat.cast_one]
+end
+

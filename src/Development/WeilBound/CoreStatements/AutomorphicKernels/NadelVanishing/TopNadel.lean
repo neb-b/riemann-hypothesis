@@ -1,0 +1,14 @@
+module
+
+public import Mathlib
+public import Development.WeilBound.CoreStatements.PublishedTheorems.NadelVanishingPairs.NadelVanishingLemmas.NadelVanishingPairsOfPrincipalisation
+public import Development.WeilBound.CoreStatements.ResolutionCharZero.Bundle0003
+
+@[expose] public section
+
+namespace NadelVanishingSeparation.NSI
+
+theorem nadelVanishingPair : GlobalTheory.Published.NadelVanishingPair :=
+  GlobalTheory.Discrepancy.nadelVanishingPair_of_principalisation PositivityTheory.ResPlug.WeightsCompactStabilizer.principalisation_closed
+
+end NadelVanishingSeparation.NSI

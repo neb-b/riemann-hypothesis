@@ -1,0 +1,15 @@
+module
+
+public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.LaplaceOperators.LaplaceEstimates.StepDownStatement
+public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.LaplaceOperators.LaplaceEstimates.StepDown
+public import ReciprocityTheory.ReductiveGroups.DiscreteSeries.LaplaceOperators.LaplaceEstimates.Bundle0012
+
+@[expose] public section
+
+namespace ReciprocityTheory.ChartRestriction.DS.Lap
+
+theorem step : StepStatement := by
+  intro hIS k r ε u h hg hp hq
+  exact ⟨stepDown hIS k r ε u h hg hp hq, stepUp hIS k r ε u h hg hp hq⟩
+
+end ReciprocityTheory.ChartRestriction.DS.Lap

@@ -1,0 +1,67 @@
+name: checks
+
+# Challenge build on hosted runners; full builds use the external runner pool.
+# The original-submission provenance comparison is available by manual dispatch.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    if: github.event_name == 'workflow_dispatch'
+    name: Historic original-submission provenance comparison
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download the archive from alpo.ge and compare
+        run: |
+          T="$RUNNER_TEMP/dl"; mkdir "$T"
+          for i in $(seq -w 1 14); do curl -fsSL --retry 3 -o "$T/part$i" "https://alpo.ge/lean.tar.gz.part$i"; done
+          cat "$T"/part* > "$T/lean.tar.gz"
+          echo "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc  $T/lean.tar.gz" | sha256sum -c
+          tar xzf "$T/lean.tar.gz" -C "$T"
+
+          # The first commit is the archive's lean/ directory, byte for byte.
+          ORIG=40e56bab026552e089d7afcfeff08d2defb9c005
+          git fetch --no-tags --depth 1 origin "$ORIG"
+          mkdir "$T/first"; git archive "$ORIG" | tar -x -C "$T/first"
+          diff -r "$T/lean" "$T/first"
+
+          # Later source changes, for the record: files Added, Deleted and Modified under src/.
+          git diff --name-status "$ORIG" HEAD -- src | cut -c1 | sort | uniq -c
+          git diff --name-status --diff-filter=AM "$ORIG" HEAD -- src
+
+          # The toolchain and dependency pins are still the submission's.
+          cmp "$T/lean/lean-toolchain" lean-toolchain
+          cmp "$T/lean/lake-manifest.json" lake-manifest.json
+
+          # Only the explicit cache prefix and marked Comparator suffix are additions.
+          printf '# Cache infrastructure; the original submission starts below this block.\nplatformIndependent = true\n\n' > "$T/cache-prefix"
+          head -n 3 lakefile.toml | cmp - "$T/cache-prefix"
+          tail -n +4 lakefile.toml > "$T/lakefile-without-cache.toml"
+          n=$(wc -c < "$T/lean/lakefile.toml")
+          head -c "$n" "$T/lakefile-without-cache.toml" | cmp - "$T/lean/lakefile.toml"
+          tail -c +"$((n + 1))" "$T/lakefile-without-cache.toml"
+
+  challenge:
+    name: Challenge compiles against Mathlib alone
+    runs-on: ubuntu-latest
+    env:
+      LEAN_ABORT_ON_PANIC: "1"   # as Comparator sets it for builds and exports
+      MATHLIB_CACHE_GET_URL: https://cache.mathlib.org/mathlib4   # Mathlib's current cache server
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch Mathlib's official build cache
+        run: lake exe mathlib/cache get
+      - name: Build only the Challenge module
+        run: lake build Challenge

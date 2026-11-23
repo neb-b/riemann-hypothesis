@@ -1,0 +1,13 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.JacquetShalikaBounds.CauchyIdentity.CauchyVariationInequality
+public import Development.WeilBound.RepresentationTheoryGL.JacquetShalikaBounds.AbsoluteRigidity.CauchyLocalisation.PolyMulGaussianLeConst
+public import Development.WeilBound.RepresentationTheoryGL.JacquetShalikaBounds.AbsoluteRigidity.AbsRigClosed
+
+@[expose] public section
+
+namespace PositivityTheory.RgJS
+
+theorem cauchyAll : CAUCHY := cauchy_of_local_prime cauchy_local_inequality prime_sum_converges_and_diverges
+
+end PositivityTheory.RgJS

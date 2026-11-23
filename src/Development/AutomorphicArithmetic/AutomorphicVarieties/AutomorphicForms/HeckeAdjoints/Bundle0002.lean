@@ -1,0 +1,89 @@
+module
+
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.HeckeAdjoints.HasPairingOfHerm
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.HeckeAdjoints.Bundle0001
+
+@[expose] public section
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.HeckeAdjoints.ConjSub
+section
+open NumberField IsDedekindDomain Matrix Formalism.L2.Host UpperTheory.V UpperTheory.V.TR UpperTheory.V.Af.Gk
+
+noncomputable section
+
+namespace UpperTheory.V.Af.Gk
+
+variable {E : Type} [Field E] [NumberField E] [IsTotallyReal E] {a : ℕ}
+
+private def conjRep (π : TR.CuspSub E a) : TR.CuspSub E a where
+  V := π.V.map (conjFn E a).toLinearMap
+  cusp := by rintro _ ⟨φ, hφ, rfl⟩; exact conjCusp E a φ (π.cusp φ hφ)
+  stable := by
+    rintro o _ ⟨φ, hφ, rfl⟩
+    exact ⟨_, π.stable o φ hφ, (act_conjFn o φ).symm⟩
+  ne_bot h := π.ne_bot ((Submodule.map_eq_bot_iff (e := conjFn E a)).1 h)
+  irred W hW hs := by
+    have h := π.irred (W.comap (conjFn E a).toLinearMap) (fun φ hφ => by
+      obtain ⟨ψ, h1, h2⟩ := hW hφ
+      rwa [← (conjFn E a).injective h2]) fun o φ hφ => by
+      have h1 := hs o _ hφ
+      change act _ (conjFn E a φ) ∈ W at h1
+      rw [act_conjFn] at h1
+      exact h1
+    have e := Submodule.map_comap_eq_of_surjective (f := (conjFn E a).toLinearMap) (conjFn E a).surjective W
+    exact h.imp (fun h => by rw [← e, h, Submodule.map_bot]) fun h => by rw [← e, h]
+
+end UpperTheory.V.Af.Gk
+
+theorem UpperTheory.V.Af.Gk.conjSub :
+    UpperTheory.V.Af.Gk.ConjSub := by
+  intro F _ _ _ a π
+  exact ⟨conjRep π, (conjFn F a).submoduleMap π.V, fun o φ => Subtype.ext (act_conjFn o φ.1).symm⟩
+end
+end
+
+-- bundled from Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.HeckeAdjoints.SatConj
+section
+open NumberField IsDedekindDomain Matrix Formalism.L2.Host UpperTheory.V UpperTheory.V.TR UpperTheory.V.Af.Gk
+
+theorem UpperTheory.V.Af.Gk.satConj :
+    UpperTheory.V.Af.Gk.SatConj := by
+  intro F _ _ a w V W _ _ _ _ ρ ρ' H C hdef hH hC B hB
+  have hK : ∀ k ∈ GlobalTheory.LFun.KGL w (n := a), GlobalTheory.CuspRep.invT a _ k ∈ GlobalTheory.LFun.KGL w (n := a) := by
+    rintro _ ⟨k, rfl⟩
+    exact ⟨GlobalTheory.CuspRep.invT a _ k, InvT.map_invT _ k⟩
+  have hB' : GlobalTheory.LFun.HasSatGL w (ρ.comp (GlobalTheory.CuspRep.invT a (w.adicCompletion F))) (B.map (·⁻¹)) :=
+    InvT.hasSatGL_invT (ρ := ρ) (LinearEquiv.refl ℂ V) (fun _ _ => rfl) hB
+  have key : ∀ x ∈ GlobalTheory.PRep.fixed ρ (GlobalTheory.LFun.KGL w (n := a)), x ≠ 0 →
+      GlobalTheory.LFun.IsSatVecGL w ρ' (C x) (B.map (·⁻¹)) := by
+    intro x hx h0
+    have hfix := GlobalTheory.LGrp.mem_fixed.1 hx
+    have h1 := hB.2 x hx h0
+    have h2 := hB'.2 x (GlobalTheory.LGrp.mem_fixed.2 fun k hk => hfix _ (hK k hk)) h0
+    refine ⟨(map_ne_zero_iff C C.injective).2 h0, GlobalTheory.LGrp.mem_fixed.2 fun k hk => by rw [← hC, hfix k hk],
+      h2.2.2.1, fun ϖ hϖ j hj => ?_⟩
+    have e := heckeAdj F a w V ρ H hH x hx ϖ hϖ j
+    rw [h1.2.2.2 ϖ hϖ j hj, h2.2.2.2 ϖ hϖ j hj, H.map_smulₛₗ, (H x).map_smul, LinearMap.smul_apply,
+      smul_eq_mul, smul_eq_mul] at e
+    have e' := mul_right_cancel₀ (fun h => h0 (hdef x h)) e
+    rw [← e', ← C.map_smulₛₗ, ← h1.2.2.2 ϖ hϖ j hj]
+    refine ((C.toLinearMap.toAddMonoidHom.map_finsum (GlobalTheory.LFun.finite_heckeVec (Formalism.UG.Final.GLintComm F w a)
+      (GlobalTheory.LFun.Tj_mem_hecke hϖ j) ρ x)).trans (finsum_congr fun c => ?_)).symm
+    generalize c.out = g
+    change C (_ • ρ g x) = _ • ρ' g (C x)
+    rw [C.map_smulₛₗ, hC]
+    congr 1
+    unfold Formalism.UG.Tj
+    by_cases hg : g ∈ {g : GL (Fin a) (w.adicCompletion F) | ∃ k ∈ Formalism.UG.GLint (Fin a) (Formalism.UG.Ov F w),
+        ∃ b ∈ Formalism.UG.GLint (Fin a) (Formalism.UG.Ov F w), g.val = k.val * Formalism.UG.diagJ a ϖ j * b.val}
+    · rw [Set.indicator_of_mem hg, Pi.one_apply, map_one]
+    · rw [Set.indicator_of_notMem hg, map_zero]
+  constructor
+  · obtain ⟨x, hx⟩ := hB.exists_vec
+    exact (Submodule.ne_bot_iff _).2 ⟨_, (key x hx.2.1 hx.1).2.1, (key x hx.2.1 hx.1).1⟩
+  · intro y hy h0
+    obtain ⟨x, rfl⟩ := C.surjective y
+    refine key x (GlobalTheory.LGrp.mem_fixed.2 fun k hk => C.injective ?_) ((map_ne_zero_iff C C.injective).1 h0)
+    rw [hC, GlobalTheory.LGrp.mem_fixed.1 hy k hk]
+end
+

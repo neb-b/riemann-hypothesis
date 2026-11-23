@@ -1,0 +1,28 @@
+module
+
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.UnramifiedWhittaker.Bundle0003
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0592
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.UnramifiedWhittaker.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0578
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.CharacterConductorCondition
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0585
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0606
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.UnramifiedWhittaker.Bundle0002
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0599
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0608
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0621
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0623
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0622
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.UnramifiedQuadraticConditionFive
+
+@[expose] public section
+
+namespace PositivityTheory.SiegelWeilFormula.Gunr
+
+theorem almostGood : AlmostGood :=
+  almostGood_ofE _root_.GlobalTheory.CompanionTheory.Gunr.finInt _root_.GlobalTheory.CompanionTheory.AdelicCharLocal.psiBasic _root_.GlobalTheory.CompanionTheory.PsiCondLoc.psiCond
+    (locRingE_of _root_.GlobalTheory.CompanionTheory.RvRingPf.rvRing _root_.GlobalTheory.CompanionTheory.FixedPointsCM.fixedK _root_.GlobalTheory.CompanionTheory.LocalUnif.unifEx
+      (quadAt_of _root_.GlobalTheory.CompanionTheory.ResidueInvolution.q1 _root_.GlobalTheory.CompanionTheory.ValuationCompleteness.q2 _root_.GlobalTheory.CompanionTheory.GunrResCard.q3 _root_.GlobalTheory.CompanionTheory.DiscriminantUnit.q4 _root_.GlobalTheory.CompanionTheory.GunrInert.isField_tensor_iff_isField_quot) _root_.GlobalTheory.CompanionTheory.Gunr.TraceDual.traceDualAt) _root_.GlobalTheory.CompanionTheory.Gunr.locMat
+
+end PositivityTheory.SiegelWeilFormula.Gunr

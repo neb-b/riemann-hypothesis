@@ -1,0 +1,160 @@
+name: Publish CI cache
+
+# This workflow runs only trusted publishing code on a fresh hosted runner.
+# Candidate data arrives as LTAR/JSON artifacts; no candidate checkout executes.
+on:
+  workflow_run:
+    workflows: [Build PR]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Completed Build PR run whose retained cache artifacts should be published again
+        type: string
+        required: true
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: ci-cache-${{ github.event_name }}-${{ github.event.workflow_run.id || inputs.build_run_id || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.repository == 'leanprover-community/riemann-hypothesis' &&
+      ((github.event_name == 'workflow_run' &&
+      !startsWith(github.event.workflow_run.display_title, 'Proof shard ') &&
+      contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)) ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: ci-cache-publish
+    steps:
+      - name: Checkout trusted publishing scripts
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+          sparse-checkout: /scripts/
+          sparse-checkout-cone-mode: false
+      - name: Install pinned S3 publisher SDK
+        run: |
+          python3 -m venv "$RUNNER_TEMP/publisher-venv"
+          "$RUNNER_TEMP/publisher-venv/bin/python" -m pip install --disable-pip-version-check -r scripts/ci-publisher-requirements.txt
+          printf '%s\n' "$RUNNER_TEMP/publisher-venv/bin" >> "$GITHUB_PATH"
+      - name: Prepare completed build event, including manual publication retries
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/ci-github.py prepare-event --event-file "$GITHUB_EVENT_PATH" \
+            --output "$RUNNER_TEMP/build-event.json"
+      - name: Validate workflow identity and available artifacts
+        id: inspect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ALLOW_IMPLEMENTATION: ${{ vars.CI_PUBLISH_ALLOW_IMPLEMENTATION_BRANCH }}
+        run: |
+          extra=()
+          if [[ "$ALLOW_IMPLEMENTATION" == true ]]; then
+            extra+=(--allow-implementation-branch)
+          fi
+          python3 scripts/ci-github.py inspect-run --event-file "$RUNNER_TEMP/build-event.json" "${extra[@]}"
+      - name: Download independently recorded CI input
+        if: steps.inspect.outputs.ready == 'true'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: ci-input
+          path: ${{ runner.temp }}/ci-input
+          run-id: ${{ steps.inspect.outputs.run_id }}
+          repository: leanprover-community/riemann-hypothesis
+          github-token: ${{ github.token }}
+      - name: Bind CI input to GitHub source and PR identity
+        if: steps.inspect.outputs.ready == 'true'
+        id: input
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ALLOW_IMPLEMENTATION: ${{ vars.CI_PUBLISH_ALLOW_IMPLEMENTATION_BRANCH }}
+        run: |
+          extra=()
+          if [[ "$ALLOW_IMPLEMENTATION" == true ]]; then
+            extra+=(--allow-implementation-branch)
+          fi
+          python3 scripts/ci-github.py validate-input --event-file "$RUNNER_TEMP/build-event.json" \
+            --input-dir "$RUNNER_TEMP/ci-input" --output "$RUNNER_TEMP/ci-validated" "${extra[@]}"
+      - name: Download completed build identity
+        if: steps.input.outputs.mode == 'build' && steps.inspect.outputs.has_build == 'true'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: ci-request
+          path: ${{ runner.temp }}/ci-request
+          run-id: ${{ steps.inspect.outputs.run_id }}
+          repository: leanprover-community/riemann-hypothesis
+          github-token: ${{ github.token }}
+      - name: Validate completed build outcome
+        if: steps.input.outputs.mode == 'build' && steps.inspect.outputs.has_build == 'true'
+        id: build
+        run: |
+          python3 scripts/ci-github.py validate-build \
+            --validated "$RUNNER_TEMP/ci-validated" --request-dir "$RUNNER_TEMP/ci-request"
+      - name: Free hosted SDK space for compressed cache data
+        if: steps.build.outputs.build_validated == 'true'
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet
+      - name: Install pinned elan and stock Lean for opaque artifact hashing
+        if: steps.build.outputs.build_validated == 'true'
+        run: |
+          mkdir "$RUNNER_TEMP/elan-install"
+          curl --fail --silent --show-error --location --retry 3 \
+            https://github.com/leanprover/elan/releases/download/v4.2.4/elan-x86_64-unknown-linux-gnu.tar.gz \
+            --output "$RUNNER_TEMP/elan-install/elan.tar.gz"
+          printf '%s  %s\n' 42b94d4244e8353142c456ec0e4ca6528fd898a6c604d4059f494e706e431f63 \
+            "$RUNNER_TEMP/elan-install/elan.tar.gz" | sha256sum --check
+          tar --extract --gzip --file "$RUNNER_TEMP/elan-install/elan.tar.gz" --directory "$RUNNER_TEMP/elan-install"
+          "$RUNNER_TEMP/elan-install/elan-init" -y --default-toolchain none --no-modify-path
+          "$HOME/.elan/bin/elan" toolchain install "$(python3 scripts/cache-settings.py --expected "$RUNNER_TEMP/ci-validated/expected.json")"
+          printf '%s\n' "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Download opaque build outputs
+        if: steps.build.outputs.build_validated == 'true'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: ci-cache
+          path: ${{ runner.temp }}/ci-cache
+          run-id: ${{ steps.inspect.outputs.run_id }}
+          repository: leanprover-community/riemann-hypothesis
+          github-token: ${{ github.token }}
+      - name: Publish delta or promote an existing equivalent build
+        if: steps.build.outputs.build_validated == 'true' || steps.input.outputs.mode == 'reuse'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          R2_ACCOUNT_TOKEN: ${{ secrets.R2_ACCOUNT_TOKEN }}
+        run: |
+          python3 scripts/ci-github.py publish \
+            --validated "$RUNNER_TEMP/ci-validated" --cache-dir "$RUNNER_TEMP/ci-cache"
+
+  promote-main:
+    if: github.event_name == 'push' && github.repository == 'leanprover-community/riemann-hypothesis'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: ci-cache-publish
+    steps:
+      - name: Checkout trusted promotion scripts
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+          sparse-checkout: /scripts/
+          sparse-checkout-cone-mode: false
+      - name: Install pinned S3 publisher SDK
+        run: |
+          python3 -m venv "$RUNNER_TEMP/publisher-venv"
+          "$RUNNER_TEMP/publisher-venv/bin/python" -m pip install --disable-pip-version-check -r scripts/ci-publisher-requirements.txt
+          printf '%s\n' "$RUNNER_TEMP/publisher-venv/bin" >> "$GITHUB_PATH"
+      - name: Promote a successful source-equivalent cache without building
+        env:
+          GH_TOKEN: ${{ github.token }}
+          R2_ACCOUNT_TOKEN: ${{ secrets.R2_ACCOUNT_TOKEN }}
+        run: python3 scripts/ci-github.py promote-main --event-file "$GITHUB_EVENT_PATH"

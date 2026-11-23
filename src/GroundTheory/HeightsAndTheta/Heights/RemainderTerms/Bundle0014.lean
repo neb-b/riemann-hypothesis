@@ -1,0 +1,440 @@
+module
+
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.RemainderTerms.Statements
+public import GroundTheory.HeightsAndTheta.Heights.RemainderTerms.StatementsSchur
+public import GroundTheory.HeightsAndTheta.Heights.RemainderTerms.JacobiTrudi
+
+@[expose] public section
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchNonHookResidues
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open Finset
+
+theorem sum_fin_staircase (k : ℕ) : ∑ i : Fin k, (k - 1 - (i : ℕ)) = k * (k - 1) / 2 := by
+  have h := Finset.sum_range_reflect (fun i : ℕ => i) k
+  rw [Fin.sum_univ_eq_sum_range (fun i => k - 1 - i) k, h, Finset.sum_range_id]
+
+theorem SchNonHookResidues.proof (h1 : SchResidueCount.Statement) :
+    SchNonHookResidues.Statement := by
+  intro k nu hk hanti hsum hnot
+  push Not at hnot
+  obtain ⟨j, hj0, hj2⟩ := hnot
+  have hk2 : 2 ≤ k := by have := j.isLt; omega
+  by_contra hcon
+  push Not at hcon
+  set l : Fin k → ℕ := fun i => nu i + (k - 1 - (i : ℕ)) with hl
+  have hinj : Function.Injective (fun i => l i % k) := by
+    intro a b hab
+    by_contra hne
+    exact hcon a b hne hab
+  have hle : ∀ i, nu i ≤ k := fun i =>
+    hsum ▸ Finset.single_le_sum (fun _ _ => Nat.zero_le _) (Finset.mem_univ i)
+  have hlt : ∀ i, l i < 2 * k := by
+    intro i
+    have := hle i
+    have := i.isLt
+    simp only [hl]
+    omega
+  have hcount := h1 k l hlt hinj
+  have hsumL : ∑ i, l i = k + k * (k - 1) / 2 := by
+    simp only [hl, Finset.sum_add_distrib, hsum, sum_fin_staircase]
+  let i0 : Fin k := ⟨0, by omega⟩
+  let i1 : Fin k := ⟨1, by omega⟩
+  have h1le : nu j ≤ nu i1 := hanti (show i1 ≤ j by rw [Fin.le_iff_val_le_val]; simp [i1]; omega)
+  have h0le : nu i1 ≤ nu i0 := hanti (show i0 ≤ i1 by rw [Fin.le_iff_val_le_val]; simp [i0, i1])
+  have hsub : ({i0, i1} : Finset (Fin k)) ⊆ univ.filter fun i => k ≤ l i := by
+    intro x hx
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+    have hv0 : (i0 : ℕ) = 0 := rfl
+    have hv1 : (i1 : ℕ) = 1 := rfl
+    rcases hx with rfl | rfl <;>
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, hl, hv0, hv1] <;> omega
+  have hcard : 2 ≤ (univ.filter fun i => k ≤ l i).card := by
+    have := Finset.card_le_card hsub
+    rwa [Finset.card_pair (by simp [i0, i1, Fin.ext_iff])] at this
+  have hmul := Nat.mul_le_mul_left k hcard
+  omega
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchPowerSumAtRootsOfUnity
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open MvPolynomial Finset
+
+noncomputable section
+
+theorem SchPowerSumAtRootsOfUnity.rootOfUnity_isPrimitiveRoot {k : ℕ} (hk : 1 ≤ k) : IsPrimitiveRoot (rootOfUnity k) k := by
+  simpa [rootOfUnity] using Complex.isPrimitiveRoot_exp k (by omega)
+
+theorem SchPowerSumAtRootsOfUnity.proof : SchPowerSumAtRootsOfUnity.Statement := by
+  intro N k j hk hkN hj
+  have hprim := SchPowerSumAtRootsOfUnity.rootOfUnity_isPrimitiveRoot hk
+  set_option synthInstance.maxHeartbeats 100000 in
+    simp only [psum, map_sum, map_pow, aeval_X]
+  have hsum : ∑ i : Fin N, rootOfUnityPoint N k i ^ j =
+      ∑ i ∈ range k, (rootOfUnity k ^ j) ^ i := by
+    unfold rootOfUnityPoint
+    rw [Fin.sum_univ_eq_sum_range (fun i => (if i < k then rootOfUnity k ^ i else 0) ^ j) N,
+      ← Finset.sum_range_add_sum_Ico _ hkN]
+    rw [Finset.sum_eq_zero (s := Ico k N) (fun i hi => by
+      simp only [Finset.mem_Ico] at hi
+      simp [show ¬ i < k by omega, zero_pow (show j ≠ 0 by omega)]), add_zero]
+    refine Finset.sum_congr rfl fun i hi => ?_
+    simp only [Finset.mem_range] at hi
+    simp [hi, ← pow_mul, mul_comm]
+  rw [hsum]
+  split_ifs with hd
+  · have h1 : rootOfUnity k ^ j = 1 := (hprim.pow_eq_one_iff_dvd j).2 hd
+    simp [h1]
+  · have h1 : rootOfUnity k ^ j ≠ 1 := fun h => hd ((hprim.pow_eq_one_iff_dvd j).1 h)
+    have h2 : (rootOfUnity k ^ j) ^ k = 1 := by
+      rw [← pow_mul, mul_comm, pow_mul, hprim.pow_eq_one, one_pow]
+    rw [geom_sum_eq h1, h2, sub_self, zero_div]
+
+end
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchPowerSumHomWeighted
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open MvPolynomial Finset
+
+theorem psum_isHomogeneous_alt (N j : ℕ) : (psum (Fin N) ℚ j).IsHomogeneous j :=
+  IsHomogeneous.sum _ _ _ fun i _ => isHomogeneous_X_pow i j
+
+theorem SchPowerSumHomWeighted.proof : SchPowerSumHomWeighted.Statement := by
+  intro N d S hS
+  set_option synthInstance.maxHeartbeats 100000 in
+    rw [S.as_sum, map_sum]
+  refine IsHomogeneous.sum _ _ _ fun e he => ?_
+  have hw : Finsupp.weight (fun i : Fin N => (i : ℕ) + 1) e = d :=
+    hS (mem_support_iff.mp he)
+  rw [powerSumHom, aeval_monomial, Finsupp.prod, algebraMap_eq]
+  have hprod : (∏ i ∈ e.support, psum (Fin N) ℚ ((i : ℕ) + 1) ^ e i).IsHomogeneous
+      (∑ i ∈ e.support, ((i : ℕ) + 1) * e i) :=
+    IsHomogeneous.prod _ _ _ fun i _ => (psum_isHomogeneous_alt N ((i : ℕ) + 1)).pow (e i)
+  have hsum : ∑ i ∈ e.support, ((i : ℕ) + 1) * e i = d := by
+    rw [← hw, Finsupp.weight_apply, Finsupp.sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [smul_eq_mul, mul_comm]
+  rw [hsum] at hprod
+  exact hprod.C_mul _
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchProdOneSubRootsOfUnity
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open Polynomial Finset
+
+theorem SchProdOneSubRootsOfUnity.proof : SchProdOneSubRootsOfUnity.Statement := by
+  intro k hk
+  have hk0 : 0 < k := hk
+  have : NeZero k := ⟨Nat.pos_iff_ne_zero.mp hk0⟩
+  have hζ : IsPrimitiveRoot (rootOfUnity k) k := by
+    unfold rootOfUnity
+    exact Complex.isPrimitiveRoot_exp k (Nat.pos_iff_ne_zero.mp hk0)
+  set p : ℂ[X] := ∏ i ∈ range k, (1 - C (rootOfUnity k ^ i) * X) with hp
+  set q : ℂ[X] := 1 - X ^ k with hq
+  have hpdeg : p.natDegree ≤ k := by
+    have h1 : ∀ i ∈ range k, (1 - C (rootOfUnity k ^ i) * X).natDegree ≤ 1 := fun i _ => by
+      compute_degree
+    refine (natDegree_prod_le _ _).trans ((sum_le_sum h1).trans ?_)
+    simp
+  have hqdeg : q.natDegree ≤ k := by
+    rw [hq]; compute_degree
+  have hdeg : (p - q).degree < #(insert (0 : ℂ) (nthRootsFinset k (1 : ℂ))) := by
+    rw [card_insert_of_notMem (by simp [mem_nthRootsFinset hk0, zero_pow hk0.ne']),
+      hζ.card_nthRootsFinset]
+    refine (degree_le_of_natDegree_le ((natDegree_sub_le _ _).trans (max_le hpdeg hqdeg))).trans_lt ?_
+    exact_mod_cast Nat.lt_succ_self k
+  refine eq_of_degree_sub_lt_of_eval_finset_eq _ hdeg fun x hx => ?_
+  rcases mem_insert.mp hx with rfl | hx
+  · simp [hp, hq, eval_prod, zero_pow hk0.ne']
+  · have hxk : x ^ k = 1 := (mem_nthRootsFinset hk0 _).mp hx
+    have hinv : x⁻¹ ^ k = 1 := by rw [inv_pow, hxk, inv_one]
+    obtain ⟨i, hi, hi'⟩ := hζ.eq_pow_of_pow_eq_one hinv
+    have hx0 : x ≠ 0 := by
+      rintro rfl; simp [zero_pow hk0.ne'] at hxk
+    have hzero : p.eval x = 0 := by
+      rw [hp, eval_prod]
+      refine prod_eq_zero (mem_range.mpr hi) ?_
+      simp [hi', inv_mul_cancel₀ hx0]
+    rw [hzero, hq]
+    simp [hxk]
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchResidueCount
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open Finset
+
+theorem SchResidueCount.proof : SchResidueCount.Statement := by
+  intro k l hlt hinj
+  have hsplit : ∀ i, l i = l i % k + k * (if k ≤ l i then 1 else 0) := by
+    intro i
+    have hi := hlt i
+    split_ifs with h
+    · rw [Nat.mod_eq_sub_mod h, Nat.mod_eq_of_lt (by omega)]
+      omega
+    · rw [Nat.mod_eq_of_lt (by omega)]
+      omega
+  have himg : (univ.image fun i => l i % k) = range k := by
+    apply Finset.eq_of_subset_of_card_le
+    · intro c hc
+      simp only [mem_image, mem_univ, true_and] at hc
+      obtain ⟨i, rfl⟩ := hc
+      exact mem_range.2 (Nat.mod_lt _ i.pos)
+    · rw [card_image_of_injective _ hinj, card_range, card_univ, Fintype.card_fin]
+  have hres : ∑ i, l i % k = k * (k - 1) / 2 := by
+    rw [← sum_range_id, ← himg, sum_image (fun i _ j _ h => hinj h)]
+  calc ∑ i, l i = ∑ i, (l i % k + k * (if k ≤ l i then 1 else 0)) :=
+        sum_congr rfl (fun i _ => hsplit i)
+    _ = ∑ i, l i % k + k * (univ.filter fun i => k ≤ l i).card := by
+        rw [sum_add_distrib, ← mul_sum, sum_boole, Nat.cast_id]
+    _ = k * (k - 1) / 2 + k * (univ.filter fun i => k ≤ l i).card := by
+        rw [hres]
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchRootOfUnityBialternant
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open MvPolynomial Finset
+
+theorem aeval_vandermondeOf_X {m : ℕ} (v : Fin m → ℂ) :
+    aeval v (vandermondeOf (fun i : Fin m => (X i : MvPolynomial (Fin m) ℚ))) = vandermondeOf v := by
+  simp [vandermondeOf, map_prod, map_sub, aeval_X]
+
+theorem SchRootOfUnityBialternant.proof (h1 : SchSchurEvalMatrix.Statement) :
+    SchRootOfUnityBialternant.Statement := by
+  intro k nu hk
+  have hw : ∀ j : Fin k, rootOfUnityPoint k k j = rootOfUnity k ^ (j : ℕ) := fun j => by
+    simp [rootOfUnityPoint, j.isLt]
+  have key := congrArg (aeval (rootOfUnityPoint k k)) (Schur.det_pow_add_staircase_eq nu)
+  rw [map_mul, h1 k k k nu hk le_rfl, AlgHom.map_det, aeval_vandermondeOf_X] at key
+  have hv : rootOfUnityPoint k k = fun i : Fin k => rootOfUnity k ^ (i : ℕ) := funext hw
+  rw [hv] at key
+  rw [← key]
+  congr 1
+  ext i j
+  simp [AlgHom.mapMatrix_apply, Matrix.map_apply, aeval_X, ← pow_mul]
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchRootOfUnityRowsEq
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open Complex
+
+theorem rootOfUnity_pow_self (k : ℕ) (hk : k ≠ 0) : rootOfUnity k ^ k = 1 :=
+  (Complex.isPrimitiveRoot_exp k hk).pow_eq_one
+
+theorem rootOfUnity_pow_mod (k : ℕ) (hk : k ≠ 0) (a : ℕ) :
+    rootOfUnity k ^ a = rootOfUnity k ^ (a % k) := by
+  conv_lhs => rw [← Nat.mod_add_div a k, pow_add, pow_mul, rootOfUnity_pow_self k hk, one_pow,
+    mul_one]
+
+theorem SchRootOfUnityRowsEq.proof : SchRootOfUnityRowsEq.Statement := by
+  intro k l i i' hne hmod
+  have hk : k ≠ 0 := by
+    rintro rfl
+    exact i.elim0
+  apply Matrix.det_zero_of_row_eq hne
+  funext j
+  simp only [Matrix.of_apply]
+  rw [pow_mul', pow_mul', rootOfUnity_pow_mod k hk (l i), rootOfUnity_pow_mod k hk (l i'), hmod]
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchRootOfUnityRowsPerm
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open Finset
+
+theorem SchRootOfUnityRowsPerm.proof : SchRootOfUnityRowsPerm.Statement := by
+  intro k l π hk hl
+  have hk0 : k ≠ 0 := Nat.pos_iff_ne_zero.mp hk
+  have hζk : rootOfUnity k ^ k = 1 := by
+    unfold rootOfUnity
+    exact (Complex.isPrimitiveRoot_exp k hk0).pow_eq_one
+  have hmod : ∀ j n : ℕ, rootOfUnity k ^ (j * n) = rootOfUnity k ^ (j * (n % k)) := by
+    intro j n
+    conv_lhs => rw [← Nat.mod_add_div n k]
+    rw [mul_add, pow_add, mul_left_comm j k, pow_mul (rootOfUnity k) k, hζk, one_pow, mul_one]
+  have hM : (Matrix.of fun i j : Fin k => rootOfUnity k ^ ((j : ℕ) * l i)) =
+      (Matrix.of fun i j : Fin k => rootOfUnity k ^ ((j : ℕ) * (k - 1 - (i : ℕ)))).submatrix π id := by
+    ext i j
+    simp only [Matrix.of_apply, Matrix.submatrix_apply, id]
+    rw [hmod, hl i]
+  rw [hM, Matrix.det_permute]
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchRootOfUnityVandermondeNe
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open Finset
+
+theorem SchRootOfUnityVandermondeNe.rootOfUnity_isPrimitiveRoot {k : ℕ} (hk : 1 ≤ k) : IsPrimitiveRoot (rootOfUnity k) k := by
+  unfold rootOfUnity
+  exact Complex.isPrimitiveRoot_exp k (by omega)
+
+theorem SchRootOfUnityVandermondeNe.proof : SchRootOfUnityVandermondeNe.Statement := by
+  intro k hk
+  have hz := SchRootOfUnityVandermondeNe.rootOfUnity_isPrimitiveRoot hk
+  unfold vandermondeOf
+  refine Finset.prod_ne_zero_iff.mpr fun i _ => Finset.prod_ne_zero_iff.mpr fun j hj => ?_
+  rw [sub_ne_zero]
+  intro h
+  have hij : (i : ℕ) = j := hz.pow_inj i.isLt j.isLt h
+  have hlt : i < j := Finset.mem_Ioi.mp hj
+  exact absurd (Fin.ext hij) (ne_of_lt hlt)
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.RemainderTerms.PSchSchurAtRootsOfUnity
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.RestTerms
+
+open MvPolynomial Finset
+
+noncomputable section
+
+theorem schurAtRoots_place_lt {r k : ℕ} (nu : Fin r → ℕ) (hanti : Antitone nu)
+    (hsum : ∑ i, nu i = k) (i : Fin r) (hi : 1 ≤ nu i) : (i : ℕ) < k := by
+  have h1 : (Iic i).card • 1 ≤ ∑ j ∈ Iic i, nu j :=
+    Finset.card_nsmul_le_sum _ _ _ fun j hj => le_trans hi (hanti (Finset.mem_Iic.mp hj))
+  have h2 : ∑ j ∈ Iic i, nu j ≤ ∑ j, nu j :=
+    Finset.sum_le_sum_of_subset (Finset.subset_univ _)
+  rw [Fin.card_Iic, smul_eq_mul, mul_one] at h1
+  omega
+
+theorem SchSchurAtRootsOfUnity.proof (h1 : SchSchurRowsToK.Statement)
+    (h2 : SchSchurEvalMatrix.Statement) (h3 : SchJTMatrixDetAtRoots.Statement) :
+    SchSchurAtRootsOfUnity.Statement := by
+  intro N r k nu hk hkN hanti hsum
+  set nu' : Fin k → ℕ := fun i => if h : (i : ℕ) < r then nu ⟨i, h⟩ else 0 with hnu'
+  have hplace := schurAtRoots_place_lt nu hanti hsum
+
+  have hanti' : Antitone nu' := by
+    intro i j hij
+    simp only [hnu']
+    by_cases hj : (j : ℕ) < r
+    · have hi : (i : ℕ) < r := lt_of_le_of_lt (Fin.le_def.mp hij) hj
+      rw [dif_pos hi, dif_pos hj]
+      exact hanti (Fin.le_def.mpr (Fin.le_def.mp hij))
+    · rw [dite_eq_right hj]; exact Nat.zero_le _
+
+  have hsum' : ∑ i, nu' i = k := by
+    set g : ℕ → ℕ := fun i => if h : i < r then nu ⟨i, h⟩ else 0 with hg
+    have e1 : ∑ i, nu' i = ∑ i ∈ range k, g i := by
+      rw [← Fin.sum_univ_eq_sum_range]
+    have e2 : ∑ i, nu i = ∑ i ∈ range r, g i := by
+      rw [← Fin.sum_univ_eq_sum_range]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      simp only [hg, dif_pos i.isLt]
+    have hgk : ∀ i, k ≤ i → g i = 0 := by
+      intro i hi
+      simp only [hg]
+      split_ifs with h
+      · by_contra hne
+        have := hplace ⟨i, h⟩ (Nat.one_le_iff_ne_zero.mpr hne)
+        simp at this; omega
+      · rfl
+    have hgr : ∀ i, r ≤ i → g i = 0 := by
+      intro i hi; simp only [hg]; rw [dite_eq_right (by omega)]
+    have e3 : ∑ i ∈ range k, g i = ∑ i ∈ range (r + k), g i :=
+      Finset.sum_subset (Finset.range_mono (by omega)) fun i _ hni =>
+         hgk i (not_lt.mp (fun h => hni (Finset.mem_range.mpr h)))
+    have e4 : ∑ i ∈ range r, g i = ∑ i ∈ range (r + k), g i :=
+      Finset.sum_subset (Finset.range_mono (by omega)) fun i _ hni =>
+         hgr i (not_lt.mp (fun h => hni (Finset.mem_range.mpr h)))
+    rw [e1, e3, ← e4, ← e2, hsum]
+  rw [h1 (Fin N) r k nu hanti hsum, h2 N k k _ hk hkN, h3 k nu' hk hanti' hsum']
+
+  have hcond : (∀ i : Fin k, (i : ℕ) ≠ 0 → nu' i ≤ 1) ↔ (∀ i : Fin r, (i : ℕ) ≠ 0 → nu i ≤ 1) := by
+    constructor
+    · intro H i hi0
+      by_cases hz : nu i = 0
+      · rw [hz]; exact Nat.zero_le _
+      · have hik := hplace i (Nat.one_le_iff_ne_zero.mpr hz)
+        have := H ⟨i, hik⟩ hi0
+        simp only [hnu', dif_pos i.isLt] at this
+        exact this
+    · intro H i hi0
+      simp only [hnu']
+      split_ifs with h
+      · exact H ⟨i, h⟩ hi0
+      · exact Nat.zero_le _
+
+  have hcard : (univ.filter fun i : Fin k => (i : ℕ) ≠ 0 ∧ nu' i = 1).card =
+      (univ.filter fun i : Fin r => (i : ℕ) ≠ 0 ∧ nu i = 1).card := by
+    refine Finset.card_bij'
+      (fun i hi => ⟨i, by
+        simp only [Finset.mem_filter, Finset.mem_univ, true_and, hnu'] at hi
+        by_contra h; rw [dite_eq_right h] at hi; omega⟩)
+      (fun i hi => ⟨i, by
+        simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hi
+        exact hplace i (by omega)⟩) ?_ ?_ ?_ ?_
+    · intro i hi
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, hnu'] at hi ⊢
+      obtain ⟨h0, h1⟩ := hi
+      split_ifs at h1 with h
+      exact ⟨h0, h1⟩
+    · intro i hi
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, hnu'] at hi ⊢
+      refine ⟨hi.1, ?_⟩
+      rw [dif_pos i.isLt]; exact hi.2
+    · intro i hi; rfl
+    · intro i hi; rfl
+  simp only [hcond, hcard]
+
+end
+
+end GroundTheory.Heights₂.Heights.RestTerms
+end
+

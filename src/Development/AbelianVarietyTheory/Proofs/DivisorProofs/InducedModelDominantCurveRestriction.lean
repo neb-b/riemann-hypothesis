@@ -1,0 +1,407 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0063
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0059
+public import Development.AbelianVarietyTheory.Definitions.Divisors.ReferenceMetricMulDualEqOne
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0012
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0060
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0245
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.RingKrullDimIntegers
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0275
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0009
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0270
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0276
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0019
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0278
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0017
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0323
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0229
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0034
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0284
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0271
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsTorsionFreeOfForallExists
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.MemLocalSubringGenericPoint
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1044
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0015
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.EventuallySubsingletonCohTwistZOfIsProjOver
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.IsFiniteLengthOfIsArtinianRingAnnihilator
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0280
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0020
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SmallSectionHeightLowerBound
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0283
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2201
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1979
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0272
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0539
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.MultiplicationLatticeSecond
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0529
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1944
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0508
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1965
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2050
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0269
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0288
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0302
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0315
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2048
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2104
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2095
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0019
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2414
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.NontrivialIsomClassInt
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2315
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1980
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1045
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.ExistsLinearMapMultilinearMapBaseChange
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ClsLinCombSingle
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0580
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2286
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0041
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0046
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0515
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1799
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsLocalRingTrivSqZeroExt
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0037
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2391
+public import Development.AbelianVarietyTheory.Definitions.QuasicoherentCohomology.FiniteCohPushforwardIffOfIsClosedImmersion
+public import Development.AbelianVarietyTheory.Definitions.Divisors.LineBundleGlobalSectionsDimCongrPicardClass
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0058
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ExistsHorizontalGeneratorOfCharts
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ToroidalCompactification
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.InjectiveOfSmulMemRange
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0049
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0002
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsEqnIffGeneratesAtInv
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0005
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.DiscreteValuationRings.Bundle0002
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.MemRangeOfForallHeightEqOneOfIsReflexive
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.BijectiveAlgebraMapIntegralClosureOfBirational
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1162
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0929
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2036
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ArchimedeanSectionFlatWeight
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2325
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0024
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0011
+public import Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.Bundle0069
+public import Development.AbelianVarietyTheory.Proofs.FormalGroupCharts.Bundle0038
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0333
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0099
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0013
+public import Formalism.LocalToGlobal.ProjectiveLattices.ThShort
+public import Formalism.LocalToGlobal.ProjectiveLattices.IsGenFrGenFr
+public import Formalism.LocalToGlobal.ProjectiveLattices.ChartDirectionsIntegral
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0010
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.IsHolPeriods
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.UniformisationConclusion
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.SecBaseChangeAnySt
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0016
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0014
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0015
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0027
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0102
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0332
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0081
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0029
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1870
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1889
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0219
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0218
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.LevelOfSplitAndLevelCoeffExist
+public import Formalism.LocalToGlobal.ProjectiveLattices.ExistsParameterConditions
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0032
+public import Formalism.LocalToGlobal.BesselHermitianTheta.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.ExistenceOfLattices.PermutesRefl
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1908
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1883
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ModuliPointIntegralFrameAfterFiniteExtension
+public import Development.AbelianVarietyTheory.Proofs.RingsOfIntegers.ExistsUniformisedChartAfterValuationRingExt
+public import Development.AbelianVarietyTheory.Definitions.Divisors.WedgeNrmLeOfWedgeNormLe
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IsDiscreteValuationRingIntegralClosurePadicInt
+public import Development.AbelianVarietyTheory.Proofs.RingsOfIntegers.Bundle0032
+public import Development.AbelianVarietyTheory.Proofs.RingsOfIntegers.Bundle0052
+public import Development.AbelianVarietyTheory.Proofs.GenericRegularity.Bundle0029
+public import Development.AbelianVarietyTheory.Proofs.GenericRegularity.Bundle0035
+public import Development.AbelianVarietyTheory.Counterexamples.LevelGroupExamples.Bundle0002
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.Bundle0180
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0082
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.Bundle0112
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.PullCub
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.BCRing
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.BCTools
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1504
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0040
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsFiniteQCHomModOfExact
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0039
+public import Development.AbelianVarietyTheory.Definitions.Uniformization.PointEqOfSubsingleton
+public import Development.AbelianVarietyTheory.Proofs.UniformizationProofs.Bundle0045
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0007
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0068
+public import ReciprocityTheory.GaloisValuations.GlobalB
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0536
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.ExistsUniquePoint
+public import Development.AbelianVarietyTheory.Proofs.AbelianSchemeLawProofs.Bundle0029
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0535
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0513
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0550
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.ExistsIvDOfDefinite
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsProperToroidalModelStructureMap
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.GradedLineBundleExists
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0514
+public import Development.AbelianVarietyTheory.Definitions.ArchimedeanThetaValues.IsFramedPointChangedByLetters
+public import Formalism.LocalToGlobal.ProjectiveLattices.IsCombAt
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0004
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.RigIsoCongr
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.Bundle0005
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ExistsUniqueConstantTangentVectorsAlongArc
+public import Development.AbelianVarietyTheory.Proofs.AbelianSchemeLawProofs.Bundle0011
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.ExistsZeroGt
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.ChartPullbacks.CubePullbacks.CubePull
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0007
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0022
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.PmapsOfGenRelR
+public import Development.AbelianVarietyTheory.Definitions.RegularCharts.ModelAt
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.UnifUniqSt
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.IsoEqOfMapsAlongSection
+public import Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsPChartOfFramedPoint
+public import Development.AbelianVarietyTheory.Proofs.GenericRegularity.Bundle0018
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ExistsConstantLieBasisArcGroup
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.Bundle0043
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.Bundle0052
+public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.ExistsAbsoluteValueOfIsDiscreteValuationRing
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.PullbackAndTensorModule
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.RestrictionPoincareBundle
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.CmHostUnitAddConjEqOne
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0038
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsGrpPullbackAbVarModel
+public import Development.AbelianVarietyTheory.Proofs.AbelianSchemeLawProofs.Bundle0019
+public import Development.AbelianVarietyTheory.Proofs.AbelianSchemeLawProofs.SpanEqTopOfFunctionals
+public import Development.AbelianVarietyTheory.Definitions.Jets.Bundle0003
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.SemiabelianSchemes.CubicalStructures.CubeSymmetricSwapFirst
+public import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.Bundle0034
+public import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.Bundle0035
+public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.ExistsTorusAndQuotientHom
+public import Development.AbelianVarietyTheory.Proofs.RingsOfIntegers.Bundle0011
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ObjIsAbelianSchemeDimRigidifiedSym
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.DivCalc
+public import Development.AbelianVarietyTheory.Proofs.RingsOfIntegers.Bundle0042
+public import Development.AbelianVarietyTheory.Proofs.UniformizationProofs.Bundle0133
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FirstCohomology.Bundle0002
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.WeilRos
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0020
+public import Development.AbelianVarietyTheory.Proofs.UniformizationProofs.Bundle0117
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0022
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsKSValueOneOfRetraction
+public import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.IsWeightedHomogeneousOfMemOrbitSpan
+public import Development.AbelianVarietyTheory.Definitions.Divisors.LogAbsVpOfNormalised
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1483
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsLinearHomPull
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.ExistsTangentEquiv
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.EpsZeroCompOfIsTanAtG
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1209
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1215
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1212
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.ExistsExtendResidue
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0012
+public import Development.AbelianVarietyTheory.Statements.HeightBoundStatement.HTBoundSt
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0044
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0186
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0534
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0138
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ObjMapUniqueOfIsDominant
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0118
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0496
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0030
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0036
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsBlockMetricDiagForm
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0020
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.PullbackSections.Bundle0006
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsStalkFactor
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0154
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0055
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0026
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0041
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0146
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0526
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0532
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0533
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.AffineOpenChartCompStructureEqSpMap
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IsFrameCover
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.IsProjOverCompOfIsClosedImmersion
+public import Development.AbelianVarietyTheory.Definitions.ShimuraVarieties.IsOpenOfMemIrreducibleComponentsOfFinite
+public import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.Bundle0005
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0559
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0011
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0162
+public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.Bundle0004
+public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.ExistsUniqueLiftSpecOfIsLocalizationAway
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0531
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0022
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0540
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0506
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsPrincipalMapDifferent
+public import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.Bundle0038
+public import Development.AbelianVarietyTheory.Definitions.Divisors.ExistsChartOfIsLocalRing
+public import Development.AbelianVarietyTheory.Proofs.HermitianTraceForms.ExistsIsComplEigenSubOfValuationRing
+public import Development.AbelianVarietyTheory.Proofs.CubicalLineBundles.Bundle0017
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.IsClosedFlagsIff
+public import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.RingKrullDimQuotientEqOfMemMinimalPrimes
+public import Development.AbelianVarietyTheory.Proofs.HermitianTraceForms.IsLocallyConstantRankAtStalkEigenSub
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.GrNormPosOfBasis
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0561
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0527
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.AmpleOnAbelianBase
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.PullbackSections.HolomorphicFamilies.PadicValNatAbsNormEqZero
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0524
+public import Development.AbelianVarietyTheory.Definitions.Divisors.HodgeTateLatticePointFinrankTateModule
+public import Development.AbelianVarietyTheory.Definitions.Divisors.TorsionTowersOfDivisibleGroup
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0005
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0020
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HodgeTateInclusionRaynaudExtensionAlgebraicPoint
+public import Development.AbelianVarietyTheory.Definitions.Divisors.IsLatBasisHtLatIffSpanEq
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0028
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1462
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.WeilCharSurjectiveAndMapRangeAl
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0092
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.PtMapDualBCLeft
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0043
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0044
+public import Development.AbelianVarietyTheory.Proofs.JetHarmonics.Bundle0062
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.MumfordProportionality
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0634
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ScaleZeroComp
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ColengthDvdOfNeZero
+public import Development.AbelianVarietyTheory.Proofs.UnramifiedDepth.Bundle0058
+public import Development.AbelianVarietyTheory.Proofs.GenericRegularity.Bundle0002
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsTangentPresentationPrime
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IdealEqBotOfFlatQuotientOfMapMaximalIdeal
+public import Development.AbelianVarietyTheory.Proofs.AbelianSchemeLawProofs.Bundle0006
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.ExistsIntegralNthRootTestModelPoint
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.CardTorsionTranslateZerosLt
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.IsUnitNatCastSections
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.LocallyQuasiFiniteOfFiniteGeometricPoints
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0175
+public import Development.AbelianVarietyTheory.Proofs.UniformizationProofs.ExistsUniqueOfIsAdicComplete
+public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.FormallyUnramifiedOfTangentMapInjective
+public import Development.AbelianVarietyTheory.Proofs.DegenerationProofs.Bundle0019
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0017
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.FlatSectionFrameInvariance
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0028
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0060
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0090
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2217
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.PullbackSections.Bundle0011
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0264
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.UnderEqGenericPoint
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0545
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0544
+public import Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsAffineLieBasisBaseChange
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0002
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.CocycleTrivialOnProjectiveCover
+public import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.MemRangeCompIffOfIsClosedImmersion
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0511
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteIntegralClosureOfEssFiniteTypeField
+public import Development.AbelianVarietyTheory.Proofs.HomogeneousIdeals.IsIsoNormalizationPullbackOfToIntegralClosure
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0135
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0553
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0602
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0605
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0547
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0546
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.NonemptyClosureOfEmbedding
+public import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.IsProjOverIffIsProperAndExistsIsAmpleLB
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0565
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0543
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0576
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0887
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.DualGramInterpGram
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0521
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0541
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.ToroidalBoundaryMetricData
+public import ReciprocityTheory.L2DbarEstimates.ChartDerivatives.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.Divisors.FirstChernIntegralEqDegree
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0573
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0567
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0556
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0557
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0569
+public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.WithZeroEqOfLeExpIff
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.LinearIndependentOfCutSec
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.MemNonzeroLocusFormMap
+public import Development.AbelianVarietyTheory.Proofs.CubicalLineBundles.Bundle0042
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0009
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0010
+public import Formalism.LocalToGlobal.ProjectiveLattices.TowerOfAt
+public import Development.AbelianVarietyTheory.Counterexamples.ModuliSurvey.IsQProjOverOfIsProjOver
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0537
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0227
+
+@[expose] public section
+
+set_option autoImplicit false
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry TopologicalSpace NumberField IsDedekindDomain
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory GlobalTheory.CechPic
+open Formalism.BasicNotions GlobalTheory.Cartier GlobalTheory.CxPts GlobalTheory.ProjVar GlobalTheory.TrueGeo GlobalTheory.Mean4O GlobalTheory.CoverNorm GlobalTheory.VertForm
+
+namespace GlobalTheory.NefHodgeTateAt
+
+section Curves
+
+variable {k : Type} [CommRing k] [Module.Finite ℤ k] {X : Scheme.{0}} {p : X ⟶ Sp k}
+
+theorem topSelf_of_cls_eq_add (hp : IsProjOver p) {N A B : LB X} (hN : N.IsLB) (hA : A.IsLB) (hB : B.IsLB)
+    (h : cls N hN = cls A hA + cls B hB) (Z : Scheme.{0}) (i : Z ⟶ X) [IsClosedImmersion i] (κ : Type) [Field κ] [Finite κ]
+    [Algebra κ Γ(Z, ⊤)] (hd : topologicalKrullDim Z = 1) :
+    topSelfIntersection κ (N.pull i) 1 = topSelfIntersection κ (A.pull i) 1 + topSelfIntersection κ (B.pull i) 1 := by
+  obtain ⟨hpr, H, hH⟩ := (isProjOver_iff_isProper_and_exists_isAmpleLB p).1 hp
+  have : IsFinite (spMap (Int.castRingHom k)) := by
+    rw [spMap, IsFinite.SpecMap_iff]
+    exact (RingHom.finite_algebraMap (A := ℤ) (B := k)).2 inferInstance
+  have e : strHom κ Z ≫ spMap (Int.castRingHom κ) = i ≫ p ≫ spMap (Int.castRingHom k) :=
+    specZIsTerminal.hom_ext _ _
+  have : IsProper (strHom κ Z ≫ spMap (Int.castRingHom κ)) := by rw [e]; infer_instance
+  have : IsProper (strHom κ (X := Z)) := IsProper.of_comp _ (spMap (Int.castRingHom κ))
+  have e2 (L : LB X) : topSelfIntersection κ (L.pull i) 1 = interNum κ (structureModule Z) ![L.pull i] := by
+    rw [topSelf_def]
+    congr 1
+    funext j
+    fin_cases j
+    rfl
+  rw [e2, e2, e2]
+  refine interNum_one_of_cls_eq_add (hH.pull_of_isClosedImmersion i) hd (LB.isLB_pull hN i) (LB.isLB_pull hA i)
+    (LB.isLB_pull hB i) ?_
+  rw [cls_pull hN, cls_pull hA, cls_pull hB, h, map_add (f := _)]
+
+theorem topSelf_pow (hp : IsProjOver p) (L : HermLB p) (m : ℕ) (Z : Scheme.{0}) (i : Z ⟶ X) [IsClosedImmersion i]
+    (κ : Type) [Field κ] [Finite κ] [Algebra κ Γ(Z, ⊤)] (hd : topologicalKrullDim Z = 1) :
+    topSelfIntersection κ ((L.pow m).B.pull i) 1 = m * topSelfIntersection κ (L.B.pull i) 1 := by
+  have c (n : ℕ) : cls (L.pow n).B (L.pow n).isLB = n • cls L.B L.isLB := cls_lbPow L.isLB n _
+  induction m with
+  | zero =>
+    have := topSelf_of_cls_eq_add hp (L.pow 0).isLB (L.pow 0).isLB (L.pow 0).isLB (by rw [c]; simp) Z i κ hd
+    simp only [Nat.cast_zero, zero_mul]
+    linarith
+  | succ n ih =>
+    rw [topSelf_of_cls_eq_add hp (L.pow (n + 1)).isLB (L.pow n).isLB L.isLB (by rw [c, c, succ_nsmul]) Z i κ hd, ih]
+    push_cast
+    ring
+
+
+end Curves
+
+section Covers
+
+variable {F : Type} [Field F] [NumberField F] {Y : Var F}
+
+end Covers
+
+open Formalism.MainNotions Formalism.L2.Pj Formalism.BasicNotions.TH Formalism.L2.Theta ReciprocityTheory.ChartRestriction.G.FD GlobalTheory.AllWt GlobalTheory.CompHt GlobalTheory.CovTop GlobalTheory.CovHt GlobalTheory.Mean4
+open scoped ENNReal Classical
+
+end GlobalTheory.NefHodgeTateAt

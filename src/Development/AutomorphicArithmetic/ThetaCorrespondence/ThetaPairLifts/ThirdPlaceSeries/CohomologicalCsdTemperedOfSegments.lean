@@ -1,0 +1,17 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.IsTemperedGLOfIsUnitaryLSeg
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0137
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0016
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0009
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.CohomologicalCsdTempered
+
+@[expose] public section
+
+set_option synthInstance.maxHeartbeats 200000
+
+section
+end

@@ -1,0 +1,23 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.InfinitesimalCharacterGlue
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.FaceMapCompSuccAboveCastSucc
+public import Development.WeilBound.RepresentationTheoryGL.ResidualSpectrum.SliceTensors.Bundle0011
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0720
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TreeParts
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.StableEigenspaces.EtaleBaseChangeOfDuality
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TwistLimitStatement.Lim5
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.TensorOperatorTrees.TreeLemmas
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.ContinuousAdmissibleReps.AdmissibleDiscreteSpaces
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.UntwistedCharacters.HasInfCharGLTopZero
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.SpectralAccumulation
+
+theorem eFinal_of (hS : Sep4) (hF : FinDisc) (hL : LimVec) : EFinal :=
+  (_root_.GlobalTheory.CompanionTheory.EGlue.eFinalGlue : InfinitesimalCharacterGlue) PositivityTheory.Rg.BcB.E.E3.etale_base_change_of_duality hS (LimG.lim5 hF) Trees.treeLemmas.2.2.1 Trees.treeLemmas.2.1
+    Trees.treeLemmas.1 hL admissible_discrete_spaces Untw.untwOfReal_holds Trees.treeLemmas.2.2.2
+
+end PositivityTheory.Rg.BcB.SpectralAccumulation

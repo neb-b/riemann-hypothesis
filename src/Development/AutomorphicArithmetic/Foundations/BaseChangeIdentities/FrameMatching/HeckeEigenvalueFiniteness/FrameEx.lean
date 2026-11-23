@@ -1,0 +1,19 @@
+module
+
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.FrameMatching.HeckeEigenvalueFiniteness.Bundle0003
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.FrameMatching.HeckeEigenvalueFiniteness.CandOf
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.USideFree
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.StrictJoinCandidates.IntertwiningCandidates.Bundle0002
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.StrictJoinCandidates.IntertwiningCandidates.Bundle0001
+
+@[expose] public section
+
+open PositivityTheory.Rg.BcB.F PositivityTheory.Rg.BcB.F.FX PositivityTheory.Rg.BcB.F.FX.Bo
+
+namespace UpperTheory.HeckeLevelFrameExistence
+
+theorem candFin : CandFin :=
+  CF.candFin_of Tw.FinStrict_holds StrictProd_holds Tw.StrictJoin_holds CandParts_holds LevOpen_holds
+    IsoInv_holds AdmProd_holds
+
+end UpperTheory.HeckeLevelFrameExistence

@@ -1,0 +1,15 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.CasimirAlgebra.KugaCoordinates.ClozelCohomologicalOfThree
+public import Development.WeilBound.RepresentationTheoryGL.CasimirAlgebra.KugaCoordinates.ArchimedeanWhittakerDerivatives.HasDerivAtDpsi
+public import Development.WeilBound.RepresentationTheoryGL.CasimirAlgebra.KugaCoordinates.CochainExpansions.CochainHolds
+public import Development.WeilBound.RepresentationTheoryGL.CasimirAlgebra.KugaCoordinates.KugaGluing.KugaGlueHolds
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.Cz
+
+theorem clozelCohomological : GlobalTheory.Published.ClozelCohomological :=
+  clozelCohomological_of_three whitLie_holds kugaGlue_holds Coch.cochain_holds
+
+end PositivityTheory.Rg.Cz

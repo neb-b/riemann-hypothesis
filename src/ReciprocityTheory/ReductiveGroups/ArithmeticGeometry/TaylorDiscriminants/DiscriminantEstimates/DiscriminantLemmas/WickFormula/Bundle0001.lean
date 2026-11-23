@@ -1,0 +1,152 @@
+module
+
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.DiscriminantEstimates.Bundle0001
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.DiscriminantEstimates.DiscriminantLemmas.WickFormula.GenDefs
+
+@[expose] public section
+
+-- bundled from ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.DiscriminantEstimates.DiscriminantLemmas.WickFormula.DeltaEqGdelta
+section
+open MvPolynomial
+
+namespace PI.WickFormula
+
+theorem delta_eq_gdelta {k : Type} [CommRing k] {r s : ℕ} (κ : Fin r → Fin s → k) : delta κ = Gen.gdelta κ := rfl
+
+structure Hyp {k AA M : Type} [CommRing k] [Ring AA] [Algebra k AA] [AddCommGroup M] [Module AA M] {r s : ℕ}
+    (a b : Fin r → AA) (a' b' : Fin s → AA) (κ : Fin r → Fin s → k) (σ₀ : M) : Prop where
+  h1 : ∀ i i', Commute (a i) (a i') ∧ Commute (a i) (b i') ∧ Commute (b i) (b i')
+  h2 : ∀ j j', Commute (a' j) (a' j') ∧ Commute (a' j) (b' j') ∧ Commute (b' j) (b' j')
+  h3 : ∀ i j, Commute (b i) (b' j)
+  h4 : ∀ i j, b i * a' j - a' j * b i = algebraMap k AA (κ i j)
+  h5 : ∀ i, b i • σ₀ = 0
+  h6 : ∀ j, b' j • σ₀ = 0
+
+def OrdLin : Prop :=
+  ∀ (k AA : Type) [CommRing k] [Ring AA] [Algebra k AA] (r s : ℕ) (a : Fin r → AA) (a' : Fin s → AA),
+    ∃ f : MvPolynomial (Fin r ⊕ Fin s) k →ₗ[k] AA, ∀ P, f P = ordEval a a' P
+
+def OrdX : Prop :=
+  ∀ (k AA : Type) [CommRing k] [Ring AA] [Algebra k AA] (r s : ℕ) (a : Fin r → AA) (a' : Fin s → AA),
+    (∀ i i', Commute (a i) (a i')) →
+    ∀ (i : Fin r) (R : MvPolynomial (Fin r ⊕ Fin s) k), ordEval a a' (X (Sum.inl i) * R) = a i * ordEval a a' R
+
+def Base : Prop :=
+  ∀ (k AA M : Type) [CommRing k] [Ring AA] [Algebra k AA] [AddCommGroup M] [Module AA M] (r s : ℕ)
+    (a b : Fin r → AA) (a' b' : Fin s → AA) (κ : Fin r → Fin s → k) (σ₀ : M), Hyp a b a' b' κ σ₀ →
+    ∀ Q : MvPolynomial (Fin r ⊕ Fin s) k, (∀ m ∈ Q.support, ∀ i, m (Sum.inl i) = 0) →
+      ordEval (a + b) (a' + b') Q • σ₀ = ordEval a a' Q • σ₀
+
+def BComm : Prop :=
+  ∀ (k AA M : Type) [CommRing k] [Ring AA] [Algebra k AA] [AddCommGroup M] [Module AA M] (r s : ℕ)
+    (a b : Fin r → AA) (a' b' : Fin s → AA) (κ : Fin r → Fin s → k) (σ₀ : M), Hyp a b a' b' κ σ₀ →
+    ∀ (i : Fin r) (R : MvPolynomial (Fin r ⊕ Fin s) k),
+      b i • (ordEval (a + b) (a' + b') R • σ₀) = ordEval (a + b) (a' + b') (Gen.dL κ i R) • σ₀
+
+end PI.WickFormula
+end
+
+-- bundled from ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.DiscriminantEstimates.DiscriminantLemmas.WickFormula.GenPow
+section
+open MvPolynomial
+
+namespace PI.WickFormula.Gen
+
+section
+variable {K I J : Type} [CommRing K] [Fintype I] [Fintype J]
+
+theorem pderiv_comm (a b : I ⊕ J) (p : MvPolynomial (I ⊕ J) K) :
+    pderiv a (pderiv b p) = pderiv b (pderiv a p) := by
+  classical
+  have h : ⁅(pderiv a : Derivation K (MvPolynomial (I ⊕ J) K) (MvPolynomial (I ⊕ J) K)),
+      (pderiv b : Derivation K (MvPolynomial (I ⊕ J) K) (MvPolynomial (I ⊕ J) K))⁆ = 0 := by
+    apply MvPolynomial.derivation_ext
+    intro c
+    rw [Derivation.commutator_apply, pderiv_X, pderiv_X]
+    simp only [Pi.single_apply, Derivation.zero_apply]
+    split_ifs <;> simp
+  have h2 := congrArg (fun D : Derivation K (MvPolynomial (I ⊕ J) K) (MvPolynomial (I ⊕ J) K) =>
+    D p) h
+  simp only [Derivation.commutator_apply, Derivation.zero_apply] at h2
+  exact sub_eq_zero.mp h2
+
+noncomputable abbrev pd (a : I ⊕ J) : Module.End K (MvPolynomial (I ⊕ J) K) :=
+  (pderiv a).toLinearMap
+
+theorem commute_pd (a b : I ⊕ J) : Commute (pd (K := K) a) (pd b) := by
+  apply LinearMap.ext
+  intro p
+  exact pderiv_comm a b p
+
+theorem commute_gdelta_pd (κ : I → J → K) (c : I ⊕ J) : Commute (gdelta κ) (pd c) := by
+  unfold gdelta
+  refine Commute.sum_left _ _ _ fun i _ => Commute.sum_left _ _ _ fun j _ => ?_
+  refine Commute.smul_left ?_ _
+  exact (commute_pd (Sum.inl i) c).mul_left (commute_pd (Sum.inr j) c)
+
+theorem commute_gdelta_dL (κ : I → J → K) (i : I) : Commute (gdelta κ) (dL κ i) := by
+  unfold dL
+  refine Commute.sum_right _ _ _ fun j _ => ?_
+  exact Commute.smul_right (commute_gdelta_pd κ (Sum.inr j)) _
+
+theorem gdelta_dL_apply (κ : I → J → K) (i : I) (S : MvPolynomial (I ⊕ J) K) :
+    gdelta κ (dL κ i S) = dL κ i (gdelta κ S) :=
+  LinearMap.congr_fun (commute_gdelta_dL κ i).eq S
+
+theorem gdelta_pow_succ_apply (κ : I → J → K) (m : ℕ) (S : MvPolynomial (I ⊕ J) K) :
+    (gdelta κ ^ (m + 1)) S = gdelta κ ((gdelta κ ^ m) S) := by
+  rw [pow_succ']
+  rfl
+
+theorem gdelta_apply (κ : I → J → K) (R : MvPolynomial (I ⊕ J) K) :
+    gdelta κ R = ∑ i, ∑ j, κ i j • pderiv (Sum.inl i) (pderiv (Sum.inr j) R) := by
+  simp [gdelta, LinearMap.sum_apply]
+
+theorem dL_apply (κ : I → J → K) (i : I) (R : MvPolynomial (I ⊕ J) K) :
+    dL κ i R = ∑ j, κ i j • pderiv (Sum.inr j) R := by
+  simp [dL, LinearMap.sum_apply]
+
+theorem gdelta_X_inl (κ : I → J → K) (i : I) (R : MvPolynomial (I ⊕ J) K) :
+    gdelta κ (X (Sum.inl i) * R) = X (Sum.inl i) * gdelta κ R + dL κ i R := by
+  classical
+  have h1 : ∀ i' j, pderiv (Sum.inl i') (pderiv (Sum.inr j) (X (Sum.inl i) * R)) =
+      X (Sum.inl i) * pderiv (Sum.inl i') (pderiv (Sum.inr j) R) +
+        (if i' = i then pderiv (Sum.inr j) R else 0) := by
+    intro i' j
+    rw [pderiv_mul, pderiv_X_of_ne (by simp), zero_mul, zero_add, pderiv_mul, pderiv_X]
+    by_cases h : i' = i
+    · subst h
+      simp [add_comm]
+    · simp [h, Ne.symm h]
+  rw [gdelta_apply, gdelta_apply, dL_apply]
+  simp only [h1, smul_add, Finset.sum_add_distrib, Finset.mul_sum, mul_smul_comm, smul_ite,
+    smul_zero]
+  congr 1
+  rw [Finset.sum_comm]
+  simp
+
+end
+
+theorem commL_holds : CommL := by
+  intro K I J _ _ _ κ i R n
+  have h := ((commute_gdelta_dL κ i).pow_left n).eq
+  exact LinearMap.congr_fun h R
+
+theorem powXL_holds : PowXL := by
+  intro K I J _ _ _ κ i R n
+  induction n with
+  | zero => simp [gdelta_X_inl]
+  | succ n ih =>
+    rw [gdelta_pow_succ_apply, ih, map_add (f := _), gdelta_X_inl, map_nsmul,
+      ← gdelta_pow_succ_apply, gdelta_dL_apply,
+      ← gdelta_pow_succ_apply, succ_nsmul _ (n + 1)]
+    abel
+
+section
+variable {K I J : Type} [CommRing K] [Algebra ℚ K] [Fintype I] [Fintype J]
+
+end
+
+end PI.WickFormula.Gen
+end
+

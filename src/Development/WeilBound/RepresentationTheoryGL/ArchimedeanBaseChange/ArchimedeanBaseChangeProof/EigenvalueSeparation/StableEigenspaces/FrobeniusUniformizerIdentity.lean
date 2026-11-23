@@ -1,0 +1,24 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.StableEigenspaces.StableHulls.IsStableHull
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.StableEigenspaces.FiniteTypes.FintypeHolds
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.StableEigenspaces.CentralEigenvalues.CenteigHolds
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.StableEigenspaces.CentralEigenvalues.IsStableEigenspaceCap
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.EigenvalueSeparation.StableEigenspaces.SizeBounds.SizetHolds
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0421
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0412
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LintegralCompactLe
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0482
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IsStableBdSub
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0422
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.E.E3
+
+theorem frobenius_uniformizer_identity (h : LocNonPosGlue) : PositivityTheory.Rg.BcB.E.E3 :=
+  asm_holds fintype_holds (GlobalTheory.CompanionTheory.LocSlice.locSlGlue sizet_holds GlobalTheory.CompanionTheory.CentralMult.multC GlobalTheory.CompanionTheory.InterpLoc.interpolation_local_L2_bound)
+    (h sizet_holds) centeig_holds (GlobalTheory.CompanionTheory.CentRe.centReGlue_holds sizet_holds GlobalTheory.CompanionTheory.CentralMult.multC) hullaut_holds
+    GlobalTheory.CompanionTheory.HullExp.hullNonPos GlobalTheory.CompanionTheory.PairSpProof.pairSp
+
+end PositivityTheory.Rg.BcB.E.E3

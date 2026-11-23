@@ -1,0 +1,64 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0298
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0545
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0549
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.RowsPtAt
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0007
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.Bundle0051
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.Bundle0021
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.LoopTerm
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.FamilyStatementOfItemsFourSeven
+public import Formalism.SharpRestriction.CuspSpanNormBounds.AbsoluteAmplitudeSecondOfSource
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BranchingAndRankConstants
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0005
+public import Development.AbelianVarietyTheory.Statements.DiscreteSeriesShifts.ThmBpDS
+public import Development.AbelianVarietyTheory.Definitions.Jets.SideFam
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0003
+public import Formalism.SharpRestriction.CuspSpanNormBounds.OnePlaceEstimates
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0017
+public import Formalism.SharpRestriction.CuspSpanNormBounds.CayleyDegreeNondegeneracy.Bundle0006
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.HaarTransversals.UnitaryHaarProducts.SettingBlocks
+public import Formalism.HermitianCurvature.BesselNonvanishingReduction
+public import Development.AbelianVarietyTheory.Statements.CuspFrameWeights.DiscreteSpectrumKFiniteDecomposition
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.GammaRangeOfSizeHypotheses
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.KerInclOn
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0042
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.DiagAtScale
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.Bundle0087
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.Bundle0045
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0022
+public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.Bundle0006
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.Bundle0024
+public import Development.AbelianVarietyTheory.PublishedTheorems.DiscreteSeriesUnitary₂.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0006
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.StabilizerVolume.InVolumesAtOfSWS
+public import Formalism.PeriodIntegrals.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0020
+public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.StepLocGenPinnedGP
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.Bundle0075
+public import Development.AbelianVarietyTheory.Statements.CuspFrameWeights.StepAnalyticConstantsP
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.Bundle0098
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.BDataOf
+public import Formalism.LocalRingCardinality.Bundle0003
+public import Formalism.SharpRestriction.CuspSpanNormBounds.WeightedUniformRotatedOfExpansion
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.Bundle0042
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.Bundle0441
+public import Formalism.UnipotentAdelicQuotients.Bundle0003
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.S GlobalTheory.Core.Deg
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+namespace GlobalTheory.Core.Rk
+
+theorem rowDiag_of_siegelWeilUnitary
+    (hSW : HeckeCharacterZeroLocus.SiegelWeilU.SiegelWeilUnitaryConvergent) :
+    GlobalTheory.Core.Rk.RowDiag (fun D L C' => GlobalTheory.Core.Rk.IsScaleWithBoundedGamma D L C' ∧ ∀ u, GlobalTheory.Core.Rk.RankMu D u) := by
+  have hDeg := GlobalTheory.T.degenerateTerms_and_collisionBounds_uniform_widths
+  have hOne := _root_.GlobalTheory.Core.Diag.oneOn_singleton_of_siegelWeil hSW 3
+  exact GlobalTheory.Core.Rk.diagonalRow_bound_from_windowWidthThree GlobalTheory.wuDecayOfGap (hDeg.1 3) (hDeg.2 3) hOne.1 hOne.2
+
+end GlobalTheory.Core.Rk

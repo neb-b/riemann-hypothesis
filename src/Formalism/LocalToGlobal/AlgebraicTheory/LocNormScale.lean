@@ -1,0 +1,20 @@
+module
+
+public import Formalism.LocalToGlobal.AlgebraicTheory.SplitPlaceScaledBound
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.LinearSubstitutionDiagonal
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.KernelIndexForm
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.CardTwoSidedQuotient
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.KerHalf
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.Bundle0001
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.NormInter
+public import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.NormPow
+
+@[expose] public section
+
+namespace Formalism.L2.AlgTh
+
+theorem jetAtSplit : JetAtSplit :=
+  jetAtSplit_of split_place_scaled_bound kernel_index_form representatives_split level_kills_half_lattice chosen_lift_killed_level p_torsion_represents_quotient card_two_sided_quotient index_product_formula
+    taylor_jet_expansion linear_substitution_diagonal
+
+end Formalism.L2.AlgTh

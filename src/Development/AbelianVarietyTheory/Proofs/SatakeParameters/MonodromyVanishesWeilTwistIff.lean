@@ -1,0 +1,132 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0019
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Imports
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0009
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.StrongMultiplicityOne
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.GelfandKazhdanDual
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.HeckeLAdicCharacterAboveIff
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.DeRhamPotSemistable
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.IsPolarizedTwistAbsPow
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0010
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.DualIsConjByOne
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0025
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.BaseChangeDefiniteUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.IsTemperedGLOfIsUnitaryLSeg
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.AutomorphicForms.BlochKatoSelmerVanishes
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0347
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0344
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0342
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0709
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.ExistsCoprimePowOfMemIneKer
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0117
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.ConclusionFinite
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0104
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0022
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapTop
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0731
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0302
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0035
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0038
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0542
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0058
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0575
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0678
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0396
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0576
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.FiniteDimensionalFilDR
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.PadicHodgeTheory.Bundle0033
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.LocalRingCardinality.AdicCompletionLocal.LocTied
+public import Formalism.SharpRestriction.LevelLetterCocycles.DataNLoc
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.PowEqOfRoot
+public import Development.AbelianVarietyTheory.CrystallinePeriods.RingIface
+public import Development.AbelianVarietyTheory.CrystallinePeriods.Bundle0001
+public import GroundTheory.LocalFields.FormalGroups.LubinTateGroup
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.CharZeroAdicCompletion
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.DecompositionGroupLocalGaloisIso
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0006
+public import GroundTheory.LocalFields.Bundle0016
+public import GroundTheory.LocalFields.LubinTateReciprocity
+public import GroundTheory.LocalFields.Existence
+public import GroundTheory.LocalFields.KroneckerWeber
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0730
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0305
+public import Formalism.SharpRestriction.LevelLetterCocycles.QuotientImageDivisibility.IsAdicCompleteOfLe
+public import GroundTheory.LocalFields.LubinTateLimitGalois
+public import GroundTheory.LocalFields.LubinTateUnramified
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.AcrisTorsionFreeComplete
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0002
+public import Development.AbelianVarietyTheory.CrystallinePeriods.CrisMapsLoc
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.NormLeOneOfMemOL
+public import Formalism.LocalRingCardinality.SpanPowerMembership.NDLocF
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0511
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0008
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0188
+public import GroundTheory.LocalFields.MaximalUnramified
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0414
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0290
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0069
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.EqOfPowEqOneOfNormSubLt
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0065
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsLocalPrimeAinf
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0067
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0073
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0233
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0346
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsGaloisPrescribedUnramifiedKummer
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0259
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0490
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.FrobeniusPeriodRingInjective
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0165
+public import Development.AbelianVarietyTheory.CrystallinePeriods.CrisIncl
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0274
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0241
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.MemEurOfTeichmullerSeries
+public import Formalism.SharpRestriction.LevelLetterCocycles.LocalSituation
+public import Formalism.SharpRestriction.LevelLetterCocycles.LocCoh
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0027
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0281
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0220
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0222
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0217
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.FontaineFormalismOfRegular
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0321
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0249
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0399
+public import Development.AutomorphicArithmetic.CyclotomicBounds.ClassNumberBounds.IdealValuations.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0715
+
+@[expose] public section
+
+open NumberField IsDedekindDomain Neutral.B1 Formalism.L2.Host Formalism.ConjugateSelfDual ReciprocityTheory.Gal Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.MainNotions.N
+open GlobalTheory.CuspRep GlobalTheory.WeilDeligne GlobalTheory.Pst GlobalTheory.LocLanglands GlobalTheory.HeckeGal GlobalTheory.LocGL GlobalTheory.GalOfCusp
+attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
+open GlobalTheory.GalCut GlobalTheory.Published
+
+noncomputable section
+
+namespace GlobalTheory.GalCut7.IwahoriTwist
+
+open GlobalTheory.GalCut.IwaTwist GlobalTheory.GalCut.SsTwist Polynomial UpperTheory.V UpperTheory.V.Af
+
+variable {E Ω : Type} [Field E] [NumberField E] [Field Ω] [Algebra E Ω] [IsAlgClosure E Ω]
+  {A : ValuationSubring Ω} {w : HeightOneSpectrum (𝓞 E)} {h : Formalism.ConjugateSelfDual.IsPlaceOver A w}
+
+theorem monodromy_vanishes_weilTwist_iff (x : WD h) (ξ : Weil h →* ℂˣ) (hξ : IsSmooth ξ) : (x.lpTwist ξ hξ).mono0 ↔ x.mono0 := by
+  obtain ⟨n, b, rfl⟩ := x.exists_rep
+  rw [WD.lpTwist_mk, WD.monodromyZero_ofWeilDeligneRepClass_iff, WD.monodromyZero_ofWeilDeligneRepClass_iff]
+  rfl
+
+theorem charPol_lpTwist_iff (x y : WD h) (ξ : Weil h →* ℂˣ) (hξ : IsSmooth ξ) (g : Weil h) :
+    (x.lpTwist ξ hξ).charPol g = (y.lpTwist ξ hξ).charPol g ↔ x.charPol g = y.charPol g := by
+  rw [charPol_lpTwist, charPol_lpTwist]
+  exact ⟨scaleRoots_cancel (Units.ne_zero _), fun e => by rw [e]⟩
+
+end GlobalTheory.GalCut7.IwahoriTwist
+
+end

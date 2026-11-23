@@ -1,0 +1,29 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.EisensteinFinalOfSeparation
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.LieSumDecompositions.SeparationHolds
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.InfinitesimalCharacterGlue
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.EFinalOf
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.IsometrySymmetry.IsoVSymm
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.LimitPairSpaces.MulMemPairSpace
+
+@[expose] public section
+
+-- bundled from Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.EFinalNEHolds
+section
+namespace PositivityTheory.Rg.BcB.SpectralAccumulation
+
+theorem eFinal_holds : EFinal := eisenstein_final_of_separation Cz.separation_holds
+
+end PositivityTheory.Rg.BcB.SpectralAccumulation
+end
+
+-- bundled from Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.InfinitesimalCharacterLimits.EFinalNEHoldsAlt
+section
+namespace PositivityTheory.Rg.BcB.SpectralAccumulation
+
+theorem eFinal_holds' : EFinal := eFinal_of Cz.separation_holds FiniteDiscreteTypes.finDisc LV.limVec
+
+end PositivityTheory.Rg.BcB.SpectralAccumulation
+end
+

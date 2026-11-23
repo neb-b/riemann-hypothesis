@@ -1,0 +1,23 @@
+module
+
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.BiextensionRelation
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.Bundle0003
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.Bundle0005
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.SqrtInUnramifiedCompletion
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.Bundle0001
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.SecondLevelOfNorm
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KurComplete
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.StatementB
+public import Formalism.GaussJetBounds.Bundle0004
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.Bundle0003
+public import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.Bundle0002
+
+@[expose] public section
+
+namespace Formalism.L2.Th1.D
+
+theorem sqrtKur : SqrtKur := sqrt_in_unramified_completion
+theorem denseOK : DenseOK := dense_criterion
+theorem homothetic_lattice_integral_s2 : HomotheticLatticeIntegralS2 := homothetic_lattice_integral_of
+
+end Formalism.L2.Th1.D

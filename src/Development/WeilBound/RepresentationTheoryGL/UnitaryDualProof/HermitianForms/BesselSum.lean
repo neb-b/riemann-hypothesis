@@ -1,0 +1,14 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.UnitaryDualProof.HermitianForms.SelfAdjointForms.StepForm
+public import Development.WeilBound.RepresentationTheoryGL.UnitaryDualProof.HermitianForms.UnipotentBounds.UnipBLeDerUnipOne
+
+@[expose] public section
+
+namespace PositivityTheory.RgUd.Form.Final
+
+theorem besselSum (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k] :
+    PositivityTheory.RgUd.BesselSum k :=
+  PositivityTheory.RgUd.Form.Asm.asmForm k (PositivityTheory.RgUd.Form.LeviSmoothness.Final.stepForm k)
+
+end PositivityTheory.RgUd.Form.Final

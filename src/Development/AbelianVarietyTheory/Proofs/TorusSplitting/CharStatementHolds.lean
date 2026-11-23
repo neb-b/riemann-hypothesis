@@ -1,0 +1,20 @@
+module
+
+public import Mathlib
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.SquareIntegrability.Bundle0005
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.SquareIntegrability.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.TorusSplitting.CmCharactersOfNearestPlaneOfShortIntegersStatement
+public import Development.AbelianVarietyTheory.Proofs.TorusSplitting.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.TorusSplitting.Bundle0002
+
+@[expose] public section
+
+open NumberField Complex ReciprocityTheory.ChartRestriction.G.I2
+
+namespace GlobalTheory
+
+theorem charStatement_holds : CharStatement :=
+  GlobalTheory.T.cmCharacters_of_nearestPlane_of_short_integers nearestPlane_rounding
+    (exists_short_integral_rational_basis exists_short_integers_span)
+
+end GlobalTheory

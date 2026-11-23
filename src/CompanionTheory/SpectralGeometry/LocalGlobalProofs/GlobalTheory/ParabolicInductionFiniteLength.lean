@@ -1,0 +1,11 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0288
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.LeviBlocksParabolicInductionFiniteLength
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0658
+public import GroundTheory.AutomorphicForms.FiniteLength
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.ParabolicInductionFiniteLength
+
+@[expose] public section

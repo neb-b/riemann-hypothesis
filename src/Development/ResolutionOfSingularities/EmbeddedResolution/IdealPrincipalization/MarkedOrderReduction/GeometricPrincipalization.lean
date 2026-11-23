@@ -1,0 +1,46 @@
+module
+
+public import Mathlib
+public import Development.ResolutionOfSingularities.Foundations.Blowup.BlowupProperties
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IteratedBlowups.ClopenRestriction
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.OrderReductionProperties
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.Bundle0001
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.CanonicalPrincipalization
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedOrderReduction.Bundle0001
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedOrderReduction.MonomialCenterHypotheses
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedOrderReduction.TransformedComponentHypotheses
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedOrderReduction.OrderReductionHypotheses
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedOrderReduction.ControlledTransformOrderBound
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MonomialCase.StrictTransformComponents
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MonomialCase.TransformedBoundaryComponents
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedBlowupSequence.MarkedSequenceOfBlowups
+
+@[expose] public section
+
+universe u
+
+open CategoryTheory AlgebraicGeometry
+
+noncomputable section
+
+namespace FunctorialResolution.EmbeddedResolution
+
+theorem MonomialStrictTransformComponents.transformedComponentHypotheses :
+    MonomialStrictTransformComponents.TransformedComponentHypotheses.{u} := by
+  exact {
+    transformed_components := intersectionComponents_transformedBoundary_of_isBlowupAlongIdealSheaf
+    strictTransform_components := exists_eq_closure_of_isIrreducibleComponentOf_strictTransform }
+
+theorem principalizationGeometryHypotheses : PrincipalizationGeometryHypotheses.{u} := by
+  have h := StrictTransformCase.strictTransformHypotheses_of_residualHypotheses
+    (MonomialStrictTransformComponents.strictTransformHypotheses_of_transformedComponents
+      MonomialStrictTransformComponents.transformedComponentHypotheses)
+  have hOrder : OrderReductionHypotheses.{u} := {
+    controlledTransform_orderAt_le := orderAt_controlledTransform_le_of_orderAt_eq_on_center
+    strictTransform_components := h.strictTransform_components
+    monomial := h.monomial }
+  exact geometricHypotheses_of_orderReductionHypotheses hOrder
+
+end FunctorialResolution.EmbeddedResolution
+
+end

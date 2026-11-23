@@ -1,0 +1,39 @@
+module
+
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.KunnethLefschetz.EtMain
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.TranscendenceTraces.AllHolds
+public import Development.AutomorphicArithmetic.CommutativeAlgebra.EtaleCohomology.PurTop
+public import Development.EtaleCohomology.KummerTheory.GoalHolds
+public import Development.AutomorphicArithmetic.CommutativeAlgebra.EtaleCohomologyFunctorialityAxiomsHold
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0428
+public import Mathlib
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0500
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0007
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0006
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0427
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0455
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0457
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0493
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0631
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0434
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0541
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0478
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0494
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0654
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0974
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0677
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle3091
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle3149
+public import Development.AutomorphicArithmetic.CommutativeAlgebra.EtaleCohomology.N81
+public import Development.AutomorphicArithmetic.CommutativeAlgebra.Bundle0045
+public import Development.AutomorphicArithmetic.Foundations.EtaleClopenDescent.EtaleCohomologyIndEtaleBaseChange
+
+@[expose] public section
+
+namespace UpperTheory.Gal.KunnethLefschetz
+open GlobalTheory.EtC
+
+theorem trIn_holds : TrIn :=
+  ⟨TranscendenceTraces.wtNormal_holds, TranscendenceTraces.nmlLoc_holds, TranscendenceTraces.nwtDeg_holds, TranscendenceTraces.trDegQ_holds GlobalTheory.T.etaleCohomology_coefficientRing_invariance⟩
+
+end UpperTheory.Gal.KunnethLefschetz

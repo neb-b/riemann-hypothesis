@@ -1,0 +1,246 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.BhattScholzeCrystallineLattices
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0019
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.GeometricWeakTiesOfStrong
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0045
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.RhoMemOfMkEq
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SumRangeEqRoots
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0044
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0015
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0013
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0010
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.WeilSiegelFormulaUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.SiegelWeilUnitaryConvergent
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.PairwiseDisjointCell
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.HoweUnram
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0012
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0022
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.TailRd
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.NotBadPrimeBase
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0350
+public import Development.AbelianVarietyTheory.PublishedTheorems.DiscreteSeriesUnitary₂.Bundle0001
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.ThmSOwn
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.IsStdFr
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0029
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.FrameTopAlt
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0030
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.HzUnit
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.CosInj
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.UnitRatio
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0030
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.NotIsCompactUnivFv
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.OnFramesRdApply
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.AdmissibleDiscreteSeriesOfHasParam
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HarishChandraModulesOn
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.HasDRepIffHasDerivAt
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.WeilRepresentationUnitaryPair
+public import Development.AutomorphicArithmetic.CharacterBoxes.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0007
+public import Formalism.SharpRestriction.GlobalSchurBounds.LinkTied
+public import Formalism.SharpRestriction.GlobalSchurBounds.MainSup
+public import Formalism.LocalToGlobal.GroupLattices.AdmissibleAtGeneratorPlaces
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.WuDecayAll
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.Bundle0005
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.DiscreteSeriesOfFormalDegree
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0008
+public import Formalism.LocalToGlobal.FiniteTOf
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0043
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.ColumnCompatibleSelection
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.STiesR
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.DivisionPairOfAdelicFormsFaceColumnsData
+public import Formalism.LocalToGlobal.Bundle0002
+public import Formalism.LocalToGlobal.Bundle0001
+public import Formalism.LocalToGlobal.IndefiniteReal.DoubleCosetOperators.TwistedCharacterValue
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.TwArgs
+public import Formalism.LocalToGlobal.Divisibility.Bundle0007
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0052
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0055
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0031
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.ClassSumPin
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.SingleIndexPlacesAreTwisted
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0070
+public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.SerFixOne
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0024
+public import Formalism.UnipotentAdelicQuotients.Bundle0003
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.DiagonalRowOfSiegelWeilUnitaryStatement
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0032
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0521
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0515
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0458
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0440
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0537
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0516
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0541
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0434
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.LinkSPos
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0532
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0486
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0140
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0176
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0543
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0031
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0032
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0544
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.StepZeroTwistReferenceTupleEqId
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0357
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0389
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0363
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0240
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0191
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0398
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0393
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.VacOfShape
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0548
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0545
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.ProdDat
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0435
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0404
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0407
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0484
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0498
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0462
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0442
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0425
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0491
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0100
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0175
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0192
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0171
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0235
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0301
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0014
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0533
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0542
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0266
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0345
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0256
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0253
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0439
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0011
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0392
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0420
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.Bundle0007
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.LiftSchurMultiplierCompatibility
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0396
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0529
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0549
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.UnderEqOrSmulUnderEq
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0135
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0520
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0519
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0257
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0540
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0506
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0535
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0432
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0339
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0505
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0546
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2829
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0420
+public import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.Bundle0167
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.DsExistsOfDiscreteSeriesExists
+public import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.Bundle0168
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.NonzeroPlacesOverPrimesLifts
+public import Formalism.LocalRingCardinality.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0032
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0029
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0010
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.HasSupportOfIsSubquotientProdIrr
+public import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.EntriesCombinedReal
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0009
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0013
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0008
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.ExistsCellOfIsSubquotient
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.RadfordShufflePolynomialHolds
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0004
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0029
+public import Formalism.LocalToGlobal.Divisibility.Bundle0008
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.StandardLatticesDiagonal
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0456
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2133
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2220
+public import Development.AbelianVarietyTheory.Definitions.HeightFunctions.OntoAlong
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.NonemptyAlgHomOfIsRayOfDvd
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0698
+public import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.Bundle0169
+public import Development.AbelianVarietyTheory.Definitions.Divisors.HypothesisBundleConversions
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.CohomologicalCsdTempered
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0227
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0179
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0175
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0031
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0171
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0114
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0092
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0037
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0181
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0177
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0209
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0066
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.IndefRRealTB
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0036
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0038
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0044
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.MainTheoremPublishedInputsThird
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0221
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0210
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0217
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0272
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0274
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0277
+public import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.Bundle0178
+public import Development.AutomorphicArithmetic.Foundations.LocalLanglands.IsRecTOfIsRec
+
+@[expose] public section
+
+set_option synthInstance.maxHeartbeats 200000
+
+section
+open Formalism.BasicNotions Formalism.MainNotions GlobalTheory.EX GlobalTheory.EX.OB GlobalTheory.Mem GlobalTheory.Mem.Top GlobalTheory.Mem.Top.Bl GlobalTheory.Fc
+namespace GlobalTheory.Fc.S0.Open0ProofU
+theorem open_orbit_of_unramified_exponents_alt : _root_.GlobalTheory.Fc.S0.UnitaryGroupThirdPlaceHypotheses → ∀ (hL : _root_.UpperTheory.Zero.LLC.RecTExists) (cDep : ℝ), _root_.GlobalTheory.Fc.S0.OpenParameterStatements (_root_.GlobalTheory.Mem.Top.Bl.parametersOfDependence hL cDep) := by
+  intro P hL cDep
+  have hNE : ∀ K B f T w Z Wt p0 t nch n xd c, _root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep K B f T w Z Wt p0 t nch n xd c →
+      Nonempty (_root_.GlobalTheory.HeightCounting.Up.extensionWithLaw hL K B f T w Z Wt p0 t nch n xd c) := fun _ _ _ _ _ _ _ _ _ _ _ _ _ x => ⟨x.1⟩
+  have hB : ∀ (K : Ctx) (q : WPt (_root_.GlobalTheory.Mem.Top.Bl.parametersOfDependence hL cDep).s K), GlobalTheory.Mem.R3.Rw.BkLaw (q.w.D q.Z) := fun _ q => q.x.nx.2.1.2.down
+  have hPA := _root_.GlobalTheory.T.linkedAt_hPA_prmR hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry)
+  have hDc := _root_.GlobalTheory.T.linkedAt_hDcPtG_prmR hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry)
+  have hTie := _root_.GlobalTheory.T.linkedAt_tie_of_nonempty_extensionWithLaw P.discreteSeriesCover P.harishChandraModules P.casselmanWallach P.weilRepresentationUnitaryPair
+    P.discreteSeriesExists P.harishChandraFinite P.cuspRapidDecay hL _ SExt.none (geoCl anyGeometry) hNE
+  have hJ := _root_.GlobalTheory.T.entries_combined_real_alt P.weilRepresentationUnitaryPair P.discreteSeriesExists P.discreteSeriesCover P.harishChandraModules
+    P.casselmanWallach P.harishChandraFinite P.cuspRapidDecay hL _ SExt.none (geoCl anyGeometry) hPA hDc hTie
+  have hMi := _root_.GlobalTheory.T.main_theorem_published_inputs_third_alt_alt P.harishChandraFinite P.cuspRapidDecay P.discreteSeriesCover P.harishChandraModules P.casselmanWallach
+    GlobalTheory.Hk3.howeUnram_holds P.weilRepresentationUnitaryPair P.weilSiegelFormulaUnitary P.siegelWeilUnitaryConvergent
+    P.doublingMethod P.unramifiedDoublingGL P.discreteSeriesClassification P.strongApproxSU P.siegelWeilUnitaryConvergent2
+    hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry)
+  have hDiv := _root_.GlobalTheory.T.bk_law_entries_alt P.weilRepresentationUnitaryPair P.discreteSeriesExists P.harishChandraFinite P.cuspRapidDecay
+    P.discreteSeriesCover P.harishChandraModules P.casselmanWallach hL _ SExt.none (geoCl anyGeometry) hB hMi.1
+  have hLam := _root_.GlobalTheory.T.real_group_inputs_combined_alt_alt P.weilRepresentationUnitaryPair P.discreteSeriesExists P.harishChandraFinite P.cuspRapidDecay
+    P.harishChandraAnalyticity P.discreteSeriesClassification P.cuspTraceClass P.dixmierMalliavinFactorisation
+    P.flathFactorisation
+    P.zelevinskyPolynomialRing P.geometricLemma P.greenCuspidal hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry)
+  have hKap := _root_.GlobalTheory.T.harish_chandra_inputs_combined_alt_alt P.harishChandraFinite P.cuspRapidDecay P.discreteSeriesCover P.harishChandraModules
+    P.casselmanWallach P.harishChandraAnalyticity P.discreteSeriesClassification P.cuspTraceClass
+    P.dixmierMalliavinFactorisation P.flathFactorisation P.zelevinskyPolynomialRing P.geometricLemma P.greenCuspidal
+    hL _ SExt.none (geoCl anyGeometry) hLam
+  have hGood := _root_.GlobalTheory.T.linked_bundles_good_of_local_langlands_alt_alt (GlobalTheory.GreenBridge.green_of_regular P.greenRegularCharacters) P.zelevinskyPolynomialRing hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry) hNE
+  have hLab := _root_.GlobalTheory.T.good_ft_entries_alt_alt (GlobalTheory.GreenBridge.green_of_regular P.greenRegularCharacters) P.zelevinskyPolynomialRing hL _ SExt.none (geoCl anyGeometry) hNE hGood.1
+  have hGeo := _root_.GlobalTheory.T.linkedAt_geometricWeakTies_of_tie P.rayClassFieldSt hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry) hNE hDiv hTie
+  have hDf := _root_.GlobalTheory.T.weil_unitary_entries' P.weilRepresentationUnitaryPair P.discreteSeriesExists P.harishChandraFinite P.cuspRapidDecay
+    hL (_root_.GlobalTheory.HeightCounting.Up.extensionWithList hL cDep) SExt.none (geoCl anyGeometry)
+  exact ⟨hPA, hLam, hDiv, hDc, hJ, hTie, hLab, hGood.2, hGeo, hMi.2, hKap, hDf⟩
+end GlobalTheory.Fc.S0.Open0ProofU
+
+theorem _root_.GlobalTheory.T.open0_of_unitary_group_hypotheses : _root_.GlobalTheory.Fc.S0.UnitaryGroupThirdPlaceHypotheses → ∀ (hL : _root_.UpperTheory.Zero.LLC.RecTExists) (cDep : ℝ), _root_.GlobalTheory.Fc.S0.OpenParameterStatements (_root_.GlobalTheory.Mem.Top.Bl.parametersOfDependence hL cDep) :=
+  _root_.GlobalTheory.Fc.S0.Open0ProofU.open_orbit_of_unramified_exponents_alt
+end

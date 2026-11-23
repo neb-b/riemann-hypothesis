@@ -1,0 +1,99 @@
+module
+
+public import Formalism.LocalToGlobal.UnitaryNorms.IsUnitaryNormOf
+public import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.Bundle0011
+public import Mathlib
+public import Formalism.FrobeniusOrbits.RealSubfieldLeCompositum
+public import Formalism.FrobeniusOrbits.Bundle0001
+
+@[expose] public section
+
+-- bundled from Formalism.LocalToGlobal.UnitaryNorms.CharProd
+section
+noncomputable section
+
+open NumberField IsDedekindDomain
+
+namespace Formalism.L2.Host.HChar
+
+variable {L : Type} [Field L] [NumberField L] (χ : HChar L)
+
+theorem productRule : χ.ProductRule := hecke_product_rule L χ
+
+theorem val_principal (S : Finset (HeightOneSpectrum (𝓞 L))) (hS : ∀ v, v ∉ S → χ.UnrAt v) (k : Lˣ) :
+    (∏ᶠ (v : HeightOneSpectrum (𝓞 L)) (_ : v ∉ S), χ.val v ^ ordF v k) = (χ.inf k * ∏ v ∈ S, χ.locK v k)⁻¹ :=
+  eq_inv_of_mul_eq_one_right (χ.productRule S hS k)
+
+end Formalism.L2.Host.HChar
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.UnitaryNorms.RealCyclotomicTwoPower
+section
+noncomputable section
+
+open IntermediateField NumberField
+
+namespace Formalism.L2.Host
+
+open Formalism.FrobeniusOrbits Formalism.TwoAdicCyclotomicDecomposition
+
+abbrev Qb : Type := AlgebraicClosure ℚ
+
+abbrev Fld : Type := IntermediateField ℚ Qb
+
+def sqrts (m : ℤ) : Set Qb := {z | z ^ 2 = (m : Qb)}
+
+def mus (N : ℕ) : Set Qb := {z | z ^ N = 1}
+
+def sqQ (m : ℤ) : Fld := adjoin ℚ (sqrts m)
+
+def cycQ (N : ℕ) : Fld := adjoin ℚ (mus N)
+
+def cycQplus (N : ℕ) : Fld := adjoin ℚ ((fun z => z + z⁻¹) '' mus N)
+
+def KQ (d : ℕ) : Fld := sqQ (-(d : ℤ))
+
+def biquadraticField (q d : ℕ) : Fld := sqQ (-(q : ℤ)) ⊔ sqQ (-(d : ℤ))
+
+def realCyclotomicTwoPower (e : ℕ) : Fld := cycQplus (2 ^ (e + 2))
+
+def EQ (e q d : ℕ) : Fld := biquadraticField q d ⊔ realCyclotomicTwoPower e
+
+def FQ (e q d : ℕ) : Fld := sqQ ((q : ℤ) * (d : ℤ)) ⊔ realCyclotomicTwoPower e
+
+abbrev GalOf (L : Fld) : Subgroup (Qb ≃ₐ[ℚ] Qb) := L.fixingSubgroup
+
+def restr (L : Fld) (s : Qb ≃ₐ[ℚ] Qb) : L →ₐ[ℚ] Qb := (s : Qb →ₐ[ℚ] Qb).comp L.val
+
+def ActsAs (e q d : ℕ) (s : EQ e q d →ₐ[ℚ] Qb) (g : GG e) : Prop :=
+  (∀ x : EQ e q d, (x : Qb) ∈ sqrts (-(q : ℤ)) → s x = (((g.1.1 : ℤˣ) : ℤ) : Qb) * x) ∧
+  (∀ x : EQ e q d, (x : Qb) ∈ sqrts (-(d : ℤ)) → s x = (((g.1.2 : ℤˣ) : ℤ) : Qb) * x) ∧
+  ∃ u : (ZMod (2 ^ (e + 2)))ˣ, hcl e u = g.2 ∧
+    ∀ (x : EQ e q d) (z : Qb), z ∈ mus (2 ^ (e + 2)) → (x : Qb) = z + z⁻¹ →
+      s x = z ^ (u : ZMod (2 ^ (e + 2))).val + z⁻¹ ^ (u : ZMod (2 ^ (e + 2))).val
+
+def condN (e q d : ℕ) : ℕ := 2 ^ (e + 2) * q * d
+
+def IsCond (L : Fld) (N : ℕ) : Prop := L ≤ cycQ N ∧ ∀ M : ℕ, 0 < M → L ≤ cycQ M → N ∣ M
+
+
+open Classical in
+def sqSign {p : ℕ} (u : (ZMod p)ˣ) : ℤˣ := if IsSquare (u : ZMod p) then 1 else -1
+
+theorem q_dvd_condN (e q d : ℕ) : q ∣ condN e q d := by
+  unfold condN
+  exact dvd_mul_of_dvd_left (dvd_mul_left q _) d
+theorem d_dvd_condN (e q d : ℕ) : d ∣ condN e q d := by
+  unfold condN
+  exact dvd_mul_left d _
+theorem two_pow_dvd_condN (e q d : ℕ) : 2 ^ (e + 2) ∣ condN e q d := by
+  unfold condN
+  exact dvd_mul_of_dvd_left (dvd_mul_right _ q) d
+
+def CondEQ (e q d : ℕ) : Prop := IsCond (EQ e q d) (condN e q d)
+
+end Formalism.L2.Host
+end
+end
+

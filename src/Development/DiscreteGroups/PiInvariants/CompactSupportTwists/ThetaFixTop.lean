@@ -1,0 +1,19 @@
+module
+
+public import Development.DiscreteGroups.PiInvariants.CompactSupportTwists.ThetaFixOfOfMult
+public import Development.DiscreteGroups.PiInvariants.CompactSupportTwists.Bundle0005
+public import Mathlib
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.SatakeRigidity.SplitSatPre
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.DualIsConjByOne
+public import Development.WeilBound.RepresentationTheoryGL.JacquetShalikaBounds.AbsoluteRigidity.CauchyLoc
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsHasCentChar
+public import GroundTheory.GlobalFields.IdeleGroups.NormOneCompact
+public import Development.WeilBound.CoreStatements.PublishedTheorems.SmoothVectorEstimates.CuspidalMultiplicityOne
+
+@[expose] public section
+
+namespace DiscreteGroups.T1.G
+
+theorem thetaFixOf : PositivityTheory.Rg.BcB.Desc.ThetaFixOf := thetaFixOf_of_mult PositivityTheory.jumpWindows.cuspidalMultiplicityOne
+
+end DiscreteGroups.T1.G

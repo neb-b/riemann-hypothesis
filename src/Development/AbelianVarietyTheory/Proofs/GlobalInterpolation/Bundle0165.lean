@@ -1,0 +1,23 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0046
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Imports
+public import CompanionTheory.EightfoldTheory.VariationTheory.AutomorphicForms.RealStructures.Imports
+public import CompanionTheory.EightfoldTheory.VariationTheory.AutomorphicForms.ImportsBis
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0025
+public import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.Bundle0164
+public import PositivityTheory.AutomorphicForms.PublishedInputs.RealGaloisRepresentations.IwahoriSphericalTransfer.Bundle0005
+
+@[expose] public section
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.AttachedGaloisRepUnique
+section
+
+end
+
+-- bundled from Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsPlaceCompletionIsoImports
+section
+
+end
+

@@ -1,0 +1,29 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ToroidalCompactification
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1195
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0015
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.NontrivialIsomClassInt
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.UnderEqGenericPoint
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0016
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2786
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0665
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.InjectiveOfSmulMemRange
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ExistsCobOneOfIntegral
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1158
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1210
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0010
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0014
+public import Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.ExistsFourierExpansionHolomorphicTube
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2126
+
+@[expose] public section
+
+namespace PositivityTheory.Prw
+
+theorem arDegree_of (h₁ : GlobalTheory.Published.HeightProjection) (h₂ : GlobalTheory.Published.ChernDegreeComplex) : GlobalTheory.Published.ArDegree :=
+  _root_.GlobalTheory.Published.arDegree_of_heightProjection h₁ h₂
+
+end PositivityTheory.Prw

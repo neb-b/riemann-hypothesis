@@ -1,0 +1,36 @@
+module
+
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.NarrowCondition
+public import Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.NarrowAsc
+public import Mathlib
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0647
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0020
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.RingSpecNormalisedCharacterEq
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IsSplitAtOfIsSplitPl
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0007
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ExistsIrreducibleFixed
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0009
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0008
+public import Formalism.SharpRestriction.LevelLetterCocycles.SphericalInertData
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0592
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0020
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0183
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0761
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0747
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.DiscreteSpectrumOfResidual
+
+@[expose] public section
+
+noncomputable section
+
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.N Formalism.ConjugateSelfDual ReciprocityTheory.Gal ReciprocityTheory.Aut Formalism.AUTREP Formalism.L2 Formalism.L2.Host GlobalTheory.HeightCounting NumberField IsDedekindDomain GlobalTheory.CuspRep GlobalTheory.UnitaryBC GlobalTheory.FormDict GlobalTheory.DefiniteBC
+
+attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
+
+namespace UpperTheory.BaseChangeIdentities
+
+theorem speh (h : PositivityTheory.Rg.BcN.BaseChangeIsobaricN) : GlobalTheory.BcSpeh.BcSpeh := bcSpeh_of ascComp (definiteN_of h)
+
+end UpperTheory.BaseChangeIdentities
+
+end

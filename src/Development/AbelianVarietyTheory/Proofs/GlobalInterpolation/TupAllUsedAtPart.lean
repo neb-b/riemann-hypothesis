@@ -1,0 +1,101 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.AdmissibleDiscreteSeriesOfHasParam
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HarishChandraModulesOn
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.HasDRepIffHasDerivAt
+public import Development.AbelianVarietyTheory.PublishedTheorems.DiscreteSeriesUnitary₂.Bundle0001
+public import Formalism.UnipotentAdelicQuotients.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.ExistsUniqueHcharOfFiniteOrder
+public import Formalism.SharpRestriction.GlobalSchurBounds.Bundle0005
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.GeometricWeakTiesOfStrong
+public import Development.AutomorphicArithmetic.CharacterBoxes.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0007
+public import Formalism.SharpRestriction.GlobalSchurBounds.LinkTied
+public import Formalism.SharpRestriction.GlobalSchurBounds.MainSup
+public import Formalism.LocalToGlobal.GroupLattices.AdmissibleAtGeneratorPlaces
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.WuDecayAll
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.Bundle0005
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.DiscreteSeriesOfFormalDegree
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0008
+public import Formalism.LocalToGlobal.FiniteTOf
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0043
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.ColumnCompatibleSelection
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.STiesR
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.DivisionPairOfAdelicFormsFaceColumnsData
+public import Formalism.LocalToGlobal.Bundle0002
+public import Formalism.LocalToGlobal.Bundle0001
+public import Formalism.LocalToGlobal.IndefiniteReal.DoubleCosetOperators.TwistedCharacterValue
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.TwArgs
+public import Formalism.LocalToGlobal.Divisibility.Bundle0007
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0052
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0055
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0031
+public import Development.AbelianVarietyTheory.Definitions.TwistedInnerProducts.ClassSumPin
+public import Development.AbelianVarietyTheory.Statements.PlaceShiftStatements.SingleIndexPlacesAreTwisted
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0070
+public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.SerFixOne
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2106
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0607
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksW
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksLemmas
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0157
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0404
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0566
+public import Formalism.LocalToGlobal.IndefiniteReal.RealTB
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0030
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0473
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle2029
+public import Formalism.LocalToGlobal.IndefiniteReal.ZeroPartEigenvalueConvention
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0015
+public import Formalism.LocalToGlobal.IndefiniteReal.OneMapT
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0023
+public import Formalism.LocalToGlobal.IndefiniteReal.FWExist
+public import Formalism.LocalRingCardinality.Bundle0007
+public import Formalism.LocalRingCardinality.Bundle0003
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1698
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1851
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0175
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1793
+public import Formalism.LocalRingCardinality.Bundle0006
+public import Formalism.LocalRingCardinality.Bundle0002
+public import Formalism.LocalToGlobal.IndefiniteReal.DoubleCosetOperators.NMjT
+public import Formalism.LocalToGlobal.IndefiniteReal.DoubleCosetOperators.NHkRow
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0424
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.LatticeFamilyAdoptionSecond
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0425
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.Bundle0080
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1727
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.ValidForConstructedPointClassesEventuallyWorking
+public import Development.AbelianVarietyTheory.Definitions.Divisors.TupleReadBaseTupleEqFamily
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1744
+public import Formalism.LocalToGlobal.IndefiniteReal.BaseLiftsPackageOfPrimitiveLinks
+public import Formalism.LocalToGlobal.Divisibility.NumericScaleExponentEqExtended
+public import Formalism.SharpRestriction.Divisibility.PrimeDegreeVariant
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1585
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0222
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0638
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0557
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0029
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0012
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RowLevelMatch
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.Bundle0119
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0445
+public import Formalism.LocalToGlobal.NormalizedHeckeFactors.CoeffZeroNeOfMonicIrr
+public import Formalism.LocalToGlobal.Divisibility.Bundle0008
+
+@[expose] public section
+
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.RT GlobalTheory.EX GlobalTheory.EX.OB GlobalTheory.Mem GlobalTheory.Mem.Top GlobalTheory.Mem.Top.Bl GlobalTheory.Fc
+
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+
+namespace GlobalTheory.Fc.StageZeroRow
+
+theorem evW_of_atAll' {Bd : BdT} {q : BdP Bd} {𝒜 : FamClass} {σ : RawSel Bd 𝒜} (h : AtAll q 𝒜 σ) : Ind.EvW q 𝒜 σ :=
+  Closed.of_all fun Fm _ hc => Ind.ev_of_atAll h Fm (w3_a hc)
+
+end GlobalTheory.Fc.StageZeroRow

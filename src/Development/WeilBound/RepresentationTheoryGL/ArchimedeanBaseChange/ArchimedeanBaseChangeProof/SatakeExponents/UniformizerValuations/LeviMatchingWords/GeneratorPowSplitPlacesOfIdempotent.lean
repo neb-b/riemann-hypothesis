@@ -1,0 +1,33 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.LeviMatchingWords.SplitPlaceGeneratorPowers
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.MatchingIdentityOf
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.MatchingUnitOf
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0757
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.LeviMatchingWords.MatchLM
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0756
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0761
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0759
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.AdelicHeckeBlocks.PLocComm
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.PowersDiagonalAtTBlock
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1044
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0758
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1312
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1080
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.SatakeExponents.UniformizerValuations.LeviMatchingWords.LeviMatchingBlocks.StabilizerDilationWeightsDualIsotropicVector
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.F.MLM
+
+theorem matchLMIdOf : MatchLMIdOf := _root_.GlobalTheory.CompanionTheory.MatchId.matchLMIdOf
+theorem matchLMUnitOf : MatchLMUnitOf := _root_.GlobalTheory.CompanionTheory.MatchUnit.matchLMUnitOf
+
+theorem muInert : MuInert := _root_.GlobalTheory.CompanionTheory.MuInertPlace.muInert
+theorem regPowT : RegPowT := _root_.GlobalTheory.CompanionTheory.RegPow.regPowT
+theorem sepPowT : SepPowT := _root_.GlobalTheory.CompanionTheory.SepPow.sepPowT
+theorem ctStar : CtStar := _root_.GlobalTheory.CompanionTheory.CtAdj.ctStar
+theorem matchLMWordSOf : MatchLMWordSOf := _root_.GlobalTheory.CompanionTheory.LeviMatchingWords.matchLMWordSOf
+
+end PositivityTheory.Rg.BcB.F.MLM

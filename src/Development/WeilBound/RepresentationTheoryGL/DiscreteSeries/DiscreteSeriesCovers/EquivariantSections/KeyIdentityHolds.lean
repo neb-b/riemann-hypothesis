@@ -1,0 +1,24 @@
+module
+
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LowDegreeAlgebraFacts
+public import Development.WeilBound.RepresentationTheoryGL.DiscreteSeries.DiscreteSeriesCovers.EquivariantSections.EquivSection
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.HolomorphicFunctionFacts
+public import Development.WeilBound.RepresentationTheoryGL.DiscreteSeries.DiscreteSeriesCovers.RhoRepresentations.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0281
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0282
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0275
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0277
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0276
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0287
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.KeyPropositionOfComponents
+
+@[expose] public section
+
+namespace PositivityTheory.RgDs.K
+
+theorem key_identity_holds : PositivityTheory.RgDs.Key :=
+  _root_.GlobalTheory.CompanionTheory.KeyAsm.key_of_steps _root_.GlobalTheory.CompanionTheory.GlLowest.lowAlg _root_.GlobalTheory.CompanionTheory.HolOm.holFacts (PositivityTheory.RgDs.K.equivariant_section_holds) (PositivityTheory.RgDs.K.rho_representation_holds) _root_.GlobalTheory.CompanionTheory.ActEquivK.actEquiv _root_.GlobalTheory.CompanionTheory.RgTorus.rhoTorus
+    _root_.GlobalTheory.CompanionTheory.RgDsTor.torW GlobalTheory.T.transfer_statement _root_.GlobalTheory.CompanionTheory.WordFam.exhaust (_root_.GlobalTheory.CompanionTheory.TorusSymbol.betaWeight _root_.GlobalTheory.CompanionTheory.HolOm.holFacts _root_.GlobalTheory.CompanionTheory.RgTorus.rhoTorus _root_.GlobalTheory.CompanionTheory.RgDsTor.torW)
+
+end PositivityTheory.RgDs.K

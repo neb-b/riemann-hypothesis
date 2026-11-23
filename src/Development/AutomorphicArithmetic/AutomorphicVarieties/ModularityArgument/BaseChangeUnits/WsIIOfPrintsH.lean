@@ -1,0 +1,14 @@
+module
+
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.InductionEstimates.IwahoriHeckeInjectivity.IndCsOfBcfl
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.InductionEstimates.SplitUnramifiedInduction.Bundle0001
+public import Development.WeilBound.RepresentationTheoryGL.TwistedFactors.IntegralUnitBaseChange.BcflUnit
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.BaseChangeUnits.CyclicLiftRankTwoOfCyclicBaseChange
+
+@[expose] public section
+
+namespace UpperTheory.V.Z.Bc
+
+theorem indCs : Z.InvariantSubmoduleMonicPolynomial.E.IndCs := Z.InvariantSubmoduleMonicPolynomial.E.indCs_of_bcfl PositivityTheory.Rg.Tf.Loc.bcflUnit
+
+end UpperTheory.V.Z.Bc

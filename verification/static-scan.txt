@@ -1,0 +1,71 @@
+# Risky-construct scan over all 175,187 .lean files (ripgrep, line counts)
+axiom decl                         0
+sorry                              0
+admit                              0
+native_decide/ofReduceBool/trustCompiler 0
+implemented_by/extern              0
+unsafe                             0
+opaque                             0
+set_option debug.*                 0
+skipKernelTC                       0
+addDecl/addAndCompile              2
+modifyEnv/setEnv                   5
+run_cmd/run_elab/run_meta/#eval    5
+initialize                         0
+elab/macro/syntax defs             91
+notation (any)                     1722
+notation (non-local)               0
+import Lean (lines)                12
+allowUnsafeReducibility            37
+comments -- or /-                  0
+
+## Files with addDecl / modifyEnv / run_cmd
+./BuildAid/D1.lean
+./BuildAid/D2.lean
+./BuildAid/D3.lean
+./BuildAid/D4.lean
+./BuildAid/D5.lean
+./Formalism/HermitianCurvature/HermitianCurvatureProofs/CutCptCopy.lean
+
+## set_option census
+57554 et_option maxHeartbeats
+11203 et_option autoImplicit
+7478 et_option maxSynthPendingDepth
+7362 et_option synthInstance.maxHeartbeats
+1878 et_option backward.isDefEq.respectTransparency
+ 874 et_option linter.unusedSectionVars
+ 503 et_option linter.unusedVariables
+ 272 et_option linter.unusedSimpArgs
+ 181 et_option genSizeOfSpec
+ 179 et_option genInjectivity
+ 122 et_option linter.style.haveILetI
+  79 et_option backward.isDefEq.respectTransparency.types
+  51 et_option synthInstance.maxSize
+  46 et_option linter.dupNamespace
+  40 et_option linter.overlappingInstances
+  38 et_option linter.all
+  37 et_option allowUnsafeReducibility
+  34 et_option linter.deprecated
+  33 et_option maxRecDepth
+  33 et_option backward.defeqAttrib.useBackward
+  31 et_option hygiene
+  23 et_option linter.style.longLine
+  12 et_option linter.unusedTactic
+  12 et_option linter.unreachableTactic
+   9 et_option pp.fullNames
+   9 et_option linter.unnecessarySeqFocus
+   9     set_option synthInstance.maxHeartbeats
+   8   set_option synthInstance.maxHeartbeats
+   7 et_option quotPrecheck
+   7     set_option backward.isDefEq.respectTransparency.types
+   3 et_option smartUnfolding
+   1 et_option warn.classDefReducibility
+   1 et_option linter.unnecessarySimpa
+   1 et_option linter.auxLemma
+   1 et_option genSizeOf
+   1 et_option Elab.async
+   1   set_option maxRecDepth
+   1   set_option maxHeartbeats
+   1     set_option backward.isDefEq.respectTransparency
+   1       set_option synthInstance.maxHeartbeats
+   1       set_option backward.isDefEq.respectTransparency.types

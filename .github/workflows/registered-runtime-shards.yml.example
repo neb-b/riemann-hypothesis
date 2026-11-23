@@ -1,0 +1,121 @@
+# DISABLED TEMPLATE: independent review, immutable Action pins, and registered roster required.
+name: Registered runtime shards
+on:
+  workflow_dispatch:
+    inputs:
+      seed_run_id:
+        description: Trusted same-repository run containing the operator-reviewed seed artifact
+        required: true
+      seed_artifact:
+        description: Exact artifact name containing seed.json
+        required: true
+      seed_sha256:
+        description: SHA256 of seed.json, supplied out of band by the operator
+        required: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: pr66-runtime-single-candidate
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      candidate: ${{ steps.plan.outputs.candidate }}
+      has_work: ${{ steps.plan.outputs.has_work }}
+    steps:
+      - uses: actions/checkout@v4 # Owner must pin reviewed immutable Action commit before enabling.
+        with:
+          persist-credentials: false
+          path: trusted
+          sparse-checkout: tools/ci_native
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.seed_run_id }}
+          name: ${{ inputs.seed_artifact }}
+          github-token: ${{ github.token }}
+          path: seed
+      - id: plan
+        env:
+          SEED_SHA: ${{ inputs.seed_sha256 }}
+          RUN_ID: ${{ github.run_id }}
+          ATTEMPT: ${{ github.run_attempt }}
+          WORKFLOW_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 trusted/tools/ci_native/prepare.py --seed seed/seed.json --seed-sha256 "$SEED_SHA" \
+            --registry trusted/tools/ci_native/registered-runners.json --output control \
+            --run-id "$RUN_ID" --attempt "$ATTEMPT" --workflow-sha "$WORKFLOW_SHA" \
+            --producer trusted/tools/ci_native/producer.py
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          seed=json.loads(Path('seed/seed.json').read_text())
+          matrix=json.loads(Path('control/matrix.json').read_text())
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              print('matrix='+json.dumps(matrix,separators=(',',':')),file=f)
+              print('candidate='+seed['snapshot']['git_commit'],file=f)
+              print('has_work='+str(bool(matrix['include'])).lower(),file=f)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-controls-${{ github.run_id }}-${{ github.run_attempt }}
+          path: control
+          retention-days: 3
+  runtime:
+    needs: plan
+    if: needs.plan.outputs.has_work == 'true'
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ${{ matrix.runs_on }}
+    timeout-minutes: ${{ matrix.timeout_minutes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: trusted
+          sparse-checkout: tools/ci_native
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.plan.outputs.candidate }}
+          persist-credentials: false
+          path: candidate
+      - uses: actions/download-artifact@v4
+        with:
+          name: runtime-controls-${{ github.run_id }}-${{ github.run_attempt }}
+          path: control
+      - name: Build only the trusted stock infrastructure executable
+        env:
+          TC: ${{ matrix.toolchain_root }}
+        run: python3 trusted/tools/ci_native/build_backend.py --toolchain "$TC"
+      - name: Execute the bounded runtime-only lease
+        env:
+          ID: ${{ matrix.id }}
+          RUN_ID: ${{ github.run_id }}
+          ATTEMPT: ${{ github.run_attempt }}
+          ACTUAL_RUNNER: ${{ runner.name }}
+          CPUS: ${{ matrix.cpus }}
+          MEMORY: ${{ matrix.memory_mib }}
+          SECONDS_LIMIT: ${{ matrix.timeout_seconds }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p candidate/.lake/build returned
+          systemd-run --user --wait --collect --pipe --unit="rh66-${RUN_ID}-${ATTEMPT}-${ID}" \
+            -p "CPUQuota=$((CPUS*100))%" -p "MemoryMax=${MEMORY}M" -p MemorySwapMax=0 \
+            -p TasksMax=512 -p "RuntimeMaxSec=$((SECONDS_LIMIT+120))" \
+            python3 "$PWD/trusted/tools/ci_native/launch.py" --root "$PWD/candidate" \
+            --control "$PWD/control/$ID" --output "$PWD/returned" \
+            --producer "$PWD/trusted/tools/ci_native/producer.py" \
+            --run-id "$RUN_ID" --attempt "$ATTEMPT" --runner "$ACTUAL_RUNNER"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.lease_id }}
+          path: returned/returned
+          if-no-files-found: warn
+          retention-days: 3

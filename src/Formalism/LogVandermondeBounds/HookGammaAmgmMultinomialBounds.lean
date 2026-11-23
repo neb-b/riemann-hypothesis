@@ -1,0 +1,20 @@
+module
+
+public import Mathlib
+public import Formalism.LogVandermondeBounds.Bundle0001
+public import Formalism.LogVandermondeBounds.LogVandermondeProofs.Bundle0001
+public import Formalism.LogVandermondeBounds.LogVandermondeProofs.CardStabilizerVector
+public import Formalism.LogVandermondeBounds.Bundle0002
+public import Formalism.LogVandermondeBounds.LogVandermondeProofs.LengthQuotientLeOfLatticeSandwich
+public import Formalism.LogVandermondeBounds.LogVandermondeProofs.VandNSuccRight
+public import Formalism.LogVandermondeBounds.LogVandermondeProofs.LogRatioLowerBoundOfLogVandermondeGap
+public import Formalism.LogVandermondeBounds.LogVandermondeProofs.UpperPlaceHolds
+public import Formalism.LogVandermondeBounds.UpperPlace
+
+@[expose] public section
+
+namespace Formalism.LogVandermondeBounds
+
+theorem vandermonde_place_lower_bound : StandardLattice.LogRatioLowerBound := StandardLattice.logRatioLowerBound_of_logVandermondeGap StandardLattice.VandPlace_holds
+
+end Formalism.LogVandermondeBounds

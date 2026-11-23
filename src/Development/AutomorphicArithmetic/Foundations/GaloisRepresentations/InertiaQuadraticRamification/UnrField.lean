@@ -1,0 +1,8 @@
+module
+
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.InertiaQuadraticRamification.MainUnr
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.CharpolyFromTrace.UnlinkedOfType
+
+@[expose] public section
+
+theorem UpperTheory.Gal.UnramifiedFromSplittingCriterion.unrField_holds : UpperTheory.Gal.NearKilling.UnrField := UpperTheory.Gal.UnramifiedFromSplittingCriterion.unrSplit_holds

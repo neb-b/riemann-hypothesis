@@ -1,0 +1,11 @@
+module
+
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0017
+
+@[expose] public section
+
+namespace Formalism.MainNotions.BesselDiscreteSeries
+
+theorem discrete_series_exists_of_fact [Fact Formalism.MainNotions.DiscreteSeriesWeylDimension.DiscreteSeriesExistsG] : Formalism.MainNotions.DiscreteSeriesWeylDimension.DiscreteSeriesExistsG := Fact.out
+
+end Formalism.MainNotions.BesselDiscreteSeries

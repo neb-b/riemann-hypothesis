@@ -1,0 +1,22 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.Bundle0234
+public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.NCoords
+public import Development.AbelianVarietyTheory.Definitions.SemilocalFrames.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.Jets.SideFam
+public import Formalism.HermitianCurvature.WeylElementCommutesLevelOne
+public import Development.AbelianVarietyTheory.Proofs.FlagMeasures.UnipotentRadicalInterConjugateClosedUnimodular
+
+@[expose] public section
+
+-- bundled from CompanionTheory.AutomorphicTheory.UniformLocalFormulas.UniformLocalSums.IntegralEqOfQuotientMeasuresBesselUnitaryImports
+section
+
+end
+
+-- bundled from CompanionTheory.AutomorphicTheory.UniformLocalFormulas.UniformLocalSums.UnipotentRadicalInterConjugateClosedUnimodularIm
+section
+
+end
+

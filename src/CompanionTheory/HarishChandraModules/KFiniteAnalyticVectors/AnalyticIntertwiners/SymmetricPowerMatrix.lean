@@ -1,0 +1,14 @@
+module
+
+public import CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AnalyticIntertwiners.CasimirRealScalar
+public import CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AnalyticIntertwiners.CommutatorAdjointHolds
+
+@[expose] public section
+
+namespace CompanionTheory.D.gk.HC
+
+theorem kFiniteWordBound_indefUnitary : WordBd := wordBd_of casimirActsByScalar_indefUnitary
+
+theorem kFiniteVectors_analytic_indefiniteUnitary : GlobalTheory.Published.KFiniteAnalyticUJ := kFiniteAnalytic_of K_finite_smooth_vectors kFiniteWordBound_indefUnitary
+
+end CompanionTheory.D.gk.HC

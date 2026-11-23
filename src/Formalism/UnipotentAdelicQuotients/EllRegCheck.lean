@@ -1,0 +1,24 @@
+module
+
+public import Formalism.UnipotentAdelicQuotients.EllRegStep
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.Bundle0002
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.Bundle0001
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.Bundle0003
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.PairingFourier
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.WeakFourier
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.Decompose
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.ExistsSmoothExt
+public import Formalism.UnipotentAdelicQuotients.EllipticRegularity.StepCore
+
+@[expose] public section
+
+namespace ZetaZeros.D.EllReg
+
+theorem elliptic_regularity_of_parts : Internal := by
+  have hSP : StepOfParts :=
+    stepOfParts_of frozenDecompositionOfParts weightedNormFinite weightedNormLimit regularity_inductive_step
+  exact internal_of_all smoothOfSobolevAll existsBump cutoffContinuous smoothOfLocallySmooth
+    sobolevOfCompactSupport symbolLowerBound sobolevWeightLipschitz convolution_bound frozenKernelSmall
+    adjointPairingFourier iteratedPartialFourierChar integralFourierChar adjointPairingLocal weakEquationFourier hSP
+
+end ZetaZeros.D.EllReg

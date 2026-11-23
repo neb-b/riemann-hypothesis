@@ -1,0 +1,90 @@
+module
+
+public import Formalism.PeriodIntegrals.Bundle0021
+public import Formalism.HarderNarasimhan.StatementPl
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.SphericalFunctionIntegrableOfLocal
+public import Formalism.FlagUnipotentLattices.Bundle0004
+public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.ExtensionInterSubspace
+public import Formalism.LogSumExpBounds.StatementD
+public import Formalism.LatticeRigidity.HeightMinimum.PackingCountGeometricMean
+public import Mathlib
+public import Formalism.LatticeRigidity.HeightMinimum.PowFinrankEqZeroOfTracePow
+public import Formalism.GelfandTransference.Bundle0001
+public import Formalism.NormUnitaryBounds.DetPolynomialWeights.ShortIndependentVectorsOfDualMinimum
+public import Formalism.LatticeTheta.ThetaShiftInversion
+public import Formalism.LatticeRigidity.StatementC
+public import Formalism.LatticeRigidity.HeightMinimum.SqrtAbsNormLeProd
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0006
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.Bundle0003
+public import Formalism.RealPlaceAnalysis.RealPlaceTaylor.IndefiniteUnitaryPreservesForm
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Bundle0002
+public import Formalism.SatakeDualWeyl.KpqSubgroupCompact
+
+@[expose] public section
+
+noncomputable section
+
+namespace Formalism.L2.S.S7.DensRat
+
+open NumberField
+open scoped Matrix
+open Formalism.MainNotions.S
+
+def ratReal (I : AutInst) (γ : GL (Fin I.n) I.E) (hγ : γ ∈ Formalism.UG.UJ (starRingEnd I.E) I.J)
+    (v : InfinitePlace I.F) : Formalism.REAL.UJ (I.ε v) :=
+  ⟨⟨(I.P v)⁻¹ * (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v,
+    (I.P v)⁻¹ * ((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v,
+    by
+      have e1 : (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) *
+          ((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) = 1 := by
+        rw [← Matrix.map_mul, ← Units.val_mul, mul_inv_cancel, Units.val_one,
+          Matrix.map_one _ (map_zero _) (map_one _)]
+      calc (I.P v)⁻¹ * (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v *
+            ((I.P v)⁻¹ * ((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v)
+          = (I.P v)⁻¹ * ((γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * (I.P v * (I.P v)⁻¹) *
+            ((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v)) * I.P v := by
+            simp only [Matrix.mul_assoc]
+        _ = 1 := by
+            rw [Formalism.MainNotions.LeviCoordinates.rrg_P_mul_inv, Matrix.mul_one, e1, Matrix.mul_one,
+              Formalism.MainNotions.LeviCoordinates.rrg_P_inv_mul],
+    by
+      have e1 : ((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) *
+          (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) = 1 := by
+        rw [← Matrix.map_mul, ← Units.val_mul, inv_mul_cancel, Units.val_one,
+          Matrix.map_one _ (map_zero _) (map_one _)]
+      calc (I.P v)⁻¹ * ((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v *
+            ((I.P v)⁻¹ * (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v)
+          = (I.P v)⁻¹ * (((γ⁻¹ : GL (Fin I.n) I.E) : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) *
+            (I.P v * (I.P v)⁻¹) * (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v)) * I.P v := by
+            simp only [Matrix.mul_assoc]
+        _ = 1 := by
+            rw [Formalism.MainNotions.LeviCoordinates.rrg_P_mul_inv, Matrix.mul_one, e1, Matrix.mul_one,
+              Formalism.MainNotions.LeviCoordinates.rrg_P_inv_mul]⟩,
+  by
+    have hγ' : Formalism.UG.cT (starRingEnd I.E) (γ : Matrix (Fin I.n) (Fin I.n) I.E) * I.J *
+        (γ : Matrix (Fin I.n) (Fin I.n) I.E) = I.J := hγ
+    have hc : (Formalism.UG.cT (starRingEnd I.E) (γ : Matrix (Fin I.n) (Fin I.n) I.E)).map (I.φ v) =
+        ((γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v))ᴴ := by
+      ext i j
+      simp only [Formalism.UG.cT, Matrix.map_apply, Matrix.transpose_apply, Matrix.conjTranspose_apply,
+        starRingEnd_apply]
+      exact I.cm.cmUnram.2.1 (I.φ v) _
+    have hu : ((γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v))ᴴ * I.J.map (I.φ v) *
+        (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) = I.J.map (I.φ v) := by
+      rw [← hc, ← Matrix.map_mul, ← Matrix.map_mul, hγ']
+    have hPP : ((I.P v)⁻¹)ᴴ * (I.P v)ᴴ = 1 := by
+      rw [← Matrix.conjTranspose_mul, Formalism.MainNotions.LeviCoordinates.rrg_P_mul_inv, Matrix.conjTranspose_one]
+    show ((I.P v)⁻¹ * (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v)ᴴ *
+        Formalism.REAL.Jm (I.ε v) * ((I.P v)⁻¹ * (γ : Matrix (Fin I.n) (Fin I.n) I.E).map (I.φ v) * I.P v) =
+        Formalism.REAL.Jm (I.ε v)
+    rw [← I.P_spec v]
+    simp only [Matrix.conjTranspose_mul, Matrix.mul_assoc]
+    rw [← Matrix.mul_assoc ((I.P v)⁻¹)ᴴ (I.P v)ᴴ, hPP, Matrix.one_mul,
+      ← Matrix.mul_assoc (I.P v) (I.P v)⁻¹, Formalism.MainNotions.LeviCoordinates.rrg_P_mul_inv, Matrix.one_mul]
+    congr 1
+    simp only [← Matrix.mul_assoc]
+    rw [hu]⟩
+
+end Formalism.L2.S.S7.DensRat
+
+end

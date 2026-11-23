@@ -1,0 +1,21 @@
+module
+
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.Bundle0003
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.Bundle0011
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.InvMulVecScalarMul
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.ContDiffOnOfContDiffAtOne
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.SGrowth
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.Bundle0005
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.Bundle0008
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.Bundle0001
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.EisensteinLowWeight
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.FourierExpansionHolds
+public import PositivityTheory.AutomorphicForms.PublishedInputs.HilbertEisenstein.Bundle0004
+
+@[expose] public section
+
+
+open UpperTheory.HilbertEisensteinWeightOne in
+theorem UpperTheory.V.Published.hilbert_eisenstein_weight_one_holds : UpperTheory.V.Published.HilbertEisOne :=
+  top poisson_summation_holds s_integrality moderate_growth_holds smoothness_holds left_invariance_holds level_holds open_kernel_holds central_character_holds K_finiteness_holds
+    weight_holds low_weight_holds center_finiteness_holds fourier_expansion_holds scalar_action_holds

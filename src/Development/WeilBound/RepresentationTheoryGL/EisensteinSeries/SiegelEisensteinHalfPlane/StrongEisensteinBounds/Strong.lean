@@ -1,0 +1,47 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.EisensteinSeries.SiegelEisensteinHalfPlane.SchwartzBruhatMajorants.SiegelMultOf
+public import Development.WeilBound.RepresentationTheoryGL.SiegelWeilProof.IwasawaUnipotent.IwaU
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0763
+public import Development.WeilBound.RepresentationTheoryGL.EisensteinSeries.SiegelEisensteinContinuation.DictInf
+public import Formalism.LocalToGlobal.ProjectiveLattices.Bundle0004
+public import Development.AbelianVarietyTheory.Definitions.LatticeFrames.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.Foundations.Bundle0018
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.Bundle0001
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0154
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsIsLatticeFrameIsMajorantFrame
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ExistsDualFamilyOfIsLattice
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SiegelWeilLagrangianTermsAbsTsumLeHeightPoly
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0138
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0175
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.Bundle0306
+public import Development.AbelianVarietyTheory.Proofs.FoundationProofs.StabiliserEqCentraliserCartan
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0007
+public import CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AdmissibleSmoothVectors.Bundle0002
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0167
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0242
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0180
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0161
+public import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.Bundle0163
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.Bundle0002
+public import Development.WeilBound.RepresentationTheoryGL.EisensteinResidues.AnisotropicGlobalForms.SectionTrace.SecOf
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0760
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0761
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0642
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0643
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0651
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.SwEis.Hd
+
+open PositivityTheory.RgEis.Hd
+
+theorem eisStrong : PositivityTheory.Rg.Sw.Glob.EisStrong :=
+  _root_.GlobalTheory.CompanionTheory.SwEisTop.eTop dict dictInf (cmGood_of stdGood dict dictInf) grpTop bdetLaw extLaw (parLaw_of bdetLaw extLaw grpTop)
+    sgAll _root_.GlobalTheory.CompanionTheory.StdChart.tStd (_root_.GlobalTheory.CompanionTheory.SwEisIwa.eIwa (_root_.GlobalTheory.CompanionTheory.TChartProof.tChart dict dictInf _root_.GlobalTheory.CompanionTheory.StdChart.tStd)) (_root_.GlobalTheory.CompanionTheory.ScalWall.tScal secLaw (wallLaw_of secLaw))
+    (_root_.GlobalTheory.CompanionTheory.FarSeries.eFar htLip) _root_.GlobalTheory.CompanionTheory.PolyDenominator.glue
+
+end PositivityTheory.Rg.SwEis.Hd

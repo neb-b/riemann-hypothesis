@@ -1,0 +1,101 @@
+module
+
+public import Mathlib
+public import Development.ResolutionOfSingularities.Foundations.Blowup.BlowupProper
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IteratedBlowups.NoetherianBlowup
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrictTransformCharts.BlowupClosedSubscheme
+public import Development.ResolutionOfSingularities.EmbeddedResolution.EtaleCoordinates.Bundle0001
+public import Development.ResolutionOfSingularities.EmbeddedResolution.ResolutionDescent.Bundle0011
+public import Development.ResolutionOfSingularities.EmbeddedResolution.ResolutionDescent.EmbeddedResolutionRule
+public import Development.ResolutionOfSingularities.EmbeddedResolution.ResolutionDescent.GluedBlowupSequenceExistence
+public import Development.ResolutionOfSingularities.Foundations.Blowup.Bundle0001
+public import Development.ResolutionOfSingularities.Foundations.Blowup.BlowupProperties
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IteratedBlowups.ClopenRestriction
+public import Development.ResolutionOfSingularities.EmbeddedResolution.ResolutionDescent.StandardSmoothLift
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrictTransformIsolation.StrictTransformAvoidance
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrictTransformIsolation.ChartIsolation
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrictTransformIsolation.RestrictionToOpens
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrictTransformIsolation.VanishingIdealHypotheses
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrictTransformIsolation.VanishingIdealAssignment
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.ClosedEmbedding.ClosedImmersionCommutation
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.Bundle0001
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.DivisorReduction.CanonicalDivisorReduction
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.CanonicalPrincipalization
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.CanonicalRulesCorrect
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.PrincipalizationConstruction
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.FunctorialPrincipalization
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.RadicalCenterIdeal
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.AffineResolutionConditions
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.Bundle0001
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.DetachedLocus
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.EmbeddedBlowupSequence
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.EmbeddedStrictTransform
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.DiscardedLocus
+public import Development.ResolutionOfSingularities.EmbeddedResolution.StrongResolution.StrongResolution
+
+@[expose] public section
+
+universe u
+
+open CategoryTheory AlgebraicGeometry
+
+noncomputable section
+
+namespace FunctorialResolution.EmbeddedResolution
+
+theorem canonicalAlgorithmRules_isCorrect :
+    (canonicalAlgorithmRules strictTransformIsBlowupOfClosedSubscheme.{u}).ReducesInductivelyOnDimension :=
+  isCorrect_canonicalAlgorithmRules strictTransformIsBlowupOfClosedSubscheme
+
+noncomputable abbrev principalizationWithRadicalCenters : PrincipalizationAlgorithm.{u} :=
+  canonicalPrincipalization strictTransformIsBlowupOfClosedSubscheme smoothSubschemeIdealIsRadical.{u}
+
+theorem embeddedPrincipalizationDiscardedLocusIsOpen_of_detachedLocusIsOpen (A : PrincipalizationAlgorithm.{u}) (h : DetachedLocusIsOpenForEmbeddings.{u} A) :
+    EmbeddedPrincipalizationDiscardedLocusIsOpen.{u} A affineEmbedsIntoAffineSpace
+      nilIsStrictNormalCrossingsOnAffineSpace affineSpaceIsSmooth := by
+  intro k _ _ Y pY _ _ _ _ i hi
+  exact h k Y pY
+    (affineSpaceEmbeddingDatum affineEmbedsIntoAffineSpace nilIsStrictNormalCrossingsOnAffineSpace
+      affineSpaceIsSmooth k Y pY) i hi
+
+theorem chartIsolationHypotheses_principalizationWithRadicalCenters :
+    OpenImmersionRestriction.ChartIsolationHypotheses OpenImmersionRestriction.vanishingIdealAssignment.{u} principalizationWithRadicalCenters.{u} := by
+  have h : OpenImmersionRestriction.reducedVanishingAssignment.{u} = OpenImmersionRestriction.vanishingIdealAssignment.{u} := by
+    funext X T
+    rw [OpenImmersionRestriction.vanishingIdealAssignment_apply]
+    rfl
+  have h2 := OpenImmersionRestriction.chartIsolationHypotheses_reducedVanishingAssignment principalizationWithRadicalCenters.{u}
+  rwa [h] at h2
+
+theorem detachedLocusIsOpenForEmbeddings_principalizationWithRadicalCenters :
+    DetachedLocusIsOpenForEmbeddings.{u} principalizationWithRadicalCenters.{u} :=
+  OpenImmersionRestriction.detachedLocusIsOpenForEmbeddings_canonicalPrincipalization OpenImmersionRestriction.idealSheafGeometryHypotheses_vanishingIdealAssignment.{u}
+    strictTransformIsBlowupOfClosedSubscheme.{u} canonicalAlgorithmRules_isCorrect smoothSubschemeIdealIsRadical.{u}
+    chartIsolationHypotheses_principalizationWithRadicalCenters.{u}
+
+theorem transitionsAreBlowupsForEmbeddings_principalizationWithRadicalCenters :
+    TransitionsAreBlowupsForEmbeddings principalizationWithRadicalCenters.{u} :=
+  transitionsAreBlowupsForEmbeddings_of_detachedLocusIsOpen principalizationWithRadicalCenters.{u}
+    detachedLocusIsOpenForEmbeddings_principalizationWithRadicalCenters
+
+theorem embeddedPrincipalizationYieldsBlowups_principalizationWithRadicalCenters :
+    EmbeddedPrincipalizationYieldsBlowups principalizationWithRadicalCenters.{u} affineEmbedsIntoAffineSpace
+      nilIsStrictNormalCrossingsOnAffineSpace affineSpaceIsSmooth :=
+  embeddedPrincipalizationYieldsBlowups_of_discardedLocusIsOpen principalizationWithRadicalCenters.{u} affineEmbedsIntoAffineSpace
+    nilIsStrictNormalCrossingsOnAffineSpace affineSpaceIsSmooth
+    (embeddedPrincipalizationDiscardedLocusIsOpen_of_detachedLocusIsOpen principalizationWithRadicalCenters.{u}
+      detachedLocusIsOpenForEmbeddings_principalizationWithRadicalCenters)
+    (embeddedPrincipalizationAmbientIsNoetherian principalizationWithRadicalCenters.{u} affineEmbedsIntoAffineSpace
+      nilIsStrictNormalCrossingsOnAffineSpace affineSpaceIsSmooth)
+    strictTransformIsBlowupOfClosedSubscheme
+
+theorem isFunctorialPrincipalization_principalizationWithRadicalCenters : IsFunctorialPrincipalization principalizationWithRadicalCenters.{u} :=
+  isFunctorialPrincipalization_canonicalPrincipalization strictTransformIsBlowupOfClosedSubscheme canonicalAlgorithmRules_isCorrect
+    smoothSubschemeIdealIsRadical
+    (commutesWithClosedImmersion_of_isCorrect (canonicalAlgorithmRules strictTransformIsBlowupOfClosedSubscheme) canonicalAlgorithmRules_isCorrect)
+
+noncomputable def canonicalAffineResolutionRule : AffineResolutionRule.{u} :=
+  affineResolutionRuleOfPrincipalization principalizationWithRadicalCenters.{u} affineEmbedsIntoAffineSpace
+    nilIsStrictNormalCrossingsOnAffineSpace affineSpaceIsSmooth embeddedPrincipalizationYieldsBlowups_principalizationWithRadicalCenters
+
+end FunctorialResolution.EmbeddedResolution

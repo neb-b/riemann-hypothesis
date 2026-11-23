@@ -1,0 +1,55 @@
+module
+
+public import CompanionTheory.RealGroups.UnitaryAdmissibility.ArchimedeanUnitaryDual.AdmissibleOf
+public import CompanionTheory.RealGroups.UnitaryAdmissibility.ArchimedeanUnitaryDual.StSandwich
+public import Mathlib
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0010
+public import CompanionTheory.RealGroups.UnitaryAdmissibility.ArchimedeanUnitaryDual.InhabitedFinite
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.StatementStar
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.HeckeAlgebraStatement
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.ModularityStatement
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0020
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0008
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0009
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0055
+public import CompanionTheory.RealGroups.UnitaryAdmissibility.ArchimedeanUnitaryDual.StDefinite
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0053
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0054
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.FactorizationStatement
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0022
+public import CompanionTheory.RealGroups.UnitaryAdmissibility.ArchimedeanUnitaryDual.ArchimedeanDenseStabilizers.StabOfMemLevelOpen
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.ArchimedeanPrincipalSeries
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.StTensor
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0002
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0004
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0003
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.PlaneOfHenselAndPairing
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.SplittingOfSandwichAndPairing
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0021
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.TorusStatement
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.DecompositionOfFrameWittTorus
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.LatticeCongruenceSubgroupsOpenCompact
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.IsometricLatticeCongruenceSubgroups
+
+@[expose] public section
+
+namespace CompanionTheory.Rg.Fl.B
+
+theorem stFrame : CompanionTheory.Rg.FlB.StFrame :=
+  _root_.GlobalTheory.CompanionTheory.HermFrame.stFrame_of (_root_.GlobalTheory.CompanionTheory.HermAniso.aniso _root_.GlobalTheory.CompanionTheory.LocalHensel.stHensel_holds _root_.GlobalTheory.CompanionTheory.Lattice.stSandwich) (_root_.GlobalTheory.CompanionTheory.HermPlane.stPlane_of_hensel_pairing _root_.GlobalTheory.CompanionTheory.LocalHensel.stHensel_holds (_root_.GlobalTheory.CompanionTheory.HermLat.pairing_of_sandwich _root_.GlobalTheory.CompanionTheory.Lattice.stSandwich))
+    (_root_.GlobalTheory.CompanionTheory.RgSplit.stSplit _root_.GlobalTheory.CompanionTheory.Lattice.stSandwich (_root_.GlobalTheory.CompanionTheory.HermLat.pairing_of_sandwich _root_.GlobalTheory.CompanionTheory.Lattice.stSandwich))
+
+theorem stCartanU : StCartanU :=
+  _root_.GlobalTheory.CompanionTheory.CartanU.final _root_.GlobalTheory.CompanionTheory.RgFl.stDelta (_root_.GlobalTheory.CompanionTheory.RgFl.MaxLat.stExists_of_stSandwich _root_.GlobalTheory.CompanionTheory.Lattice.stSandwich) stFrame _root_.GlobalTheory.CompanionTheory.FrameTorus.stTor (_root_.GlobalTheory.CompanionTheory.FlDecomp.stDecomp_of_frame_witt_tor stFrame _root_.GlobalTheory.CompanionTheory.FlWitt.stWitt _root_.GlobalTheory.CompanionTheory.FrameTorus.stTor)
+    _root_.GlobalTheory.CompanionTheory.Iwahori.stIwahori _root_.GlobalTheory.CompanionTheory.BLevel.main
+
+theorem locPI : LocPI :=
+  locPI_of (_root_.GlobalTheory.CompanionTheory.RgFl.stSimple_of_stComm _root_.GlobalTheory.CompanionTheory.Bernstein.stComm) _root_.GlobalTheory.CompanionTheory.RgFl.StarPf.stStar _root_.GlobalTheory.CompanionTheory.HeckeBern.stHecke _root_.GlobalTheory.CompanionTheory.HeckeCoinv.stMod _root_.GlobalTheory.CompanionTheory.HeckeTransfer.stTransfer _root_.GlobalTheory.CompanionTheory.HeckePair.stPair stCartanU _root_.GlobalTheory.CompanionTheory.CartGL.stCartanGL
+    _root_.GlobalTheory.CompanionTheory.CartanMove.stMove _root_.GlobalTheory.CompanionTheory.DictLoc.stDict _root_.GlobalTheory.CompanionTheory.DefiniteForm.stDefinite CompanionTheory.Rg.FlSep.stSepDefB _root_.GlobalTheory.CompanionTheory.RgFl.stSepMove
+
+theorem unitaryIrreducibleAdmissible : GlobalTheory.Published.UnitaryIrreducibleAdmissible := admissible_of locPI _root_.GlobalTheory.CompanionTheory.FixedProj.stProj
+
+theorem flathTensorProduct : GlobalTheory.Published.FlathTensorProduct :=
+  flath_of locPI _root_.GlobalTheory.CompanionTheory.FixedProj.stProj _root_.GlobalTheory.CompanionTheory.RgFl.stFixVec _root_.GlobalTheory.CompanionTheory.RgFl.stFactor _root_.GlobalTheory.CompanionTheory.ArchPI.archPI _root_.GlobalTheory.CompanionTheory.FactorIso.stIso _root_.GlobalTheory.CompanionTheory.RgFl.stOp _root_.GlobalTheory.CompanionTheory.RestT.stTensor
+
+end CompanionTheory.Rg.Fl.B

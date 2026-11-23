@@ -1,0 +1,40 @@
+module
+
+public import CompanionTheory.AutomorphicTheory.BesselOrbitBounds.BesselMapUniqueness.Bundle0001
+public import CompanionTheory.AutomorphicTheory.BesselOrbitBounds.BesselMapUniqueness.OrbitMult
+public import Mathlib
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0026
+public import CompanionTheory.AutomorphicTheory.BesselOrbitBounds.BesselMapUniqueness.BesselMapUniqGap
+public import CompanionTheory.HarishChandraModules.BesselParameterIntegrals.SmoothCyclicVectors.SmoothCyc
+public import CompanionTheory.HarishChandraModules.BesselParameterIntegrals.SmoothCyclicVectors.PhMeas
+public import CompanionTheory.HarishChandraModules.KFiniteAnalyticVectors.AdmissibleSmoothVectors.IwaCore
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0027
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0028
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.WordLengthBoundOfLinear
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0030
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.ChartExistence
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0034
+public import CompanionTheory.AutomorphicTheory.BesselOrbitBounds.BesselMapUniqueness.ProdNormLe
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0033
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.AdaptExists
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0029
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.LeviDecomposition
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.CartanDecomposition
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.DecompositionOfIwasawaLeviCartan
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.Bundle0032
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.RootVectors
+
+@[expose] public section
+
+namespace CompanionTheory.Bmu
+
+theorem bounded : Bounded :=
+  bounded_of (GlobalTheory.T.quotient_bound_of_factor_reduce_chart _root_.GlobalTheory.CompanionTheory.BmuFactor.factor (_root_.GlobalTheory.CompanionTheory.BmuReduce.reduce _root_.GlobalTheory.CompanionTheory.BesselMapSm.dsLin _root_.GlobalTheory.CompanionTheory.BmuDsAd.dsAd _root_.GlobalTheory.CompanionTheory.BmuDsDer.dsDer) _root_.GlobalTheory.CompanionTheory.ProdExChart.chartExists)
+    (absBound_of _root_.GlobalTheory.CompanionTheory.BmuFactor.factor _root_.GlobalTheory.CompanionTheory.BmuDsAd.dsAd _root_.GlobalTheory.CompanionTheory.BmuDsDer.dsDer (_root_.GlobalTheory.CompanionTheory.BmuWordBd.wordBd_of_dsLin _root_.GlobalTheory.CompanionTheory.BesselMapSm.dsLin)) _root_.GlobalTheory.CompanionTheory.BmuAdapt.adaptExists
+    (_root_.GlobalTheory.CompanionTheory.BmuDecomp.decomp _root_.GlobalTheory.CompanionTheory.BmuAdapt.adaptExists _root_.GlobalTheory.CompanionTheory.BmuIwa.iwaQ _root_.GlobalTheory.CompanionTheory.BesselLevi.leviQ _root_.GlobalTheory.CompanionTheory.BesselCartan.cartanQ) _root_.GlobalTheory.CompanionTheory.BmuTorBound.torBound _root_.GlobalTheory.CompanionTheory.BmuSpan.spanG
+    _root_.GlobalTheory.CompanionTheory.BmuExpMem.expMem _root_.GlobalTheory.CompanionTheory.BmuRootVec.rootVec
+
+theorem besselMapUniqGap : BesselMapUniqGap :=
+  uniq_of bounded (GlobalTheory.T.truncated_derivation_limit _root_.GlobalTheory.CompanionTheory.BmuFactor.factor _root_.GlobalTheory.CompanionTheory.CutDeriv.cutDer) _root_.GlobalTheory.CompanionTheory.BmuTorConj.torConj _root_.GlobalTheory.CompanionTheory.BmuDsAd.dsAd _root_.GlobalTheory.CompanionTheory.BmuFactor.factor
+
+end CompanionTheory.Bmu

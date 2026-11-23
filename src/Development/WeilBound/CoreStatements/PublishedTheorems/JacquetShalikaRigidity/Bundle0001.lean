@@ -1,0 +1,491 @@
+module
+
+public import Development.WeilBound.CoreStatements.PublishedTheorems.JacquetShalikaRigidity.ColumnConjugationMeasure
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.T2SpaceAdelicGeneralLinearGroupNumberField
+public import GroundTheory.GlobalFields.IdeleGroups.IdeleNorms
+public import GroundTheory.GlobalFields.LocalFieldAtPlace
+public import GroundTheory.IdeleRoots.TorusPowers.SatakeBoundAdic
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0606
+
+@[expose] public section
+
+-- bundled from Development.WeilBound.CoreStatements.PublishedTheorems.JacquetShalikaRigidity.AdmissibleVectors
+section
+noncomputable section
+
+open NumberField IsDedekindDomain MeasureTheory Matrix Topology Filter
+open GlobalTheory.CuspGeneric GlobalTheory.CuspRep GlobalTheory.UnitaryBC GlobalTheory.DiscSpec PositivityTheory.jumpWindows PositivityTheory.RgJS
+open GroundTheory.Automorphic GroundTheory.Automorphic.FourierWhittaker GroundTheory.Automorphic.Reduction GroundTheory.Automorphic.Spherical
+open scoped ENNReal ComplexConjugate
+
+attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
+
+namespace PositivityTheory.AdelicQuotientData
+
+namespace AdmissibleVectors
+
+set_option synthInstance.maxHeartbeats 400000
+
+variable {E : Type} [Field E] [NumberField E] [_root_.NumberField.IsTotallyComplex E] {k : ℕ}
+
+omit [_root_.NumberField.IsTotallyComplex E] in
+theorem map_wd (μ : Measure (GA E k)) [μ.IsHaarMeasure] (β : GA E k → ℝ≥0∞) (t : GA E k) :
+    Measure.map (MeasurableEquiv.mulLeft t⁻¹) (μ.withDensity β) = μ.withDensity fun g => β (t * g) := by
+  ext s hs
+  rw [Measure.map_apply (MeasurableEquiv.mulLeft t⁻¹).measurable hs,
+    withDensity_apply _ ((MeasurableEquiv.mulLeft t⁻¹).measurable hs), withDensity_apply _ hs,
+    ← lintegral_indicator ((MeasurableEquiv.mulLeft t⁻¹).measurable hs), ← lintegral_indicator hs]
+  rw [← lintegral_mul_left_eq_self (μ := μ) _ t]
+  congr 1
+  funext x
+  by_cases hx : x ∈ s <;> simp [hx]
+
+end AdmissibleVectors
+
+open AdmissibleVectors in
+set_option synthInstance.maxHeartbeats 400000 in
+theorem sum_wt_mul_massS_le_inv_pow_mul_total_mass : Q1 → Q2 → N2 → N3 → C1 := by
+  intro _ hQ2 hN2 hN3 E _ _ _ k μ _ hk β hβ w l Φ hΦ hΦu hint
+  set t := fl k w (Iwasawa.torusPow (w.adicCompletion E) k l) with ht
+  obtain ⟨hsf, hinv, -⟩ := (hN3 E k).1 0 (by omega)
+  have := hsf
+  obtain ⟨hUU, -⟩ := (hN3 E k).2.2.2 hk
+  have hq0 : (Ideal.absNorm w.asIdeal : ℝ) ≠ 0 :=
+    Nat.cast_ne_zero.2 fun h => w.ne_bot (Ideal.absNorm_eq_zero_iff.1 h)
+  set c : ℝ≥0∞ := ENNReal.ofReal ((Ideal.absNorm w.asIdeal : ℝ) ^ rhoPair l) with hc
+  have hcpos : 0 < (Ideal.absNorm w.asIdeal : ℝ) ^ rhoPair l :=
+    zpow_pos (lt_of_le_of_ne (Nat.cast_nonneg _) (Ne.symm hq0)) _
+  have hc0 : c ≠ 0 := by rw [hc]; exact (ENNReal.ofReal_pos.2 hcpos).ne'
+  have hctop : c ≠ ⊤ := ENNReal.ofReal_ne_top
+  have hβ0m : Measurable fun g => β (t * g) := hβ.1.comp (measurable_const_mul t)
+  set β' : GA E k → ℝ≥0∞ := fun g => c⁻¹ * β (t * g) with hβ'
+  have hβ'm : Measurable β' := hβ0m.const_mul _
+  have hwt : IsWt (nuP E k 0) β' := by
+    refine ⟨hβ'm, fun g => ?_⟩
+    simp only [hβ']
+    rw [lintegral_const_mul c⁻¹ (f := fun h => β (t * (h * g))) (hβ0m.comp (measurable_mul_const g))]
+    have := hN2 E k w l (fun h => β (h * (t * g))) (hβ.1.comp (measurable_mul_const _))
+    rw [← ht] at this
+    simp only [mul_assoc, inv_mul_cancel_left] at this
+    rw [this, hβ.2 (t * g), mul_one, ENNReal.inv_mul_cancel hc0 hctop]
+
+  have hH : ∀ᵐ h ∂nuP E k 0, h ∈ {h : GA E k | UU 0 (t * h * t⁻¹)} := by
+    set A := {h : GA E k | ¬ UU 0 h}
+    have hA : nuP E k 0 A = 0 := ae_iff.1 hUU
+    set S := toMeasurable (nuP E k 0) A
+    have hS : MeasurableSet S := measurableSet_toMeasurable _ _
+    have hS0 : nuP E k 0 S = 0 := by rw [measure_toMeasurable]; exact hA
+    have hcm : Measurable fun h : GA E k => t * h * t⁻¹ := (measurable_const_mul t).mul_const _
+    have := hN2 E k w l (S.indicator 1) (measurable_one.indicator hS)
+    rw [lintegral_indicator_one hS, hS0, mul_zero] at this
+    have h2 := (lintegral_eq_zero_iff ((measurable_one.indicator hS).comp hcm)).1 this
+    filter_upwards [h2] with h hh
+    by_contra hn
+    have : t * h * t⁻¹ ∈ S := subset_toMeasurable _ _ hn
+    simp [Set.indicator_of_mem this] at hh
+  have hone : ∀ g, ∫⁻ r, ∫⁻ h, β (r⁻¹ * h * g) ∂nuP E k 0 ∂Measure.dirac (1 : GA E k) = 1 := fun g => by
+    rw [lintegral_dirac]; simpa using hβ.2 g
+  have hΦ'm : Measurable fun g => Φ (t * g) := hΦ.comp (measurable_const_mul t)
+  have hΦ'H : ∀ h ∈ {h : GA E k | UU 0 (t * h * t⁻¹)}, ∀ g, Φ (t * (h * g)) = Φ (t * g) := by
+    intro h hh g
+    have := hΦu _ hh (t * g)
+    simpa [mul_assoc] using this
+  have hmap := map_wd μ β t
+  have hsm : μ.withDensity (fun g => β (t * g)) = c • μ.withDensity β' := by
+    rw [← withDensity_smul _ hβ'm]
+    congr 1
+    funext g
+    simp [hβ', ← mul_assoc, ENNReal.mul_inv_cancel hc0 hctop]
+  have hint0 : Integrable (fun g => Φ (t * g)) (μ.withDensity fun g => β (t * g)) := by
+    rw [← hmap, integrable_map_equiv]
+    simpa [Function.comp_def] using hint
+  have hint' : Integrable (fun g => Φ (t * g)) (μ.withDensity β') := by
+    have h1 : μ.withDensity β' = c⁻¹ • μ.withDensity (fun g => β (t * g)) := by
+      rw [hsm, smul_smul, ENNReal.inv_mul_cancel hc0 hctop, one_smul]
+    rw [h1]
+    exact hint0.smul_measure (ENNReal.inv_ne_top.2 hc0)
+  have hQ := hQ2 (GA E k) μ (nuP E k 0) (Measure.dirac 1) _ β' β hinv hH hwt hβ.1 hone
+    (fun g => Φ (t * g)) hΦ'm hΦ'H hint'
+  simp only [integral_dirac, one_mul] at hQ
+  refine ⟨hQ.1, ?_⟩
+  have e1 : ∫ g, Φ g ∂μ.withDensity β = ∫ g, Φ (t * g) ∂μ.withDensity fun g => β (t * g) := by
+    rw [← hmap, integral_map_equiv]
+    simp [MeasurableEquiv.coe_mulLeft]
+  rw [e1, hsm, integral_smul_measure, hQ.2, hc, ENNReal.toReal_ofReal hcpos.le, Complex.real_smul]
+  push_cast
+  rfl
+
+end PositivityTheory.AdelicQuotientData
+
+end
+end
+
+-- bundled from Development.WeilBound.CoreStatements.PublishedTheorems.JacquetShalikaRigidity.BaseRankDimension
+section
+noncomputable section
+
+open NumberField IsDedekindDomain MeasureTheory Matrix Topology Filter
+open GlobalTheory.CuspGeneric GlobalTheory.CuspRep GlobalTheory.UnitaryBC GlobalTheory.DiscSpec PositivityTheory.jumpWindows PositivityTheory.RgJS
+open GroundTheory.Automorphic GroundTheory.Automorphic.FourierWhittaker GroundTheory.Automorphic.Reduction GroundTheory.Automorphic.Spherical
+open scoped ENNReal ComplexConjugate
+
+attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
+
+namespace PositivityTheory.AdelicQuotientData
+
+namespace BaseRankDimension
+
+open scoped ValuativeRel
+
+variable {E : Type} [Field E] [NumberField E] {k : ℕ}
+
+theorem dt_pos (g : GA E k) : 0 < Dt g := (GroundTheory.Global.IdeleGroup.ideleModule E (GeneralLinearGroup.det g)).2
+
+theorem dt_mul (g h : GA E k) : Dt (g * h) = Dt g * Dt h := by
+  simp only [Dt, map_mul, Positive.val_mul]
+
+theorem continuous_det' : Continuous (GeneralLinearGroup.det : GA E k → (Ad E)ˣ) := by
+  refine Units.continuous_iff.2 ⟨?_, ?_⟩
+  · exact Units.continuous_val.matrix_det
+  · have : (fun g : GA E k => (((GeneralLinearGroup.det g)⁻¹ : (Ad E)ˣ) : Ad E)) =
+        fun g : GA E k => ((g⁻¹ : GA E k) : Matrix (Fin k) (Fin k) (Ad E)).det := by
+      funext g; rw [← map_inv]; rfl
+    rw [this]
+    exact (Units.continuous_val.comp continuous_inv).matrix_det
+
+theorem dt_cont : Continuous (Dt : GA E k → ℝ) :=
+  continuous_subtype_val.comp (GroundTheory.Global.IdeleGroup.continuous_ideleModule.comp continuous_det')
+
+theorem dt_rat (γ : GL (Fin k) E) : Dt (ratGL E k γ) = 1 := by
+  have h : GeneralLinearGroup.det (ratGL E k γ) = GroundTheory.Global.IdeleGroup.diagonal E (GeneralLinearGroup.det γ) :=
+    Units.ext (by rw [ratGL, GlobalTheory.CuspRep.det_map]; rfl)
+  rw [Dt, h, GroundTheory.Global.IdeleGroup.ideleModule_diagonal, Positive.val_one]
+
+theorem dt_uu (j : ℕ) (u : GA E k) (hu : UU j u) : Dt u = 1 := by
+  have h : GeneralLinearGroup.det u = 1 := by
+    refine Units.ext ?_
+    change (u : Matrix (Fin k) (Fin k) (Ad E)).det = 1
+    rw [Matrix.det_of_isUpperTriangular (fun i c hc => hu.1 i c hc)]
+    exact Finset.prod_eq_one fun i _ => hu.2.1 i
+  rw [Dt, h, map_one, Positive.val_one]
+
+theorem dt_invT (g : GA E k) : Dt (invT g) = (Dt g)⁻¹ := by
+  have h : GeneralLinearGroup.det (invT g) = (GeneralLinearGroup.det g)⁻¹ := by
+    rw [← map_inv]
+    refine Units.ext ?_
+    change ((g⁻¹ : GA E k) : Matrix (Fin k) (Fin k) (Ad E))ᵀ.det = _
+    rw [Matrix.det_transpose]; rfl
+  rw [Dt, Dt, h, map_inv]
+  rfl
+
+variable [_root_.NumberField.IsTotallyComplex E]
+
+theorem dt_eq (g : GA E k) : Dt g =
+    (∏ w : InfinitePlace E, ‖((GeneralLinearGroup.det (jumpWindows.cInf g) : (Cinf E)ˣ) : Cinf E) w‖ ^ w.mult) *
+      ∏ᶠ v : Pl E, ‖((GeneralLinearGroup.det (jumpWindows.cLoc v g) : (v.adicCompletion E)ˣ) : v.adicCompletion E)‖ := by
+  rw [Dt, GroundTheory.Global.IdeleGroup.ideleModule_eq]
+  congr 1
+  · refine Finset.prod_congr rfl fun w _ => ?_
+    rw [jumpWindows.cInf, GlobalTheory.CuspRep.det_map]
+    congr 1
+    exact ((InfinitePlace.Completion.isometry_extensionEmbedding w).norm_map_of_map_zero (map_zero _) _).symm
+  · refine finprod_congr fun v => ?_
+    rw [jumpWindows.cLoc, GlobalTheory.CuspRep.det_map]
+    rfl
+
+theorem inf_one : (∏ w : InfinitePlace E, ‖((GeneralLinearGroup.det (1 : GL (Fin k) (Cinf E)) : (Cinf E)ˣ) : Cinf E) w‖ ^ w.mult) = 1 := by
+  simp
+
+omit [_root_.NumberField.IsTotallyComplex E] in
+theorem nrm_pi (l : ℤ) (w : Pl E) :
+    ‖(GLnLocal.uniformizer (w.adicCompletion E) : w.adicCompletion E) ^ l‖ = (Ideal.absNorm w.asIdeal : ℝ) ^ (-l) := by
+  have h0 : (GLnLocal.uniformizer (w.adicCompletion E) : w.adicCompletion E) ≠ 0 := fun h =>
+    (GLnLocal.irreducible_uniformizer (w.adicCompletion E)).ne_zero (Subtype.ext h)
+  rw [norm_zpow, ← GroundTheory.Global.normalizedAbv_apply, GroundTheory.Global.normalizedAbv_eq_zpow w h0,
+    GroundTheory.BlockD.SatakeBound.valued_uniformizer_eq w, WithZero.log_exp, ← _root_.zpow_mul, neg_one_mul]
+
+theorem dt_fl (h3 : ∀ (w : Pl E) (u : GL (Fin k) (w.adicCompletion E)), jumpWindows.cInf (fl k w u : GA E k) = 1)
+    (h4 : ∀ (w : Pl E) (u : GL (Fin k) (w.adicCompletion E)), jumpWindows.cLoc w (fl k w u : GA E k) = u)
+    (h5 : ∀ (w v : Pl E) (u : GL (Fin k) (w.adicCompletion E)), v ≠ w → jumpWindows.cLoc v (fl k w u : GA E k) = 1)
+    (w : Pl E) (x : GL (Fin k) (w.adicCompletion E)) :
+    Dt (fl k w x) = ‖((GeneralLinearGroup.det x : (w.adicCompletion E)ˣ) : w.adicCompletion E)‖ := by
+  rw [dt_eq, h3, inf_one, one_mul, finprod_eq_single _ w (fun v hv => by rw [h5 w v x hv, map_one, Units.val_one, norm_one]), h4]
+
+theorem dt_torus (h3 : ∀ (w : Pl E) (u : GL (Fin k) (w.adicCompletion E)), jumpWindows.cInf (fl k w u : GA E k) = 1)
+    (h4 : ∀ (w : Pl E) (u : GL (Fin k) (w.adicCompletion E)), jumpWindows.cLoc w (fl k w u : GA E k) = u)
+    (h5 : ∀ (w v : Pl E) (u : GL (Fin k) (w.adicCompletion E)), v ≠ w → jumpWindows.cLoc v (fl k w u : GA E k) = 1)
+    (w : Pl E) (l : Fin k → ℤ) :
+    Dt (fl k w (Iwasawa.torusPow (w.adicCompletion E) k l)) = (Ideal.absNorm w.asIdeal : ℝ) ^ (-∑ i, l i) := by
+  rw [dt_fl h3 h4 h5]
+  change ‖((Iwasawa.torusPow (w.adicCompletion E) k l : GL (Fin k) (w.adicCompletion E)) :
+    Matrix (Fin k) (Fin k) (w.adicCompletion E)).det‖ = _
+  rw [Iwasawa.coe_torusPow, Matrix.det_diagonal, norm_prod]
+  simp only [nrm_pi]
+  have hN : (Ideal.absNorm w.asIdeal : ℝ) ≠ 0 := by
+    exact_mod_cast NumberField.HeightOneSpectrum.absNorm_ne_zero w
+  rw [← Finset.sum_neg_distrib]
+  refine Finset.induction_on (Finset.univ : Finset (Fin k)) (by simp) ?_
+  intro a s ha ih
+  rw [Finset.prod_insert ha, Finset.sum_insert ha, ih, zpow_add₀ hN]
+
+theorem dt_split (h1 : ∀ y, jumpWindows.cInf (infGL E k y) = y) (h2 : ∀ (w : Pl E) y, jumpWindows.cLoc w (infGL E k y) = 1) (t : ℝ) :
+    Dt (splitCentre E k t) = Real.exp (k * Module.finrank ℚ E * t) := by
+  rw [dt_eq, splitCentre, h1]
+  simp only [h2, map_one, Units.val_one, norm_one, finprod_one, mul_one]
+  have e : ∀ w : InfinitePlace E, ‖((GeneralLinearGroup.det (Units.map (Matrix.scalar (Fin k)).toMonoidHom
+      (expU fun _ : InfinitePlace E => (t : ℂ))) : (Cinf E)ˣ) : Cinf E) w‖ = Real.exp t ^ k := by
+    intro w
+    change ‖(Matrix.scalar (Fin k) ((expU fun _ : InfinitePlace E => (t : ℂ) : (Cinf E)ˣ) : Cinf E)).det w‖ = _
+    simp [expU, Complex.norm_exp]
+  simp only [e]
+  rw [Finset.prod_pow_eq_pow_sum, InfinitePlace.sum_mult_eq, ← pow_mul, ← Real.exp_nat_mul]
+  congr 1
+  push_cast
+  ring
+
+theorem dt_kappa (κ : GA E k) (hκ : jumpWindows.cInf κ = 1)
+    (hint : ∀ w : Pl E, jumpWindows.cLoc w κ ∈ GLnLocal.integralGL (w.adicCompletion E) k) : Dt κ = 1 := by
+  rw [dt_eq, hκ, inf_one, one_mul]
+  refine finprod_eq_one_of_forall_eq_one fun v => ?_
+  obtain ⟨u, hu⟩ := hint v
+  rw [← hu]
+  set d := GeneralLinearGroup.det u with hd
+  have ex : ((GeneralLinearGroup.det (GLnLocal.integralGLHom (v.adicCompletion E) k u) : (v.adicCompletion E)ˣ) :
+      v.adicCompletion E) = ((d : 𝒪[v.adicCompletion E]) : v.adicCompletion E) := by
+    change (Matrix.det ((RingHom.mapMatrix (𝒪[v.adicCompletion E]).subtype) (u : Matrix (Fin k) (Fin k) _))) = _
+    rw [← RingHom.map_det]
+    rfl
+  rw [ex]
+  set x : v.adicCompletion E := ((d : 𝒪[v.adicCompletion E]) : v.adicCompletion E) with hx
+  have hx0 : x ≠ 0 := fun h => d.ne_zero (Subtype.ext h)
+  have hv1 : Valued.v x ≤ 1 := GroundTheory.BlockD.SatakeBound.valued_le_one_of_mem (w := v) (d : 𝒪[v.adicCompletion E]).2
+  have hxy : x * ((d⁻¹ : (𝒪[v.adicCompletion E])ˣ) : v.adicCompletion E) = 1 := by
+    rw [hx, ← Subring.coe_mul, Units.mul_inv]; rfl
+  have hv2 : Valued.v ((d⁻¹ : (𝒪[v.adicCompletion E])ˣ) : v.adicCompletion E) ≤ 1 :=
+    GroundTheory.BlockD.SatakeBound.valued_le_one_of_mem (w := v) ((d⁻¹ : (𝒪[v.adicCompletion E])ˣ) : 𝒪[v.adicCompletion E]).2
+  have hv : Valued.v x = 1 := by
+    refine le_antisymm hv1 ?_
+    calc (1 : WithZero (Multiplicative ℤ)) = Valued.v x * Valued.v ((d⁻¹ : (𝒪[v.adicCompletion E])ˣ) : v.adicCompletion E) := by
+          rw [← map_mul, hxy, map_one]
+      _ ≤ Valued.v x * 1 := by gcongr
+      _ = Valued.v x := mul_one _
+  rw [← GroundTheory.Global.normalizedAbv_apply, GroundTheory.Global.normalizedAbv_eq_zpow v hx0, hv, WithZero.log_one, zpow_zero]
+
+end BaseRankDimension
+
+theorem determinant_basic_of_G0 : jumpWindows.G0 → D0 := by
+  intro hG E _ _ _ k
+  obtain ⟨h1, h2, h3, h4, h5, -⟩ := hG E k
+  exact ⟨BaseRankDimension.dt_pos, BaseRankDimension.dt_mul, BaseRankDimension.dt_cont, BaseRankDimension.dt_rat, BaseRankDimension.dt_uu, BaseRankDimension.dt_invT, BaseRankDimension.dt_split h1 h2,
+    fun t g => GlobalTheory.CuspRep.CuspidalL2GL.splitCentre_comm t g, fun s t => GlobalTheory.CuspRep.CuspidalL2GL.splitCentre_add s t,
+    BaseRankDimension.dt_torus h3 h4 h5, fun κ hκ hint => BaseRankDimension.dt_kappa κ hκ hint⟩
+
+end PositivityTheory.AdelicQuotientData
+
+end
+end
+
+-- bundled from Development.WeilBound.CoreStatements.PublishedTheorems.JacquetShalikaRigidity.BlockMirrorMap
+section
+noncomputable section
+
+open NumberField IsDedekindDomain MeasureTheory Matrix Topology Filter
+open GlobalTheory.CuspGeneric GlobalTheory.CuspRep GlobalTheory.UnitaryBC GlobalTheory.DiscSpec PositivityTheory.jumpWindows PositivityTheory.RgJS
+open GroundTheory.Automorphic GroundTheory.Automorphic.FourierWhittaker GroundTheory.Automorphic.Reduction GroundTheory.Automorphic.Spherical
+open scoped ENNReal ComplexConjugate
+
+attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
+
+namespace PositivityTheory.AdelicQuotientData
+
+namespace BlockMirrorMap
+
+theorem blk_mono {R : Type} [CommRing R] {a i j : ℕ} (hij : i ≤ j) {c : GL (Fin a) R} (h : GlobalTheory i c) : GlobalTheory j c :=
+  fun p q hpq => h p q (by omega)
+
+theorem blk_mul {R : Type} [CommRing R] {a j : ℕ} {c c' : GL (Fin a) R} (hc : GlobalTheory j c) (hc' : GlobalTheory j c') :
+    GlobalTheory j (c * c') := by
+  intro p q hpq
+  rw [Units.val_mul]
+  rcases hpq with h | h
+  · calc (c.val * c'.val) p q = ((1 : Matrix (Fin a) (Fin a) R) * c'.val) p q := by
+          simp only [Matrix.mul_apply]
+          exact Finset.sum_congr rfl fun s _ => by rw [hc p s (Or.inl h)]
+      _ = _ := by rw [Matrix.one_mul]; exact hc' p q (Or.inl h)
+  · calc (c.val * c'.val) p q = (c.val * (1 : Matrix (Fin a) (Fin a) R)) p q := by
+          simp only [Matrix.mul_apply]
+          exact Finset.sum_congr rfl fun s _ => by rw [hc' s q (Or.inr h)]
+      _ = _ := by rw [Matrix.mul_one]; exact hc p q (Or.inr h)
+
+theorem mir_map {R R' : Type} [CommRing R] [CommRing R'] (f : R →+* R') {a m : ℕ} {g : GL (Fin a) R}
+    (h : Mir m g) : Mir m (GeneralLinearGroup.map f g) := by
+  intro p q hpq
+  show f (g.val p q) = _
+  rw [h p q hpq, Matrix.one_apply, Matrix.one_apply]
+  split_ifs <;> simp
+
+theorem grow {G X : Type} [TopologicalSpace G] [MulOneClass G] [ContinuousMul G] {Q : X → Prop}
+    {bl bi : G → Prop} {B B' : Set G → X → Prop}
+    (hbl : ∀ a b, bl a → bl b → bl (a * b)) (hi : ∀ c, bi c → bl c)
+    (h : ∀ U ∈ 𝓝 (1 : G), ∃ x C, C ⊆ U ∧ Q x ∧ (∀ c ∈ C, bl c) ∧ B C x)
+    (hs : ∀ U ∈ 𝓝 (1 : G), ∀ x C, Q x → B C x →
+      ∃ x' C₀, C₀ ⊆ U ∧ Q x' ∧ (∀ c ∈ C₀, bi c) ∧ B' (Set.image2 (· * ·) C C₀) x') :
+    ∀ U ∈ 𝓝 (1 : G), ∃ x C, C ⊆ U ∧ Q x ∧ (∀ c ∈ C, bl c) ∧ B' C x := by
+  intro U hU
+  obtain ⟨V, hV, hVU⟩ := exists_nhds_one_split hU
+  obtain ⟨x, C, hCV, hQ, hbC, hB⟩ := h V hV
+  obtain ⟨x', C₀, hC₀V, hQ', hb₀, hB'⟩ := hs V hV x C hQ hB
+  refine ⟨x', Set.image2 (· * ·) C C₀, ?_, hQ', ?_, hB'⟩
+  · rintro _ ⟨a, ha, b, hb, rfl⟩
+    exact hVU a (hCV ha) b (hC₀V hb)
+  · rintro _ ⟨a, ha, b, hb, rfl⟩
+    exact hbl a b (hbC a ha) (hi b (hb₀ b hb))
+
+end BlockMirrorMap
+
+theorem kept_block_at_of_pair_level_chain_threshold : jumpWindows.MirabolicColumnBlock → jumpWindows.G0 → InfinitePlaceStep → FinitePlaceStep → K4 := by
+  classical
+  intro hS10 hG0 h4a h4b E _ _ _ k wt ρ J hW ψ hψ S Y hY j hj U hU x hxY hxS hxL h1
+  have ins1 : InS S (1 : GA E k) := fun v _ => map_one _
+  have uu1 : UU 0 (1 : GA E k) :=
+    ⟨fun p q h => by rw [Units.val_one, Matrix.one_apply_ne (ne_of_lt h).symm], fun p => by simp,
+      fun p q _ => rfl⟩
+  have ps1 : psN ψ (1 : GA E k) = 1 := by
+    have e : (∑ p : Fin k × Fin k with (p.2 : ℕ) = p.1 + 1, (1 : GA E k).val p.1 p.2) = 0 := by
+      apply Finset.sum_eq_zero
+      intro p hp
+      rw [Finset.mem_filter] at hp
+      rw [Units.val_one, Matrix.one_apply_ne]
+      intro h
+      rw [h] at hp
+      omega
+    unfold psN
+    rw [e, AddChar.map_zero_eq_one]
+  have om0 : ∀ g : GA E k, Om 0 0 g → g = 1 := by
+    intro g hg
+    apply (hG0 E k).2.2.2.2.2.1
+    · rw [(hS10 _ k 0).2.1 _ hg.1, map_one]
+    · intro v
+      rw [(hS10 _ k 0).2.1 _ (hg.2 v), map_one]
+  have start : Bump ψ S (Om 0 0) {1} (Wh ψ (J x)) := by
+    refine ⟨isCompact_singleton, ?_, ⟨1, one_pos, by rw [h1]; simp⟩, ?_⟩
+    · intro c hc
+      rw [Set.mem_singleton_iff.mp hc]
+      exact ins1
+    · intro g hg _
+      obtain rfl := om0 g hg
+      exact ⟨1, 1, rfl, 1, uu1, ins1, (mul_one 1).symm, zero_le_one, by rw [h1, ps1]; simp⟩
+  let P : ℕ → (Pl E → ℕ) → Prop := fun n m => ∀ V ∈ 𝓝 (1 : GA E k), ∃ x' C, C ⊆ V ∧
+    (J x' ∈ Y ∧ SmV (ρ.comp (infGL E k)) x' ∧ Lev S (J x')) ∧ (∀ c ∈ C, GlobalTheory j c) ∧
+      Bump ψ S (Om n m) C (Wh ψ (J x'))
+  have p0 : P 0 0 := by
+    intro V hV
+    exact ⟨x, {1}, Set.singleton_subset_iff.mpr (mem_of_mem_nhds hV), ⟨hxY, hxS, hxL⟩,
+      fun c hc => by rw [Set.mem_singleton_iff.mp hc]; exact (hS10 _ k j).2.2.2.1, start⟩
+  have stepInf : ∀ n, n ≤ j → P n 0 := by
+    intro n
+    induction n with
+    | zero => intro _; exact p0
+    | succ n ih =>
+      intro hn
+      refine BlockMirrorMap.grow (fun a b ha hb => BlockMirrorMap.blk_mul ha hb) (fun c hc => BlockMirrorMap.blk_mono hn hc) (ih (by omega)) ?_
+      intro V hV x C hQ hB
+      obtain ⟨x', C₀, a, b, c, d, e, f⟩ :=
+        h4a E k wt ρ J hW ψ hψ S Y hY n 0 (by omega) (fun _ _ => rfl) V hV x C hQ.1 hQ.2.1 hQ.2.2 hB
+      exact ⟨x', C₀, a, ⟨b, c, d⟩, e, f⟩
+  have stepFin : ∀ (v : Pl E), v ∈ S → ∀ m : Pl E → ℕ, m v = 0 → (∀ u, u ∉ S → m u = 0) → P j m →
+      ∀ i, i ≤ j → P j (Function.update m v i) := by
+    intro v hv m hmv hm hP i
+    induction i with
+    | zero => intro _; rw [Function.update_eq_self_iff.mpr hmv.symm]; exact hP
+    | succ i ih =>
+      intro hi
+      have supp : ∀ u, u ∉ S → Function.update m v i u = 0 := by
+        intro u hu
+        have hne : u ≠ v := fun h => hu (h ▸ hv)
+        rw [Function.update_of_ne hne]
+        exact hm u hu
+      refine BlockMirrorMap.grow (bi := fun c => GlobalTheory (Function.update m v i v + 1) c) (fun a b ha hb => BlockMirrorMap.blk_mul ha hb)
+        (fun c hc => BlockMirrorMap.blk_mono (by simp; omega) hc) (ih (by omega)) ?_
+      intro V hV x C hQ hB
+      obtain ⟨x', C₀, a, b, c, d, e, f⟩ :=
+        h4b E k wt ρ J hW ψ hψ S Y hY j (Function.update m v i) v hv (by simp; omega) supp V hV x C
+          hQ.1 hQ.2.1 hQ.2.2 hB
+      simp only [Function.update_self, Function.update_idem] at f
+      exact ⟨x', C₀, a, ⟨b, c, d⟩, e, f⟩
+  have key : ∀ T : Finset (Pl E), T ⊆ S → P j (fun w => if w ∈ T then j else 0) := by
+    intro T
+    refine Finset.induction_on T ?_ ?_
+    · intro _
+      have e : (fun w : Pl E => if w ∈ (∅ : Finset (Pl E)) then j else 0) = 0 := by
+        funext w
+        simp
+      rw [e]
+      exact stepInf j le_rfl
+    · intro v T hv ih hT
+      have h := stepFin v (hT (Finset.mem_insert_self v T)) (fun w => if w ∈ T then j else 0)
+        (by simp [hv]) (fun u hu => by simp [show u ∉ T from fun h => hu (hT (Finset.mem_insert_of_mem h))])
+        (ih (subset_trans (Finset.subset_insert v T) hT)) j le_rfl
+      convert h using 1
+      funext w
+      by_cases hw : w = v
+      · subst hw; simp
+      · simp [hw]
+  obtain ⟨x', C, hCU, ⟨hY', hS', hL'⟩, hbl, hB⟩ := key S subset_rfl U hU
+  refine ⟨x', C, hCU, hY', hS', hL', hbl, hB.1, hB.2.1, hB.2.2.1, fun g hg hW0 => hB.2.2.2 g ?_ hW0⟩
+  refine ⟨BlockMirrorMap.mir_map _ hg.2, fun v => ?_⟩
+  by_cases hv : v ∈ S
+  · simp only [hv, if_true]
+    exact BlockMirrorMap.mir_map _ hg.2
+  · simp only [hv, if_false]
+    rw [hg.1 v hv]
+    exact (hS10 _ k 0).2.2.1
+
+end PositivityTheory.AdelicQuotientData
+
+end
+end
+
+-- bundled from Development.WeilBound.CoreStatements.PublishedTheorems.JacquetShalikaRigidity.KsecOf
+section
+noncomputable section
+
+open NumberField IsDedekindDomain MeasureTheory Matrix Topology Filter
+open GlobalTheory.CuspGeneric GlobalTheory.CuspRep GlobalTheory.UnitaryBC GlobalTheory.DiscSpec PositivityTheory.jumpWindows PositivityTheory.RgJS
+open GroundTheory.Automorphic GroundTheory.Automorphic.FourierWhittaker GroundTheory.Automorphic.Reduction GroundTheory.Automorphic.Spherical
+open scoped ENNReal ComplexConjugate
+
+attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
+
+namespace PositivityTheory.AdelicQuotientData
+
+theorem ksec_of : jumpWindows.G2c → jumpWindows.G5 → CuspDecayShortRowColumn → K9 → KSec := by
+  intro hG2c hG5 hG1d hK9 E _ _ _ k hk ψ hψ hcof π hπ
+  obtain ⟨S₀, hS₀⟩ := hK9 E k hk ψ hψ hcof π hπ
+  refine ⟨S₀, fun S hS => ⟨(hS₀ S hS).1, fun α hα => ?_⟩⟩
+  obtain ⟨φ, hφ, h, x, hh, hx, hsat, -, hone⟩ := (hS₀ S hS).2 α hα
+  have hval : ∀ g, Rt E k h x g = φ.1 (g * h) := fun g => by rw [Rt_apply, hx]
+  have hgood : Good ψ (k - 1) (x : GA E k → ℂ) := by
+    rw [hx]; exact good_of_isCuspForm E k ψ φ (π.cusp φ hφ)
+  refine ⟨φ, hφ, h, Rt E k h x, hval, ?_⟩
+  refine ⟨(hG5 E k ψ hψ).2.2.1 x h hgood, ?_, ?_, ?_, ?_, ?_, hone⟩
+  · intro γ g
+    rw [hval, hval, mul_assoc]
+    exact (π.cusp φ hφ).1.left γ (g * h)
+  · intro t g
+    rw [hval, hval, mul_assoc]
+    exact hπ φ hφ t (g * h)
+  · intro w
+    obtain ⟨Y, -, hYst, hYmem⟩ := hG2c E k w.1 (Finset.univ.val.map (α w)) (by simp)
+    exact (hYmem _).1 (hYst h (hh w.1 w.2) x ((hYmem x).2 (hsat w)))
+  · have e : (⇑(Rt E k h x) : GA E k → ℂ) = fun g => φ.1 (g * h) := funext hval
+    rw [e]
+    exact (hG1d E k hk π hπ φ hφ h).1
+  · have := (hG1d E k hk π hπ φ hφ h).2
+    simpa only [hval] using this
+
+end PositivityTheory.AdelicQuotientData
+
+end
+end
+

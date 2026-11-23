@@ -1,0 +1,12 @@
+module
+
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.CarrierXPinsP
+public import Formalism.FormalDegreeBessel.FormalDegreeRatio.GBasic
+
+@[expose] public section
+
+namespace Formalism.L2.SG.Pf.CarrierXAll
+
+theorem kFinDense_holds [Fact Formalism.L2.SG.Pf.CarrierXAll.KFinDense] : KFinDense := Fact.out
+
+end Formalism.L2.SG.Pf.CarrierXAll

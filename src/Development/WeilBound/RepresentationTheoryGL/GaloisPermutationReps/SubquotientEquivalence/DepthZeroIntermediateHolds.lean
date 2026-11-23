@@ -1,0 +1,18 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.GaloisPermutationReps.SubquotientEquivalence.Bundle0002
+public import Development.WeilBound.RepresentationTheoryGL.GaloisPermutationReps.SubquotientEquivalence.Bundle0001
+public import Development.WeilBound.RepresentationTheoryGL.GaloisPermutationReps.SubquotientEquivalence.PairingFactorsThroughPeriods
+public import Development.WeilBound.RepresentationTheoryGL.GaloisPermutationReps.SubquotientEquivalence.MemOfTameGeneratorFrobenius
+public import Development.WeilBound.RepresentationTheoryGL.GaloisPermutationReps.SubquotientEquivalence.Bundle0003
+public import Development.WeilBound.RepresentationTheoryGL.GaloisPermutationReps.SubquotientEquivalence.ConjTorusSubApply
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.DzCount
+
+theorem depth_zero_intermediate_holds : St3 := st3 st1a st1b st2 st3a
+
+theorem depth_zero_count_holds : St8a := st8a st4 st5 B.st6 st7
+
+end PositivityTheory.Rg.DzCount

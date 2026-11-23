@@ -1,0 +1,29 @@
+module
+
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.UnramifiedWhittaker.LocCMain
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0526
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.WhitGenOf
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0121
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.UnitarySchrodingerModel.LocalDefs
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0594
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0608
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SiegelWeilFormula.UnramifiedWhittaker.Bundle0002
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0603
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.MultiplicityBoundUnramified
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0602
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.IntegralHermitianVolumeOne
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LevelJointReduction
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.MultiplicityLevelFormula
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0601
+
+@[expose] public section
+
+namespace PositivityTheory.SiegelWeilFormula.Gunr
+
+theorem unrPoly : PositivityTheory.SiegelWeilFormula.Gen.UnrPoly := _root_.GlobalTheory.CompanionTheory.SiegLoc.UnimodSeries.unrPoly _root_.GlobalTheory.CompanionTheory.UnrDens.unrFormula
+
+theorem locC : LocC :=
+  locC_of_steps unrPoly GlobalTheory.T.coset_integral_unramified _root_.GlobalTheory.CompanionTheory.Exhaustion.tsum_exhaust_prop _root_.GlobalTheory.CompanionTheory.GunrNu.nuPow _root_.GlobalTheory.CompanionTheory.GunrNuBound.nuBound _root_.GlobalTheory.CompanionTheory.GunrLevChars.levChars _root_.GlobalTheory.CompanionTheory.GoodHerm.volume_integral_hermitian_one _root_.GlobalTheory.CompanionTheory.GunrJt.jtLev _root_.GlobalTheory.CompanionTheory.SiegLoc.NuIndex.nuLev _root_.GlobalTheory.CompanionTheory.GunrLev.psiLev_holds _root_.GlobalTheory.CompanionTheory.GunrExhaust.exhaust _root_.GlobalTheory.CompanionTheory.GunrClassLev.classLev _root_.GlobalTheory.CompanionTheory.GunrInv.integrand_invariant_integral_hermitian _root_.GlobalTheory.CompanionTheory.GunrCoset.cosetMeas
+
+end PositivityTheory.SiegelWeilFormula.Gunr

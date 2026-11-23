@@ -1,0 +1,9 @@
+module
+
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.InductionEstimates.SpectralOperatorNorms.CixOf
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.InductionEstimates.BorelHeckeBounds.HeckeShiftSums.ProjInner
+public import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.InductionEstimates.BorelHeckeBounds.HeckeShiftSums.Bundle0004
+
+@[expose] public section
+
+theorem UpperTheory.V.Z.InvariantSubmoduleMonicPolynomial.cix : UpperTheory.V.Z.InvariantSubmoduleMonicPolynomial.CIx := UpperTheory.V.Z.InvariantSubmoduleMonicPolynomial.cix_of UpperTheory.V.Z.InvariantSubmoduleMonicPolynomial.kernX UpperTheory.V.Z.InvariantSubmoduleMonicPolynomial.truncCpt

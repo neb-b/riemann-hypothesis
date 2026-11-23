@@ -1,0 +1,294 @@
+module
+
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0007
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0006
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0010
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0011
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.PSecBFinite
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0008
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0012
+public import GroundTheory.HeightsAndTheta.Heights.ChowForms.Bundle0009
+public import GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.Bundle0014
+
+@[expose] public section
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.AssemblyPartial
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.Vertical
+
+open MvPolynomial NumberField IsDedekindDomain
+
+theorem NormLength.full : NormLength.Statement := NormLength.proof
+theorem VertTermEq.full : VertTermEq.Statement := VertTermEq.proof
+theorem ParAlgIndep.full : ParAlgIndep.Statement := ParAlgIndep.proof
+theorem NormFormEval.full : NormFormEval.Statement := NormFormEval.proof
+theorem ChartTorsion.full : ChartTorsion.Statement := ChartTorsion.proof
+theorem ChowFormHomog.full : ChowFormHomog.Statement := ChowFormHomog.proof
+theorem IncidenceNull.full : IncidenceNull.Statement := IncidenceNull.proof
+theorem LengthDecomp.full : LengthDecomp.Statement := LengthDecomp.proof
+theorem NormFormLocalization.full : NormFormLocalization.Statement := NormFormLocalization.proof
+theorem ParDVRIsDVR.full : ParDVRIsDVR.Statement := ParDVRIsDVR.proof
+theorem ParFracIsFractionRing.full : ParFracIsFractionRing.Statement := ParFracIsFractionRing.proof
+theorem PrimitiveScale.full : PrimitiveScale.Statement := PrimitiveScale.proof
+theorem SecBGeneric.full : SecBGeneric.Statement := SecBGeneric.proof
+theorem SecBFinite.full : SecBFinite.Statement :=
+  SecBFinite.proof IncidenceNull.full ChartTorsion.full PrimitiveScale.full
+
+end GroundTheory.Heights₂.Heights.Vertical
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.PFreeParAlgIndep
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.Vertical
+
+open MvPolynomial Cardinal
+
+noncomputable section
+
+namespace FreeParAlgIndep
+
+theorem genPar_algIndep (k : Type*) [Field k] (e n : ℕ) :
+    AlgebraicIndependent k (genPar k e n) := by
+  have hinj : Function.Injective (IsScalarTower.toAlgHom k (MvPolynomial (Par e n) k)
+      (GenParField k e n)) :=
+    IsFractionRing.injective (MvPolynomial (Par e n) k) (GenParField k e n)
+  have h := (MvPolynomial.algebraicIndependent_X (Par e n) k).map' hinj
+  have hc : (⇑(IsScalarTower.toAlgHom k (MvPolynomial (Par e n) k) (GenParField k e n)) ∘ X) =
+      genPar k e n := by
+    funext p
+    simp only [Function.comp_apply, IsScalarTower.coe_toAlgHom', genPar]
+  rwa [hc] at h
+
+theorem algebraicIndependent_of_trdeg {k L : Type} [Field k] [Field L] [Algebra k L]
+    (A₀ : Subalgebra k L) {ι : Type} [Finite ι] (w : ι → L)
+    [Algebra.IsAlgebraic (Algebra.adjoin A₀ (Set.range w)) L] {e : ℕ}
+    (htr : Algebra.trdeg k A₀ ≤ e) (hle : (e : Cardinal) + #ι ≤ Algebra.trdeg k L) :
+    AlgebraicIndependent A₀ w := by
+  have : FaithfulSMul k A₀ :=
+    (faithfulSMul_iff_algebraMap_injective k A₀).2 (algebraMap k A₀).injective
+  have : FaithfulSMul A₀ L :=
+    (faithfulSMul_iff_algebraMap_injective A₀ L).2 Subtype.val_injective
+  have hadd := trdeg_add_eq k A₀ (A := L)
+  refine (Algebra.IsAlgebraic.isTranscendenceBasis_of_le_trdeg_of_finite A₀ w ?_).1
+  have h3 : #ι + (e : Cardinal) ≤ Algebra.trdeg A₀ L + e := by
+    rw [add_comm, add_comm _ (e : Cardinal)]
+    refine hle.trans ?_
+    rw [← hadd]
+    gcongr
+  exact (Cardinal.add_le_add_iff_of_lt_aleph0 (Cardinal.natCast_lt_aleph0)).1 h3
+
+theorem proof : FreeParAlgIndep.Statement := by
+  intro k _ _ n e L _ _ _ _ _ x hgen hU hT j₀ hx0 htr
+  generalize hz : (fun m => x m * (x j₀)⁻¹) = z at htr ⊢
+  have hzm : ∀ m, z m = x m * (x j₀)⁻¹ := fun m => by rw [← hz]
+  have hz0 : z j₀ = 1 := by rw [hzm, mul_inv_cancel₀ hx0]
+  rw [IntermediateField.algebraicIndependent_adjoin_iff]
+
+  let w : (Fin e × {j : Fin n // j ≠ j₀}) ⊕ Fin n → L :=
+    Sum.elim (fun p => algebraMap (GenParField k e n) L (genPar k e n (.inl (p.1, p.2.1))))
+      (fun j => algebraMap (GenParField k e n) L (genPar k e n (.inr j)))
+  have halg : Algebra.IsAlgebraic
+      (Algebra.adjoin (Algebra.adjoin k (Set.range z)) (Set.range w)) L := by
+    set A₀ := Algebra.adjoin k (Set.range z) with hA₀
+    set B := Algebra.adjoin A₀ (Set.range w) with hB
+    have hzB : ∀ m, z m ∈ B := fun m =>
+      Subalgebra.algebraMap_mem B (⟨z m, Algebra.subset_adjoin ⟨m, rfl⟩⟩ : A₀)
+    have hwB : ∀ i, w i ∈ B := fun i => Algebra.subset_adjoin ⟨i, rfl⟩
+    have hkB : ∀ c : k, algebraMap k L c ∈ B := fun c => by
+      rw [IsScalarTower.algebraMap_apply k A₀ L]
+      exact Subalgebra.algebraMap_mem B _
+    have hparB : ∀ p, algebraMap (GenParField k e n) L (genPar k e n p) ∈ B := by
+      rintro (⟨i, j⟩ | j)
+      · by_cases hj : j = j₀
+        · rw [hj]
+          have hsum : ∑ j, algebraMap (GenParField k e n) L (genPar k e n (.inl (i, j))) * z j = 0 := by
+            simp only [hzm, ← mul_assoc, ← Finset.sum_mul, hU i, zero_mul]
+          have h1 := Finset.add_sum_erase Finset.univ
+            (fun j => algebraMap (GenParField k e n) L (genPar k e n (.inl (i, j))) * z j)
+            (Finset.mem_univ j₀)
+          simp only [hz0, mul_one] at h1
+          rw [hsum, ← eq_neg_iff_add_eq_zero] at h1
+          rw [h1]
+          refine neg_mem (Subalgebra.sum_mem _ fun j' hj' => Subalgebra.mul_mem _ ?_ (hzB j'))
+          exact hwB (.inl (i, ⟨j', Finset.ne_of_mem_erase hj'⟩))
+        · exact hwB (.inl (i, ⟨j, hj⟩))
+      · exact hwB (.inr j)
+    have hmem : ∀ b ∈ B, IsAlgebraic B b := fun b hb => isAlgebraic_algebraMap (⟨b, hb⟩ : B)
+    have hx0alg : IsAlgebraic B (x j₀) := by
+      have hs : ∑ j, algebraMap (GenParField k e n) L (genPar k e n (.inr j)) * z j = (x j₀)⁻¹ := by
+        simp only [hzm, ← mul_assoc, ← Finset.sum_mul, hT, one_mul]
+      have h2 : IsAlgebraic B
+          (∑ j, algebraMap (GenParField k e n) L (genPar k e n (.inr j)) * z j) :=
+        hmem _ (Subalgebra.sum_mem _ fun j _ => Subalgebra.mul_mem _ (hwB (.inr j)) (hzB j))
+      have := h2.inv
+      rwa [hs, inv_inv] at this
+    have hxalg : ∀ m, IsAlgebraic B (x m) := fun m => by
+      have hm : x m = z m * x j₀ := by rw [hzm, inv_mul_cancel_right₀ hx0]
+      rw [hm]
+      exact (hmem _ (hzB m)).mul hx0alg
+    have hpoly : ∀ a : MvPolynomial (Par e n) k, algebraMap (GenParField k e n) L
+        (algebraMap (MvPolynomial (Par e n) k) (GenParField k e n) a) ∈ B := by
+      intro a
+      induction a using MvPolynomial.induction_on with
+      | C c =>
+        rw [← MvPolynomial.algebraMap_eq,
+          ← IsScalarTower.algebraMap_apply k (MvPolynomial (Par e n) k) (GenParField k e n),
+          ← IsScalarTower.algebraMap_apply k (GenParField k e n) L]
+        exact hkB c
+      | add a b ha hb =>
+        rw [map_add (f := _), map_add (f := _)]
+        exact Subalgebra.add_mem _ ha hb
+      | mul_X a p ha =>
+        rw [map_mul, map_mul]
+        exact Subalgebra.mul_mem _ ha (hparB p)
+    have hK : ∀ f, IsAlgebraic B (algebraMap (GenParField k e n) L f) := fun f => by
+      obtain ⟨a, b, _, rfl⟩ := IsFractionRing.div_surjective (A := MvPolynomial (Par e n) k) f
+      rw [map_div₀, div_eq_mul_inv]
+      exact (hmem _ (hpoly a)).mul (hmem _ (hpoly b)).inv
+    refine ⟨fun y => ?_⟩
+    have hy : y ∈ (MvPolynomial.aeval (R := GenParField k e n) x).range := by
+      rw [← Algebra.adjoin_range_eq_range_aeval, hgen]
+      trivial
+    obtain ⟨p, rfl⟩ := (AlgHom.mem_range _).1 hy
+    clear hy
+    induction p using MvPolynomial.induction_on with
+    | C c =>
+      rw [MvPolynomial.aeval_C]
+      exact hK c
+    | add a b ha hb =>
+      rw [map_add (f := _)]
+      exact ha.add hb
+    | mul_X a j ha =>
+      rw [map_mul, MvPolynomial.aeval_X]
+      exact ha.mul (hxalg j)
+
+  have hcard : (e : Cardinal) + #((Fin e × {j : Fin n // j ≠ j₀}) ⊕ Fin n) ≤
+      Algebra.trdeg k L := by
+    have hind : AlgebraicIndependent k
+        (fun p => algebraMap (GenParField k e n) L (genPar k e n p)) :=
+      (genPar_algIndep k e n).map' (f := IsScalarTower.toAlgHom k (GenParField k e n) L)
+        (algebraMap (GenParField k e n) L).injective
+    have hinj : Function.Injective (Sum.elim (fun i : Fin e => (Sum.inl (i, j₀) : Par e n))
+        (Sum.elim (fun p : Fin e × {j : Fin n // j ≠ j₀} => (Sum.inl (p.1, p.2.1) : Par e n))
+          Sum.inr)) := by
+      rintro (i | ⟨i, j, hj⟩ | j) (i' | ⟨i', j', hj'⟩ | j') h <;>
+        simp only [Sum.elim_inl, Sum.elim_inr, Sum.inl.injEq, Sum.inr.injEq, Prod.mk.injEq,
+          reduceCtorEq, Subtype.mk.injEq, and_true] at h ⊢ <;>
+        first | exact h | exact absurd h.2.symm hj' | exact absurd h.2 hj
+    calc (e : Cardinal) + #((Fin e × {j : Fin n // j ≠ j₀}) ⊕ Fin n)
+        = #(Fin e ⊕ ((Fin e × {j : Fin n // j ≠ j₀}) ⊕ Fin n)) := by simp
+      _ ≤ #(Par e n) := Cardinal.mk_le_of_injective hinj
+      _ ≤ Algebra.trdeg k L := hind.cardinalMk_le_trdeg
+  exact (algebraicIndependent_of_trdeg (Algebra.adjoin k (Set.range z)) w htr hcard).comp
+    Sum.inl Sum.inl_injective
+
+end FreeParAlgIndep
+
+end
+
+end GroundTheory.Heights₂.Heights.Vertical
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.VerticalDivisors.PSecPointSeparable
+section
+set_option maxSynthPendingDepth 1
+
+namespace GroundTheory.Heights₂.Heights.Vertical
+
+open MvPolynomial
+
+noncomputable section
+
+namespace SecPointSeparable
+
+theorem isSeparable_of_derivation_eq_zero {K L : Type} [Field K] [Field L] [Algebra K L]
+    [Module.Finite K L] (h : ∀ D : Derivation K L L, D = 0) : Algebra.IsSeparable K L := by
+  rw [← Algebra.FormallyUnramified.iff_isSeparable]
+  refine ⟨⟨fun a b => ?_⟩⟩
+  have key : ∀ ω : Ω[L⁄K], ω = 0 := by
+    intro ω
+    refine (Module.forall_dual_apply_eq_zero_iff L ω).1 fun φ => ?_
+    have : φ = 0 := by
+      apply (KaehlerDifferential.linearMapEquivDerivation K L).injective
+      rw [map_zero]
+      exact h _
+    rw [this, LinearMap.zero_apply]
+  rw [key a, key b]
+
+end SecPointSeparable
+
+open SecPointSeparable in
+theorem SecPointSeparable.proof (h₁ : GenericFormsKer.Statement) (h₂ : DerivSpanTrdeg.Statement)
+    (h₃ : FreeParAlgIndep.Statement) : SecPointSeparable.Statement := by
+  intro k _ _ n e L _ _ _ _ _ x hx hU hT htr
+  obtain ⟨j₀, hj₀⟩ : ∃ j₀, x j₀ ≠ 0 := by
+    by_contra! h
+    simp [h] at hT
+  set z : Fin n → L := fun m => x m * (x j₀)⁻¹ with hz
+  obtain ⟨r, hre, b, hb⟩ := h₂ k L (Fin n) z e (htr j₀ hj₀)
+  have hind := h₃ k n e L x hx hU hT j₀ hj₀ (htr j₀ hj₀)
+  apply isSeparable_of_derivation_eq_zero
+  intro D
+  obtain ⟨c, hc⟩ := hb (D.restrictScalars k)
+  have hc' : ∀ j, D (z j) = ∑ m, c m * (b m j : L) := hc
+  have hDK : ∀ a : GenParField k e n, D (algebraMap (GenParField k e n) L a) = 0 :=
+    fun a => D.map_algebraMap a
+  have hlin : ∀ (a : GenParField k e n) (y : L),
+      D (algebraMap (GenParField k e n) L a * y) = algebraMap (GenParField k e n) L a * D y := by
+    intro a y
+    rw [D.leibniz, hDK, smul_zero, add_zero, smul_eq_mul]
+  have hDz₀ : D (z j₀) = 0 := by
+    simp only [z, mul_inv_cancel₀ hj₀, Derivation.map_one_eq_zero]
+  have hUDz : ∀ i : Fin e,
+      ∑ j, algebraMap (GenParField k e n) L (genPar k e n (.inl (i, j))) * D (z j) = 0 := by
+    intro i
+    have h0 : ∑ j, algebraMap (GenParField k e n) L (genPar k e n (.inl (i, j))) * z j = 0 := by
+      simp only [z, ← mul_assoc, ← Finset.sum_mul, hU i, zero_mul]
+    have := congrArg D h0
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [map_sum, map_zero] at this
+    rw [← this]
+    exact Finset.sum_congr rfl fun j _ => (hlin _ _).symm
+  have hDz : ∀ j, D (z j) = 0 := by
+    have key := h₁ (IntermediateField.adjoin k (Set.range z)) L {j : Fin n // j ≠ j₀} e r hre
+      (fun p => algebraMap (GenParField k e n) L (genPar k e n (.inl (p.1, p.2.1)))) hind
+      (fun m j => b m j.1) c (fun i => ?_)
+    · intro j
+      by_cases hj : j = j₀
+      · rw [hj, hDz₀]
+      · rw [hc' j]
+        exact key ⟨j, hj⟩
+    · have := hUDz i
+      rw [Fintype.sum_eq_add_sum_subtype_ne _ j₀, hDz₀, mul_zero, zero_add] at this
+      rw [← this]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      rw [hc' j.1]
+      rfl
+  have hx₀ : D (x j₀) = 0 := by
+    have hs : ∑ j, algebraMap (GenParField k e n) L (genPar k e n (.inr j)) * z j = (x j₀)⁻¹ := by
+      simp only [z, ← mul_assoc, ← Finset.sum_mul, hT, one_mul]
+    have h1 := congrArg D hs
+    set_option synthInstance.maxHeartbeats 100000 in
+      rw [map_sum, Finset.sum_eq_zero fun j _ => by rw [hlin, hDz, mul_zero], Derivation.leibniz_inv,
+      eq_comm, smul_eq_mul, neg_mul, neg_eq_zero, mul_eq_zero] at h1
+    exact h1.resolve_left (pow_ne_zero _ (inv_ne_zero hj₀))
+  have hxj : ∀ j, D (x j) = 0 := by
+    intro j
+    have hxz : x j = z j * x j₀ := by simp only [z, mul_assoc, inv_mul_cancel₀ hj₀, mul_one]
+    rw [hxz, D.leibniz, hx₀, hDz, smul_zero, smul_zero, add_zero]
+  exact Derivation.ext_of_adjoin_eq_top (Set.range x) hx (by rintro _ ⟨j, rfl⟩; simpa using hxj j)
+
+end
+
+end GroundTheory.Heights₂.Heights.Vertical
+end
+

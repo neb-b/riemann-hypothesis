@@ -1,0 +1,43 @@
+module
+
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.FinalTF
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0015
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0016
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0017
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0018
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0014
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.HyperbolicTailEstimateProof
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.LoweringOperatorRelationHolomorphic
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0020
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.PfHolWC
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.PfHRep
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.Bundle0019
+public import PositivityTheory.AutomorphicForms.PublishedInputs.JacquetLanglands.TorusKernels.DenseRangeUnitsR
+
+@[expose] public section
+
+namespace UpperTheory.Esk
+
+theorem s_GCh : GCh := pf_GCh
+theorem s_GUnit : GUnit := pf_GUnit
+theorem s_GMod : GMod := pf_GMod
+theorem hyperbolic_orbit_integral_holds : H0b := hyperbolic_orbit_integral_proof
+theorem s_HRel : HRel := pf_HRel automorphy_factor_kernel_algebra_holds hyperbolic_kappa_properties_holds
+theorem hyperbolic_relation_holds : H2a := hyperbolic_relation_proof automorphy_factor_kernel_algebra_holds hyperbolic_orbit_integral_holds
+theorem hyperbolic_orbit_bound_holds : H2b := hyperbolic_orbit_bound_proof s_Osg automorphy_factor_kernel_algebra_holds
+theorem hyperbolic_orbit_summable_holds : H2c := hyperbolic_orbit_summable_proof s_Osg automorphy_factor_kernel_algebra_holds hyperbolic_kappa_properties_holds
+theorem hyperbolic_tail_estimate_holds : H2d := hyperbolic_tail_estimate_proof automorphy_factor_kernel_algebra_holds hyperbolic_relation_holds hyperbolic_orbit_bound_holds hyperbolic_orbit_summable_holds
+theorem hyperbolic_finite_sum_identity_holds : H2e := pf_H2e
+theorem s_HCap : HCap := pf_HCap
+theorem s_HFinC : HFinC := pf_HFinC s_HCap
+theorem s_HFin : HFin := pf_HFin s_HRel hyperbolic_relation_holds hyperbolic_tail_estimate_holds hyperbolic_finite_sum_identity_holds s_HFinC
+theorem hyperbolic_terms_setup_holds : H0 := hyperbolic_terms_setup_proof
+theorem hyperbolic_kernel_algebra_holds : H1a := hyperbolic_kernel_algebra_proof automorphy_factor_kernel_algebra_holds hyperbolic_kappa_properties_holds
+theorem hyperbolic_kernel_measurable_holds : H1b := hyperbolic_kernel_measurable_proof half_plane_measure_invariant_holds automorphy_factor_kernel_algebra_holds hyperbolic_kappa_properties_holds
+theorem hyperbolic_kernel_continuity_holds : H1c := hyperbolic_kernel_continuity
+theorem hyperbolic_terms_integrable_holds : H1 := hyperbolic_terms_integrable_proof automorphy_factor_kernel_algebra_holds hyperbolic_kappa_properties_holds hyperbolic_terms_setup_holds hyperbolic_kernel_algebra_holds hyperbolic_kernel_measurable_holds hyperbolic_kernel_continuity_holds
+
+theorem holWC_of (dAx : DAx) (dTwo : DTwo) (dGood : DGood) (dReps : DReps) (g : GTerm) : HolWC :=
+  pf_HolWC finite_system_holds forms_stable_under_operators_holds dAx dReps dGood (pf_TrCong s_TF dAx dTwo dGood g hyperbolic_orbit_integral_holds s_HFin) hyperbolic_terms_setup_holds hyperbolic_orbit_integral_holds s_HRel hyperbolic_terms_integrable_holds s_HFin hyperbolic_relation_holds hyperbolic_tail_estimate_holds hyperbolic_finite_sum_identity_holds
+
+end UpperTheory.Esk

@@ -1,0 +1,130 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0923
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0934
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0834
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0821
+public import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.PureTensorOSmul
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle1649
+public import Development.AbelianVarietyTheory.Proofs.UnitaryExistence.Bundle0070
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.TranslateMemCoefLatFn
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0031
+public import Development.AutomorphicArithmetic.CyclotomicBounds.DeRhamLattices.Bundle0012
+
+@[expose] public section
+
+-- bundled from Development.AutomorphicArithmetic.CyclotomicBounds.DeRhamLattices.IoPTprodInjectiveRangeEqValSpace
+section
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.L2.DIV Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.IndefR.FWT IsDedekindDomain NumberField Formalism.ConjugateSelfDual ReciprocityTheory.Gal GlobalTheory.ExportSeries GlobalTheory.SeriesTie GlobalTheory.TwInputs GlobalTheory.ConjTwist GlobalTheory.ChoiceRead
+open Formalism.MainNotions.IntegralHeckeForms (TwOK ClsQ)
+open Formalism.L2.Host (embLL0)
+open Formalism.IndefR.RecTie (Used0)
+open scoped TensorProduct
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+set_option synthInstance.maxHeartbeats 400000
+set_option maxHeartbeats 1600000
+open GlobalTheory.PlaceRead
+open GlobalTheory.HeightCounting.Up (PrN)
+
+theorem _root_.UpperTheory.KN.ioP_tprod_injective_and_range_eq_valSpace :
+    ∀ (D : D7) (X : RealSide D) (X0 : BaseLevelRowSide D) (Y : GlobalTheory.Mem.R3.Read (A3 := X.A3) X.R.toRealDat X.F.lv2 X0) (S : NX.RatDat D.ntw) (YS : NX.NExpRealS X.R X.cG S) (Z : ExportTie YS X.geo.v₀) (c : NChoice D) (w : D.what₂.places.Pl) (j : Fin D.R.m) (H : AtPlace Y Z c w j),
+      ∀ ι : KE c w →+* ℂ, (∀ x, ι (c.embW w x) = D.what₂.embLL x) →
+      ∀ (u : ∀ τ, lowT (X.R.MW j (sg0 D X.A3.A)) τ), IsLow X j u →
+      Function.Injective (X.R.ioP j (PiTensorProduct.tprod ℂ u)) ∧ LinearMap.range (X.R.ioP j (PiTensorProduct.tprod ℂ u)) = (baseOf Z c w j).valSpace := by
+  intro D X X0 Y S YS Z c w j H ι hι u hu
+  have hC : GlobalTheory.Hk3.Core X.R.toRealDat X.F.lv2 :=
+    ⟨X.char.lev, X.char.grp, X.char.fam, X.char.models, X.char.chain, X.char.thP⟩
+  have hG : (baseOf Z c w j).Good := Z.good.base (c.twI w) j (c.sd w)
+  have hBo : GlobalTheory.ConjTwist.BaseOf X.R.toRealDat j (baseOf Z c w j) :=
+    GlobalTheory.BigOn.Exp.TwConj.baseOf_of_realPin X.char.lev Z.good Z.pin (c.twI w) j (c.sd w)
+  have hio : Formalism.IndefR.FWT.IoExt X.R.toRealDat :=
+    GlobalTheory.IoExtremal.ioExt D _ _ _ _ _ X.R.toRealDat hC.lev hC.fam hC.models hC.thP
+  have hcV : (X.R.cV j).Is := hC.models.cV j
+  obtain ⟨u', w₀, hu', -, hw⟩ := Formalism.IndefR.FWT.IsChosenExtremalVector.io _ (Z.vec j) hio
+  have huu : u' = u := funext fun ρ => Subtype.ext ((hu' ρ).trans (hu ρ).symm)
+  rw [huu] at hw
+  have hT := Scale.io_act hC.lev hC.thP hG hBo.ψ hBo.θ hBo.sT hBo.BS hBo.BT hBo.mu0 hBo.eta (PiTensorProduct.tprod ℂ u)
+  have hΔ0 := GlobalTheory.AdTh.IoExtPf.Delta_ne (D := D) j
+  have hval : ∀ x, X.R.ioP j (PiTensorProduct.tprod ℂ u) x ∈ (baseOf Z c w j).valSpace := by
+    intro x
+    rcases hcV.2.2.2.2 ((harm (Wc D j).rank (baseOf Z c w j).w (baseOf Z c w j).F.BS).comap
+        (X.R.ioP j (PiTensorProduct.tprod ℂ u))) (fun h => by
+        obtain ⟨a, ha, k, hk, rfl⟩ := (GlobalTheory.UnitarySplit.real_finite_split D _).1 h
+        rw [map_mul, hcV.1 k hk, mul_one]
+        rintro _ ⟨w, hw', rfl⟩
+        rw [Submodule.mem_comap, hT a ha]
+        exact fockGL_mem_harm _ _ _ hw') with h | h
+    · have h0 : w₀ ∈ (harm (Wc D j).rank (baseOf Z c w j).w (baseOf Z c w j).F.BS).comap
+          (X.R.ioP j (PiTensorProduct.tprod ℂ u)) := by
+        rw [Submodule.mem_comap, hw, ← hBo.delta]
+        exact delta_mem_harm _ _
+      rw [h, Submodule.mem_bot] at h0
+      rw [h0, map_zero] at hw
+      exact absurd hw.symm hΔ0
+    · exact (h ▸ Submodule.mem_top : x ∈ (harm (Wc D j).rank (baseOf Z c w j).w (baseOf Z c w j).F.BS).comap
+        (X.R.ioP j (PiTensorProduct.tprod ℂ u)))
+  refine ⟨?_, le_antisymm ?_ ?_⟩
+  · rcases hcV.2.2.2.2 (LinearMap.ker (X.R.ioP j (PiTensorProduct.tprod ℂ u))) (fun h => by
+        obtain ⟨a, ha, k, hk, rfl⟩ := (GlobalTheory.UnitarySplit.real_finite_split D _).1 h
+        rw [map_mul, hcV.1 k hk, mul_one]
+        rintro _ ⟨w, hw', rfl⟩
+        have h0 : X.R.ioP j (PiTensorProduct.tprod ℂ u) w = 0 := hw'
+        rw [LinearMap.mem_ker, hT a ha, h0, map_zero]) with h | h
+    · exact LinearMap.ker_eq_bot.1 h
+    · have h0 : w₀ ∈ LinearMap.ker (X.R.ioP j (PiTensorProduct.tprod ℂ u)) := h ▸ Submodule.mem_top
+      rw [LinearMap.mem_ker, hw] at h0
+      exact absurd h0 hΔ0
+  · rintro _ ⟨x, rfl⟩
+    exact hval x
+  · obtain ⟨u1, cc, κ, hu1, -, hκ0, hv, hκ, -⟩ := GlobalTheory.T.exists_scale_twisted_place_coefficient_map D X X0 Y S YS Z c w j H
+    have e : u1 = u := funext fun ρ => Subtype.ext ((hu1 ρ).trans (hu ρ).symm)
+    subst e
+    intro P hP
+    obtain ⟨x, hx, -⟩ := GlobalTheory.CoefLatConj.existsUnique_eq (X.R.ioP j (PiTensorProduct.tprod ℂ u1) ∘ₗ cc) hG hBo.lam hκ0 hv hκ P hP
+    exact ⟨cc x, hx.symm⟩
+end
+
+-- bundled from Development.AutomorphicArithmetic.CyclotomicBounds.DeRhamLattices.LevEnvLevelSubgroupLeLevJAndCharacterEq
+section
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.L2.DIV Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.IndefR.FWT IsDedekindDomain NumberField Formalism.ConjugateSelfDual ReciprocityTheory.Gal GlobalTheory.ExportSeries GlobalTheory.SeriesTie GlobalTheory.TwInputs GlobalTheory.ConjTwist GlobalTheory.ChoiceRead
+open Formalism.MainNotions.IntegralHeckeForms (TwOK ClsQ)
+open Formalism.L2.Host (embLL0)
+open Formalism.IndefR.RecTie (Used0)
+open scoped TensorProduct
+attribute [local instance] Formalism.BasicNotions.Host.cmStar
+set_option synthInstance.maxHeartbeats 400000
+set_option maxHeartbeats 1600000
+open GlobalTheory.PlaceRead
+open GlobalTheory.HeightCounting.Up (PrN)
+
+private theorem principal_level_membership {D : D7} {V : HSp D} {β : GL (Fin V.rank) (Lev.EAf D)} {L : LevDat D.host.E ℂ V.rank}
+    (P : LevelP L.Pg L.r ℂ) {g : GA D V} (hg : g ∈ GfC V) (h : Lev.finE V g ∈ lev D.sp.cm V.gram β (Lev.flag1L L)) :
+    g ∈ Lev.levG V β (Lev.withP L P) ∧ levFn β (Lev.withP L P) (Lev.finE V g) = levFn β (Lev.flag1L L) (Lev.finE V g) := by
+  have h1 : rTup β L (Lev.finE V g) = 1 := Subgroup.mem_bot.1 h.2
+  have h2 : rTup β L (Lev.finE V g) ∈ P.H := h1 ▸ P.H.one_mem
+  refine ⟨⟨hg, h.1, h2⟩, ?_⟩
+  rw [Lev.levFn_withP, Lev.levFn_flag1, extendOne_of_mem _ h2]
+  have h3 : (⟨_, h2⟩ : P.H) = 1 := Subtype.ext h1
+  rw [h3, map_one, one_mul]
+
+theorem _root_.UpperTheory.KN.levEnv_level_subgroup_le_levJ_and_character_eq :
+    ∀ (D : D7) (X : RealSide D) (X0 : BaseLevelRowSide D) (Y : GlobalTheory.Mem.R3.Read (A3 := X.A3) X.R.toRealDat X.F.lv2 X0) (S : NX.RatDat D.ntw) (YS : NX.NExpRealS X.R X.cG S) (Z : ExportTie YS X.geo.v₀) (c : NChoice D) (w : D.what₂.places.Pl) (j : Fin D.R.m) (H : AtPlace Y Z c w j),
+      ∀ ι : KE c w →+* ℂ, (∀ x, ι (c.embW w x) = D.what₂.embLL x) →
+      ∀ k : (levEnv (Vc D j) (X.R.βV j) (X.R.datVt j (Y.tupT (D.what₂.muTw w)))).J, ∃ hk : (k : Bridge.Gf (Vc D j)) ∈ (baseOf Z c w j).levJ (twVia Z.ρ ι),
+      (baseOf Z c w j).levLam (twVia Z.ρ ι) ⟨k, hk⟩ = (levEnv (Vc D j) (X.R.βV j) (X.R.datVt j (Y.tupT (D.what₂.muTw w)))).χ k := by
+  intro D X X0 Y S YS Z c w j H ι hι k
+  obtain ⟨⟨_, g0, rfl⟩, hk⟩ := k
+  obtain ⟨g, hg, e⟩ := GlobalTheory.LevelOpen.exists_finPart D (Vc D j) g0
+  have e' : (⟨finHom (Vc D j) g0, g0, rfl⟩ : Bridge.Gf (Vc D j)) = finPt (Vc D j) g := Subtype.ext e.symm
+  revert hk
+  rw [e']
+  intro hk
+  obtain ⟨a1, a2⟩ := principal_level_membership (L := X.R.datVt j (Y.tupT (D.what₂.muTw w))) (X.R.toRealDat.levR X.F.lv2 false).conj hg hk
+  obtain ⟨b1, b2⟩ := UpperTheory.KN.levS_iff_levG_and_levChi_eq D X X0 Y S YS Z c w j H ι hι g
+  have hm := b1.1 a1
+  refine ⟨((baseOf Z c w j).finPt_mem_levJ _ hg).2 hm, Units.ext ?_⟩
+  rw [Base.levLam_finPt, ← b2 hm]
+  exact congrArg Units.val a2
+end
+

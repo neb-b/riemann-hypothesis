@@ -1,0 +1,40 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ThetaNormCommutation.LocalComparisonSplitting.EulerFactorLevels.LocCompareSplit
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ThetaNormCommutation.LocalComparisonSplitting.EulerFactorLevels.DcCount
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0439
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ThetaNormCommutation.LocalComparisonSplitting.EulerFactorLevels.EulerFinOf
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.ThetaNormCommutation.LocalComparisonSplitting.EulerFactorLevels.PUnitAE
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0605
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0411
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0560
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0616
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0586
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.FiniteSupportOfTwist
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0438
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0513
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0516
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0536
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0567
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0629
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LocalHypothesesHold
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0533
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.G8.Fin
+
+theorem kfOC_holds : PositivityTheory.Rg.BcB.G8.KfOC := _root_.GlobalTheory.CompanionTheory.IntegralPoints.kfOC
+
+theorem finLevel_holds : PositivityTheory.Rg.BcB.G8.FinLevel := _root_.GlobalTheory.CompanionTheory.FinLevelTw.finLevel
+
+theorem suppFin_holds : SuppFin := _root_.GlobalTheory.CompanionTheory.SuppFinTw.suppFinOf _root_.GlobalTheory.CompanionTheory.TwistOrbit.locSupp unitAE_holds _root_.GlobalTheory.CompanionTheory.RatFinG.ratFin _root_.GlobalTheory.CompanionTheory.LocGoodProof.locGood
+
+theorem eulerFin_holds : EulerFin :=
+  GlobalTheory.T.finite_euler_product_of _root_.GlobalTheory.CompanionTheory.CjEx.cjEx _root_.GlobalTheory.CompanionTheory.EulerV.main _root_.GlobalTheory.CompanionTheory.RegroupFin.regroup (_root_.GlobalTheory.CompanionTheory.LocCompareHalves.locCompareOf _root_.GlobalTheory.CompanionTheory.LocInert.locCompareInert _root_.GlobalTheory.CompanionTheory.LcSplit.locCompareSplit) _root_.GlobalTheory.CompanionTheory.LocHypProof.locHyp _root_.GlobalTheory.CompanionTheory.SecReindex.reindex
+
+theorem finHalf_holds : PositivityTheory.Rg.BcB.G8.FinHalf :=
+  _root_.GlobalTheory.CompanionTheory.FinHalfAsm.finHalfOf DcCount_pf _root_.GlobalTheory.CompanionTheory.MassProd.massProd _root_.GlobalTheory.CompanionTheory.RatFinG.ratFin suppFin_holds eulerFin_holds kfOC_holds finLevel_holds
+
+end PositivityTheory.Rg.BcB.G8.Fin

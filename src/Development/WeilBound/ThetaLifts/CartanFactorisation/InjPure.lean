@@ -1,0 +1,50 @@
+module
+
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.Bundle0006
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.KillInf
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.Bundle0007
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.Bundle0008
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.RealTrans
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.ArchimedeanEvaluationVector
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0111
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.FiniteTwistedRankQuotient
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0120
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.Foundations.Bundle0005
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0043
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0037
+public import GroundTheory.AutomorphicForms.Bundle0002
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0122
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.NontrivialOfIrreducible
+public import Development.WeilBound.CoreStatements.CompactAveragingSplitting.EigenvectorLifting.Bundle0002
+public import Development.WeilBound.CoreStatements.LocalThetaKernels.IwasMain
+public import Development.WeilBound.CoreStatements.LocalThetaKernels.Bundle0003
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0021
+public import Development.WeilBound.CoreStatements.CompactAveragingSplitting.EigenvectorLifting.Bundle0005
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.Bundle0002
+public import Development.WeilBound.ThetaLifts.CartanFactorisation.CuspidalClassOfWeilConvergence
+public import Development.WeilBound.ThetaLifts.FrameEstimates.WeilConv
+public import Development.WeilBound.CoreStatements.LocalThetaKernels.LocpairU
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.PfDict
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.Bundle0004
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.PfSurj
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.Bundle0001
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.ContinuousFinId
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.SoStatement
+public import Development.WeilBound.CoreStatements.LocallyConstantCoinvariants.Bundle0002
+
+@[expose] public section
+
+noncomputable section
+
+namespace PositivityTheory.ThKF
+
+open GlobalTheory.ThK
+
+theorem iLeft (hT : ThetaBasic) : ILeft := fun _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ hp _ hΦ g =>
+  I_left unimodularity_holds hT hp hΦ g
+
+end PositivityTheory.ThKF
+
+end

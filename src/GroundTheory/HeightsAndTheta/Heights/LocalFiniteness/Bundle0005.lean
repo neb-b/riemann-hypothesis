@@ -1,0 +1,58 @@
+module
+
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.HilbertSamuelGrowthOffHypersurfacePolynomial
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0111
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0020
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.PDegZeroLocResidue
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.PSemilocalResidueLength
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.AssemblyBase
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.IntegralModels.Bundle0006
+public import GroundTheory.HeightsAndTheta.Heights.IntegralModels.Statements
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0019
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.IsolatedPointsCountPrime
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.UniformIntegrabilityProportionalityHolds
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0086
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0042
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0040
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.PCurveSectionQuotFinite
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.Bundle0040
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterDivPushA
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.ContDiffFubiniStudyRatioCompChart0
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Bundle0006
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0009
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.IsPotentialOfFun
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.Bundle0011
+public import ReciprocityTheory.AnalyticForms.AnalyticCharts.Bundle0001
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.Bundle0028
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.PPtsPosPartLocal
+public import GroundTheory.HeightsAndTheta.Heights.OrbitLimits.Bundle0024
+
+@[expose] public section
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.FieldNumbersSemilocalResidueLength
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_FibreNonempty.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.FibreNonempty.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.FibreNonempty.proof.{u} GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalFiniteRank GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_DegZeroLocalRing
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalResidueLength.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalResidueLength.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalResidueLength.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocResidue.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalFiniteRank GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocLocalize.proof
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.StokesOnChart : GroundTheory.Heights₂.Heights.StokesOnChart.Statement :=
+  @GroundTheory.Heights₂.Heights.StokesOnChart.proof GroundTheory.Heights₂.Heights.HilbertSamuel.Closed.ComplexSets.DiscriminantCover GroundTheory.Heights₂.Heights.AutoClose.CutOffLimit
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.TargetsProjGenericRank
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.DefectAverage : GroundTheory.Heights₂.Heights.DefectAverage.Statement :=
+  @GroundTheory.Heights₂.Heights.DefectAverage.proof GroundTheory.Heights₂.Heights.AutoClose.MahlerAverageSplit GroundTheory.Heights₂.Heights.AutoClose.CycleAverage
+end
+

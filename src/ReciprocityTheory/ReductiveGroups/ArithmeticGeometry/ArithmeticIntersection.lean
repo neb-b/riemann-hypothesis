@@ -1,0 +1,15 @@
+module
+
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArithmeticIntersection.Bundle0004
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArithmeticIntersection.LengthTwoGeneratorQuotient
+public import Mathlib
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArithmeticIntersection.Bundle0002
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArithmeticIntersection.CompRightEqZero
+
+@[expose] public section
+
+namespace ReciprocityTheory.ChartRestriction.G.AI
+
+theorem len2 : LocalLengthMultiplicativity := length_two_generator_quotient
+
+end ReciprocityTheory.ChartRestriction.G.AI

@@ -1,0 +1,182 @@
+module
+
+public import Formalism.SharpRestriction.GlobalSchurBounds.Bundle0004
+public import Formalism.LocalToGlobal.UnitaryNorms.MemFIffReal
+public import Formalism.LocalToGlobal.HermitianColumns.Bundle0004
+public import Formalism.LocalToGlobal.HermitianForms.FormsTied
+public import Formalism.LocalToGlobal.BesselHermitianTheta.Bundle0003
+public import Formalism.SharpRestriction.GlobalSchurBounds.JointsL
+public import Formalism.LocalRingCardinality.Bundle0004
+public import Formalism.LocalToGlobal.HermitianColumns.Bundle0003
+public import Formalism.LocalToGlobal.GlobalTheory.LinkTiesOm
+public import Formalism.LocalToGlobal.GlobalTheory.LinkTiesTh
+public import Formalism.LocalToGlobal.GlobalTheory.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.PowFourLtCeilThresholdPrime
+public import Formalism.LocalToGlobal.GlobalTheory.PlacesP
+public import Formalism.LocalToGlobal.GlobalTheory.BaseLatticeSelfDual
+public import Formalism.LocalToGlobal.HermitianColumns.ColsHerm
+public import Mathlib
+public import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow
+public import Formalism.SharpRestriction.ParConsts
+public import Formalism.SharpRestriction.GlobalSchurBounds.CMFieldLemmas
+public import Formalism.SatakeDualWeyl.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL1.CompactFixesLattice.SingleMemLam
+public import Formalism.LocalToGlobal.GlobalTheory.GL1.CompactFixesLattice.ExistsDenOfIsCompact
+public import Formalism.GL3MeanSquares.Bundle0004
+public import Formalism.FrobeniusOrbits.HostCorollaries
+public import Formalism.SatakeDualWeyl.KpqSubgroupCompact
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.DifferentIdealConditions
+public import Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.Bundle0005
+public import Formalism.FrobeniusOrbits.RealSubfieldLeCompositum
+public import Formalism.SharpRestriction.SmoothDesignExistence.LinkGLOBALPk
+public import Formalism.LocalToGlobal.GlobalTheory.FamCol
+public import Formalism.SizeWindowBrackets.Chain2aCoreNoAnalytic
+public import Formalism.LandauZeroFreeBounds.SiegelWalfiszAP
+public import Formalism.ZeroFreeRegion.Statement
+public import Formalism.LandauZeroFreeBounds.LogDerivRegionChiOf
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.GaloisMapComplexConjugation
+public import Formalism.LandauZeroFreeBounds.SiegelWalfiszAPOfSiegelLower
+public import Formalism.SizeWindowBrackets.SlopesFromSizeAndCount
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.PChain
+public import Formalism.SizeWindowBrackets.Bundle0001
+public import Formalism.SizeWindowBrackets.Bundle0002
+public import Formalism.SizeWindowBrackets.Bundle0004
+public import Formalism.SizeWindowBrackets.Bundle0003
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.WeightedSlopeExcessDecomposition
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.LevelOfCongruence
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.JointDModelAppliesUnitLattice
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.ExistsNsmulMem
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.AdmissibleSchurLemma
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.OneLeThresholdMulPowers
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.StronglyIrreducible
+public import Formalism.HarderNarasimhan.HarderNarasimhanProofs.SlopeIneqMean
+public import Formalism.HarderNarasimhan.HarderNarasimhanProofs.HtGram
+public import Formalism.HarderNarasimhan.HarderNarasimhanProofs.PolygonSlopeSum
+public import Formalism.HarderNarasimhan.HarderNarasimhanProofs.SizeMu
+public import Formalism.SizeWindowBrackets.SBrDiv
+public import Formalism.HarderNarasimhan.HarderNarasimhanProofs.DualPl
+public import Formalism.HarderNarasimhan.HarderNarasimhanProofs.Rerealize
+public import Formalism.LogVandermondeBounds.Bundle0002
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.SubThreeMulLogTwoLe
+public import Formalism.LogVandermondeBounds.HookGammaAmgmMultinomialBounds
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.TraceConjTransposeMulSelf
+public import Formalism.SizeWindowBrackets.ChainSlopeWindows.LipschitzWeightAndMinimum
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.NormNum
+public import Mathlib.Tactic.Ring
+public import Mathlib.Data.Fintype.BigOperators
+public import Formalism.RankGapBounds.RankGapProofs.Bundle0001
+public import Formalism.LandauZeroFreeBounds.ExceptionalZeroBounds.Bundle0009
+public import Formalism.ZeroFreeRegion.ZetaLogDerivativeBounds.DzDifferentiableOn
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.Bundle0001
+public import Formalism.GL3MeanSquares.Bundle0001
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.PrimesInProgressionCountLowerBound
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.PsiZeroIntegral
+public import Formalism.GL3MeanSquares.Bundle0002
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.Bundle0006
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.CharacterEstimateOfHypothesis
+public import Formalism.GL3MeanSquares.SecondEstimateOfIntervalHypothesis
+public import Formalism.GL3MeanSquares.HookFormulaTorsion.Bundle0005
+public import Formalism.TameInertiaTowers.TowerFieldFoundations
+public import Formalism.Bundle0001
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.JacobiCharacterSums.Bundle0011
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.JacobiCharacterSums.Bundle0006
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.JacobiCharacterSums.Bundle0003
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.JacobiCharacterSums.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL2.Statement
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.LocalEndomorphismContinuous
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapFacts
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.Bundle0001
+public import Formalism.SatakeDualWeyl.DefsCS
+public import Formalism.ThetaLiftIndependence.Statement
+public import Formalism.HermitianLattices.Bundle0003
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.ClassCountFib
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.ClassCountIdx
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Bundle0009
+public import Formalism.HermitianLattices.FinalNeighbourConstruct
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.CsGlob
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.CsSpan
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Afsplit
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Bundle0008
+public import Formalism.HermitianLattices.StatementLat
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.ClassCountStab
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Bundle0005
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Levelaf
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Bundle0002
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapLat
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapSplit
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapLoc
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapStab
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Bundle0013
+public import Formalism.SatakeDualWeyl.AdelicIwasawaHecke.Stdform
+public import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.LevGapTop
+public import Formalism.LocalRingCardinality.Bundle0007
+public import Formalism.LocalRingCardinality.PrincipalHermitianLattice
+public import Formalism.LocalRingCardinality.Bundle0003
+public import Formalism.LocalRingCardinality.SpanPowerMembership.Bundle0004
+public import Formalism.LocalRingCardinality.DataLatDefs
+public import Formalism.LocalRingCardinality.SpanPowerMembership.Bundle0006
+public import Formalism.LocalRingCardinality.DataNChoice
+public import Formalism.SharpRestriction.InertJacobiLevels.Bundle0001
+public import Formalism.SharpRestriction.InertJacobiLevels.ExtraGat
+public import Formalism.LocalRingCardinality.DataKerI
+public import Formalism.LocalRingCardinality.Bundle0002
+public import Formalism.LocalRingCardinality.SpanPowerMembership.Bundle0003
+public import Formalism.LocalRingCardinality.Bundle0001
+public import Formalism.SharpRestriction.InertJacobiLevels.Bundle0003
+public import Formalism.LocalRingCardinality.Bundle0006
+public import Formalism.LocalRingCardinality.SpanPowerMembership.RankRecordRowDimensionZero
+public import Formalism.LocalRingCardinality.SpanPowerMembership.SignSplitEquivInl
+public import Formalism.LocalRingCardinality.SpanPowerMembership.Bundle0005
+public import Formalism.LocalRingCardinality.SpanPowerMembership.Bundle0007
+public import Formalism.LocalRingCardinality.SpanPowerMembership.NZRowF
+public import Formalism.LocalRingCardinality.SpanPowerMembership.ExampleWeightMiddleEntries
+public import Formalism.LocalRingCardinality.SpanPowerMembership.FmZeroHLatEmpty
+public import Formalism.LocalRingCardinality.SpanPowerMembership.GPlacesExampleNatAct
+public import Formalism.CyclotomicNorms.StatementT
+public import Formalism.LocalRingCardinality.Lemmas
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0006
+public import Formalism.SharpRestriction.Divisibility.InnerProductFormulaField
+public import Formalism.LocalRingCardinality.DataIdx
+public import Formalism.LocalRingCardinality.DataRows
+public import Formalism.LocalRingCardinality.DataForms
+public import Formalism.LocalRingCardinality.SpanPowerMembership.NZLevD
+public import Formalism.SharpRestriction.GrowthBounds.UnramifiedQuadraticSetting
+public import Formalism.SharpRestriction.GrowthBounds.LatticeSystems
+public import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.ClsLat
+public import Formalism.LocalToGlobal.GroupLattices.FockModels.OperatorsPreserveLattices
+public import Formalism.SharpRestriction.GrowthBounds.DataGChain
+public import Formalism.LocalRingCardinality.SpanPowerMembership.GatSetting
+public import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.Bundle0001
+public import Formalism.LocalToGlobal.GroupLattices.PerfectRings.JOInjective
+public import Formalism.SharpRestriction.GlobalSchurBounds.MainSup
+public import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.Bundle0030
+
+@[expose] public section
+
+noncomputable section
+
+namespace Formalism.L2.GlobalTheoryTheory.GenusMassVolumes
+
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.StandardLattice Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
+
+theorem genus_class_mass : PI.UJClassMass2.UJClassMass := _root_.unitary_class_mass_hermitian
+
+theorem classMass_of_D7 (D : D7) : ClassMass D := class_mass_of_genus_classes genus_class_mass D
+
+theorem volume_mass_of_genus_rank (D : D7) (n : ℕ) (hT : VolTie D) (hG : GenusMassAt D n) : volumeAtLevelZero D n :=
+  volume_mass_of_class_data D n hT hG (class_number_finite_rank D n) (classMassAt_of D (classMass_of_D7 D) n)
+
+end Formalism.L2.GlobalTheoryTheory.GenusMassVolumes
+
+namespace Formalism.L2.GlobalTheoryTheory.GenusMassVolumes.ClosedKudlaFamilyStandardLattice
+
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.StandardLattice
+
+
+
+end Formalism.L2.GlobalTheoryTheory.GenusMassVolumes.ClosedKudlaFamilyStandardLattice
+
+end

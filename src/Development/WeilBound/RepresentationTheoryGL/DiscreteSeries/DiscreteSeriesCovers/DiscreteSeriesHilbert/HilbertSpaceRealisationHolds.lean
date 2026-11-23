@@ -1,0 +1,20 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.DiscreteSeries.DiscreteSeriesCovers.DiscreteSeriesHilbert.Bundle0001
+public import Development.WeilBound.RepresentationTheoryGL.DiscreteSeries.DiscreteSeriesCovers.DiscreteSeriesHilbert.HilbertSquareIntegrableOfSignature
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0363
+public import Development.WeilBound.RepresentationTheoryGL.DiscreteSeries.DiscreteSeriesCovers.DiscreteSeriesHilbert.StepSqInt
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0367
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0360
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0369
+
+@[expose] public section
+
+namespace PositivityTheory.RgDs.Hilb
+
+theorem hilbert_space_realisation_holds : PositivityTheory.RgDs.Hilb :=
+  hilb_of hilbert_stable_holds hilbert_datum_holds hilbert_signature_holds _root_.GlobalTheory.CompanionTheory.HilbMoll.stepMoll _root_.GlobalTheory.CompanionTheory.RgDsHilb.stepWtSpan hilbert_cone_of_stable_mollifier hilbert_lowest_weight_of_inputs
+    _root_.GlobalTheory.CompanionTheory.RgDsHilb.stepIrred_of_stepDatum GlobalTheory.T.character_formula_of_discrete_series_datum hilbert_square_integrable_of_signature _root_.GlobalTheory.CompanionTheory.DiscreteSeries.stepVogan
+
+end PositivityTheory.RgDs.Hilb

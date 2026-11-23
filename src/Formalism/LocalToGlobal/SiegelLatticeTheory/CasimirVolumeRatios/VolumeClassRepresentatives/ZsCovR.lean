@@ -1,0 +1,39 @@
+module
+
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BruhatCellsKronecker.SphericalFunctionIntegrableOfLocal
+public import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.Statement
+public import Mathlib
+public import Formalism.HermitianLattices.Bundle0003
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0014
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.UnimodularClassRepresentatives.Bundle0009
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.UnimodularClassRepresentatives.SiegelMassRatioOfLI
+public import Formalism.GL3MeanSquares.GenusMeanAsymptotics.UnimodularClassRepresentatives.Bundle0007
+public import Formalism.FlagUnipotentLattices.ArithmeticIdentityEntries
+public import Formalism.SharpRestriction.CuspSpanNormBounds.GlobAut
+public import Formalism.SharpRestriction.CuspSpanNormBounds.BridgeLevelGenB
+public import Formalism.FlagUnipotentLattices.Bundle0004
+public import Formalism.FlagUnipotentLattices.MinkowskiFactorialBounds.ExtensionInterSubspace
+public import Formalism.LogSumExpBounds.StatementD
+public import Formalism.LatticeRigidity.HeightMinimum.PackingCountGeometricMean
+public import Formalism.LatticeRigidity.HeightMinimum.PowFinrankEqZeroOfTracePow
+public import Formalism.GelfandTransference.Bundle0001
+public import Formalism.NormUnitaryBounds.DetPolynomialWeights.ShortIndependentVectorsOfDualMinimum
+public import Formalism.LatticeTheta.ThetaShiftInversion
+public import Formalism.LatticeRigidity.StatementC
+public import Formalism.LatticeRigidity.HeightMinimum.SqrtAbsNormLeProd
+public import Formalism.SharpRestriction.CuspSpanNormBounds.SGauge
+public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.AdelicUnimodularity.NatSmulMulEq
+
+@[expose] public section
+
+noncomputable section
+
+namespace Formalism.L2.S.S7.ZsCovR
+
+open NumberField Formalism.MainNotions.S Formalism.MainNotions.BridgeLemma
+
+
+end Formalism.L2.S.S7.ZsCovR
+
+end

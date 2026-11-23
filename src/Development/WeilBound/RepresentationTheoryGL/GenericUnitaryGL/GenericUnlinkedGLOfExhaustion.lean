@@ -1,0 +1,91 @@
+module
+
+public import Mathlib
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.MirabolicDerivatives.SegmentCuspLines.ProdIrrFiniteLength
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.MirabolicDerivatives.SegmentCuspLines.CuspStdSubGeneric
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.MirabolicDerivatives.LeibnizDerivatives.GenericProdIff
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0004
+public import Development.WeilBound.RepresentationTheoryGL.GenericUnitaryGL.SegmentDerivatives.CuspPairSubGeneric
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0450
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LUnlinkedIrr
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0002
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.ZelevinskyJacquet.ZelevinskyInterleaving.LInjective
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0010
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0008
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0621
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.NontrivialTwJacquetOfSurjective
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0662
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0350
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0617
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.ZelevinskyJacquet.ZelevinskyCosocles.LUnlinkedComm
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsEquivProdIrrTw
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0605
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0629
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0349
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LeviIrreducibleTensorDecomposition
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0488
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0540
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0554
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0630
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.UnlinkedCommuteOfIrreducible
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0332
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0593
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0656
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.ZelevinskyJacquet.FineJacquetModules.SegDefs
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0539
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0618
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.PrincipalSeriesSupport.PrinSeriesWord
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.HasSupportOfIsSubquotientProdIrr
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0191
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0338
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0645
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0337
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0634
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0589
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0050
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.JhMultSubAddQuot
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0642
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.IrrParIffCuspidalProduct
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.InstAddCommGroupTwo
+public import CompanionTheory.AutomorphicTheory.HeckeStandardModules.EqZeroOfCompAt
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SquareIntegrableSegments.SegmentSubquotients.ExistsSegmentRepresentation
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0021
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0548
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.Bundle0044
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SupercuspidalSupportUniqueGL
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0105
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.Bundle0045
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0336
+public import Development.AutomorphicSpectrum.Proofs.GlobalProofs.JacquetModuleFiniteLength
+public import Development.WeilBound.CoreStatements.AutomorphicKernels.SquareIntegrableSegments.SegmentSubquotients.ExistsSocleSegmentProduct
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0581
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0594
+public import Development.WeilBound.CoreStatements.TemperedRepresentationTheory.GeometricSplitting.Imports
+public import Development.WeilBound.RepresentationTheoryGL.GenericUnitaryGL.WhittakerCuspidal.WhitCuspOfSegCuspGeneric
+public import Development.WeilBound.RepresentationTheoryGL.GenericUnitaryGL.WhittakerRankHeredity.ProdFL
+public import Development.WeilBound.RepresentationTheoryGL.GenericUnitaryGL.WhittakerRankHeredity.WhitStd
+public import Development.WeilBound.RepresentationTheoryGL.GenericUnitaryGL.ComplementarySeries.SegmentJacquetSubquotients.SegmentRepresentation
+public import Development.WeilBound.RepresentationTheoryGL.GenericUnitaryGL.NuPairInjectivity.NuPair
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ReverseOrderedProductPermEquiv
+
+@[expose] public section
+
+noncomputable section
+
+open GlobalTheory.PRep GlobalTheory.SmGL GlobalTheory.LocGL GlobalTheory.SplitWeil
+
+namespace GlobalTheory.RgGu
+
+theorem whitRankIrr : ∀ (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k], GlobalTheory.BZSeg.WhitRankIrr k :=
+  fun k _ _ _ _ => PositivityTheory.rg.gu.whit.whitRankIrr k
+
+theorem whitRankStd : ∀ (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k], GlobalTheory.BZSeg.WhitRankStd k :=
+  fun k _ _ _ _ => whitRankStd_of_heredity k (_root_.GlobalTheory.CompanionTheory.Rodier.whitHeredity k) (whitRankIrr k)
+
+theorem nuPair : ∀ (k : Type) [Field k] [ValuativeRel k] [TopologicalSpace k] [IsNonarchimedeanLocalField k], GlobalTheory.BZSeg.NuPair k :=
+  fun k _ _ _ _ => GlobalTheory.RgGu.Nup2.nuPair k
+
+end GlobalTheory.RgGu
+
+end

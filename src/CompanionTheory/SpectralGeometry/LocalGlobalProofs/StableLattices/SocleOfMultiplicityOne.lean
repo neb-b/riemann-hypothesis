@@ -1,0 +1,16 @@
+module
+
+public import Mathlib
+public import CompanionTheory.AutomorphicTheory.TemperedLocalSpectra.ZelevinskyClassification.Imports
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0002
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.GlobalTheory.ParabolicInductionFiniteLength
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0149
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.JhMultSubAddQuot
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0181
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0293
+public import Development.AbelianVarietyTheory.Proofs.SatakeParameters.Bundle0195
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0658
+public import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.Bundle0042
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0548
+
+@[expose] public section

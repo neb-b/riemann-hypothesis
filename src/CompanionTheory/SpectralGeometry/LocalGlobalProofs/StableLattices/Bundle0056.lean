@@ -1,0 +1,33 @@
+module
+
+public import Mathlib
+public import CompanionTheory.AutomorphicTheory.TemperedLocalSpectra.ZelevinskyClassification.Imports
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0002
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0554
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0562
+public import CompanionTheory.AutomorphicTheory.TemperedLocalSpectra.ZetaIntegralsL2.Imports
+public import CompanionTheory.AutomorphicTheory.TemperedLocalSpectra.ZelevinskyClassification.PropsCos
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0008
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.SocleOfMultiplicityOne
+public import Development.AbelianVarietyTheory.Definitions.Divisors.T2SpaceGeneralLinearGroup
+public import GroundTheory.AutomorphicForms.Bundle0011
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0564
+
+@[expose] public section
+
+-- bundled from CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.ContragredientProductIrreducibleImports
+section
+
+end
+
+-- bundled from CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.JacquetMultiplicityPosImports
+section
+
+end
+
+-- bundled from CompanionTheory.SpectralGeometry.LocalGlobalProofs.StableLattices.JacquetMultiplicityPosOfSocle
+section
+
+end
+

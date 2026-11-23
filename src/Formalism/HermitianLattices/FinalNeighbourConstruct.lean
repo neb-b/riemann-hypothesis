@@ -1,0 +1,38 @@
+module
+
+public import Mathlib
+public import Formalism.HermitianLattices.HermitianLatticesProofs.Bundle0001
+public import Formalism.HermitianLattices.Bundle0001
+public import Formalism.LatticeTheta.ThetaShiftInversion
+public import Formalism.HermitianLattices.HermitianLatticesProofs.ThetaSummable
+public import Formalism.HermitianLattices.StatementLat
+public import Formalism.HermitianLattices.HermitianLatticesProofs.Bundle0003
+public import Formalism.HermitianLattices.HermitianLatticesProofs.Bundle0002
+public import Formalism.HermitianLattices.HermitianLatticesProofs.DualLattice
+public import Formalism.HermitianLattices.HermitianLatticesProofs.IndexBasic
+public import Formalism.HermitianLattices.HermitianLatticesProofs.Bundle0004
+public import Formalism.HermitianLattices.HermitianLatticesProofs.TraceReal
+public import Formalism.HermitianLattices.HermitianLatticesProofs.GenusCovolBound
+public import Formalism.HermitianLattices.HermitianLatticesProofs.ClassSetAssembly
+public import Formalism.HermitianLattices.HermitianLatticesProofs.MajDual
+public import Formalism.HermitianLattices.Bundle0002
+public import Formalism.HermitianLattices.HermitianLatticesProofs.GenusCovol
+public import Formalism.HermitianLattices.HermitianLatticesProofs.ClassSetFinite
+public import Formalism.HermitianLattices.Bundle0003
+public import Formalism.HermitianLattices.HermitianLatticesProofs.UnimodUnramUnique
+
+@[expose] public section
+
+namespace Formalism.HermitianLatticesTheory
+
+theorem final_isomAct : IsomAct := Formalism.HermitianLatticesTheory.isomAct
+theorem final_genusBasic : GenusBasic := Formalism.HermitianLatticesTheory.genusBasic
+theorem final_finIntermediate : FinIntermediate := Formalism.HermitianLatticesTheory.finIntermediate
+theorem final_shortVectors : ShortVectors := Formalism.HermitianLatticesTheory.shortVectors
+theorem final_isomOfTrace : IsomOfTrace := Formalism.HermitianLatticesTheory.isomOfTrace
+theorem final_traceReal : TraceReal := Formalism.HermitianLatticesTheory.traceReal
+theorem final_autFinite : AutFinite := Formalism.HermitianLatticesTheory.autFinite
+theorem final_genusCovol : GenusCovol := Formalism.HermitianLatticesTheory.genusCovol
+theorem final_classSetFinite : ClassSetFinite := Formalism.HermitianLatticesTheory.classSetFinite
+
+end Formalism.HermitianLatticesTheory

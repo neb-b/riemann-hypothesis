@@ -1,0 +1,445 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0023
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.IsSmoothModerateOfIsAutFunSm
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0002
+public import Development.AbelianVarietyTheory.Statements.CuspFrameWeights.DiscreteSpectrumKFiniteDecomposition
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0002
+public import Formalism.UnipotentAdelicQuotients.Bundle0003
+public import Formalism.PeriodIntegrals.Bundle0016
+public import Formalism.SharpRestriction.GlobalSchurBounds.ThickPlacesCorollaryOfAnyTranslate
+public import Development.AbelianVarietyTheory.Definitions.Foundations.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0043
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.UpLReStage
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.ExistsSplittingCharacterSelf
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0016
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.WeilRepresentationUnitaryPair
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.HasDRepIffHasDerivAt
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HarishChandraModulesOn
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0031
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0032
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0041
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.NotIsCompactUnivFv
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.CmHostRootComplexEqPmSqrt
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.NonzeroPlacesOverPrimesLifts
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.DsExistsOfDiscreteSeriesExists
+public import Formalism.LocalToGlobal.IndefiniteReal.LinksStage
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.IsPrincipalMapOfAlgHom
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.NonemptyAlgHomOfIsRayOfDvd
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.ExistsUniqueHcharOfFiniteOrder
+public import Development.AbelianVarietyTheory.PublishedTheorems.WeberRayClassFields.WeberRayFieldSt
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0044
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.UnivChar
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0029
+public import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.Bundle0007
+public import Formalism.SharpRestriction.LevelLetterCocycles.BlochKatoPhases
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0014
+public import Development.AbelianVarietyTheory.BlockTheory.NonGaloisCusps.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0014
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.RankOneCuspidalUnitaryCharEquivApplySymm
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0376
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0650
+public import Development.AbelianVarietyTheory.BlockTheory.NonGaloisCusps.Bundle0009
+public import Development.AbelianVarietyTheory.Statements.HeckeThetaIntegrals.Bundle0001
+public import Development.AbelianVarietyTheory.BlockTheory.TwistedDiscreteSeries.Bundle0023
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0740
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0033
+public import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.Bundle0646
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0045
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.IsRhoPtOfSplitting
+public import Development.AbelianVarietyTheory.Proofs.DivisorProofs.Bundle0831
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.ColumnCompatibleSelection
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.STiesR
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.Bundle0016
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.DivisionPairOfAdelicFormsFaceColumnsData
+public import Formalism.LocalToGlobal.Bundle0002
+public import Formalism.LocalToGlobal.Bundle0001
+public import Formalism.LocalToGlobal.IndefiniteReal.DoubleCosetOperators.TwistedCharacterValue
+public import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.TwArgs
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0008
+public import Formalism.LocalToGlobal.Divisibility.Bundle0007
+public import Development.AutomorphicArithmetic.CharacterBoxes.Bundle0006
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0007
+public import Formalism.SharpRestriction.GlobalSchurBounds.LinkTied
+public import Formalism.SharpRestriction.GlobalSchurBounds.MainSup
+public import Formalism.LocalToGlobal.GroupLattices.AdmissibleAtGeneratorPlaces
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.RootLatticeThresholds.WuDecayAll
+public import Formalism.LocalToGlobal.SiegelLatticeTheory.FlagStabilizerTensors.Bundle0005
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.Bundle0001
+public import Formalism.LocalToGlobal.GlobalTheory.GL5.DiscreteSeriesOfFormalDegree
+public import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.DenseInterior
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.OfPositiveTrivial
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.ComplexMultiplicationJPremises
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0002
+public import Development.AbelianVarietyTheory.PublishedTheorems.SemistableReduction₂.SemistableReductionSt
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.GreenSeriesSt
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.BlockTriangularOfSubOne
+public import Development.AbelianVarietyTheory.PublishedTheorems.ThetaCharacteristics.ThetaCharZero
+public import Development.AbelianVarietyTheory.PublishedTheorems.AdelicLattices₂.ExistsFiniteUnitaryClassesOfDualEqSmul
+public import Development.AbelianVarietyTheory.PublishedTheorems.Landherr₂.LandherrStIffLandherr
+public import Development.AbelianVarietyTheory.PublishedTheorems.Landherr₂.ExistsNormTensor
+public import Development.AbelianVarietyTheory.PublishedTheorems.BesselIntegrals.ExistsLinearIndependentNormLe
+public import Development.AbelianVarietyTheory.PublishedTheorems.SemiabelianTori.GeometricallyConnectedSplitTorusAff
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.WeylDualWeylLatticesAgreeOfLowestAlcove
+public import Development.AbelianVarietyTheory.PublishedTheorems.RelativeAmpleness.RelAmpleAndKTrivIff
+public import Development.AbelianVarietyTheory.PublishedTheorems.AbelianLaws.PrincipalPolarisationOneSection
+public import Development.AbelianVarietyTheory.PublishedTheorems.Landherr₂.DimEqZero
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.MumfordProportionality
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ToroidalCompactification
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.InjectiveOfSmulMemRange
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.KawamataViehweg
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0015
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.L2ExtensionLogCanonical
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0013
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.IsMultiHomogeneousFixFirstBlock
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0016
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.IsLogCanonicalMultipleCanonical
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0020
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0008
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.AdmissibleBaseChartRing
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0009
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0017
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.AdmissibleDiscreteSeriesOfHasParam
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.WeilSiegelFormulaUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0010
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.PairwiseDisjointCell
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.SchurOrthogonalitySquareIntegrable
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0009
+public import Development.AbelianVarietyTheory.PublishedTheorems.DiscreteSeriesUnitary₂.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0013
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0008
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.ExistsCellOfIsSubquotient
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ExistsHorizontalGeneratorOfCharts
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.SiegelWeilUnitaryConvergent
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.IsTemperedGLOfIsUnitaryLSeg
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0008
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0010
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.BaseChangeDefiniteUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.HeckeLAdicCharacterAboveIff
+public import Development.AbelianVarietyTheory.PublishedTheorems.AdelicLattices₂.AlgebraMapNormOfBasisOneSqrt
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.ExistsMemIdealInvariants
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.HermitianHassePrincipleHolds
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.ThetaRationalInvarianceHolds
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.PlaneFormNondegenerate
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.DiscreteSeriesCoverExistsIff
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0022
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0006
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.IrreducibleDistinctUnitary
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.MetaplecticRepresentation
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.QuadraticClassFieldTheory
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0011
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.ExistsOrthonormalOfUnimodular
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.RadfordShufflePolynomialHolds
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.FiniteIntertwining
+public import Development.AbelianVarietyTheory.PublishedTheorems.PublishedFoundations.PrimesInProgressionNonempty
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0004
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.HeckeLEntireAndNonzeroAtOne
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.DiscreteSeriesLowestKTypeOfClassification
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.RealMetaplecticRepresentation
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0007
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.StrongMultiplicityOne
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.DeRhamPotSemistable
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.TateDualCrystalline
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.ExistsIdealsPrimeToEqSpan
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.PoitouTateNineTermTransgressionZeroApply
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0002
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0009
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.DepthZeroSupport
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.RationalDualityOfAllCoefficients
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0012
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.HeckeTateFunctionalEquationCM
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ExistsEqOfNatCastMulMem
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0011
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.ToroidalCompactificationBis
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0019
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.CuspDiscreteDecompositionGL
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.Bundle0003
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisGeometry₂.GelfandKazhdanDual
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.Bundle0001
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.PartialZetaFunctionalEquation
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0014
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.TamagawaNumberSU
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.Bundle0011
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.BaseChangeIsobaric
+public import Development.AbelianVarietyTheory.PublishedTheorems.GaloisCohomology₂.PoitouTateNormalised
+public import Development.AbelianVarietyTheory.PublishedTheorems.SiegelWeil₂.SiegelEisensteinSimplePoleOfDoublingMethod
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.NormalCompletionSt
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.IsSchwartzBruhatOfProd
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.FiniteDimensionalNablaSq
+public import Development.AbelianVarietyTheory.PublishedTheorems.DefiniteCompactness.ExistsCompactOfDefinite
+public import Development.AbelianVarietyTheory.PublishedTheorems.GlobalTheta.HcFormalDegreeOfDiscreteSeriesFormalDegree
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0002
+public import Development.AbelianVarietyTheory.PublishedTheorems.Divisors₂.PrasadVolumeSU
+public import Development.AbelianVarietyTheory.PublishedTheorems.RosatiTraces.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Bundle0012
+public import Development.AbelianVarietyTheory.Definitions.GaloisGeometry.Bundle0026
+public import Development.AbelianVarietyTheory.Proofs.TwistedOperators.Bundle0382
+
+@[expose] public section
+
+namespace GlobalTheory.Fc.S0
+
+
+set_option genInjectivity false in
+set_option genSizeOfSpec false in
+structure ArithmeticGeometryHyps : Prop where
+  toroidalCompactification : GlobalTheory.Published.ToroidalCompactification
+  volGe : GlobalTheory.Published.VolGe
+  volNef : GlobalTheory.Published.VolNef
+  arCalc : GlobalTheory.Published.ArCalc
+  abelianDeRham : GlobalTheory.Published.AbelianDeRham
+  tamagawaSpecialUnitary : GlobalTheory.Published.TamagawaSpecialUnitary
+  gaussBonnetUnitary : GlobalTheory.Published.GaussBonnetUnitary
+  rayClassFieldSt : GlobalTheory.Published.RayClassFieldSt
+  weberRayFieldSt : GlobalTheory.Published.WeberRayFieldSt
+  complexMultiplicationJSt : GlobalTheory.Published.ComplexMultiplicationJSt
+  cMCurveGoodOutsidePrimeSt : GlobalTheory.Published.CMCurveGoodOutsidePrimeSt
+  semistableReductionSt : GlobalTheory.Published.SemistableReductionSt
+  strongApproxSU : GlobalTheory.Published.StrongApproxSU
+  greenSeriesSt : GlobalTheory.Published.GreenSeriesSt
+  cuspidalMirabolic : GlobalTheory.Published.CuspidalMirabolic
+  canonKeySt : GlobalTheory.Published.CanonKeySt
+  finitenessOfHermitianClasses : GlobalTheory.Published.FinitenessOfHermitianClasses
+  landherrSt : GlobalTheory.Published.LandherrSt
+  hasseNormSt : GlobalTheory.Published.HasseNormSt
+  succMinTransference : GlobalTheory.Published.SuccMinTransference
+  semiAbelianHomExtension : GlobalTheory.Published.SemiAbelianHomExtension
+  inducedSimpleLowestAlcove : GlobalTheory.Published.InducedSimpleLowestAlcove
+  polExtSt : GlobalTheory.Published.PolExtSt
+  degree_zero_cohomology_one : GlobalTheory.Published.principalPolarisationOneSection
+  abMulNSt : GlobalTheory.Published.AbMulNSt
+  goodChernWeil : GlobalTheory.Published.GoodChernWeil
+  grothendieckMessing : GlobalTheory.Published.GrothendieckMessing
+  deRhamCanonicalExtension : GlobalTheory.Published.DeRhamCanonicalExtension
+  prismaticDieudonneHodge : GlobalTheory.Published.PrismaticDieudonneHodge
+  prismaticDieudonne : GlobalTheory.Published.PrismaticDieudonne
+  kawamataViehweg : GlobalTheory.Published.KawamataViehweg
+  nefNumerics : GlobalTheory.Published.NefNumerics
+  l2ExtensionLogCanonical : GlobalTheory.Published.L2ExtensionLogCanonical
+  arithHilbertSamuel : GlobalTheory.Published.ArithHilbertSamuel
+  chowFormExists : GlobalTheory.Published.ChowFormExists
+  cycleHeights : GlobalTheory.Published.CycleHeights
+  serreHolomorphicSections : GlobalTheory.Published.SerreHolomorphicSections
+  dbarCompleteKaehler : GlobalTheory.Published.DbarCompleteKaehler
+  nadelVanishingAndNonKltDivisor : GlobalTheory.Published.NadelVanishingAndNonKltDivisor
+  principalisation : GlobalTheory.Published.Principalisation
+  serreTateGoodReductionSt : GlobalTheory.Published.SerreTateGoodReductionSt
+  formalAlgebraisation : GlobalTheory.Published.FormalAlgebraisation
+  abelianDieudonne : GlobalTheory.Published.AbelianDieudonne
+  grothendieckDeformation : GlobalTheory.Published.GrothendieckDeformation
+  deRhamVectorExtension : GlobalTheory.Published.DeRhamVectorExtension
+  siegelToroidalIntegral : GlobalTheory.Published.SiegelToroidalIntegral
+  toroidalChartsForFan : GlobalTheory.Published.ToroidalChartsForFan
+  toroidalCharts : GlobalTheory.Published.ToroidalCharts
+  arDegree : GlobalTheory.Published.ArDegree
+  properIntersectionLength : GlobalTheory.Published.ProperIntersectionLength
+  cuspRapidDecay : GlobalTheory.Published.CuspRapidDecay
+  harishChandraFinite : GlobalTheory.Published.HarishChandraFinite
+  harishChandraModules : GlobalTheory.Published.HarishChandraModules
+  discreteSeriesCover : GlobalTheory.Published.DiscreteSeriesCover
+  casselmanWallach : GlobalTheory.Published.CasselmanWallach
+  weilSiegelFormulaUnitary : GlobalTheory.Published.WeilSiegelFormulaUnitary
+  doublingMethod : GlobalTheory.Published.DoublingMethod
+  unramifiedDoublingGL : GlobalTheory.Published.UnramifiedDoublingGL
+  bernsteinZelevinskyFiniteness : GlobalTheory.Published.BernsteinZelevinskyFiniteness
+  greenCuspidal : GlobalTheory.Published.GreenCuspidal
+  weilRepresentationUnitaryPair : GlobalTheory.Published.WeilRepresentationUnitaryPair
+  schurOrthogonalitySquareIntegrable : GlobalTheory.Published.SchurOrthogonalitySquareIntegrable
+  scholzeWeinsteinB : GlobalTheory.Published.ScholzeWeinsteinB
+  harishChandraAnalyticity : GlobalTheory.Published.HarishChandraAnalyticity
+  discreteSeriesClassification : GlobalTheory.Published.DiscreteSeriesClassification
+  cuspTraceClass : GlobalTheory.Published.CuspTraceClass
+  dixmierMalliavinFactorisation : GlobalTheory.Published.DixmierMalliavinFactorisation
+  flathFactorisation : GlobalTheory.Published.FlathFactorisation
+  pseudoCoefficientUpq : GlobalTheory.Published.PseudoCoefficientUpq
+  harishChandraCharacters : GlobalTheory.Published.HarishChandraCharacters
+  langlandsClassification : GlobalTheory.Published.LanglandsClassification
+  labesseWaldspurger : GlobalTheory.Published.LabesseWaldspurger
+  zelevinskyPolynomialRing : GlobalTheory.Published.ZelevinskyPolynomialRing
+  heckeFunctionalEquationAbs : GlobalTheory.Published.HeckeFunctionalEquationAbs
+  canonicalExtensionRankOne : GlobalTheory.Published.CanonicalExtensionRankOne
+  siegelWeilUnitaryConvergent : GlobalTheory.Published.SiegelWeilUnitaryConvergent
+  formalDegreeCompactDual : GlobalTheory.Published.FormalDegreeCompactDual
+  cohomologicalCsdTempered : GlobalTheory.Published.CohomologicalCsdTempered
+  heckeLAdicCharacter : GlobalTheory.Published.HeckeLAdicCharacter
+  chebotarevDegreeOne : GlobalTheory.Published.ChebotarevDegreeOne
+  discreteSpectrumGL : GlobalTheory.Published.DiscreteSpectrumGL
+  galoisRepOfPolarizedCuspidal : GlobalTheory.Published.GaloisRepOfPolarizedCuspidal
+  baseChangeDefiniteUnitary : GlobalTheory.Published.BaseChangeDefiniteUnitary
+  bhattScholzeCrystallineLattices : GlobalTheory.Published.BhattScholzeCrystallineLattices
+  heckeLAdicCharacterAbove : GlobalTheory.Published.HeckeLAdicCharacterAbove
+  landherr : GlobalTheory.Published.Landherr
+  siegelEisensteinContinuation : GlobalTheory.Published.SiegelEisensteinContinuation
+  idealInvariantsOneOrbitSt : GlobalTheory.Published.IdealInvariantsOneOrbitSt
+  hermitianHassePrinciple : GlobalTheory.Published.HermitianHassePrinciple
+  thetaRationalInvariance : GlobalTheory.Published.ThetaRationalInvariance
+  stoneVonNeumann : GlobalTheory.Published.StoneVonNeumann
+  logDerOne : GlobalTheory.Mem.An.LogDerOne
+  discreteSeriesUpqExists : GlobalTheory.Published.DiscreteSeriesUpqExists
+  discreteSeriesExists : GlobalTheory.Published.DiscreteSeriesExists
+  discreteSeriesCoverExists : GlobalTheory.Published.DiscreteSeriesCoverExists
+  abelianDualCrystal : GlobalTheory.Published.AbelianDualCrystal
+  discreteSeriesHermitianUnique : GlobalTheory.Published.DiscreteSeriesHermitianUnique
+  besselUniquenessReal : GlobalTheory.Published.BesselUniquenessReal
+  kudlaSplittingSplitUnitary : GlobalTheory.Published.KudlaSplittingSplitUnitary
+  gLHoweDuality : GlobalTheory.Published.GLHoweDuality
+  cuspDecayBound : GlobalTheory.Published.CuspDecayBound
+  metaplecticRepresentation : GlobalTheory.Published.MetaplecticRepresentation
+  bernsteinUnitaryProductIrreducible : GlobalTheory.Published.BernsteinUnitaryProductIrreducible
+  borelCasselman : GlobalTheory.Published.BorelCasselman
+  quadraticClassFieldTheory : GlobalTheory.Published.QuadraticClassFieldTheory
+  rallisInnerProductConvergent : GlobalTheory.Published.RallisInnerProductConvergent
+  siegelWeilAnisotropicUnitary : GlobalTheory.Published.SiegelWeilAnisotropicUnitary
+  regularisedSiegelWeilFirstTerm : GlobalTheory.Published.RegularisedSiegelWeilFirstTerm
+  heckeLPartialContinuation : GlobalTheory.Published.HeckeLPartialContinuation
+  hermitianLocalGlobal : GlobalTheory.Published.HermitianLocalGlobal
+  radfordShufflePolynomial : GlobalTheory.Published.RadfordShufflePolynomial
+  weylBranching : GlobalTheory.Published.WeylBranching
+  cuspDecaySobolev : GlobalTheory.Published.CuspDecaySobolev
+  linnik : GlobalTheory.Published.Linnik
+  cuspBounded : GlobalTheory.Published.CuspBounded
+  gKGlobalisation : GlobalTheory.Published.GKGlobalisation
+  heckeLEntireAndNonzeroAtOne : GlobalTheory.Published.HeckeLEntireAndNonzeroAtOne
+  holomorphicDiscreteSeries : GlobalTheory.Published.HolomorphicDiscreteSeries
+  kFiniteVectorsUnitary : GlobalTheory.Published.KFiniteVectorsUnitary
+  discreteSeriesLowestKType : GlobalTheory.Published.DiscreteSeriesLowestKType
+  realMetaplecticRepresentation : GlobalTheory.Published.RealMetaplecticRepresentation
+  howeDualityGL : GlobalTheory.Published.HoweDualityGL
+  unlinkedProductIrreducible : GlobalTheory.Published.UnlinkedProductIrreducible
+  depthZeroJacquetInjective : GlobalTheory.Published.DepthZeroJacquetInjective
+  fontaineBcris : GlobalTheory.Published.FontaineBcris
+  automorphicFormsFiniteGL : GlobalTheory.Published.AutomorphicFormsFiniteGL
+  jacquetShalika : GlobalTheory.Published.JacquetShalika
+  regularAlgebraicPurity : GlobalTheory.Published.RegularAlgebraicPurity
+  deRhamPotSemistable : GlobalTheory.Published.DeRhamPotSemistable
+  localGlobalAboveL : GlobalTheory.Published.LocalGlobalAboveL
+  heckeLAdicParameterAbove : GlobalTheory.Published.HeckeLAdicParameterAbove
+  tateDualCrystalline : GlobalTheory.Published.TateDualCrystalline
+  explZeta : GlobalTheory.Mem.An.ExplZeta
+  explChi : GlobalTheory.Mem.An.ExplChi
+  zeroCount : GlobalTheory.Mem.An.ZeroCount
+  jutila : GlobalTheory.Mem.An.Jutila
+  pageThm : GlobalTheory.Mem.An.PageThm
+  tZRat : GlobalTheory.Mem.An.TZRat
+  tZQuad : GlobalTheory.Mem.An.QuadraticHeckeZeroEstimates
+  rayCharacterArtin : GlobalTheory.Published.RayCharacterArtin
+  discreteSeriesUpqUnique : GlobalTheory.Published.DiscreteSeriesUpqUnique
+  automorphicFormsFiniteUnitary : GlobalTheory.Published.AutomorphicFormsFiniteUnitary
+  discreteSeriesCoefficientsCuspidal : GlobalTheory.Published.DiscreteSeriesCoefficientsCuspidal
+  principalIdealSt : GlobalTheory.Published.PrincipalIdealSt
+  poitouTateTotallyComplex : GlobalTheory.Published.PoitouTateTotallyComplex
+  cohDimTwo : GlobalTheory.Published.CohDimTwo
+  tameLocal : GlobalTheory.Published.TameLocal
+  standardCosocleGL : GlobalTheory.Published.StandardCosocleGL
+  genericUnitaryDualGL : GlobalTheory.Published.GenericUnitaryDualGL
+  depthZeroInertia : GlobalTheory.Published.DepthZeroInertia
+  depthZeroWild : GlobalTheory.Published.DepthZeroWild
+  depthZeroSupport : GlobalTheory.Published.DepthZeroSupport
+  blochKatoLocal : GlobalTheory.Published.BlochKatoLocal
+  localGlobalAboveLPst : GlobalTheory.Published.LocalGlobalAboveLPst
+  poitouTateDuality : GlobalTheory.Published.PoitouTateDuality
+  siegelKlingenDeligneRibet : GlobalTheory.Published.SiegelKlingenDeligneRibet
+  heckeTateFunctionalEquation : GlobalTheory.Published.HeckeTateFunctionalEquation
+  hilbertBlumenthal : GlobalTheory.Published.HilbertBlumenthal
+  ellipticMainTheoremCM : GlobalTheory.Published.EllipticMainTheoremCM
+  siegelSetUnitary : GlobalTheory.Published.SiegelSetUnitary
+  langlandsSumMultiplicityOne : GlobalTheory.Published.LanglandsSumMultiplicityOne
+  caraianiLocalGlobal : GlobalTheory.Published.CaraianiLocalGlobal
+  algebraicCharacterWD : GlobalTheory.Published.AlgebraicCharacterWD
+  clozelCohomological : GlobalTheory.Published.ClozelCohomological
+  minguezThetaGL : GlobalTheory.Published.MinguezThetaGL
+  moyPrasadJacquetIso : GlobalTheory.Published.MoyPrasadJacquetIso
+  clozelPurity : GlobalTheory.Published.ClozelPurity
+  totallyDisjointProductIrreducible : GlobalTheory.Published.TotallyDisjointProductIrreducible
+  toroidalForFanKS : GlobalTheory.Published.ToroidalForFanKS
+  semiAbelianLieSeminegative : GlobalTheory.Published.SemiAbelianLieSeminegative
+  cuspidalSpectrumGL : GlobalTheory.Published.CuspidalSpectrumGL
+  essSquareIntegrableSegments : GlobalTheory.Published.EssSquareIntegrableSegments
+  temperedProductOfSquareIntegrable : GlobalTheory.Published.TemperedProductOfSquareIntegrable
+  caraianiTempered : GlobalTheory.Published.CaraianiTempered
+  galoisRepOfPolarizedPair : GlobalTheory.Published.GaloisRepOfPolarizedPair
+  gelfandKazhdanDual : GlobalTheory.Published.GelfandKazhdanDual
+  squareIntegrableSegment : GlobalTheory.Published.SquareIntegrableSegment
+  geometricLemmaFiltration : GlobalTheory.Published.GeometricLemmaFiltration
+  brauerDegreeZero : GlobalTheory.Published.BrauerDegreeZero
+  chevalleyUnits : GlobalTheory.Published.ChevalleyUnits
+  localConverseGL : GlobalTheory.Published.LocalConverseGL
+  localLanglandsExists : GlobalTheory.Published.LocalLanglandsExists
+  langlandsExhaustionGL : GlobalTheory.Published.LanglandsExhaustionGL
+  depthZeroInduction : GlobalTheory.Published.DepthZeroInduction
+  partialZetaFunctionalEquation : GlobalTheory.Published.PartialZetaFunctionalEquation
+  periodComparison : GlobalTheory.Published.PeriodComparison
+  chernDegreeComplex : GlobalTheory.Published.ChernDegreeComplex
+  arFormExists : GlobalTheory.Published.ArFormExists
+  abelianDeRhamStructure : GlobalTheory.Published.AbelianDeRhamStructure
+  abelianLifting : GlobalTheory.Published.AbelianLifting
+  poincareDeRhamDuality : GlobalTheory.Published.PoincareDeRhamDuality
+  pDivisibleGroupsOverOC : GlobalTheory.Published.PDivisibleGroupsOverOC
+  tamagawaNumberSU : GlobalTheory.Published.TamagawaNumberSU
+  complementaryThetaInert : GlobalTheory.Published.ComplementaryThetaInert
+  greenRegularCharacters : GlobalTheory.Published.GreenRegularCharacters
+  langlandsMultisegments : GlobalTheory.Published.LanglandsMultisegments
+  discreteSpectrumResidual : GlobalTheory.Published.DiscreteSpectrumResidual
+  baseChangeIsobaric : GlobalTheory.Published.BaseChangeIsobaric
+  poitouTateNormalised : GlobalTheory.Published.PoitouTateNormalised
+  unitaryDualGL : GlobalTheory.Published.UnitaryDualGL
+  genericUnlinkedGL : GlobalTheory.Published.GenericUnlinkedGL
+  gaussManinPeriods : GlobalTheory.Published.GaussManinPeriods
+  siegelEisensteinSimplePole : GlobalTheory.Published.SiegelEisensteinSimplePole
+  normalCompletionSt : GlobalTheory.Published.NormalCompletionSt
+  depthZeroTypeInertia : GlobalTheory.Published.DepthZeroTypeInertia
+  weilSiegelOneVector : GlobalTheory.Published.WeilSiegelOneVector
+  weylDimensionGL : GlobalTheory.Published.WeylDimensionGL
+  unitaryFiniteCovolume : ∀ (E : Type) [Field E] [NumberField E] [NumberField.IsCMField E], GlobalTheory.Published.UnitaryFiniteCovolume E
+  chebotarevOpenNormal : GlobalTheory.Published.ChebotarevOpenNormal
+  discreteSeriesFormalDegree : GlobalTheory.Published.DiscreteSeriesFormalDegree
+  casselmanWallachAdm : GlobalTheory.Published.CasselmanWallachAdm
+  casselmanWallachLift : GlobalTheory.Published.CasselmanWallachLift
+  fontaineEtale : GlobalTheory.Published.FontaineEtale
+  prasadVolumeSU : GlobalTheory.Published.PrasadVolumeSU
+  tateCharPolySt : GlobalTheory.Published.TateCharPolySt
+  rosatiTracePosSt : GlobalTheory.Published.RosatiTracePosSt
+  howeDualityReal : GlobalTheory.Published.HoweDualityReal
+  siegelWeilUnitaryConvergent2 : HeckeCharacterZeroLocus.SiegelWeilU.SiegelWeilUnitaryConvergent
+  cheb : GlobalTheory.TwSys.Cheb
+  dSInfChar : GlobalTheory.Dec.DSInfChar
+  globalArtinReciprocity : GlobalTheory.Published.GlobalArtinReciprocity
+  localFiniteness : ReciprocityTheory.Gal.LocalFiniteness
+  localTateDuality : ReciprocityTheory.Gal.LocalTateDuality
+  localEulerChar : ReciprocityTheory.Gal.LocalEulerChar
+  globalFiniteness : ReciprocityTheory.Gal.GlobalFiniteness
+  globalEulerChar : ReciprocityTheory.Gal.GlobalEulerChar
+  unramifiedOrthogonality : ReciprocityTheory.Gal.UnramifiedOrthogonality
+  greenbergWiles : ReciprocityTheory.Gal.GreenbergWiles
+  discreteSeriesExists₂ : GlobalTheory.Mem.Vol.DiscreteSeriesExist
+  fdeg₂ : GlobalTheory.Mem.Vol.FormalDegreeFormula₂
+
+end GlobalTheory.Fc.S0

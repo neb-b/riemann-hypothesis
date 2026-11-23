@@ -1,0 +1,16 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Statements.ThetaLevelCharacters.MemThetaLevelCharDimZero
+public import Development.AbelianVarietyTheory.Proofs.ToricGeometry.TorusAlgebraicOfSectionsOfVeryAmple
+public import Development.AbelianVarietyTheory.Proofs.ToricGeometry.Bundle0020
+public import Development.AbelianVarietyTheory.Proofs.ToricGeometry.FormallyUnramifiedOfDerivations
+
+@[expose] public section
+
+namespace GlobalTheory
+
+theorem torusAlgebraic_holds : TorusAlgebraic :=
+  torusAlgebraic_of_sections_of_veryAmple ThetaBundleSec.sections_pow_eq_thetaLevelChar thetaBundle_veryAmpleAt
+
+end GlobalTheory

@@ -1,0 +1,108 @@
+module
+
+public import Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.Bundle0001
+
+@[expose] public section
+
+-- bundled from Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.JetExpShape
+section
+noncomputable section
+open scoped BigOperators
+
+namespace Formalism.L2.Th1.C
+
+def Dinv {K : Type} [Field K] (l f : PowerSeries K) : PowerSeries K :=
+  (PowerSeries.derivative (R := K) l)⁻¹ * PowerSeries.derivative (R := K) f
+
+def jet {K : Type} [Field K] (l f : PowerSeries K) (i : ℕ) : K :=
+  PowerSeries.constantCoeff ((Dinv l)^[i] f)
+
+def JetAdditive : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (l linv f : PowerSeries K), IsLogPair l linv →
+    ∀ i : ℕ, jet l f i = (i.factorial : K) * PowerSeries.coeff i (PowerSeries.subst linv f)
+
+def JetLG : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l f : PowerSeries K),
+    IsOneUnit R (PowerSeries.derivative (R := K) l) → LG R f → ∀ i : ℕ, 1 ≤ i → jet l f i ∈ R
+
+def JetNorm : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l linv ph : PowerSeries K) (a b : K),
+    IsLogPair l linv → IsOneUnit R (PowerSeries.derivative (R := K) l) →
+    PowerSeries.constantCoeff ph = 0 → PhNormAt R l linv ph a b →
+    ∀ i : ℕ, 1 ≤ i → (a ^ i - a * b) * jet l ph i ∈ R
+
+def JetOne : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l linv ph : PowerSeries K),
+    IsLogPair l linv → IsOneUnit R (PowerSeries.derivative (R := K) l) →
+    PowerSeries.constantCoeff ph = 0 → PhNormAt R l linv ph (-1) (-1) → (2 : K)⁻¹ ∈ R →
+    jet l ph 1 ∈ R
+
+def JetAdj : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l linv ph : PowerSeries K) (a b : K),
+    IsLogPair l linv → PowerSeries.constantCoeff ph = 0 → AdjAt R l linv ph a b →
+    (a - b) * jet l ph 2 ∈ R
+
+def JetExp : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l linv ph : PowerSeries K),
+    IsLogPair l linv → PowerSeries.constantCoeff ph = 0 → (∀ i : ℕ, 1 ≤ i → jet l ph i ∈ R) →
+    ∀ i : ℕ, jet l (mvExp (-ph) : PowerSeries K) i ∈ R
+
+def JetExpShape : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l linv ph : PowerSeries K),
+    IsLogPair l linv → PowerSeries.constantCoeff ph = 0 →
+    (∀ i : ℕ, 1 ≤ i → i ≠ 2 → jet l ph i ∈ R) →
+    ∃ H : PowerSeries K, (∀ i : ℕ, jet l H i ∈ R) ∧
+      (mvExp (-ph) : PowerSeries K) = mvExp (-(PowerSeries.C (jet l ph 2 / 2) * l ^ 2)) * H
+
+end Formalism.L2.Th1.C
+end
+end
+
+-- bundled from Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.PhNormClosed
+section
+noncomputable section
+open scoped BigOperators
+
+namespace Formalism.L2.Th1.C
+
+def EndIntClosed : Prop :=
+  ∀ (K : Type) [Field K] [TopologicalSpace K] [IsTopologicalRing K] (R : Subring K),
+    IsClosed (R : Set K) → ∀ l linv : PowerSeries K, PowerSeries.constantCoeff l = 0 →
+      IsClosed {a : K | EndInt R l linv a}
+
+def BinomClosed : Prop :=
+  ∀ (K : Type) [Field K] [TopologicalSpace K] [IsTopologicalRing K] (R : Subring K),
+    IsClosed (R : Set K) → IsClosed {z : K | IsBinomScalar R z}
+
+def PhNormClosed : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] [TopologicalSpace K] [IsTopologicalRing K] (R : Subring K),
+    IsClosed (R : Set K) → ∀ l linv ph : PowerSeries K, PowerSeries.constantCoeff l = 0 →
+      PowerSeries.constantCoeff linv = 0 → PowerSeries.constantCoeff ph = 0 →
+      IsClosed {p : K × K | PhNormAt R l linv ph p.1 p.2}
+
+def ZLinClosed : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] [TopologicalSpace K] [IsTopologicalRing K] (R : Subring K),
+    IsClosed (R : Set K) → ∀ l linv ph : PowerSeries K, PowerSeries.constantCoeff l = 0 →
+      PowerSeries.constantCoeff linv = 0 → PowerSeries.constantCoeff ph = 0 →
+      IsClosed {z : K | ZLinAt R l linv ph z}
+
+def ZLinInt : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (R : Subring K) (l linv ph : PowerSeries K),
+    Frame R l linv ph → F1 R l linv ph → ∀ n : ℤ, ZLinAt R l linv ph (n : K)
+
+def EndoAll : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] [TopologicalSpace K] [IsTopologicalRing K] (R : Subring K),
+    IsClosed (R : Set K) → ∀ l linv ph : PowerSeries K, Frame R l linv ph → F1 R l linv ph →
+    ∀ (O : Type) [CommRing O] [StarRing O] [TopologicalSpace O] (τ : O →+* K),
+    Continuous τ → Continuous (star : O → O) →
+    (∀ z : O, star z = z → τ z ∈ closure (Set.range (fun n : ℤ => (n : K)))) →
+    (2 : K)⁻¹ ∈ R → IsUnit (2 : O) → (∀ α : O, ∃ u v : Oˣ, α = u + v) →
+    ∀ Dn : Set O, (∀ α : Oˣ, (α : O) ∈ closure Dn) →
+    (∀ α ∈ Dn, EndInt R l linv (τ α) ∧ PhNormAt R l linv ph (τ α) (τ (star α))) →
+    ∀ α : O, EndInt R l linv (τ α) ∧ PhNormAt R l linv ph (τ α) (τ (star α)) ∧
+      AdjAt R l linv ph (τ α) (τ (star α))
+
+end Formalism.L2.Th1.C
+end
+end
+

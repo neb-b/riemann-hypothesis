@@ -1,0 +1,22 @@
+module
+
+public import Formalism.ThetaLogCoordinates.TraceIsometryWeights.StatementF
+public import Formalism.ThetaLogCoordinates.FockResolutionOnto.Bundle0001
+public import Formalism.ThetaLogCoordinates.FockResolutionOnto.StatementH
+public import Formalism.ThetaLogCoordinates.BihomogeneousPairs.LetterChainEmbeddings.PairStep
+public import Formalism.ThetaLogCoordinates.PartnerMeanCoordinates.PartnerMeanProofs.GamIntC
+public import Formalism.ThetaLogCoordinates.PartnerMeanCoordinates.PartnerMeanProofs.PartnerConditionHolds
+public import Formalism.ThetaLogCoordinates.FockResolutionOnto.FockMonomialProofs.RestrictedSaturationHolds
+public import Formalism.ThetaLogCoordinates.FockResolutionOnto.FockMonomialProofs.HighestVectorProjectionPos
+public import Formalism.ThetaLogCoordinates.FockResolutionOnto.FockMonomialProofs.GramBoundPosOfProjSat
+public import Formalism.ThetaLogCoordinates.BihomogeneousPairs.FinalLL
+public import Formalism.ThetaLogCoordinates.PartnerMeanCoordinates.PartnerMeanProofs.GramHypothesisOfLogBound
+public import Formalism.PolynomialDimension.ChainOrderLetters
+
+@[expose] public section
+
+namespace Formalism.InvariantFactorPaths.MC.Top
+
+theorem theoremMV7 : Formalism.CountingSumsFrames.TheoremMV7 := Formalism.InvariantFactorPaths.MC.theoremMV7
+
+end Formalism.InvariantFactorPaths.MC.Top

@@ -1,0 +1,62 @@
+module
+
+public import Mathlib
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.OrderReductionProperties
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MonomialCase.MonomialPrincipalization
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedBlowupSequence.IdealBlowupSequence
+public import Development.ResolutionOfSingularities.EmbeddedResolution.IdealPrincipalization.MarkedBlowupSequence.MarkedSequenceOfBlowups
+public import Development.ResolutionOfSingularities.Foundations.BlowupUniversalProperty
+public import Development.ResolutionOfSingularities.EmbeddedResolution.ResolutionOfSingularities
+
+@[expose] public section
+
+universe u
+
+open CategoryTheory AlgebraicGeometry
+
+noncomputable section
+
+namespace FunctorialResolution.EmbeddedResolution
+
+namespace MonomialCenter
+
+def sortedIndices {n : ℕ} (J : Finset (Fin n)) : List ℕ :=
+  (J.sort (· ≤ ·)).map Fin.val
+
+theorem sortedIndices_eq_map_sort {n : ℕ} (J : Finset (Fin n)) :
+    sortedIndices J = (J.sort (· ≤ ·)).map Fin.val := rfl
+
+theorem mem_sortedIndices {n : ℕ} (J : Finset (Fin n)) (a : ℕ) :
+    a ∈ sortedIndices J ↔ ∃ j ∈ J, (j : ℕ) = a := by
+  simp [sortedIndices, List.mem_map, Finset.mem_sort]
+
+structure CenterInvariant (n : ℕ) : Type where
+  positions : Finset (Fin n)
+  rank : ℕ
+  value : ℕ∞
+
+def CenterInvariant.sortedIndices {n : ℕ} (K : CenterInvariant n) : List ℕ :=
+  _root_.FunctorialResolution.EmbeddedResolution.MonomialCenter.sortedIndices K.positions
+
+def CenterInvariant.Lt {n n' : ℕ} (K : CenterInvariant n) (K' : CenterInvariant n') : Prop :=
+  K.rank < K'.rank ∨
+    (K.rank = K'.rank ∧
+      (K'.value < K.value ∨
+        (K.value = K'.value ∧
+          List.Lex (· < ·) K.sortedIndices K'.sortedIndices)))
+
+def CenterInvariant.Le {n n' : ℕ} (K : CenterInvariant n) (K' : CenterInvariant n') : Prop :=
+  K.Lt K' ∨
+    (K.rank = K'.rank ∧ K.value = K'.value ∧ K.sortedIndices = K'.sortedIndices)
+
+def centerInvariant {Y : Scheme.{u}} (I : Y.IdealSheafData) (m : ℕ) (L : List Y.IdealSheafData) :
+    CenterInvariant L.length where
+  positions := lexMaxIndices I m L
+  rank := minIndexCard I m L
+  value := maxCandidateOrder I m L
+
+end MonomialCenter
+
+end FunctorialResolution.EmbeddedResolution
+
+end

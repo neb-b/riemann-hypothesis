@@ -1,0 +1,19 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Statements.CuspFrameWeights.DiscreteSpectrumKFiniteDecomposition
+public import Development.AbelianVarietyTheory.PublishedTheorems.AutomorphicForms₂.Bundle0002
+public import Development.AutomorphicSpectrum.Proofs.MembershipProofs.DiscreteSeriesUpqUnique
+public import CompanionTheory.HarishChandraModules.LowKTypeMultiplicity.EigenspaceCyclicDensity.LowKTypeMultiplicityOneFock
+public import Formalism.SharpRestriction.CuspSpanNormBounds.Bundle0018
+
+@[expose] public section
+
+namespace CompanionTheory.DiscreteSeriesGap.GapInv
+
+theorem dsUnique_dec : GlobalTheory.Dec.DSUnique :=
+  GlobalTheory.Published.discreteSeriesUpqUnique_iff.1 GlobalTheory.CompanionTheory.Front.discreteSeriesUpqUnique
+
+theorem lowKMultOne_dec : GlobalTheory.Dec.LowKMultOne := CompanionTheory.D.LK.low_K_type_multiplicity_one
+
+end CompanionTheory.DiscreteSeriesGap.GapInv

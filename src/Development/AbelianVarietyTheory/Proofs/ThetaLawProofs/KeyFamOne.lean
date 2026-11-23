@@ -1,0 +1,31 @@
+module
+
+public import Mathlib
+public import Development.AbelianVarietyTheory.Definitions.KeyFormula.KeyRootOfKeyFormula
+public import Development.AbelianVarietyTheory.Statements.FundamentalDomains.KeyFormulaPowOfKeyFormula
+public import Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.Bundle0044
+public import Development.AbelianVarietyTheory.Proofs.ModuliProofs.Bundle0220
+public import Development.AbelianVarietyTheory.Statements.FundamentalDomains.AtOfNumberField
+public import Development.AbelianVarietyTheory.Definitions.KeyFormula.LevBasis
+public import Development.AbelianVarietyTheory.Statements.ThetaLevelCharacters.MemThetaLevelCharDimZero
+public import Development.AbelianVarietyTheory.Definitions.KeyFormula.Bundle0001
+public import Development.AbelianVarietyTheory.Definitions.AbelianSchemeLaws.FirstCohomologyVanishesSpecOfIsLocalRing
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.ValCalc
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.SymplecticGenerators.IsPluriharmonicSiegel
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0003
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.Bundle0004
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.GlobalSectionsRankAlgClosed
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.SymplecticGenerators.SymplecticCharacters.OneEqSpTranslZero
+
+@[expose] public section
+
+open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj MeasureTheory
+open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor
+open GlobalTheory.KeyCl
+
+namespace GlobalTheory.KeyFamClosing
+
+theorem keyFam_one : KeyFam fun _ => 1 :=
+  GlobalTheory.KeyFamOfExact.keyFam_of_keyFormula _root_.GlobalTheory.KeyFam.keyFormula_holds
+
+end GlobalTheory.KeyFamClosing

@@ -1,0 +1,24 @@
+module
+
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.SchurOrthogonalitySquareIntegrable
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.Bundle0005
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.ExistsOrthonormalOfUnimodular
+public import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.RadfordShufflePolynomialHolds
+
+@[expose] public section
+
+namespace PositivityTheory.Stage1.PM
+
+theorem schurOrthogonalitySquareIntegrable : GlobalTheory.Published.SchurOrthogonalitySquareIntegrable :=
+  GlobalTheory.Published.schurOrthogonalitySquareIntegrable'
+
+theorem heckeLPartialContinuation : GlobalTheory.Published.HeckeLPartialContinuation :=
+  GlobalTheory.Published.HeckeLPartialContinuation_holds
+
+theorem hermitianLocalGlobal : GlobalTheory.Published.HermitianLocalGlobal :=
+  GlobalTheory.Published.hermitianLocalGlobal_holds
+
+theorem radfordShufflePolynomial : GlobalTheory.Published.RadfordShufflePolynomial :=
+  GlobalTheory.Published.radfordShufflePolynomial_holds
+
+end PositivityTheory.Stage1.PM

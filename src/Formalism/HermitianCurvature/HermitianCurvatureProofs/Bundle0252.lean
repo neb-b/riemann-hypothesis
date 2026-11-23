@@ -1,0 +1,491 @@
+module
+
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0246
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0247
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0248
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0226
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.TheoremPIntegralOfPlaces
+public import Formalism.HermitianCurvature.HermitianCurvatureProofs.Bundle0075
+
+@[expose] public section
+
+-- bundled from Formalism.HermitianCurvature.HermitianCurvatureProofs.CutHLFrozen
+section
+open Matrix
+open scoped ComplexConjugate
+
+noncomputable section
+
+namespace Formalism.FourierDecayAlt.P.CutHL
+
+open Formalism.REAL Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.Q Formalism.FourierDecayAlt.P.LevelPointCoordinates
+
+section comm
+
+variable {A : Type} [Ring A] [Algebra ℂ A] {n : ℕ}
+
+theorem comm_Tm (Eu : Fin n → Fin n → A) (hG : GlRel Eu) (p a b : Fin n) (ha : a ≠ p) (hb : b ≠ p) (v : ℂ) :
+    Commute (Eu p p) (Tm Eu v a b) := by
+  unfold Tm
+  refine Commute.add_right ?_ ?_
+  · split_ifs
+    · exact (Algebra.commutes v (Eu p p)).symm
+    · exact Commute.zero_right _
+  · have h := hG p p a b
+    rw [if_neg (Ne.symm ha), if_neg hb, sub_zero] at h
+    exact sub_eq_zero.mp h
+
+theorem comm_qminor (Eu : Fin n → Fin n → A) (hG : GlRel Eu) {t : ℕ} (a b : Fin t → Fin n) (u : ℂ) (p : Fin n)
+    (ha : ∀ i, a i ≠ p) (hb : ∀ i, b i ≠ p) : Commute (Eu p p) (qminor Eu a b u) := by
+  unfold qminor
+  refine Commute.sum_right _ _ _ (fun σ _ => ?_)
+  refine Commute.mul_right (Int.cast_commute _ _).symm ?_
+  refine Commute.list_prod_right _ _ (fun x hx => ?_)
+  obtain ⟨i, rfl⟩ := List.mem_ofFn.mp hx
+  exact comm_Tm Eu hG p _ _ (ha _) (hb i) _
+
+end comm
+
+section aa
+
+variable {A : Type} [Ring A] [Algebra ℂ A] {k r : ℕ}
+
+theorem AAx_congr_rows (Eu : Fin (2 * r + k + 1) → Fin (2 * r + k + 1) → A)
+    (xi xi' : Fin r → Fin (2 * r + k + 1) → ℂ) (m : ℕ) (hm : m ≤ r) (u : ℂ)
+    (h : ∀ a : Fin r, a.val < m → xi a = xi' a) : C3.AAx k r Eu xi m hm u = C3.AAx k r Eu xi' m hm u := by
+  unfold C3.AAx
+  simp only [show ∀ a : Fin m, xi (Fin.castLE hm a) = xi' (Fin.castLE hm a) from fun a => h _ a.isLt]
+
+theorem AAv_congr_rows (Eu : Fin (2 * r + k + 1) → Fin (2 * r + k + 1) → A)
+    (y y' : Fin r → Fin (2 * r + k + 1) → ℂ) (m : ℕ) (hm : m ≤ r) (ℓ : ℂ)
+    (h : ∀ a : Fin r, a.val < m → y a = y' a) : C3.AAv k r Eu y m hm ℓ = C3.AAv k r Eu y' m hm ℓ := by
+  unfold C3.AAv
+  simp only [show ∀ a : Fin m, y (Fin.castLE hm a) = y' (Fin.castLE hm a) from fun a => h _ a.isLt]
+
+theorem comm_AAx (Eu : Fin (2 * r + k + 1) → Fin (2 * r + k + 1) → A) (hG : GlRel Eu)
+    (xi : Fin r → Fin (2 * r + k + 1) → ℂ) (j : ℕ) (hj : j + 1 ≤ r) (u : ℂ)
+    (h0 : ∀ a : Fin r, a.val < j → xi a (eI k r ⟨j, by omega⟩) = 0) :
+    Commute (Eu (eI k r ⟨j, by omega⟩) (eI k r ⟨j, by omega⟩)) (C3.AAx k r Eu xi j (by omega) u) := by
+  unfold C3.AAx
+  refine Commute.sum_right _ _ _ (fun c _ => ?_)
+  split_ifs with hc
+  · by_cases hp : ∃ l, c l = eI k r ⟨j, by omega⟩
+    · obtain ⟨l, hl⟩ := hp
+      have hdet : (of fun (a l : Fin j) => xi (Fin.castLE (by omega) a) (c l)).det = 0 := by
+        apply Matrix.det_eq_zero_of_column_eq_zero l
+        intro a
+        simp only [of_apply, hl]
+        exact h0 _ a.isLt
+      simp only [hdet, zero_smul]
+      exact Commute.zero_right _
+    · push_neg at hp
+      refine Commute.smul_right ?_ _
+      refine comm_qminor Eu hG _ _ u _ (fun i => ?_) hp
+      have := i.isLt
+      simp only [C3.xR, eI, ne_eq, Fin.ext_iff, Fin.coe_castLE]
+      omega
+  · exact Commute.zero_right _
+
+theorem comm_AAv (Eu : Fin (2 * r + k + 1) → Fin (2 * r + k + 1) → A) (hG : GlRel Eu)
+    (y : Fin r → Fin (2 * r + k + 1) → ℂ) (j : ℕ) (hj : j + 1 ≤ r) (ℓ : ℂ)
+    (h0 : ∀ a : Fin r, a.val < j → y a (esI k r ⟨j, by omega⟩) = 0) :
+    Commute (Eu (esI k r ⟨j, by omega⟩) (esI k r ⟨j, by omega⟩)) (C3.AAv k r Eu y j (by omega) ℓ) := by
+  unfold C3.AAv
+  refine Commute.sum_right _ _ _ (fun c _ => ?_)
+  split_ifs with hc
+  · by_cases hp : ∃ l, c l = esI k r ⟨j, by omega⟩
+    · obtain ⟨l, hl⟩ := hp
+      have hdet : (of fun (a l : Fin j) => y (Fin.castLE (by omega) a) (c l)).det = 0 := by
+        apply Matrix.det_eq_zero_of_column_eq_zero l
+        intro a
+        simp only [of_apply, hl]
+        exact h0 _ a.isLt
+      simp only [hdet, zero_smul]
+      exact Commute.zero_right _
+    · push_neg at hp
+      refine Commute.smul_right ?_ _
+      refine comm_qminor Eu hG _ _ _ _ hp (fun i => ?_)
+      have := i.isLt
+      simp only [C3.sR, esI, ne_eq, Fin.ext_iff, Fin.coe_castLE]
+      omega
+  · exact Commute.zero_right _
+
+end aa
+
+section what₂
+
+variable {k r j : ℕ}
+
+private theorem x0_esI_apply_eq_dite_Z {k r j : ℕ} (hj : j + 1 ≤ r) (Z : Matrix (Fin j) (Fin j) ℂ) (τ : ℂ)
+    (γ : B.Mat k (r - (j + 1))) (a : Fin r) (ha : a.val < j) (q : Fin (2 * r + k + 1)) :
+    x0 k r j hj Z τ γ (esI k r a) q = if h : q.val < j then Z ⟨a.val, ha⟩ ⟨q.val, h⟩ else 0 := by
+  simp only [x0, Dx2.Split.castM_apply, U.mMap, U.blk3, reindex_apply, submatrix_apply]
+  have he : (U.eB k (j + 1) (r - (j + 1))).symm (Fin.cast (by omega) (esI k r a)) =
+      Sum.inr ⟨j - a.val, by omega⟩ := by
+    rw [Equiv.symm_apply_eq]
+    simp [U.eB, esI, Fin.ext_iff]
+    omega
+  rw [he]
+  rcases hq : (U.eB k (j + 1) (r - (j + 1))).symm (Fin.cast (by omega) q) with (l | l) | l
+  all_goals rw [Equiv.symm_apply_eq] at hq
+  all_goals have hv := congrArg Fin.val hq
+  all_goals simp [U.eB] at hv
+  · rw [fromBlocks_apply₂₁, fromCols_apply_inl, StandardCharacterExists.wMat_mul_apply]
+    have hr : (⟨j - a.val, by omega⟩ : Fin (j + 1)).rev = Fin.castAdd 1 ⟨a.val, ha⟩ := by
+      ext
+      simp
+      omega
+    rw [hr]
+    simp only [zfull, U.blk2, reindex_apply, submatrix_apply, finSumFinEquiv_symm_apply_castAdd]
+    by_cases hl : l.val < j
+    · have hl' : l = Fin.castAdd 1 ⟨l.val, hl⟩ := by
+        ext
+        simp
+      rw [hl', finSumFinEquiv_symm_apply_castAdd, fromBlocks_apply₁₁, dite_eq_left (by omega)]
+      congr 1
+      ext
+      simp [hv]
+    · have hl' : l = Fin.natAdd j 0 := by
+        ext
+        simp
+        omega
+      rw [hl', finSumFinEquiv_symm_apply_natAdd, fromBlocks_apply₁₂, dite_eq_right (by omega)]
+      rfl
+  · rw [fromBlocks_apply₂₁, fromCols_apply_inr, dite_eq_right (by omega)]
+    rfl
+  · rw [fromBlocks_apply₂₂, dite_eq_right (by omega)]
+    rfl
+
+private theorem xi0_apply_eq_esI_apply {k r : ℕ} (g : B.Mat k r) (a : Fin r) (p : Fin (2 * r + k + 1)) :
+    PBG.xi0 g a p = g (esI k r a) p := by
+  have hH : ∀ s, Hpk k r (eI k r a) s = if s = esI k r a then 1 else 0 := by
+    intro s
+    have := a.isLt
+    have := s.isLt
+    simp only [Hpk, eI, esI, Fin.ext_iff, Fin.val_mk]
+    have hd : 2 * r + k - (a : ℕ) + a = 2 * r + k := Nat.sub_add_cancel (by omega)
+    generalize 2 * r + k - (a : ℕ) = d at *
+    split_ifs <;> first | rfl | omega
+  simp [PBG.xi0, herm, bvec, mulVec, dotProduct, Pi.single_apply, hH]
+
+private theorem sgn_sig_mul_y0_eq_star_esI_apply_of_mem_GV {k r : ℕ} (g : B.Mat k r) (hg : g ∈ B.GV k r) (a : Fin r)
+    (p : Fin (2 * r + k + 1)) :
+    GBasic.sgn k r (GBasic.sig k r p) * PBG.y0 g a p = star (g (esI k r a) (GBasic.sig k r p)) := by
+  have hs : GBasic.sig k r (GBasic.sig k r p) = p := by
+    have := p.isLt
+    ext
+    simp only [GBasic.sig]
+    split_ifs with h1 h2 h2 <;> simp only [Fin.val_mk] at * <;> omega
+  have hn : GBasic.sgn k r (eI k r a) = 1 := by
+    have := a.isLt
+    rw [GBasic.sgn, if_neg]
+    simp only [eI, Fin.val_mk]
+    omega
+  have he : GBasic.sig k r (eI k r a) = esI k r a := by
+    have := a.isLt
+    ext
+    simp [GBasic.sig, eI, esI]
+  have hu := B2x5.isUnit_det_GV hg
+  have h1 : Hpk k r * g⁻¹ = gᴴ * Hpk k r := by
+    have hg' : gᴴ * Hpk k r * g = Hpk k r := hg
+    calc Hpk k r * g⁻¹ = gᴴ * Hpk k r * g * g⁻¹ := by rw [hg']
+      _ = gᴴ * Hpk k r := by rw [Matrix.mul_assoc (gᴴ * Hpk k r), Matrix.mul_nonsing_inv _ hu, Matrix.mul_one]
+  have h2 := congrFun (congrFun h1 (GBasic.sig k r p)) (eI k r a)
+  rw [C2x6.Hpk_mul_apply, C2x6.mul_Hpk_apply] at h2
+  rw [hs, he, hn, mul_one, conjTranspose_apply] at h2
+  have hy : PBG.y0 g a p = g⁻¹ p (eI k r a) := by
+    simp [PBG.y0, bvec, mulVec, dotProduct, Pi.single_apply]
+  rw [hy, h2]
+
+theorem xi0_row_independent_of_tau (hj : j + 1 ≤ r) (Z : Matrix (Fin j) (Fin j) ℂ) (τ τ' : ℂ) (γ : B.Mat k (r - (j + 1)))
+    (a : Fin r) (ha : a.val < j) : PBG.xi0 (x0 k r j hj Z τ' γ) a = PBG.xi0 (x0 k r j hj Z τ γ) a := by
+  funext p
+  rw [xi0_apply_eq_esI_apply, xi0_apply_eq_esI_apply, x0_esI_apply_eq_dite_Z hj Z τ' γ a ha, x0_esI_apply_eq_dite_Z hj Z τ γ a ha]
+
+theorem xi0_x0_eI_j_eq_zero (hj : j + 1 ≤ r) (Z : Matrix (Fin j) (Fin j) ℂ) (τ : ℂ) (γ : B.Mat k (r - (j + 1)))
+    (a : Fin r) (ha : a.val < j) : PBG.xi0 (x0 k r j hj Z τ γ) a (eI k r ⟨j, by omega⟩) = 0 := by
+  rw [xi0_apply_eq_esI_apply, x0_esI_apply_eq_dite_Z hj Z τ γ a ha, dite_eq_right]
+  simp [eI]
+
+theorem y0_row_independent_of_tau (hj : j + 1 ≤ r) {Z : Matrix (Fin j) (Fin j) ℂ} {τ τ' : ℂ} (hZ : Z.det ≠ 0) (hτ : τ ≠ 0)
+    (hτ' : τ' ≠ 0) {γ : B.Mat k (r - (j + 1))} (hγ : γ ∈ B.GV k (r - (j + 1))) (a : Fin r) (ha : a.val < j) :
+    PBG.y0 (x0 k r j hj Z τ' γ) a = PBG.y0 (x0 k r j hj Z τ γ) a := by
+  funext p
+  have hs : GBasic.sgn k r (GBasic.sig k r p) ≠ 0 := by
+    unfold GBasic.sgn
+    split_ifs <;> norm_num
+  apply mul_left_cancel₀ hs
+  rw [sgn_sig_mul_y0_eq_star_esI_apply_of_mem_GV _ (LevelPointCoordinates.x0_GV hj hZ hτ' hγ), sgn_sig_mul_y0_eq_star_esI_apply_of_mem_GV _ (LevelPointCoordinates.x0_GV hj hZ hτ hγ),
+    x0_esI_apply_eq_dite_Z hj Z τ' γ a ha, x0_esI_apply_eq_dite_Z hj Z τ γ a ha]
+
+theorem y0_x0_esI_j_eq_zero_of_det_ne_zero (hj : j + 1 ≤ r) {Z : Matrix (Fin j) (Fin j) ℂ} {τ : ℂ} (hZ : Z.det ≠ 0) (hτ : τ ≠ 0)
+    {γ : B.Mat k (r - (j + 1))} (hγ : γ ∈ B.GV k (r - (j + 1))) (a : Fin r) (ha : a.val < j) :
+    PBG.y0 (x0 k r j hj Z τ γ) a (esI k r ⟨j, by omega⟩) = 0 := by
+  have hs : GBasic.sgn k r (GBasic.sig k r (esI k r ⟨j, by omega⟩)) ≠ 0 := by
+    unfold GBasic.sgn
+    split_ifs <;> norm_num
+  apply mul_left_cancel₀ hs
+  rw [sgn_sig_mul_y0_eq_star_esI_apply_of_mem_GV _ (LevelPointCoordinates.x0_GV hj hZ hτ hγ), x0_esI_apply_eq_dite_Z hj Z τ γ a ha, dite_eq_right, mul_zero, star_zero]
+  have : j + 1 ≤ r := hj
+  have hse : (GBasic.sig k r (esI k r ⟨j, by omega⟩)).val = j := by
+    unfold GBasic.sig
+    rw [if_pos (Or.inr (by simp only [esI]; omega))]
+    simp only [esI]
+    omega
+  rw [hse]
+  omega
+
+end what₂
+
+theorem frozen_X_identity : FrozenX := by
+  intro A _ _ k r j hj Eu Z τ τ' u γ hG hZ hτ hτ' hγ
+  exact ⟨AAx_congr_rows Eu _ _ j _ u (fun a ha => xi0_row_independent_of_tau hj Z τ τ' γ a ha),
+    comm_AAx Eu hG _ j hj u (fun a ha => xi0_x0_eI_j_eq_zero hj Z τ γ a ha)⟩
+
+theorem frozen_V_identity : FrozenV := by
+  intro A _ _ k r j hj Eu Z τ τ' ℓ γ hG hZ hτ hτ' hγ
+  exact ⟨AAv_congr_rows Eu _ _ j _ ℓ (fun a ha => y0_row_independent_of_tau hj hZ hτ hτ' hγ a ha),
+    comm_AAv Eu hG _ j hj ℓ (fun a ha => y0_x0_esI_j_eq_zero_of_det_ne_zero hj hZ hτ hγ a ha)⟩
+
+end Formalism.FourierDecayAlt.P.CutHL
+end
+end
+
+-- bundled from Formalism.HermitianCurvature.HermitianCurvatureProofs.CutHLNf
+section
+open Matrix
+open scoped ComplexConjugate
+
+noncomputable section
+
+namespace Formalism.FourierDecayAlt.P.CutHL
+
+open Formalism.REAL Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.Q Formalism.FourierDecayAlt.P.LevelPointCoordinates
+
+theorem zfull_zb {j : ℕ} (Z : Matrix (Fin j) (Fin j) ℂ) (τ : ℂ) (a b : Fin (j + 1)) :
+    zfull Z τ a b = C3.Zb j 1 Z τ a.val b.val := by
+  rw [zfull_apply]
+  unfold C3.Zb
+  have := a.isLt; have := b.isLt
+  by_cases h1 : a.val < j ∧ b.val < j
+  · rw [dite_eq_left h1, dite_eq_left h1.1, dite_eq_left h1.2]
+  · rw [dite_eq_right h1]
+    by_cases ha : a.val < j
+    · have hb : ¬ b.val < j := fun hb => h1 ⟨ha, hb⟩
+      rw [dite_eq_left ha, dite_eq_right hb, if_neg (fun h => by omega)]
+    · rw [dite_eq_right ha]
+      by_cases h2 : a.val = j ∧ b.val = j
+      · rw [if_pos h2, if_pos (by omega)]
+      · rw [if_neg h2, if_neg (by omega)]
+
+theorem normal_form_x0 : NormalFormsAtBasePoint := by
+  intro k r j hj Z τ γ hZ hτ hγ
+  refine ⟨fun a p ha => ?_, fun a p ha => ?_⟩
+  · rw [upper_minor_of_level_point hj Z τ γ a p ha]
+    by_cases hp : p.val < j + 1
+    · rw [dite_eq_left hp, if_pos hp]
+      exact zfull_zb Z τ _ _
+    · rw [dite_eq_right hp, if_neg hp]
+  · rw [lower_minor_of_level_point hj hZ hτ hγ a p ha]
+    by_cases hp : r + k < p.val ∧ 2 * r + k - p.val < j + 1
+    · rw [dite_eq_left hp, if_pos hp]
+      exact congrArg star (zfull_zb Z τ _ _)
+    · rw [dite_eq_right hp, if_neg hp]
+
+theorem leading_minors_at_base_point : LeadingMinorsAtBasePoint := by
+  intro k r j hj z z' Z τ γ hZ hτ hγ
+  have hnf := (normal_form_x0 k r j hj Z τ γ hZ hτ hγ).1
+  have hd := Formalism.FourierDecayAlt.P.SignAntidiagonal.derivative_leading_zb j 1 Z τ
+  refine ⟨?_, ?_⟩
+  · rw [PBG.dmin_nf z z' _ j 1 Z τ hj hnf j (by omega), hd.1]
+  · rw [PBG.dmin_nf z z' _ j 1 Z τ hj hnf (j + 1) le_rfl, hd.2]
+    simp [C3.sgnW]
+
+theorem first_component_of_parts : Comp1OfParts := by
+  intro hNf k r j hj z z' E _ _ Dm Φ Z γ τ hH Y
+  obtain ⟨hz, hz', hD, hDs, hR, hZ, hτ, hγ, hx⟩ := hH
+  obtain ⟨hnf, hnfy⟩ := hNf k r j hj Z τ γ hZ hτ hγ
+  have hxG : x0 k r j hj Z τ γ ∈ B.GV k r := x0_GV hj hZ hτ hγ
+  have hx1 : x0 k r j hj Z τ γ ∈ Q.Glev k r 0 ∩ Dm := ⟨⟨hxG, fun a ha => absurd ha (Nat.not_lt_zero _)⟩, hx⟩
+  have hK : Q.SmoothLev k r 0 Dm Φ := hR.1
+  have hRule : ∀ g ∈ Q.Glev k r 0 ∩ Dm, ∀ p q, C3.InNp k r p q → Q.EH k r p q Φ g = C3.dpsiP k r z' p q • Φ g :=
+    fun g hg p q hpq => Formalism.FourierDecayAlt.P.rule_of_eq E k r z' Φ g hz' (fun n hn => (hR.2.1 g hg n hn).2) p q hpq
+  refine ⟨?_, ?_⟩
+  · have h := PBG.letter_plus_component_one_eq_smul_component_zero hD z z' j 1 le_rfl hj Z τ hZ hτ _ hx1 hnf Φ hK hRule Y
+    rw [show ((-1 : ℂ) ^ (1 - 1) * τ⁻¹) = τ⁻¹ by simp] at h
+    exact h
+  · have h := PBG.letter_minus_component_one_eq_smul_component_zero hD z z' j 1 le_rfl hj Z τ hZ hτ _ hx1 hxG hnf hnfy Φ hK hRule Y
+    rw [show ((-1 : ℂ) ^ (1 - 1) * (conj τ)⁻¹) = (conj τ)⁻¹ by simp] at h
+    exact h
+
+theorem headLetter_of_open (hL : LeftActionRuleAtBasePoint) (hT : TorusDirectionAtBasePoint) (hSL : ConjugateActionRuleAtBasePoint) (hST : ConjugateTorusDirectionAtBasePoint)
+    (hFX : FrozenX) (hFV : FrozenV) (hPP : PlusPosOfParts) (hPZ : PlusZeroOfParts) (hMP : MinusPosOfParts)
+    (hMZ : MinusZeroOfParts) : LevelPointCoordinates.HeadLetter :=
+  headLetter_of_leaves normal_form_x0 leading_minors_at_base_point hL hT hSL hST hFX hFV first_component_of_parts hPP hPZ hMP hMZ
+
+end Formalism.FourierDecayAlt.P.CutHL
+end
+end
+
+-- bundled from Formalism.HermitianCurvature.HermitianCurvatureProofs.CutHLPlusZeroOfParts
+section
+open Matrix
+open scoped ComplexConjugate
+
+noncomputable section
+
+namespace Formalism.FourierDecayAlt.P.CutHLPZ
+
+open Formalism.REAL Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.Q Formalism.FourierDecayAlt.P.LevelPointCoordinates Formalism.FourierDecayAlt.P.CutHL
+
+variable {k r : ℕ} {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E]
+
+theorem dmin_zero (z z' : Fin (2 * r + k + 1) → ℂ) (g : Q.Mx k r) (h : 0 < r + 2) :
+    Dmin k r z z' g ⟨0, h⟩ = 1 := by
+  unfold Dmin
+  exact Matrix.det_isEmpty
+
+theorem qminorOp_zero (a b : Fin 0 → Fin (2 * r + k + 1)) (u : ℂ) (f : Q.Mx k r → E) (g : Q.Mx k r) :
+    qminorOp (EabH (Hpk k r)) a b u f g = f g := by
+  unfold qminorOp
+  rw [Finset.sum_apply, Fintype.sum_unique]
+  simp
+
+theorem AAop_zero (h : 0 ≤ r) (u : ℂ) (f : Q.Mx k r → E) (g : Q.Mx k r) : C3.AAop k r 0 h u f g = f g := by
+  unfold C3.AAop
+  rw [Fintype.sum_unique, if_pos (Subsingleton.strictMono _), Matrix.det_isEmpty, one_smul, qminorOp_zero]
+
+theorem qminorOp_one (a b : Fin 1 → Fin (2 * r + k + 1)) (u : ℂ) (f : Q.Mx k r → E) (g : Q.Mx k r) :
+    qminorOp (EabH (Hpk k r)) a b u f g =
+      (if a 0 = b 0 then u • f g else 0) + EabH (Hpk k r) (a 0) (b 0) f g := by
+  unfold qminorOp
+  rw [Finset.sum_apply, Fintype.sum_unique]
+  simp [QuantumDeterminants.Top]
+
+theorem AAop_one (h : 1 ≤ r) (x : Q.Mx k r) (τ : ℂ)
+    (hnf : ∀ p : Fin (2 * r + k + 1), PBG.xi0 x ⟨0, by omega⟩ p = if p.val = 0 then τ else 0)
+    (u : ℂ) (f : Q.Mx k r → E) :
+    C3.AAop k r 1 h u f x = τ • (u • f x + Q.EH k r (eI k r ⟨0, by omega⟩) (eI k r ⟨0, by omega⟩) f x) := by
+  classical
+  unfold C3.AAop
+  have hent : ∀ c : Fin 1 → Fin (2 * r + k + 1),
+      (Matrix.of fun a l : Fin 1 =>
+        herm (Hpk k r) (x *ᵥ bvec (c l)) (bvec (eI k r (Fin.castLE h a)))).det =
+        if (c 0).val = 0 then τ else 0 := by
+    intro c
+    rw [Matrix.det_unique]
+    exact hnf (c 0)
+  rw [Finset.sum_eq_single (fun _ => eI k r ⟨0, by omega⟩)]
+  · rw [if_pos (Subsingleton.strictMono _), hent, if_pos (by simp [eI]),
+      qminorOp_one, if_pos (by simp [C3.xR, eI])]
+    simp [C3.xR, eI, Q.EH]
+  · intro c _ hc
+    split_ifs with hm
+    · rw [hent, if_neg, zero_smul]
+      intro h0
+      apply hc
+      funext l
+      rw [Subsingleton.elim l 0]
+      ext
+      simpa [eI] using h0
+    · rfl
+  · intro hc; exact absurd (Finset.mem_univ _) hc
+
+end Formalism.FourierDecayAlt.P.CutHLPZ
+
+namespace Formalism.FourierDecayAlt.P
+
+open Formalism.REAL Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.Q Formalism.FourierDecayAlt.P.LevelPointCoordinates Formalism.FourierDecayAlt.P.CutHL Formalism.FourierDecayAlt.P.CutHLPZ
+
+theorem plus_zero_of_parts : CutHL.PlusZeroOfParts := by
+  intro hNf hDm hT k r j hj z z' E _ _ Dm Φ Z γ τ hj0 hH Y
+  subst hj0
+  obtain ⟨_, _, hDo, _, hR, hZ, hτ, hγ, hx⟩ := hH
+  have hnf := (hNf k r 0 hj Z τ γ hZ hτ hγ).1
+  have hT' := hT E k r 0 hj Dm Φ Z τ γ hDo hR.1 hZ hτ hγ hx
+  have hD1 := (hDm k r 0 hj z z' Z τ γ hZ hτ hγ).2
+  rw [Matrix.det_isEmpty, one_mul] at hD1
+  have hv0 : ∀ g, D.vLet k r z z' 0 (by omega) (true, Y) 0 Φ g = Φ g := by
+    intro g
+    rw [PBG.letter_plus_component_zero, dmin_zero, inv_one, one_smul, AAop_zero]
+  have hv1 : ∀ g, D.vLet k r z z' 0 (by omega) (true, Y) 1 Φ g = 0 := by
+    intro g
+    unfold D.vLet
+    simp
+  have hA := AAop_one (k := k) (r := r) (E := E) hj (x0 k r 0 hj Z τ γ) τ (fun p => by
+      rw [hnf ⟨0, by omega⟩ p (by simp)]
+      by_cases hp : p.val = 0
+      · rw [if_pos (by omega), if_pos hp, hp]; simp [C3.Zb]
+      · rw [if_neg (by omega), if_neg hp])
+    ((Y : ℂ) + ((2 * r + k : ℕ) : ℂ) / 2) Φ
+  have hu : ((Y : ℂ) + ((2 * r + k : ℕ) : ℂ) / 2) = (Y : ℂ) + levelZeroKernel k r 0 := by
+    unfold levelZeroKernel; rw [Nat.sub_zero]; push_cast; ring
+  rw [hu] at hA
+  unfold Eq1
+  simp only [hv0, hv1]
+  rw [PBG.letter_plus_component_zero, hD1, hu, hA, ← hT', smul_smul, inv_mul_cancel₀ hτ, one_smul, smul_zero, sub_zero]
+
+end Formalism.FourierDecayAlt.P
+end
+end
+
+-- bundled from Formalism.HermitianCurvature.HermitianCurvatureProofs.IsOpenDminNe
+section
+open Matrix
+
+noncomputable section
+
+namespace Formalism.FourierDecayAlt.P.PartialBesselProperness
+
+open Formalism.FourierDecayAlt Formalism.REAL Formalism.QuantumDeterminants
+
+section auxC
+
+attribute [local instance] Matrix.normedAddCommGroup Matrix.normedSpace
+
+variable {k n : ℕ}
+
+theorem isOpen_dminNe (z z' : Fin (2 * n + k + 1) → ℂ) (i : ℕ) (hi : i ≤ n) :
+    IsOpen {g : Q.Mx k n | Dmin k n z z' g ⟨i, by omega⟩ ≠ 0} :=
+  isOpen_ne_fun (Formalism.FourierDecayAlt.P.JCx1.contDiff_Dmin z z' ⟨i, by omega⟩).continuous continuous_const
+
+theorem uwG_locSupp {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (z z' : Fin (2 * n + k + 1) → ℂ) (i : ℕ)
+    (hi : i ≤ n) {H : B.Mat k n → E} {Cs : Set (B.Mat k n)} (hCs : IsClosed Cs)
+    (hL : ∀ g ∈ B.GV k n, Dmin k n z z' g ⟨i, by omega⟩ ≠ 0 → CapelliWordSumExpansion.Loc ⊤ H g)
+    (hS : ∀ g ∈ B.GV k n, g ∉ Cs → H g = 0) :
+    ∀ (w : List C.Letter) (ew : Wd.Ix (Fin w.length)),
+      (∀ g ∈ B.GV k n, Dmin k n z z' g ⟨i, by omega⟩ ≠ 0 → CapelliWordSumExpansion.Loc ⊤ (D.uwG k n z z' H i hi w ew) g) ∧
+        ∀ g ∈ B.GV k n, g ∉ Cs → D.uwG k n z z' H i hi w ew g = 0 := by
+  set Dm : Set (Q.Mx k n) := {g | Dmin k n z z' g ⟨i, by omega⟩ ≠ 0} with hDm
+  have hDo : IsOpen Dm := isOpen_dminNe z z' i hi
+  have hH : Q.SmoothLev k n 0 Dm H := by
+    intro g₀ hg₀
+    obtain ⟨U, F, hU, hgU, hF, hE⟩ := hL g₀ hg₀.1.1 hg₀.2
+    exact ⟨U, F, hU, hgU, hF, fun g hg hgl => hE g hg hgl.1⟩
+  have hSm : ∀ (w : List C.Letter) (ew : Wd.Ix (Fin w.length)),
+      Q.SmoothLev k n 0 Dm (D.uwG k n z z' H i hi w ew) := by
+    intro w
+    induction w with
+    | nil => intro ew; exact hH
+    | cons l w ih =>
+      intro ew
+      exact Formalism.FourierDecayAlt.P.SingleEntryHermitianProducts.smooth_vLet z z' i hi l _ hDo (ih _) (fun g hg => hg)
+  have hSu : ∀ (w : List C.Letter) (ew : Wd.Ix (Fin w.length)),
+      ∀ g ∈ B.GV k n, g ∉ Cs → D.uwG k n z z' H i hi w ew g = 0 := by
+    intro w
+    induction w with
+    | nil => intro ew; exact hS
+    | cons l w ih =>
+      intro ew g hg hgC
+      exact Formalism.FourierDecayAlt.P.PBG.vLet_zero_near z z' i hi l _ _ hCs.isOpen_compl (fun x hx hxG => ih _ x hxG hx) g hgC hg
+  intro w ew
+  refine ⟨fun g hg hd => ?_, hSu w ew⟩
+  obtain ⟨U, F, hU, hgU, hF, hE⟩ := hSm w ew g ⟨Formalism.FourierDecayAlt.P.OrbitalIntegralIdentities.glev0 hg, hd⟩
+  exact ⟨U, F, hU, hgU, hF, fun x hx hxG => hE x hx (Formalism.FourierDecayAlt.P.OrbitalIntegralIdentities.glev0 hxG)⟩
+
+end auxC
+
+end Formalism.FourierDecayAlt.P.PartialBesselProperness
+end
+end
+

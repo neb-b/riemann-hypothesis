@@ -1,0 +1,50 @@
+module
+
+public import Mathlib
+public import Formalism.LocalToGlobal.IndefiniteReal.Bundle0004
+
+@[expose] public section
+
+open Module NumberField
+open scoped InnerProductSpace
+
+noncomputable section
+
+namespace Formalism.IndefR.Rat
+
+open Formalism.DivisionValues Formalism.L2.Indef Formalism.L2.DIV Formalism.IndefR.Cx Formalism.IndefR.Cx.CxData
+
+section Defs
+
+variable {K : Type} [Field K] [NumberField K] [StarRing K]
+variable {Bs : DefBase K} {A : DefAmb Bs} (X : CxData A)
+
+def RowTest : Prop :=
+  ∃ (N : ℕ) (ψ : Fin N → Module.Dual ℂ X.EE), (∀ e, (∀ i, ψ i e = 0) → e = 0) ∧
+    ∀ t i (x : A.FR t), ψ i (X.Θ t (X.jR t x)) ∈ Set.range Bs.v0.embedding
+
+def LiftTest : Prop :=
+  ∀ j, ∃ (N : ℕ) (ψ : Fin N → Module.Dual ℂ (X.W j)), (∀ w, (∀ i, ψ i w = 0) → w = 0) ∧
+    ∀ t i (x : A.FL j t), ψ i (X.θ' j t (X.jL j t x)) ∈ Set.range Bs.v0.embedding
+
+def LiftTestB (b : Bool) : Prop :=
+  ∀ j, ∃ (N : ℕ) (ψ : Fin N → Module.Dual ℂ (X.W j)), (∀ w, (∀ i, ψ i w = 0) → w = 0) ∧
+    (∀ t i (x : A.FL j t), ψ i (X.θ' j t (X.jL j t x)) ∈ Set.range Bs.v0.embedding) ∧
+    ∀ i (k : Fin (X.dW b j)), ψ i (X.w0C b j (Pi.single k 1)) ∈ Set.range Bs.v0.embedding
+
+end Defs
+
+def RatZOfTests : Prop :=
+  ∀ {K : Type} [Field K] [NumberField K] [StarRing K] {Bs : DefBase K} {A : DefAmb Bs} (X : CxData A) (cv : CrdV A),
+    X.KFormR → X.KFormL → X.JIsoR cv → X.JIsoL cv → RowTest X → LiftTest X → X.RatZ
+
+def RatMuOfRowTest : Prop :=
+  ∀ {K : Type} [Field K] [NumberField K] [StarRing K] {Bs : DefBase K} {A : DefAmb Bs} (X : CxData A)
+    {fc : DefSub A → DefFace Bs} (cr : Crd A fc) (b : Bool), RowTest X → X.H2 cr b → X.RATmu cr b
+
+def RatThOfLiftTest : Prop :=
+  ∀ {K : Type} [Field K] [NumberField K] [StarRing K] {Bs : DefBase K} {A : DefAmb Bs} (X : CxData A)
+    {fc : DefSub A → DefFace Bs} (cr : Crd A fc) (b : Bool),
+    LiftTestB X b → X.H5 cr b → X.KForm b → X.EWnorm b → 0 < X.nP b → X.RATth cr b
+
+end Formalism.IndefR.Rat

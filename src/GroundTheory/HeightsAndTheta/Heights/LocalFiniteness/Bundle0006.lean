@@ -1,0 +1,51 @@
+module
+
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.CentredDiscCoverCurveHolds
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0005
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0113
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0101
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0020
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0017
+public import GroundTheory.HeightsAndTheta.Heights.FieldsOfNumbers.Bundle0022
+public import GroundTheory.HeightsAndTheta.Heights.HilbertSamuel.AssemblyBase
+public import Mathlib
+public import GroundTheory.HeightsAndTheta.Heights.Intersections.Bundle0005
+public import GroundTheory.HeightsAndTheta.Heights.IntegralModels.Statements
+public import GroundTheory.HeightsAndTheta.Heights.IntegralModels.Bundle0002
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0017
+public import GroundTheory.HeightsAndTheta.Heights.ArithmeticBezout.Bundle0020
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.UniformIntegrabilityProportionalityHolds
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0003
+public import GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.Bundle0004
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Assembly
+public import GroundTheory.HeightsAndTheta.Heights.ComplexAnalyticSets.Bundle0117
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0015
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0038
+public import GroundTheory.HeightsAndTheta.Heights.HeightKernels.Bundle0035
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.InterDivPushA
+public import ReciprocityTheory.AnalyticForms.PlurisubharmonicFunctions.Bundle0004
+public import ReciprocityTheory.AnalyticForms.AnalyticCharts.MaDensCompEqZeroOfRankLt
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Bundle0005
+public import ReciprocityTheory.AnalyticForms.PotentialTheory.Pullback
+
+@[expose] public section
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.FieldNumbersSemilocalMaxIdeals
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalMaxIdeals.{u} : GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalMaxIdeals.Statement.{u} :=
+  @GroundTheory.Heights₂.Heights.FieldNumbers.SemilocalMaxIdeals.proof.{u} GroundTheory.Heights₂.Heights.FieldNumbers.FibreFinite.proof GroundTheory.Heights₂.Heights.FieldNumbers.FibreRelDim.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_FibreNonempty GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocUnits.proof GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocSeparate.proof GroundTheory.Heights₂.Heights.FieldNumbers.DegZeroLocLocalize.proof GroundTheory.Heights₂.Heights.AutoClose.FieldNumbers_SemilocalResidueLength
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.RegFixedBallMass : GroundTheory.Heights₂.Heights.RegFixedBallMass.Statement :=
+  @GroundTheory.Heights₂.Heights.RegFixedBallMass.proof GroundTheory.Heights₂.Heights.RegDensNonneg.proof GroundTheory.Heights₂.Heights.AutoClose.StokesOnChart GroundTheory.Heights₂.Heights.AutoClose.LogIntegrable GroundTheory.Heights₂.Heights.HilbertSamuel.Closed.ChartMassCompact
+end
+
+-- bundled from GroundTheory.HeightsAndTheta.Heights.LocalFiniteness.TargetsProjRegularDens
+section
+set_option maxSynthPendingDepth 1
+
+theorem GroundTheory.Heights₂.Heights.AutoClose.MahlerSectionOfConst : GroundTheory.Heights₂.Heights.MahlerSectionOfConst.Statement :=
+  @GroundTheory.Heights₂.Heights.MahlerSectionOfConst.proof GroundTheory.Heights₂.Heights.AutoClose.DefectAverage GroundTheory.Heights₂.Heights.AutoClose.AdmissibleAENrm GroundTheory.Heights₂.Heights.BallVolume.proof
+end
+

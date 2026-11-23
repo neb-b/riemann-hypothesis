@@ -1,0 +1,37 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.QuotientVanishing.LocalQuotientIntegrals.ClassVanishOfSteps
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.QuotientVanishing.LocalQuotientIntegrals.QuotVanishL
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.IsotropicMahlerBounds.LogAbsoluteWedges.OnlyIsotropic
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ImgEqOfInvariant
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.AevalTranspose
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.LogSizeNonneg
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0316
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.EnormOfRealToRealLe
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0314
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ContinuousCornerGL
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.DetOneAddOfSq
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0311
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.T2SpaceFiniteAdeleRingCmField
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.QuotientVanishing.LocalQuotientIntegrals.IsCompactEntryBall
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0353
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0300
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0337
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.T2SpaceAdelicGLCmField
+
+@[expose] public section
+
+namespace PositivityTheory.Rg.BcB.CV
+
+open PositivityTheory.Rg.BcB.D1 GlobalTheory.CompanionTheory
+
+theorem classVanish : ClassVanish :=
+  classVanish_of_steps QuotNorm.integral_normaliser_eq (QuotProduct.quotProd_of_normEq QuotNorm.integral_normaliser_eq) chainSum
+    RatDisc.ratDisc locVanish LocP.main LocFlagPf.locFlag degBdd KerTwFin.kerFin mahler SplitInf.splitAt NonEll.nonEllFlag
+    SplitTwo.splitAt2 PairParam.pairParam (TorusCh.torusChar degAdelic)
+    (ChiGamGlobal.chiGam_of onlyIsotropic (PosYGlobal.posY_of degSubmod degPairing) chainSum)
+    (QuotStageInt.quotStage_of QuotNorm.integral_normaliser_eq) sizeBasic
+
+theorem unfold : Unfold := UnfoldCut.unfold_of_mahler mahler
+
+end PositivityTheory.Rg.BcB.CV

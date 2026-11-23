@@ -1,0 +1,23 @@
+module
+
+public import Mathlib
+public import Development.WeilBound.CoreStatements.PadicHodgeComparison.EtaleCohomologyComparison.BocksteinBaseChange.CstSmoothOfP
+public import Development.WeilBound.CoreStatements.PadicHodgeComparison.EtaleCohomologyComparison.PerfectoidPullbacks.SumCoord
+public import Development.WeilBound.CoreStatements.PadicHodgeComparison.EtaleCohomologyComparison.BocksteinBaseChange.EtProps
+public import Development.AbelianVarietyTheory.Definitions.Divisors.Bundle0007
+public import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.BirationalGeometry.ToroidalCompactification.Bundle0001
+public import Development.WeilBound.CoreStatements.PadicHodgeComparison.EtaleCohomologyComparison.BocksteinBaseChange.CstSmoothOfEtSide
+
+@[expose] public section
+
+set_option backward.isDefEq.respectTransparency false
+
+noncomputable section
+
+open CategoryTheory Limits AlgebraicGeometry TensorProduct
+
+namespace CrystallineSemistableComparison
+
+theorem cstSmooth_of_side (h : EtSideS) : CstSmooth := cstSmooth_of_p Pb.pSeam h
+
+end CrystallineSemistableComparison

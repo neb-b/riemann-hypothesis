@@ -1,0 +1,21 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.RealDescent.RealLeviDescent.Bundle0001
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.BoundarySquareLeviReal
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.VanishingKernelLeviReal
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0432
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0467
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.HarishChandraDecompositionLevi
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ActionUnipotentRadicalReal
+
+@[expose] public section
+
+namespace PositivityTheory.RgBcC.RealD
+
+theorem injective_decomposition_action_holds : InjectiveDecompositionAction :=
+  injective_decomposition_action_of _root_.GlobalTheory.CompanionTheory.KPChains.bdSqL _root_.GlobalTheory.CompanionTheory.KostL.vanKL GlobalTheory.T.injective_restriction_of_bdsq_vanish _root_.GlobalTheory.CompanionTheory.LvChain.injUU_of_injRL (hcdecL_of _root_.GlobalTheory.CompanionTheory.RealHCLv.hcdecLv) _root_.GlobalTheory.CompanionTheory.PairBridge.actUU
+
+theorem hc_decomposition_levi_holds : HCdecLv := _root_.GlobalTheory.CompanionTheory.RealHCLv.hcdecLv
+
+end PositivityTheory.RgBcC.RealD

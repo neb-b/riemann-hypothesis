@@ -1,0 +1,19 @@
+module
+
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.RealDescent.RealLeviDescent.DiracInequalityKTypes
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0417
+public import Mathlib
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.Bundle0424
+public import Development.WeilBound.RepresentationTheoryGL.ArchimedeanBaseChange.ArchimedeanBaseChangeProof.RealDescent.RealLeviDescent.Bundle0001
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.ConeNoSecondWeights
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.RealModelExists
+public import Development.AutomorphicSpectrum.Proofs.BlockDecomposition.RealKTypesInCone
+
+@[expose] public section
+
+namespace PositivityTheory.RgBcC.RealD
+
+theorem multG_of_multFor (hM : MultFor) : MultG :=
+  multG_of GlobalTheory.T.real_compression hM adm_least_holds _root_.GlobalTheory.CompanionTheory.HarmCone.harm_cone _root_.GlobalTheory.CompanionTheory.ConeSecondWeights.cone_weight_not_in_second _root_.GlobalTheory.CompanionTheory.ModelS.modelEx_main _root_.GlobalTheory.CompanionTheory.KTypeCone.k_types_in_weight_cone
+
+end PositivityTheory.RgBcC.RealD

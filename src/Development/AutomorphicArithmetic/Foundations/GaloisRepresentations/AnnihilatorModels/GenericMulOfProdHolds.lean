@@ -1,0 +1,18 @@
+module
+
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0004
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0002
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0006
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0007
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0008
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0003
+public import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.AnnihilatorModels.Bundle0005
+
+@[expose] public section
+
+namespace UpperTheory.Gal.crystallineComparison
+
+theorem ordCount_holds : OrdCount := ordCount_of (ordDecomp_of countIn_of countOut_of) telescope_of
+theorem ptIdOfOrd_holds : PtIdOfOrd := ptOrd_of ordCount_holds
+
+end UpperTheory.Gal.crystallineComparison
